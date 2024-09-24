@@ -1,0 +1,63 @@
+{
+    "name": "jtl/connector",
+    "type": "library",
+    "description": "JTL-Connector protocol library and classes",
+    "keywords": ["jtl", "connector", "protocol", "model", "data"],
+    "homepage": "http://www.jtl-software.de",
+    "license": "MIT",
+    "authors": [{
+        "name": "JTL Software GmbH",
+        "email": "info@jtl-software.de",
+        "homepage": "http://www.jtl-software.de",
+        "role": "Founder"
+    }],
+    "require": {
+        "php": ">=8.0",
+        "jms/serializer": "^3.3",
+        "hassankhan/config": "^3.0",
+        "monolog/monolog": "*",
+        "symfony/finder": "*",
+        "symfony/event-dispatcher": "*",
+        "doctrine/collections": "^1.4",
+        "doctrine/annotations": "^1.10",
+        "doctrine/cache": "^1.10",
+        "ext-json": "*",
+        "ext-sqlite3": "*",
+        "ext-zip": "*",
+        "php-di/php-di": "^6.0",
+        "jawira/case-converter": "^3.4",
+        "symfony/http-foundation": "^4.0|^5.0",
+        "symfony/filesystem": "^4.0|^5.0",
+        "symfony/console": "^4.3|^5.1",
+        "fakerphp/faker": "^1.13",
+        "whitecube/lingua": "^1.1",
+        "ext-fileinfo": "*",
+        "doctrine/dbal": "^2.5",
+        "ext-pdo": "*"
+    },
+    "require-dev": {
+        "mikey179/vfsstream": "^1.6",
+        "phpunit/phpunit": "^9.5",
+        "phpstan/phpstan": "^0.12.65",
+        "mockery/mockery": "^1.4",
+        "jtl/unit-test": "^0.1.3"
+    },
+    "provide": {
+        "jtl/connector-mapping-tables": "4.0.8",
+        "jtl/connector-dbc": "v2.1.13"
+    },
+    "autoload": {
+        "psr-4": {
+            "Jtl\\Connector\\Core\\": "src/",
+            "Jtl\\Connector\\MappingTables\\": "src/mapping-tables",
+            "Jtl\\Connector\\Dbc\\": "src/dbc/"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "Jtl\\Connector\\Core\\Test\\": "tests/src",
+            "Jtl\\Connector\\MappingTables\\": "tests/src/mapping-tables",
+            "Jtl\\Connector\\Dbc\\": "tests/src/dbc/"
+        }
+    }
+}
