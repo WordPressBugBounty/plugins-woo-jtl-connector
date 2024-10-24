@@ -4,7 +4,7 @@
 
 namespace Composer\Autoload;
 
-class ComposerStaticInitd1aa62b9f0ab4fb9a84427170d64734a
+class ComposerStaticInit9af3dd9e6f470993e81161dc87d465e9
 {
     public static $files = array (
         '6e3fae29631ef280660b3cdad06f25a8' => __DIR__ . '/..' . '/symfony/deprecation-contracts/function.php',
@@ -2129,6 +2129,7 @@ class ComposerStaticInitd1aa62b9f0ab4fb9a84427170d64734a
         'PHPStan\\PhpDocParser\\Ast\\PhpDoc\\PhpDocTagValueNode' => __DIR__ . '/..' . '/phpstan/phpdoc-parser/src/Ast/PhpDoc/PhpDocTagValueNode.php',
         'PHPStan\\PhpDocParser\\Ast\\PhpDoc\\PhpDocTextNode' => __DIR__ . '/..' . '/phpstan/phpdoc-parser/src/Ast/PhpDoc/PhpDocTextNode.php',
         'PHPStan\\PhpDocParser\\Ast\\PhpDoc\\PropertyTagValueNode' => __DIR__ . '/..' . '/phpstan/phpdoc-parser/src/Ast/PhpDoc/PropertyTagValueNode.php',
+        'PHPStan\\PhpDocParser\\Ast\\PhpDoc\\PureUnlessCallableIsImpureTagValueNode' => __DIR__ . '/..' . '/phpstan/phpdoc-parser/src/Ast/PhpDoc/PureUnlessCallableIsImpureTagValueNode.php',
         'PHPStan\\PhpDocParser\\Ast\\PhpDoc\\RequireExtendsTagValueNode' => __DIR__ . '/..' . '/phpstan/phpdoc-parser/src/Ast/PhpDoc/RequireExtendsTagValueNode.php',
         'PHPStan\\PhpDocParser\\Ast\\PhpDoc\\RequireImplementsTagValueNode' => __DIR__ . '/..' . '/phpstan/phpdoc-parser/src/Ast/PhpDoc/RequireImplementsTagValueNode.php',
         'PHPStan\\PhpDocParser\\Ast\\PhpDoc\\ReturnTagValueNode' => __DIR__ . '/..' . '/phpstan/phpdoc-parser/src/Ast/PhpDoc/ReturnTagValueNode.php',
@@ -2142,6 +2143,7 @@ class ComposerStaticInitd1aa62b9f0ab4fb9a84427170d64734a
         'PHPStan\\PhpDocParser\\Ast\\PhpDoc\\VarTagValueNode' => __DIR__ . '/..' . '/phpstan/phpdoc-parser/src/Ast/PhpDoc/VarTagValueNode.php',
         'PHPStan\\PhpDocParser\\Ast\\Type\\ArrayShapeItemNode' => __DIR__ . '/..' . '/phpstan/phpdoc-parser/src/Ast/Type/ArrayShapeItemNode.php',
         'PHPStan\\PhpDocParser\\Ast\\Type\\ArrayShapeNode' => __DIR__ . '/..' . '/phpstan/phpdoc-parser/src/Ast/Type/ArrayShapeNode.php',
+        'PHPStan\\PhpDocParser\\Ast\\Type\\ArrayShapeUnsealedTypeNode' => __DIR__ . '/..' . '/phpstan/phpdoc-parser/src/Ast/Type/ArrayShapeUnsealedTypeNode.php',
         'PHPStan\\PhpDocParser\\Ast\\Type\\ArrayTypeNode' => __DIR__ . '/..' . '/phpstan/phpdoc-parser/src/Ast/Type/ArrayTypeNode.php',
         'PHPStan\\PhpDocParser\\Ast\\Type\\CallableTypeNode' => __DIR__ . '/..' . '/phpstan/phpdoc-parser/src/Ast/Type/CallableTypeNode.php',
         'PHPStan\\PhpDocParser\\Ast\\Type\\CallableTypeParameterNode' => __DIR__ . '/..' . '/phpstan/phpdoc-parser/src/Ast/Type/CallableTypeParameterNode.php',
@@ -2543,9 +2545,9 @@ class ComposerStaticInitd1aa62b9f0ab4fb9a84427170d64734a
     public static function getInitializer(ClassLoader $loader)
     {
         return \Closure::bind(function () use ($loader) {
-            $loader->prefixLengthsPsr4 = ComposerStaticInitd1aa62b9f0ab4fb9a84427170d64734a::$prefixLengthsPsr4;
-            $loader->prefixDirsPsr4 = ComposerStaticInitd1aa62b9f0ab4fb9a84427170d64734a::$prefixDirsPsr4;
-            $loader->classMap = ComposerStaticInitd1aa62b9f0ab4fb9a84427170d64734a::$classMap;
+            $loader->prefixLengthsPsr4 = ComposerStaticInit9af3dd9e6f470993e81161dc87d465e9::$prefixLengthsPsr4;
+            $loader->prefixDirsPsr4 = ComposerStaticInit9af3dd9e6f470993e81161dc87d465e9::$prefixDirsPsr4;
+            $loader->classMap = ComposerStaticInit9af3dd9e6f470993e81161dc87d465e9::$classMap;
 
         }, null, ClassLoader::class);
     }
