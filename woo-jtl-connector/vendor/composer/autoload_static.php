@@ -250,7 +250,7 @@ class ComposerStaticInit9af3dd9e6f470993e81161dc87d465e9
         ),
         'Doctrine\\Deprecations\\' => 
         array (
-            0 => __DIR__ . '/..' . '/doctrine/deprecations/lib/Doctrine/Deprecations',
+            0 => __DIR__ . '/..' . '/doctrine/deprecations/src',
         ),
         'Doctrine\\DBAL\\' => 
         array (
@@ -730,8 +730,8 @@ class ComposerStaticInit9af3dd9e6f470993e81161dc87d465e9
         'Doctrine\\DBAL\\Types\\VarDateTimeType' => __DIR__ . '/..' . '/doctrine/dbal/lib/Doctrine/DBAL/Types/VarDateTimeType.php',
         'Doctrine\\DBAL\\Version' => __DIR__ . '/..' . '/doctrine/dbal/lib/Doctrine/DBAL/Version.php',
         'Doctrine\\DBAL\\VersionAwarePlatformDriver' => __DIR__ . '/..' . '/doctrine/dbal/lib/Doctrine/DBAL/VersionAwarePlatformDriver.php',
-        'Doctrine\\Deprecations\\Deprecation' => __DIR__ . '/..' . '/doctrine/deprecations/lib/Doctrine/Deprecations/Deprecation.php',
-        'Doctrine\\Deprecations\\PHPUnit\\VerifyDeprecations' => __DIR__ . '/..' . '/doctrine/deprecations/lib/Doctrine/Deprecations/PHPUnit/VerifyDeprecations.php',
+        'Doctrine\\Deprecations\\Deprecation' => __DIR__ . '/..' . '/doctrine/deprecations/src/Deprecation.php',
+        'Doctrine\\Deprecations\\PHPUnit\\VerifyDeprecations' => __DIR__ . '/..' . '/doctrine/deprecations/src/PHPUnit/VerifyDeprecations.php',
         'Doctrine\\Instantiator\\Exception\\ExceptionInterface' => __DIR__ . '/..' . '/doctrine/instantiator/src/Doctrine/Instantiator/Exception/ExceptionInterface.php',
         'Doctrine\\Instantiator\\Exception\\InvalidArgumentException' => __DIR__ . '/..' . '/doctrine/instantiator/src/Doctrine/Instantiator/Exception/InvalidArgumentException.php',
         'Doctrine\\Instantiator\\Exception\\UnexpectedValueException' => __DIR__ . '/..' . '/doctrine/instantiator/src/Doctrine/Instantiator/Exception/UnexpectedValueException.php',
@@ -1282,6 +1282,7 @@ class ComposerStaticInit9af3dd9e6f470993e81161dc87d465e9
         'JMS\\Serializer\\Annotation\\Since' => __DIR__ . '/..' . '/jms/serializer/src/Annotation/Since.php',
         'JMS\\Serializer\\Annotation\\SkipWhenEmpty' => __DIR__ . '/..' . '/jms/serializer/src/Annotation/SkipWhenEmpty.php',
         'JMS\\Serializer\\Annotation\\Type' => __DIR__ . '/..' . '/jms/serializer/src/Annotation/Type.php',
+        'JMS\\Serializer\\Annotation\\UnionDiscriminator' => __DIR__ . '/..' . '/jms/serializer/src/Annotation/UnionDiscriminator.php',
         'JMS\\Serializer\\Annotation\\Until' => __DIR__ . '/..' . '/jms/serializer/src/Annotation/Until.php',
         'JMS\\Serializer\\Annotation\\Version' => __DIR__ . '/..' . '/jms/serializer/src/Annotation/Version.php',
         'JMS\\Serializer\\Annotation\\VirtualProperty' => __DIR__ . '/..' . '/jms/serializer/src/Annotation/VirtualProperty.php',
@@ -1375,6 +1376,7 @@ class ComposerStaticInit9af3dd9e6f470993e81161dc87d465e9
         'JMS\\Serializer\\Handler\\StdClassHandler' => __DIR__ . '/..' . '/jms/serializer/src/Handler/StdClassHandler.php',
         'JMS\\Serializer\\Handler\\SubscribingHandlerInterface' => __DIR__ . '/..' . '/jms/serializer/src/Handler/SubscribingHandlerInterface.php',
         'JMS\\Serializer\\Handler\\SymfonyUidHandler' => __DIR__ . '/..' . '/jms/serializer/src/Handler/SymfonyUidHandler.php',
+        'JMS\\Serializer\\Handler\\UnionHandler' => __DIR__ . '/..' . '/jms/serializer/src/Handler/UnionHandler.php',
         'JMS\\Serializer\\JsonDeserializationStrictVisitor' => __DIR__ . '/..' . '/jms/serializer/src/JsonDeserializationStrictVisitor.php',
         'JMS\\Serializer\\JsonDeserializationVisitor' => __DIR__ . '/..' . '/jms/serializer/src/JsonDeserializationVisitor.php',
         'JMS\\Serializer\\JsonSerializationVisitor' => __DIR__ . '/..' . '/jms/serializer/src/JsonSerializationVisitor.php',

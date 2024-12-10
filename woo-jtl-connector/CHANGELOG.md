@@ -4,6 +4,17 @@ This is the changelog of our "JTL WooCommerce Connector".
 
 ## Unreleased
 
+## 2.2.0 _2024-12-10_
+- CO-2713 - update b2b customer group
+- CO-2363 - distinguish between image title and image filename
+- CO-2778 - update gpsr fields for german market
+
+## 2.1.0 _2024-11-14_
+- CO-2305 - update sql queries
+- CO-2507 - pass tracking url from jtl-wawi
+- CO-2704 - add germanized gpsr push logic
+- CO-2432 - consider german market plugin for delivery status calculation
+
 ## 2.0.6.1 _2024-10-24_
 - HOTFIX Update release files
 

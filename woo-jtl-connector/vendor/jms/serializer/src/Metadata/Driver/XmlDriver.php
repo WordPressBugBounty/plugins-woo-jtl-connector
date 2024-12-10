@@ -321,6 +321,20 @@ class XmlDriver extends AbstractFileDriver
                         $pMetadata->readOnly = $pMetadata->readOnly || $readOnlyClass;
                     }
 
+                    if (isset($pElem->{'union-discriminator'})) {
+                        $colConfig = $pElem->{'union-discriminator'};
+
+                        $map = [];
+                        foreach ($pElem->xpath('./union-discriminator/map/class') as $entry) {
+                            $map[(string) $entry->attributes()->key] = (string) $entry;
+                        }
+
+                        $pMetadata->setType([
+                            'name' => 'union',
+                            'params' => [null, (string) $colConfig->attributes()->field, $map],
+                        ]);
+                    }
+
                     $getter = $pElem->attributes()->{'accessor-getter'};
                     $setter = $pElem->attributes()->{'accessor-setter'};
                     $pMetadata->setAccessor(
