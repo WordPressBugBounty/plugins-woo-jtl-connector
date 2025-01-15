@@ -13,24 +13,18 @@ use TypeError;
  * @access     public
  * @package    Jtl\Connector\Core\Model
  * @subpackage Product
- * @Serializer\AccessType("public_method")
  */
+#[Serializer\AccessType(['value' => 'public_method'])]
 class ImageI18n extends AbstractI18n implements IdentityInterface
 {
-    /**
-     * @var Identity
-     * @Serializer\Type("Jtl\Connector\Core\Model\Identity")
-     * @Serializer\SerializedName("id")
-     * @Serializer\Accessor(getter="getId",setter="setId")
-     */
+    #[Serializer\Type(Identity::class)]
+    #[Serializer\SerializedName('id')]
+    #[Serializer\Accessor(getter: 'getId', setter: 'setId')]
     protected Identity $id;
 
-    /**
-     * @var string
-     * @Serializer\Type("string")
-     * @Serializer\SerializedName("altText")
-     * @Serializer\Accessor(getter="getAltText",setter="setAltText")
-     */
+    #[Serializer\Type('string')]
+    #[Serializer\SerializedName('altText')]
+    #[Serializer\Accessor(getter: 'getAltText', setter: 'setAltText')]
     protected string $altText = '';
 
     /**
@@ -42,7 +36,7 @@ class ImageI18n extends AbstractI18n implements IdentityInterface
     }
 
     /**
-     * @return Identity
+     * @inheritDoc
      * @throws MustNotBeNullException
      * @throws TypeError
      */
@@ -52,13 +46,11 @@ class ImageI18n extends AbstractI18n implements IdentityInterface
     }
 
     /**
-     * @param Identity $id
-     *
-     * @return ImageI18n
+     * @inheritDoc
      */
-    public function setId(Identity $id): ImageI18n
+    public function setId(Identity $identity): self
     {
-        $this->id = $id;
+        $this->id = $identity;
 
         return $this;
     }
@@ -74,9 +66,9 @@ class ImageI18n extends AbstractI18n implements IdentityInterface
     /**
      * @param string $altText
      *
-     * @return ImageI18n
+     * @return $this
      */
-    public function setAltText(string $altText): ImageI18n
+    public function setAltText(string $altText): self
     {
         $this->altText = $altText;
 

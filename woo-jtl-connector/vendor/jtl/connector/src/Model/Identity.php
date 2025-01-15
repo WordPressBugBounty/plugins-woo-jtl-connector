@@ -13,24 +13,18 @@ use JMS\Serializer\Annotation as Serializer;
  * @access     public
  * @package    Jtl\Connector\Core\Model
  * @subpackage Internal
- * @Serializer\AccessType("public_method")
  */
+#[Serializer\AccessType(['value' => 'public_method'])]
 class Identity extends AbstractModel
 {
-    /**
-     * @var string
-     * @Serializer\Type("string")
-     * @Serializer\SerializedName("endpoint")
-     * @Serializer\Accessor(getter="getEndpoint",setter="setEndpoint")
-     */
+    #[Serializer\Type('string')]
+    #[Serializer\SerializedName('endpoint')]
+    #[Serializer\Accessor(getter: 'getEndpoint', setter: 'setEndpoint')]
     protected string $endpoint = '';
 
-    /**
-     * @var int
-     * @Serializer\Type("integer")
-     * @Serializer\SerializedName("host")
-     * @Serializer\Accessor(getter="getHost",setter="setHost")
-     */
+    #[Serializer\Type('integer')]
+    #[Serializer\SerializedName('host')]
+    #[Serializer\Accessor(getter: 'getHost', setter: 'setHost')]
     protected int $host = 0;
 
     /**
@@ -50,10 +44,10 @@ class Identity extends AbstractModel
      *
      * @param array<int, string|int> $data
      *
-     * @return Identity
+     * @return self
      * @throws InvalidArgumentException
      */
-    public static function fromArray(array $data): Identity
+    public static function fromArray(array $data): self
     {
         if (
             !isset($data[0], $data[1]) || \count($data) !== 2 || !\is_string($data[0]) || !\is_int($data[1])
@@ -83,9 +77,9 @@ class Identity extends AbstractModel
      *
      * @param string $endpoint the endpoint
      *
-     * @return Identity
+     * @return $this
      */
-    public function setEndpoint(string $endpoint): Identity
+    public function setEndpoint(string $endpoint): self
     {
         $this->endpoint = $endpoint;
 
@@ -107,9 +101,9 @@ class Identity extends AbstractModel
      *
      * @param int $host the host
      *
-     * @return Identity
+     * @return $this
      */
-    public function setHost(int $host): Identity
+    public function setHost(int $host): self
     {
         $this->host = $host;
 

@@ -23,13 +23,28 @@ class TranslatableAttributeI18nTest extends TestCase
      * @param mixed  $expectedValue
      * @param bool   $strictMode
      *
+     * @return void
      * @throws TranslatableAttributeException
      * @throws JsonException
      * @throws ExpectationFailedException
      * @throws InvalidArgumentException
      */
-    public function testGetValue(string $type, $originalValue, $expectedValue, bool $strictMode = false): void
-    {
+    public function testGetValue(
+        string $type,
+        mixed  $originalValue,
+        mixed  $expectedValue,
+        bool   $strictMode = false
+    ): void {
+        if (
+            \in_array($type, ['bool', 'boolean'], true)
+            && $strictMode === true
+            && !\is_bool($originalValue)
+            && !\in_array($originalValue, ['0', '1'], true)
+        ) {
+            $this->expectException(TranslatableAttributeException::class);
+            $this->expectExceptionCode(TranslatableAttributeException::VALUE_TYPE_INVALID);
+        }
+
         TranslatableAttributeI18n::setStrictMode($strictMode);
 
         $i18n = (new TranslatableAttributeI18n())->setValue($originalValue);
@@ -44,7 +59,7 @@ class TranslatableAttributeI18nTest extends TestCase
     }
 
     /**
-     * @return array<int, array<int, null|string|int|float|bool|array<int|string, string>>>
+     * @return array<int, array<int, string|int|float|bool|array<int|string, string>|null>>
      */
     public function getValueProvider(): array
     {
@@ -60,6 +75,13 @@ class TranslatableAttributeI18nTest extends TestCase
             ['bool', '1', true],
             ['bool', '', false],
             ['bool', 'wat', true],
+            ['bool', '0', false],
+            ['bool', '1', true],
+            ['bool', true, true, true],
+            ['bool', false, false, true],
+            ['bool', '0', false, true],
+            ['bool', '1', true, true],
+            ['bool', 'foo', true, true],
             ['string', 'foo', 'foo'],
             ['string', '', ''],
             ['foo', 'bar', 'bar'],
@@ -90,16 +112,17 @@ class TranslatableAttributeI18nTest extends TestCase
     /**
      * @dataProvider setValueProvider
      *
-     * @param mixed            $value
+     * @param mixed                 $value
      * @param float|int|string|bool $expectedValue
      *
+     * @return void
      * @throws ExpectationFailedException
      * @throws InvalidArgumentException
      * @throws JsonException
      * @throws TranslatableAttributeException
      * @throws AssertionFailedError
      */
-    public function testSetValue($value, $expectedValue): void
+    public function testSetValue(mixed $value, float|int|string|bool $expectedValue): void
     {
         $translation = (new TranslatableAttributeI18n())->setValue($value);
 
@@ -150,10 +173,11 @@ class TranslatableAttributeI18nTest extends TestCase
      *
      * @param mixed $value
      *
+     * @return void
      * @throws JsonException
      * @throws TranslatableAttributeException
      */
-    public function testSetValueWrongType($value): void
+    public function testSetValueWrongType(mixed $value): void
     {
         $this->expectException(TranslatableAttributeException::class);
         $this->expectExceptionCode(TranslatableAttributeException::VALUE_TYPE_INVALID);

@@ -9,6 +9,7 @@ use Jtl\Connector\Core\Config\ConfigParameter;
 use Jtl\Connector\Core\Config\ConfigSchema;
 use Jtl\Connector\Core\Exception\ConfigException;
 use Jtl\Connector\Core\Test\TestCase;
+use Noodlehaus\Exception\EmptyDirectoryException;
 use PHPUnit\Framework\Exception;
 use PHPUnit\Framework\ExpectationFailedException;
 use SebastianBergmann\RecursionContext\InvalidArgumentException;
@@ -145,6 +146,7 @@ class ConfigSchemaTest extends TestCase
     /**
      * @return void
      * @throws ConfigException
+     * @throws EmptyDirectoryException
      * @throws ExpectationFailedException
      * @throws InvalidArgumentException
      * @throws JsonException
@@ -170,6 +172,7 @@ class ConfigSchemaTest extends TestCase
      * @throws ExpectationFailedException
      * @throws InvalidArgumentException
      * @throws JsonException
+     * @throws EmptyDirectoryException
      */
     public function testValidateHasInvalidValueAndMissingRequiredProperty(): void
     {

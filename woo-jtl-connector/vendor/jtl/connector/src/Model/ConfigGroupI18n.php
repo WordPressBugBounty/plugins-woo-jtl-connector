@@ -12,24 +12,20 @@ use JMS\Serializer\Annotation as Serializer;
  * @access     public
  * @package    Jtl\Connector\Core\Model
  * @subpackage Product
- * @Serializer\AccessType("public_method")
  */
+#[Serializer\AccessType(['value' => 'public_method'])]
 class ConfigGroupI18n extends AbstractI18n
 {
-    /**
-     * @var string Optional description (HTML)
-     * @Serializer\Type("string")
-     * @Serializer\SerializedName("description")
-     * @Serializer\Accessor(getter="getDescription",setter="setDescription")
-     */
+    /** @var string Optional description (HTML) */
+    #[Serializer\Type('string')]
+    #[Serializer\SerializedName('description')]
+    #[Serializer\Accessor(getter: 'getDescription', setter: 'setDescription')]
     protected string $description = '';
 
-    /**
-     * @var string Config group name
-     * @Serializer\Type("string")
-     * @Serializer\SerializedName("name")
-     * @Serializer\Accessor(getter="getName",setter="setName")
-     */
+    /** @var string Config group name */
+    #[Serializer\Type('string')]
+    #[Serializer\SerializedName('name')]
+    #[Serializer\Accessor(getter: 'getName', setter: 'setName')]
     protected string $name = '';
 
     /**
@@ -43,7 +39,7 @@ class ConfigGroupI18n extends AbstractI18n
     /**
      * @param string $description Optional description (HTML)
      *
-     * @return ConfigGroupI18n
+     * @return $this
      */
     public function setDescription(string $description): self
     {
@@ -63,7 +59,7 @@ class ConfigGroupI18n extends AbstractI18n
     /**
      * @param string $name Config group name
      *
-     * @return ConfigGroupI18n
+     * @return $this
      */
     public function setName(string $name): self
     {

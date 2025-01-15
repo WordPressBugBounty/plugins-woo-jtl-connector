@@ -9,9 +9,6 @@ use Symfony\Contracts\EventDispatcher\Event;
 
 class TableEvent extends Event
 {
-    /**
-     * @var Table
-     */
     protected Table $table;
 
     /**

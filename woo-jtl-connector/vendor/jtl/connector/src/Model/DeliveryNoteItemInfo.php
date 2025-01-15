@@ -10,40 +10,29 @@ use JMS\Serializer\Annotation as Serializer;
  * @access     public
  * @package    Jtl\Connector\Core\Model
  * @subpackage Product
- * @Serializer\AccessType("public_method")
  */
+#[Serializer\AccessType(['value' => 'public_method'])]
 class DeliveryNoteItemInfo extends AbstractModel
 {
-    /**
-     * @var string
-     * @Serializer\Type("string")
-     * @Serializer\SerializedName("batch")
-     * @Serializer\Accessor(getter="getBatch",setter="setBatch")
-     */
+    #[Serializer\Type('string')]
+    #[Serializer\SerializedName('batch')]
+    #[Serializer\Accessor(getter: 'getBatch', setter: 'setBatch')]
     protected string $batch = '';
 
-    /**
-     * @var \DateTimeInterface|null
-     * @Serializer\Type("DateTimeInterface")
-     * @Serializer\SerializedName("bestBefore")
-     * @Serializer\Accessor(getter="getBestBefore",setter="setBestBefore")
-     */
+    #[Serializer\Type(\DateTimeInterface::class)]
+    #[Serializer\SerializedName('bestBefore')]
+    #[Serializer\Accessor(getter: 'getBestBefore', setter: 'setBestBefore')]
     protected ?\DateTimeInterface $bestBefore = null;
 
-    /**
-     * @var double
-     * @Serializer\Type("double")
-     * @Serializer\SerializedName("quantity")
-     * @Serializer\Accessor(getter="getQuantity",setter="setQuantity")
-     */
+
+    #[Serializer\Type('double')]
+    #[Serializer\SerializedName('quantity')]
+    #[Serializer\Accessor(getter: 'getQuantity', setter: 'setQuantity')]
     protected float $quantity = 0.0;
 
-    /**
-     * @var integer
-     * @Serializer\Type("integer")
-     * @Serializer\SerializedName("warehouseId")
-     * @Serializer\Accessor(getter="getWarehouseId",setter="setWarehouseId")
-     */
+    #[Serializer\Type('integer')]
+    #[Serializer\SerializedName('warehouseId')]
+    #[Serializer\Accessor(getter: 'getWarehouseId', setter: 'setWarehouseId')]
     protected int $warehouseId = 0;
 
     /**
@@ -57,9 +46,9 @@ class DeliveryNoteItemInfo extends AbstractModel
     /**
      * @param string $batch
      *
-     * @return DeliveryNoteItemInfo
+     * @return $this
      */
-    public function setBatch(string $batch): DeliveryNoteItemInfo
+    public function setBatch(string $batch): self
     {
         $this->batch = $batch;
 
@@ -67,7 +56,7 @@ class DeliveryNoteItemInfo extends AbstractModel
     }
 
     /**
-     * @return \DateTimeInterface
+     * @return \DateTimeInterface|null
      */
     public function getBestBefore(): ?\DateTimeInterface
     {
@@ -75,11 +64,11 @@ class DeliveryNoteItemInfo extends AbstractModel
     }
 
     /**
-     * @param \DateTimeInterface $bestBefore
+     * @param \DateTimeInterface|null $bestBefore
      *
-     * @return DeliveryNoteItemInfo
+     * @return $this
      */
-    public function setBestBefore(\DateTimeInterface $bestBefore = null): DeliveryNoteItemInfo
+    public function setBestBefore(?\DateTimeInterface $bestBefore = null): self
     {
         $this->bestBefore = $bestBefore;
 
@@ -87,7 +76,7 @@ class DeliveryNoteItemInfo extends AbstractModel
     }
 
     /**
-     * @return double
+     * @return float
      */
     public function getQuantity(): float
     {
@@ -95,11 +84,11 @@ class DeliveryNoteItemInfo extends AbstractModel
     }
 
     /**
-     * @param double $quantity
+     * @param float $quantity
      *
-     * @return DeliveryNoteItemInfo
+     * @return $this
      */
-    public function setQuantity(float $quantity): DeliveryNoteItemInfo
+    public function setQuantity(float $quantity): self
     {
         $this->quantity = $quantity;
 
@@ -115,11 +104,11 @@ class DeliveryNoteItemInfo extends AbstractModel
     }
 
     /**
-     * @param integer $warehouseId
+     * @param int $warehouseId
      *
-     * @return DeliveryNoteItemInfo
+     * @return $this
      */
-    public function setWarehouseId(int $warehouseId): DeliveryNoteItemInfo
+    public function setWarehouseId(int $warehouseId): self
     {
         $this->warehouseId = $warehouseId;
 

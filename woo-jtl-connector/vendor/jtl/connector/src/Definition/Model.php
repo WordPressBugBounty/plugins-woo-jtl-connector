@@ -63,9 +63,7 @@ final class Model
         UNIT                                 = 'Unit',
         WAREHOUSE                            = 'Warehouse';
 
-    /**
-     * @var null|string[]
-     */
+    /** @var string[]|null */
     protected static ?array $models = null;
 
     /** @var array<string, int> */
@@ -292,7 +290,7 @@ final class Model
     /**
      * @param string $modelName
      *
-     * @return integer
+     * @return int
      * @throws DefinitionException
      */
     public static function getIdentityType(string $modelName): int
@@ -310,7 +308,7 @@ final class Model
     /**
      * @param string $modelName
      *
-     * @return boolean
+     * @return bool
      */
     public static function isModel(string $modelName): bool
     {
@@ -340,7 +338,7 @@ final class Model
     /**
      * @param string $modelName
      *
-     * @return boolean
+     * @return bool
      */
     public static function hasIdentityType(string $modelName): bool
     {
@@ -348,7 +346,7 @@ final class Model
     }
 
     /**
-     * @param integer $type
+     * @param int $type
      *
      * @return string
      * @throws DefinitionException
@@ -370,7 +368,7 @@ final class Model
      * @param string $modelName
      * @param string $propertyName
      *
-     * @return integer
+     * @return int
      * @throws DefinitionException
      */
     public static function getPropertyIdentityType(string $modelName, string $propertyName): int
@@ -389,7 +387,7 @@ final class Model
      * @param string $modelName
      * @param string $propertyName
      *
-     * @return boolean
+     * @return bool
      */
     public static function isIdentityProperty(string $modelName, string $propertyName): bool
     {

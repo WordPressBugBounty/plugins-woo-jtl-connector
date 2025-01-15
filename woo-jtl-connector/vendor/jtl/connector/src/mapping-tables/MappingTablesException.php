@@ -21,7 +21,7 @@ class MappingTablesException extends \Exception
     /**
      * @param int $type
      *
-     * @return MappingTablesException
+     * @return self
      */
     public static function tableForTypeNotFound(int $type): self
     {
@@ -34,7 +34,7 @@ class MappingTablesException extends \Exception
     /**
      * @param string ...$columnNames
      *
-     * @return MappingTablesException
+     * @return self
      */
     public static function columnDataMissing(string ...$columnNames): self
     {
@@ -49,10 +49,10 @@ class MappingTablesException extends \Exception
     }
 
     /**
-     * @param integer $actualLength
-     * @param integer $expectedLength
+     * @param int $actualLength
+     * @param int $expectedLength
      *
-     * @return MappingTablesException
+     * @return self
      */
     public static function wrongEndpointPartsAmount(int $actualLength, int $expectedLength): self
     {
@@ -69,7 +69,7 @@ class MappingTablesException extends \Exception
     /**
      * @param string $columnName
      *
-     * @return MappingTablesException
+     * @return self
      */
     public static function endpointColumnExists(string $columnName): self
     {
@@ -82,7 +82,7 @@ class MappingTablesException extends \Exception
     /**
      * @param string $columnName
      *
-     * @return MappingTablesException
+     * @return self
      */
     public static function endpointColumnNotFound(string $columnName): self
     {
@@ -93,7 +93,7 @@ class MappingTablesException extends \Exception
     }
 
     /**
-     * @return MappingTablesException
+     * @return self
      */
     public static function endpointColumnsNotDefined(): self
     {
@@ -101,7 +101,7 @@ class MappingTablesException extends \Exception
     }
 
     /**
-     * @return MappingTablesException
+     * @return self
      */
     public static function typesEmpty(): self
     {
@@ -112,7 +112,7 @@ class MappingTablesException extends \Exception
     }
 
     /**
-     * @return MappingTablesException
+     * @return self
      */
     public static function typeNotInteger(): self
     {
@@ -122,7 +122,7 @@ class MappingTablesException extends \Exception
     /**
      * @param int|null $type
      *
-     * @return MappingTablesException
+     * @return self
      */
     public static function tableNotResponsibleForType(?int $type): self
     {
@@ -133,7 +133,7 @@ class MappingTablesException extends \Exception
     /**
      * @param AbstractTable|null $mappingTable
      *
-     * @return MappingTablesException
+     * @return self
      */
     public static function emptyEndpointId(?AbstractTable $mappingTable = null): self
     {

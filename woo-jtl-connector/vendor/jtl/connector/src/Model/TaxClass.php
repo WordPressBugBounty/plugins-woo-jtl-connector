@@ -12,28 +12,24 @@ use JMS\Serializer\Annotation as Serializer;
  * @access     public
  * @package    Jtl\Connector\Core\Model
  * @subpackage Product
- * @Serializer\AccessType("public_method")
  */
+#[Serializer\AccessType(['value' => 'public_method'])]
 class TaxClass extends AbstractIdentity
 {
-    /**
-     * @var boolean Optional: Flag default tax class. Default is false. Exact 1 taxClass has to be marked as default.
-     * @Serializer\Type("boolean")
-     * @Serializer\SerializedName("isDefault")
-     * @Serializer\Accessor(getter="getIsDefault",setter="setIsDefault")
-     */
+    /** @var bool Optional: Flag default tax class. Default is false. Exact 1 taxClass has to be marked as default. */
+    #[Serializer\Type('boolean')]
+    #[Serializer\SerializedName('isDefault')]
+    #[Serializer\Accessor(getter: 'getIsDefault', setter: 'setIsDefault')]
     protected bool $isDefault = false;
 
-    /**
-     * @var string Optional tax class name
-     * @Serializer\Type("string")
-     * @Serializer\SerializedName("name")
-     * @Serializer\Accessor(getter="getName",setter="setName")
-     */
+    /** @var string Optional tax class name */
+    #[Serializer\Type('string')]
+    #[Serializer\SerializedName('name')]
+    #[Serializer\Accessor(getter: 'getName', setter: 'setName')]
     protected string $name = '';
 
     /**
-     * @return boolean Optional: Flag default tax class. Default is false. Exact 1 taxClass has to be marked as default.
+     * @return bool Optional: Flag default tax class. Default is false. Exact 1 taxClass has to be marked as default.
      */
     public function getIsDefault(): bool
     {
@@ -41,12 +37,12 @@ class TaxClass extends AbstractIdentity
     }
 
     /**
-     * @param boolean $isDefault Optional:
+     * @param bool $isDefault Optional:
      *                           Flag default tax class. Default is false. Exact 1 taxClass has to be marked as default.
      *
-     * @return TaxClass
+     * @return $this
      */
-    public function setIsDefault(bool $isDefault): TaxClass
+    public function setIsDefault(bool $isDefault): self
     {
         $this->isDefault = $isDefault;
 
@@ -64,9 +60,9 @@ class TaxClass extends AbstractIdentity
     /**
      * @param string $name Optional tax class name
      *
-     * @return TaxClass
+     * @return $this
      */
-    public function setName(string $name): TaxClass
+    public function setName(string $name): self
     {
         $this->name = $name;
 

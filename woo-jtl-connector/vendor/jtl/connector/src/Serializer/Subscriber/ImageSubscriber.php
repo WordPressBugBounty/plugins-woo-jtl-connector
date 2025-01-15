@@ -41,6 +41,7 @@ class ImageSubscriber implements EventSubscriberInterface
     /**
      * @param ObjectEvent $event
      *
+     * @return void
      * @throws DefinitionException
      * @throws RuntimeException
      */
@@ -63,6 +64,7 @@ class ImageSubscriber implements EventSubscriberInterface
     /**
      * @param ObjectEvent $event
      *
+     * @return void
      * @throws SerializerException
      * @throws CaseConverterException
      */

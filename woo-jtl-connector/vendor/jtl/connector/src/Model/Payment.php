@@ -13,56 +13,39 @@ use TypeError;
  * @access     public
  * @package    Jtl\Connector\Core\Model
  * @subpackage Product
- * @Serializer\AccessType("public_method")
  */
+#[Serializer\AccessType(['value' => 'public_method'])]
 class Payment extends AbstractIdentity
 {
-    /**
-     * @var Identity
-     * @Serializer\Type("Jtl\Connector\Core\Model\Identity")
-     * @Serializer\SerializedName("customerOrderId")
-     * @Serializer\Accessor(getter="getCustomerOrderId",setter="setCustomerOrderId")
-     */
+    #[Serializer\Type(Identity::class)]
+    #[Serializer\SerializedName('customerOrderId')]
+    #[Serializer\Accessor(getter: 'getCustomerOrderId', setter: 'setCustomerOrderId')]
     protected Identity $customerOrderId;
 
-    /**
-     * @var string
-     * @Serializer\Type("string")
-     * @Serializer\SerializedName("billingInfo")
-     * @Serializer\Accessor(getter="getBillingInfo",setter="setBillingInfo")
-     */
+    #[Serializer\Type('string')]
+    #[Serializer\SerializedName('billingInfo')]
+    #[Serializer\Accessor(getter: 'getBillingInfo', setter: 'setBillingInfo')]
     protected string $billingInfo = '';
 
-    /**
-     * @var \DateTimeInterface|null
-     * @Serializer\Type("DateTimeInterface")
-     * @Serializer\SerializedName("creationDate")
-     * @Serializer\Accessor(getter="getCreationDate",setter="setCreationDate")
-     */
+    #[Serializer\Type(\DateTimeInterface::class)]
+    #[Serializer\SerializedName('creationDate')]
+    #[Serializer\Accessor(getter: 'getCreationDate', setter: 'setCreationDate')]
     protected ?\DateTimeInterface $creationDate = null;
 
-    /**
-     * @var string
-     * @Serializer\Type("string")
-     * @Serializer\SerializedName("paymentModuleCode")
-     * @Serializer\Accessor(getter="getPaymentModuleCode",setter="setPaymentModuleCode")
-     */
+    #[Serializer\Type('string')]
+    #[Serializer\SerializedName('paymentModuleCode')]
+    #[Serializer\Accessor(getter: 'getPaymentModuleCode', setter: 'setPaymentModuleCode')]
     protected string $paymentModuleCode = '';
 
-    /**
-     * @var double
-     * @Serializer\Type("double")
-     * @Serializer\SerializedName("totalSum")
-     * @Serializer\Accessor(getter="getTotalSum",setter="setTotalSum")
-     */
+
+    #[Serializer\Type('double')]
+    #[Serializer\SerializedName('totalSum')]
+    #[Serializer\Accessor(getter: 'getTotalSum', setter: 'setTotalSum')]
     protected float $totalSum = 0.0;
 
-    /**
-     * @var string
-     * @Serializer\Type("string")
-     * @Serializer\SerializedName("transactionId")
-     * @Serializer\Accessor(getter="getTransactionId",setter="setTransactionId")
-     */
+    #[Serializer\Type('string')]
+    #[Serializer\SerializedName('transactionId')]
+    #[Serializer\Accessor(getter: 'getTransactionId', setter: 'setTransactionId')]
     protected string $transactionId = '';
 
     /**
@@ -90,9 +73,9 @@ class Payment extends AbstractIdentity
     /**
      * @param Identity $customerOrderId
      *
-     * @return Payment
+     * @return $this
      */
-    public function setCustomerOrderId(Identity $customerOrderId): Payment
+    public function setCustomerOrderId(Identity $customerOrderId): self
     {
         $this->customerOrderId = $customerOrderId;
 
@@ -110,9 +93,9 @@ class Payment extends AbstractIdentity
     /**
      * @param string $billingInfo
      *
-     * @return Payment
+     * @return $this
      */
-    public function setBillingInfo(string $billingInfo): Payment
+    public function setBillingInfo(string $billingInfo): self
     {
         $this->billingInfo = $billingInfo;
 
@@ -120,7 +103,7 @@ class Payment extends AbstractIdentity
     }
 
     /**
-     * @return \DateTimeInterface
+     * @return \DateTimeInterface|null
      */
     public function getCreationDate(): ?\DateTimeInterface
     {
@@ -128,11 +111,11 @@ class Payment extends AbstractIdentity
     }
 
     /**
-     * @param \DateTimeInterface $creationDate
+     * @param \DateTimeInterface|null $creationDate
      *
-     * @return Payment
+     * @return $this
      */
-    public function setCreationDate(\DateTimeInterface $creationDate = null): Payment
+    public function setCreationDate(?\DateTimeInterface $creationDate = null): self
     {
         $this->creationDate = $creationDate;
 
@@ -150,9 +133,9 @@ class Payment extends AbstractIdentity
     /**
      * @param string $paymentModuleCode
      *
-     * @return Payment
+     * @return $this
      */
-    public function setPaymentModuleCode(string $paymentModuleCode): Payment
+    public function setPaymentModuleCode(string $paymentModuleCode): self
     {
         $this->paymentModuleCode = $paymentModuleCode;
 
@@ -160,7 +143,7 @@ class Payment extends AbstractIdentity
     }
 
     /**
-     * @return double
+     * @return float
      */
     public function getTotalSum(): float
     {
@@ -168,11 +151,11 @@ class Payment extends AbstractIdentity
     }
 
     /**
-     * @param double $totalSum
+     * @param float $totalSum
      *
-     * @return Payment
+     * @return $this
      */
-    public function setTotalSum(float $totalSum): Payment
+    public function setTotalSum(float $totalSum): self
     {
         $this->totalSum = $totalSum;
 
@@ -190,9 +173,9 @@ class Payment extends AbstractIdentity
     /**
      * @param string $transactionId
      *
-     * @return Payment
+     * @return $this
      */
-    public function setTransactionId(string $transactionId): Payment
+    public function setTransactionId(string $transactionId): self
     {
         $this->transactionId = $transactionId;
 

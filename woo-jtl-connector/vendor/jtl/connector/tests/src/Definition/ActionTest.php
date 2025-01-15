@@ -49,6 +49,7 @@ class ActionTest extends TestCase
      * @param string $actionName
      * @param bool   $expectedResult
      *
+     * @return void
      * @throws ExpectationFailedException
      * @throws InvalidArgumentException
      */
@@ -80,6 +81,7 @@ class ActionTest extends TestCase
      * @param string $actionName
      * @param bool   $expectedResult
      *
+     * @return void
      * @throws ExpectationFailedException
      * @throws InvalidArgumentException
      */

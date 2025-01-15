@@ -13,24 +13,22 @@ use Jtl\Connector\Core\Checksum\ChecksumInterface;
  * @access     public
  * @package    Jtl\Connector\Core\Model
  * @subpackage Internal
- * @Serializer\AccessType("public_method")
  */
+#[Serializer\AccessType(['value' => 'public_method'])]
 class Ack extends Identities
 {
-    /**
-     * @var Checksum[]
-     * @Serializer\Type("array<Jtl\Connector\Core\Model\Checksum>")
-     * @Serializer\SerializedName("checksums")
-     * @Serializer\AccessType("reflection")
-     */
+    /** @var Checksum[] */
+    #[Serializer\Type('array<Jtl\Connector\Core\Model\Checksum>')]
+    #[Serializer\SerializedName('checksums')]
+    #[Serializer\AccessType(['value' => 'reflection'])]
     protected array $checksums = [];
 
     /**
      * @param Checksum $checksum
      *
-     * @return Ack
+     * @return $this
      */
-    public function addChecksum(Checksum $checksum): Ack
+    public function addChecksum(Checksum $checksum): self
     {
         $this->checksums[] = $checksum;
 
@@ -46,9 +44,9 @@ class Ack extends Identities
     }
 
     /**
-     * @return Ack
+     * @return $this
      */
-    public function clearChecksums(): Ack
+    public function clearChecksums(): self
     {
         $this->checksums = [];
 

@@ -10,24 +10,18 @@ use JMS\Serializer\Annotation as Serializer;
  * @access     public
  * @package    Jtl\Connector\Core\Model
  * @subpackage Product
- * @Serializer\AccessType("public_method")
  */
+#[Serializer\AccessType(['value' => 'public_method'])]
 class ProductFileDownloadI18n extends AbstractI18n
 {
-    /**
-     * @var string
-     * @Serializer\Type("string")
-     * @Serializer\SerializedName("description")
-     * @Serializer\Accessor(getter="getDescription",setter="setDescription")
-     */
+    #[Serializer\Type('string')]
+    #[Serializer\SerializedName('description')]
+    #[Serializer\Accessor(getter:'getDescription', setter: 'setDescription')]
     protected string $description = '';
 
-    /**
-     * @var string
-     * @Serializer\Type("string")
-     * @Serializer\SerializedName("name")
-     * @Serializer\Accessor(getter="getName",setter="setName")
-     */
+    #[Serializer\Type('string')]
+    #[Serializer\SerializedName('name')]
+    #[Serializer\Accessor(getter:'getName', setter: 'setName')]
     protected string $name = '';
 
     /**
@@ -41,9 +35,9 @@ class ProductFileDownloadI18n extends AbstractI18n
     /**
      * @param string $description
      *
-     * @return ProductFileDownloadI18n
+     * @return $this
      */
-    public function setDescription(string $description): ProductFileDownloadI18n
+    public function setDescription(string $description): self
     {
         $this->description = $description;
 
@@ -61,9 +55,9 @@ class ProductFileDownloadI18n extends AbstractI18n
     /**
      * @param string $name
      *
-     * @return ProductFileDownloadI18n
+     * @return $this
      */
-    public function setName(string $name): ProductFileDownloadI18n
+    public function setName(string $name): self
     {
         $this->name = $name;
 

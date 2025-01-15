@@ -6,16 +6,10 @@ namespace Jtl\Connector\Core\Exception;
 
 use Jtl\Connector\Core\Definition\ErrorCode;
 
-/**
- * RPC Exception Class
- *
- * @access public
- * @author Daniel Böhmer <daniel.boehmer@jtl-software.de>
- */
 class RpcException extends \Exception
 {
     /**
-     * @return RpcException
+     * @return self
      */
     public static function parseError(): self
     {
@@ -23,7 +17,7 @@ class RpcException extends \Exception
     }
 
     /**
-     * @return RpcException
+     * @return self
      */
     public static function invalidRequest(): self
     {
@@ -33,7 +27,7 @@ class RpcException extends \Exception
     /**
      * @param string $method
      *
-     * @return RpcException
+     * @return self
      */
     public static function invalidMethod(string $method): self
     {
@@ -41,7 +35,7 @@ class RpcException extends \Exception
     }
 
     /**
-     * @return RpcException
+     * @return self
      */
     public static function unpreparedResponse(): self
     {

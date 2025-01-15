@@ -10,48 +10,33 @@ use JMS\Serializer\Annotation as Serializer;
  * @access     public
  * @package    Jtl\Connector\Core\Model
  * @subpackage Product
- * @Serializer\AccessType("public_method")
  */
+#[Serializer\AccessType(['value' => 'public_method'])]
 class ConnectorIdentification extends AbstractModel
 {
-    /**
-     * @var string
-     * @Serializer\Type("string")
-     * @Serializer\SerializedName("endpointVersion")
-     * @Serializer\Accessor(getter="getEndpointVersion",setter="setEndpointVersion")
-     */
+    #[Serializer\Type('string')]
+    #[Serializer\SerializedName('endpointVersion')]
+    #[Serializer\Accessor(getter: 'getEndpointVersion', setter: 'setEndpointVersion')]
     protected string $endpointVersion = '';
 
-    /**
-     * @var string
-     * @Serializer\Type("string")
-     * @Serializer\SerializedName("platformName")
-     * @Serializer\Accessor(getter="getPlatformName",setter="setPlatformName")
-     */
+    #[Serializer\Type('string')]
+    #[Serializer\SerializedName('platformName')]
+    #[Serializer\Accessor(getter: 'getPlatformName', setter: 'setPlatformName')]
     protected string $platformName = '';
 
-    /**
-     * @var string
-     * @Serializer\Type("string")
-     * @Serializer\SerializedName("platformVersion")
-     * @Serializer\Accessor(getter="getPlatformVersion",setter="setPlatformVersion")
-     */
+    #[Serializer\Type('string')]
+    #[Serializer\SerializedName('platformVersion')]
+    #[Serializer\Accessor(getter: 'getPlatformVersion', setter: 'setPlatformVersion')]
     protected string $platformVersion = '';
 
-    /**
-     * @var integer
-     * @Serializer\Type("integer")
-     * @Serializer\SerializedName("protocolVersion")
-     * @Serializer\Accessor(getter="getProtocolVersion",setter="setProtocolVersion")
-     */
+    #[Serializer\Type('integer')]
+    #[Serializer\SerializedName('protocolVersion')]
+    #[Serializer\Accessor(getter: 'getProtocolVersion', setter: 'setProtocolVersion')]
     protected int $protocolVersion = 0;
 
-    /**
-     * @var ConnectorServerInfo|null
-     * @Serializer\Type("Jtl\Connector\Core\Model\ConnectorServerInfo")
-     * @Serializer\SerializedName("serverInfo")
-     * @Serializer\Accessor(getter="getServerInfo",setter="setServerInfo")
-     */
+    #[Serializer\Type(ConnectorServerInfo::class)]
+    #[Serializer\SerializedName('serverInfo')]
+    #[Serializer\Accessor(getter: 'getServerInfo', setter: 'setServerInfo')]
     protected ?ConnectorServerInfo $serverInfo = null;
 
     /**
@@ -65,9 +50,9 @@ class ConnectorIdentification extends AbstractModel
     /**
      * @param string $endpointVersion
      *
-     * @return ConnectorIdentification
+     * @return $this
      */
-    public function setEndpointVersion(string $endpointVersion): ConnectorIdentification
+    public function setEndpointVersion(string $endpointVersion): self
     {
         $this->endpointVersion = $endpointVersion;
 
@@ -85,9 +70,9 @@ class ConnectorIdentification extends AbstractModel
     /**
      * @param string $platformName
      *
-     * @return ConnectorIdentification
+     * @return $this
      */
-    public function setPlatformName(string $platformName): ConnectorIdentification
+    public function setPlatformName(string $platformName): self
     {
         $this->platformName = $platformName;
 
@@ -105,9 +90,9 @@ class ConnectorIdentification extends AbstractModel
     /**
      * @param string $platformVersion
      *
-     * @return ConnectorIdentification
+     * @return $this
      */
-    public function setPlatformVersion(string $platformVersion): ConnectorIdentification
+    public function setPlatformVersion(string $platformVersion): self
     {
         $this->platformVersion = $platformVersion;
 
@@ -115,7 +100,7 @@ class ConnectorIdentification extends AbstractModel
     }
 
     /**
-     * @return integer
+     * @return int
      */
     public function getProtocolVersion(): int
     {
@@ -123,11 +108,11 @@ class ConnectorIdentification extends AbstractModel
     }
 
     /**
-     * @param integer $protocolVersion
+     * @param int $protocolVersion
      *
-     * @return ConnectorIdentification
+     * @return $this
      */
-    public function setProtocolVersion(int $protocolVersion): ConnectorIdentification
+    public function setProtocolVersion(int $protocolVersion): self
     {
         $this->protocolVersion = $protocolVersion;
 
@@ -135,7 +120,7 @@ class ConnectorIdentification extends AbstractModel
     }
 
     /**
-     * @return ConnectorServerInfo
+     * @return ConnectorServerInfo|null
      */
     public function getServerInfo(): ?ConnectorServerInfo
     {
@@ -145,9 +130,9 @@ class ConnectorIdentification extends AbstractModel
     /**
      * @param ConnectorServerInfo $connectorServerInfo
      *
-     * @return ConnectorIdentification
+     * @return $this
      */
-    public function setServerInfo(ConnectorServerInfo $connectorServerInfo): ConnectorIdentification
+    public function setServerInfo(ConnectorServerInfo $connectorServerInfo): self
     {
         $this->serverInfo = $connectorServerInfo;
 

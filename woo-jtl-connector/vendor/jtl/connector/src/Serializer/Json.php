@@ -10,7 +10,6 @@ use Jtl\Connector\Core\Exception\JsonException;
  * Yaml Class
  *
  * @access public
- * @author Andreas Jütten <andy@jtl-software.de>
  */
 class Json
 {
@@ -22,7 +21,7 @@ class Json
      * @throws JsonException
      * @throws \JsonException
      */
-    public static function encode($object, bool $pretty = false)
+    public static function encode(mixed $object, bool $pretty = false): bool|string
     {
         $options = 0;
         if ($pretty) {
@@ -43,10 +42,10 @@ class Json
      * @param bool   $assoc
      *
      * @return mixed
+     * @throws \InvalidArgumentException
      * @throws JsonException
-     * @throws \InvalidArgumentException|\JsonException
      */
-    public static function decode(string $string, bool $assoc = false)
+    public static function decode(string $string, bool $assoc = false): mixed
     {
         if ($string === '') {
             throw new \InvalidArgumentException(\sprintf('Invalid parameter "%s"', \var_export($string, true)));

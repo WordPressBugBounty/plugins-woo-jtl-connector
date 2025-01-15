@@ -9,9 +9,6 @@ use Symfony\Contracts\EventDispatcher\Event;
 
 class CategoryEvent extends Event
 {
-    /**
-     * @var Category
-     */
     protected Category $category;
 
     /**

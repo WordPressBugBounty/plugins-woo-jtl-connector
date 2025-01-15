@@ -5,7 +5,6 @@ declare(strict_types=1);
 namespace Jtl\Connector\Core\Config;
 
 use Jtl\Connector\Core\Exception\ConfigException;
-use Noodlehaus\ConfigInterface;
 use Psr\Log\LogLevel;
 
 class ConfigSchema
@@ -22,9 +21,7 @@ class ConfigSchema
         DEBUG                   = 'debug',
         SERIALIZER_ENABLE_CACHE = 'serializer.enable_cache';
 
-    /**
-     * @var ConfigParameter[]
-     */
+    /** @var ConfigParameter[] */
     protected array $parameters = [];
 
     /**
@@ -91,7 +88,7 @@ class ConfigSchema
     /**
      * @param string $key
      *
-     * @return boolean
+     * @return bool
      */
     public function hasParameter(string $key): bool
     {
@@ -109,7 +106,7 @@ class ConfigSchema
     /**
      * @param ConfigParameter ...$parameters
      *
-     * @return ConfigSchema
+     * @return $this
      */
     public function setParameters(ConfigParameter ...$parameters): self
     {
@@ -123,7 +120,7 @@ class ConfigSchema
     /**
      * @param ConfigParameter $parameter
      *
-     * @return ConfigSchema
+     * @return $this
      */
     public function setParameter(ConfigParameter $parameter): self
     {
@@ -146,11 +143,12 @@ class ConfigSchema
     }
 
     /**
-     * @param ConfigInterface $config
+     * @param CoreConfigInterface $config
      *
+     * @return void
      * @throws ConfigException
      */
-    public function validateConfig(ConfigInterface $config): void
+    public function validateConfig(CoreConfigInterface $config): void
     {
         $invalidValues     = [];
         $missingProperties = [];
@@ -169,11 +167,11 @@ class ConfigSchema
     }
 
     /**
-     * @param ConfigInterface|null $config
+     * @param CoreConfigInterface|null $config
      *
-     * @return ConfigInterface
+     * @return CoreConfigInterface
      */
-    public function createConfigWithDefaultValues(ConfigInterface $config = null): ConfigInterface
+    public function createConfigWithDefaultValues(?CoreConfigInterface $config = null): CoreConfigInterface
     {
         if (\is_null($config)) {
             $config = new ArrayConfig([]);

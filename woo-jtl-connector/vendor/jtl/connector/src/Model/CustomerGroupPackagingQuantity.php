@@ -12,32 +12,26 @@ use JMS\Serializer\Annotation as Serializer;
  * @access     public
  * @package    Jtl\Connector\Core\Model
  * @subpackage Product
- * @Serializer\AccessType("public_method")
  */
+#[Serializer\AccessType(['value' => 'public_method'])]
 class CustomerGroupPackagingQuantity extends AbstractModel
 {
-    /**
-     * @var Identity Reference to customergroup.
-     * @Serializer\Type("Jtl\Connector\Core\Model\Identity")
-     * @Serializer\SerializedName("customerGroupId")
-     * @Serializer\Accessor(getter="getCustomerGroupId",setter="setCustomerGroupId")
-     */
+    /** @var Identity Reference to customergroup. */
+    #[Serializer\Type(Identity::class)]
+    #[Serializer\SerializedName('customerGroupId')]
+    #[Serializer\Accessor(getter: 'getCustomerGroupId', setter: 'setCustomerGroupId')]
     protected Identity $customerGroupId;
 
-    /**
-     * @var double Contains the minimum quantity for a customergroup.
-     * @Serializer\Type("double")
-     * @Serializer\SerializedName("minimumOrderQuantity")
-     * @Serializer\Accessor(getter="getMinimumOrderQuantity",setter="setMinimumOrderQuantity")
-     */
+    /** @var double Contains the minimum quantity for a customergroup. */
+    #[Serializer\Type('double')]
+    #[Serializer\SerializedName('minimumOrderQuantity')]
+    #[Serializer\Accessor(getter: 'getMinimumOrderQuantity', setter: 'setMinimumOrderQuantity')]
     protected float $minimumOrderQuantity = 0.0;
 
-    /**
-     * @var double Product can only be purchased in multiples of takeOffQuantity e.g. 5,10,15...
-     * @Serializer\Type("double")
-     * @Serializer\SerializedName("packagingQuantity")
-     * @Serializer\Accessor(getter="getPackagingQuantity",setter="setPackagingQuantity")
-     */
+    /** @var double Product can only be purchased in multiples of takeOffQuantity e.g. 5,10,15... */
+    #[Serializer\Type('double')]
+    #[Serializer\SerializedName('packagingQuantity')]
+    #[Serializer\Accessor(getter: 'getPackagingQuantity', setter: 'setPackagingQuantity')]
     protected float $packagingQuantity = 0.0;
 
     /**
@@ -59,9 +53,9 @@ class CustomerGroupPackagingQuantity extends AbstractModel
     /**
      * @param Identity $customerGroupId Reference to customer group.
      *
-     * @return CustomerGroupPackagingQuantity
+     * @return $this
      */
-    public function setCustomerGroupId(Identity $customerGroupId): CustomerGroupPackagingQuantity
+    public function setCustomerGroupId(Identity $customerGroupId): self
     {
         $this->customerGroupId = $customerGroupId;
 
@@ -69,7 +63,7 @@ class CustomerGroupPackagingQuantity extends AbstractModel
     }
 
     /**
-     * @return double Contains the minimum quantity for a customergroup.
+     * @return float Contains the minimum quantity for a customergroup.
      */
     public function getMinimumOrderQuantity(): float
     {
@@ -77,11 +71,11 @@ class CustomerGroupPackagingQuantity extends AbstractModel
     }
 
     /**
-     * @param double $minimumOrderQuantity Contains the minimum quantity for a customergroup.
+     * @param float $minimumOrderQuantity Contains the minimum quantity for a customergroup.
      *
-     * @return CustomerGroupPackagingQuantity
+     * @return $this
      */
-    public function setMinimumOrderQuantity(float $minimumOrderQuantity): CustomerGroupPackagingQuantity
+    public function setMinimumOrderQuantity(float $minimumOrderQuantity): self
     {
         $this->minimumOrderQuantity = $minimumOrderQuantity;
 
@@ -89,7 +83,7 @@ class CustomerGroupPackagingQuantity extends AbstractModel
     }
 
     /**
-     * @return double Product can only be purchased in multiples of takeOffQuantity e.g. 5,10,15...
+     * @return float Product can only be purchased in multiples of takeOffQuantity e.g. 5,10,15...
      */
     public function getPackagingQuantity(): float
     {
@@ -97,11 +91,11 @@ class CustomerGroupPackagingQuantity extends AbstractModel
     }
 
     /**
-     * @param double $packagingQuantity Product can only be purchased in multiples of takeOffQuantity e.g. 5,10,15...
+     * @param float $packagingQuantity Product can only be purchased in multiples of takeOffQuantity e.g. 5,10,15...
      *
-     * @return CustomerGroupPackagingQuantity
+     * @return $this
      */
-    public function setPackagingQuantity(float $packagingQuantity): CustomerGroupPackagingQuantity
+    public function setPackagingQuantity(float $packagingQuantity): self
     {
         $this->packagingQuantity = $packagingQuantity;
 

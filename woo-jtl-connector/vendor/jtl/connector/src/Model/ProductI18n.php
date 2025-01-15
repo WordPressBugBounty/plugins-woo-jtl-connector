@@ -12,88 +12,62 @@ use JMS\Serializer\Annotation as Serializer;
  * @access     public
  * @package    Jtl\Connector\Core\Model
  * @subpackage Product
- * @Serializer\AccessType("public_method")
  */
+#[Serializer\AccessType(['value' => 'public_method'])]
 class ProductI18n extends AbstractI18n
 {
-    /**
-     * @var string
-     * @Serializer\Type("string")
-     * @Serializer\SerializedName("deliveryStatus")
-     * @Serializer\Accessor(getter="getDeliveryStatus",setter="setDeliveryStatus")
-     */
+    #[Serializer\Type('string')]
+    #[Serializer\SerializedName('deliveryStatus')]
+    #[Serializer\Accessor(getter: 'getDeliveryStatus', setter: 'setDeliveryStatus')]
     protected string $deliveryStatus = '';
 
-    /**
-     * @var string Optional product description
-     * @Serializer\Type("string")
-     * @Serializer\SerializedName("description")
-     * @Serializer\Accessor(getter="getDescription",setter="setDescription")
-     */
+    /** @var string Optional product description */
+    #[Serializer\Type('string')]
+    #[Serializer\SerializedName('description')]
+    #[Serializer\Accessor(getter: 'getDescription', setter: 'setDescription')]
     protected string $description = '';
 
-    /**
-     * @var string
-     * @Serializer\Type("string")
-     * @Serializer\SerializedName("measurementUnitName")
-     * @Serializer\Accessor(getter="getMeasurementUnitName",setter="setMeasurementUnitName")
-     */
+    #[Serializer\Type('string')]
+    #[Serializer\SerializedName('measurementUnitName')]
+    #[Serializer\Accessor(getter: 'getMeasurementUnitName', setter: 'setMeasurementUnitName')]
     protected string $measurementUnitName = '';
 
-    /**
-     * @var string
-     * @Serializer\Type("string")
-     * @Serializer\SerializedName("metaDescription")
-     * @Serializer\Accessor(getter="getMetaDescription",setter="setMetaDescription")
-     */
+    #[Serializer\Type('string')]
+    #[Serializer\SerializedName('metaDescription')]
+    #[Serializer\Accessor(getter: 'getMetaDescription', setter: 'setMetaDescription')]
     protected string $metaDescription = '';
 
-    /**
-     * @var string
-     * @Serializer\Type("string")
-     * @Serializer\SerializedName("metaKeywords")
-     * @Serializer\Accessor(getter="getMetaKeywords",setter="setMetaKeywords")
-     */
+    #[Serializer\Type('string')]
+    #[Serializer\SerializedName('metaKeywords')]
+    #[Serializer\Accessor(getter: 'getMetaKeywords', setter: 'setMetaKeywords')]
     protected string $metaKeywords = '';
 
-    /**
-     * @var string Product name / title
-     * @Serializer\Type("string")
-     * @Serializer\SerializedName("name")
-     * @Serializer\Accessor(getter="getName",setter="setName")
-     */
+    /** @var string Product name / title */
+    #[Serializer\Type('string')]
+    #[Serializer\SerializedName('name')]
+    #[Serializer\Accessor(getter: 'getName', setter: 'setName')]
     protected string $name = '';
 
-    /**
-     * @var string Optional product shortdescription
-     * @Serializer\Type("string")
-     * @Serializer\SerializedName("shortDescription")
-     * @Serializer\Accessor(getter="getShortDescription",setter="setShortDescription")
-     */
+    /** @var string Optional product shortdescription */
+    #[Serializer\Type('string')]
+    #[Serializer\SerializedName('shortDescription')]
+    #[Serializer\Accessor(getter: 'getShortDescription', setter: 'setShortDescription')]
     protected string $shortDescription = '';
 
-    /**
-     * @var string
-     * @Serializer\Type("string")
-     * @Serializer\SerializedName("titleTag")
-     * @Serializer\Accessor(getter="getTitleTag",setter="setTitleTag")
-     */
+    #[Serializer\Type('string')]
+    #[Serializer\SerializedName('titleTag')]
+    #[Serializer\Accessor(getter: 'getTitleTag', setter: 'setTitleTag')]
     protected string $titleTag = '';
 
-    /**
-     * @var string
-     * @Serializer\Type("string")
-     * @Serializer\SerializedName("unitName")
-     * @Serializer\Accessor(getter="getUnitName",setter="setUnitName")
-     */
+    #[Serializer\Type('string')]
+    #[Serializer\SerializedName('unitName')]
+    #[Serializer\Accessor(getter: 'getUnitName', setter: 'setUnitName')]
     protected string $unitName = '';
 
-    /**
-     * @var string Optional path of product URL
-     * @Serializer\Type("string")
-     * @Serializer\SerializedName("urlPath")
-     * @Serializer\Accessor(getter="getUrlPath",setter="setUrlPath")
-     */
+    /** @var string Optional path of product URL */
+    #[Serializer\Type('string')]
+    #[Serializer\SerializedName('urlPath')]
+    #[Serializer\Accessor(getter: 'getUrlPath', setter: 'setUrlPath')]
     protected string $urlPath = '';
 
     /**
@@ -107,9 +81,9 @@ class ProductI18n extends AbstractI18n
     /**
      * @param string $deliveryStatus
      *
-     * @return ProductI18n
+     * @return $this
      */
-    public function setDeliveryStatus(string $deliveryStatus): ProductI18n
+    public function setDeliveryStatus(string $deliveryStatus): self
     {
         $this->deliveryStatus = $deliveryStatus;
 
@@ -127,9 +101,9 @@ class ProductI18n extends AbstractI18n
     /**
      * @param string $description Optional product description
      *
-     * @return ProductI18n
+     * @return $this
      */
-    public function setDescription(string $description): ProductI18n
+    public function setDescription(string $description): self
     {
         $this->description = $description;
 
@@ -147,9 +121,9 @@ class ProductI18n extends AbstractI18n
     /**
      * @param string $measurementUnitName
      *
-     * @return ProductI18n
+     * @return $this
      */
-    public function setMeasurementUnitName(string $measurementUnitName): ProductI18n
+    public function setMeasurementUnitName(string $measurementUnitName): self
     {
         $this->measurementUnitName = $measurementUnitName;
 
@@ -167,9 +141,9 @@ class ProductI18n extends AbstractI18n
     /**
      * @param string $metaDescription
      *
-     * @return ProductI18n
+     * @return $this
      */
-    public function setMetaDescription(string $metaDescription): ProductI18n
+    public function setMetaDescription(string $metaDescription): self
     {
         $this->metaDescription = $metaDescription;
 
@@ -187,9 +161,9 @@ class ProductI18n extends AbstractI18n
     /**
      * @param string $metaKeywords
      *
-     * @return ProductI18n
+     * @return $this
      */
-    public function setMetaKeywords(string $metaKeywords): ProductI18n
+    public function setMetaKeywords(string $metaKeywords): self
     {
         $this->metaKeywords = $metaKeywords;
 
@@ -207,9 +181,9 @@ class ProductI18n extends AbstractI18n
     /**
      * @param string $name Product name / title
      *
-     * @return ProductI18n
+     * @return $this
      */
-    public function setName(string $name): ProductI18n
+    public function setName(string $name): self
     {
         $this->name = $name;
 
@@ -227,9 +201,9 @@ class ProductI18n extends AbstractI18n
     /**
      * @param string $shortDescription Optional product shortdescription
      *
-     * @return ProductI18n
+     * @return $this
      */
-    public function setShortDescription(string $shortDescription): ProductI18n
+    public function setShortDescription(string $shortDescription): self
     {
         $this->shortDescription = $shortDescription;
 
@@ -247,9 +221,9 @@ class ProductI18n extends AbstractI18n
     /**
      * @param string $titleTag
      *
-     * @return ProductI18n
+     * @return $this
      */
-    public function setTitleTag(string $titleTag): ProductI18n
+    public function setTitleTag(string $titleTag): self
     {
         $this->titleTag = $titleTag;
 
@@ -267,9 +241,9 @@ class ProductI18n extends AbstractI18n
     /**
      * @param string $unitName
      *
-     * @return ProductI18n
+     * @return $this
      */
-    public function setUnitName(string $unitName): ProductI18n
+    public function setUnitName(string $unitName): self
     {
         $this->unitName = $unitName;
 
@@ -287,9 +261,9 @@ class ProductI18n extends AbstractI18n
     /**
      * @param string $urlPath Optional path of product URL
      *
-     * @return ProductI18n
+     * @return $this
      */
-    public function setUrlPath(string $urlPath): ProductI18n
+    public function setUrlPath(string $urlPath): self
     {
         $this->urlPath = $urlPath;
 

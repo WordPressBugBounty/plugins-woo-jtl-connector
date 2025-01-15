@@ -21,7 +21,7 @@ class ApplicationException extends \Exception
 
 
     /**
-     * @return ApplicationException
+     * @return self
      */
     public static function noSession(): self
     {
@@ -31,7 +31,7 @@ class ApplicationException extends \Exception
     /**
      * @param string $connectorDir
      *
-     * @return ApplicationException
+     * @return self
      */
     public static function connectorDirNotExists(string $connectorDir): self
     {
@@ -42,7 +42,7 @@ class ApplicationException extends \Exception
     }
 
     /**
-     * @return ApplicationException
+     * @return self
      */
     public static function uploadedFileNotFound(): self
     {
@@ -56,7 +56,7 @@ class ApplicationException extends \Exception
     /**
      * @param AbstractImage $image
      *
-     * @return ApplicationException
+     * @return self
      * @throws \Exception
      */
     public static function imageNotFound(AbstractImage $image): self
@@ -74,7 +74,7 @@ class ApplicationException extends \Exception
     /**
      * @param AbstractImage $image
      *
-     * @return ApplicationException
+     * @return self
      * @throws \Exception
      */
     public static function remoteImageNotFound(AbstractImage $image): self
@@ -93,7 +93,7 @@ class ApplicationException extends \Exception
     /**
      * @param string $fileName
      *
-     * @return ApplicationException
+     * @return self
      */
     public static function fileCouldNotGetCreated(string $fileName): self
     {
@@ -104,7 +104,7 @@ class ApplicationException extends \Exception
     }
 
     /**
-     * @return ApplicationException
+     * @return self
      */
     public static function fileCouldNotGetExtracted(): self
     {

@@ -9,9 +9,6 @@ use Symfony\Contracts\EventDispatcher\Event;
 
 class ImageEvent extends Event
 {
-    /**
-     * @var AbstractImage
-     */
     protected AbstractImage $image;
 
     /**

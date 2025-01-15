@@ -22,6 +22,7 @@ class PaymentTypeTest extends TestCase
      * @param string $type
      * @param bool   $shouldBePaymentType
      *
+     * @return void
      * @throws ExpectationFailedException
      * @throws InvalidArgumentException
      */

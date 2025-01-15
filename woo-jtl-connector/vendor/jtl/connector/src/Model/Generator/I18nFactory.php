@@ -16,6 +16,7 @@ class I18nFactory extends AbstractI18nFactory
         return [];
     }
 
+    // phpcs:disable
     /**
      * @return string
      * @throws NotImplementedException
@@ -24,4 +25,5 @@ class I18nFactory extends AbstractI18nFactory
     {
         throw new NotImplementedException('This factory can be used for making an array only');
     }
+    // phpcs:enable
 }

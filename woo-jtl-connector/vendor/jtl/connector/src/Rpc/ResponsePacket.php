@@ -11,7 +11,6 @@ use Jtl\Connector\Core\Exception\RpcException;
  * Rpc Response Packet
  *
  * @access public
- * @author Daniel Böhmer <daniel.boehmer@jtl-software.de>
  */
 class ResponsePacket extends Packet
 {
@@ -21,22 +20,24 @@ class ResponsePacket extends Packet
      * The value of this member is determined by the method invoked on the
      * Server.
      *
+     * @noinspection PhpMissingFieldTypeInspection not set because it breaks wawi auth calls
      * @var mixed
      */
-    protected $result;
+    protected $result; // phpcs:ignore
 
     /**
      * This member is REQUIRED on error This member MUST NOT exist if there was
      * no error triggered during invocation.
      * The value for this member MUST be an Object as defined in section 5.1.
-     *
-     * @var Error|null
-     * @Serializer\Type("Jtl\Connector\Core\Rpc\Error")
      */
+    #[Serializer\Type(['value' => Error::class])]
     protected ?Error $error = null;
 
+    /** @var array<int, string> $warnings */
+    protected array $warnings = [];
+
     /**
-     * @return boolean
+     * @return bool
      * @throws RpcException
      */
     public function isValid(): bool
@@ -63,6 +64,14 @@ class ResponsePacket extends Packet
             $error->validate();
         }
 
+        if (!empty($this->warnings)) {
+            foreach ($this->warnings as $warning) {
+                if (!\is_string($warning)) {
+                    $isValid = false;
+                }
+            }
+        }
+
         // An identifier established by the Client that MUST contain a String,
         // Number, or NULL value if included
         if ($this->getId() === '') {
@@ -75,7 +84,7 @@ class ResponsePacket extends Packet
     /**
      * @return mixed
      */
-    public function getResult()
+    public function getResult(): mixed
     {
         return $this->result;
     }
@@ -83,9 +92,9 @@ class ResponsePacket extends Packet
     /**
      * @param mixed $result
      *
-     * @return ResponsePacket
+     * @return $this
      */
-    public function setResult($result): ResponsePacket
+    public function setResult(mixed $result): self
     {
         $this->result = $result;
 
@@ -93,7 +102,7 @@ class ResponsePacket extends Packet
     }
 
     /**
-     * @return Error
+     * @return Error|null
      */
     public function getError(): ?Error
     {
@@ -103,11 +112,33 @@ class ResponsePacket extends Packet
     /**
      * @param Error $error
      *
-     * @return ResponsePacket
+     * @return $this
      */
-    public function setError(Error $error): ResponsePacket
+    public function setError(Error $error): self
     {
         $this->error = $error;
+
+        return $this;
+    }
+
+    /**
+     * @return array<string>
+     */
+    public function getWarnings(): array
+    {
+        return $this->warnings;
+    }
+
+    /**
+     * @param string ...$warnings
+     *
+     * @return $this
+     */
+    public function addWarnings(string ...$warnings): self
+    {
+        foreach ($warnings as $warning) {
+            $this->warnings[] = $warning;
+        }
 
         return $this;
     }

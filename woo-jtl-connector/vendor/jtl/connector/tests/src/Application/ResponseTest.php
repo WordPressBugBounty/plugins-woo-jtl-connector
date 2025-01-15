@@ -35,13 +35,13 @@ class ResponseTest extends TestCase
     /**
      * @dataProvider responseDataProvider
      *
-     * @param AbstractModel|AbstractModel[] $result
+     * @param AbstractModel|int|string|float|int[] $result
      *
+     * @return void
      * @throws ExpectationFailedException
      * @throws InvalidArgumentException
-     * @throws \InvalidArgumentException
      */
-    public function testCreateFromStatic($result): void
+    public function testCreateFromStatic(AbstractModel|int|string|float|array $result): void
     {
         $response = Response::create($result);
 

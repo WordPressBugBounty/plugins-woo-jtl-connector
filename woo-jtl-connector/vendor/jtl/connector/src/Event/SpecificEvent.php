@@ -9,9 +9,6 @@ use Symfony\Contracts\EventDispatcher\Event;
 
 class SpecificEvent extends Event
 {
-    /**
-     * @var Specific
-     */
     protected Specific $specific;
 
     /**

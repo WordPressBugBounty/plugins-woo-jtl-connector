@@ -9,9 +9,6 @@ use Symfony\Contracts\EventDispatcher\Event;
 
 class StatisticEvent extends Event
 {
-    /**
-     * @var Statistic
-     */
     protected Statistic $statistic;
 
     /**

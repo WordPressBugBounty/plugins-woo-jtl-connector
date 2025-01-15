@@ -30,6 +30,7 @@ use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\MockObject\OriginalConstructorInvocationRequiredException;
 use PHPUnit\Framework\MockObject\RuntimeException as MockRuntimeException;
 use PHPUnit\Framework\MockObject\UnknownTypeException;
+use Random\RandomException;
 use ReflectionException;
 use Throwable;
 
@@ -40,6 +41,7 @@ class SessionHandlerTest extends TestCase
     /**
      * @runInSeparateProcess
      *
+     * @return void
      * @throws Exception
      */
     public function testMaxLifetime(): void
@@ -54,6 +56,7 @@ class SessionHandlerTest extends TestCase
     }
 
     /**
+     * @return void
      * @throws DBALException
      * @throws ExpectationFailedException
      * @throws DbcRuntimeException
@@ -78,6 +81,7 @@ class SessionHandlerTest extends TestCase
     }
 
     /**
+     * @return void
      * @throws DBALException
      * @throws ExpectationFailedException
      * @throws DbcRuntimeException
@@ -104,6 +108,7 @@ class SessionHandlerTest extends TestCase
     }
 
     /**
+     * @return void
      * @throws ExpectationFailedException
      * @throws \Doctrine\DBAL\Driver\Exception
      * @throws DBALException
@@ -117,11 +122,15 @@ class SessionHandlerTest extends TestCase
     }
 
     /**
+     * @return void
      * @throws DBALException
-     * @throws ExpectationFailedException
      * @throws DbcRuntimeException
+     * @throws ExpectationFailedException
+     * @throws \Doctrine\DBAL\DBALException
+     * @throws \Doctrine\DBAL\Driver\Exception
+     * @throws \PDOException
+     * @throws \RuntimeException
      * @throws \SebastianBergmann\RecursionContext\InvalidArgumentException
-     * @throws \RuntimeException|\Doctrine\DBAL\DBALException
      */
     public function testWriteInsert(): void
     {
@@ -228,23 +237,26 @@ class SessionHandlerTest extends TestCase
     }
 
     /**
-     * @throws DBALException
-     * @throws ExpectationFailedException
-     * @throws \PHPUnit\Framework\InvalidArgumentException
+     * @return void
      * @throws ClassAlreadyExistsException
      * @throws ClassIsFinalException
      * @throws ClassIsReadonlyException
+     * @throws DBALException
      * @throws DuplicateMethodException
+     * @throws ExpectationFailedException
      * @throws IncompatibleReturnValueException
      * @throws InvalidMethodNameException
      * @throws MethodCannotBeConfiguredException
      * @throws MethodNameAlreadyConfiguredException
-     * @throws OriginalConstructorInvocationRequiredException
-     * @throws \PHPUnit\Framework\MockObject\ReflectionException
      * @throws MockRuntimeException
+     * @throws OriginalConstructorInvocationRequiredException
      * @throws UnknownTypeException
-     * @throws \SebastianBergmann\RecursionContext\InvalidArgumentException
+     * @throws \Doctrine\DBAL\DBALException
+     * @throws \PDOException
+     * @throws \PHPUnit\Framework\InvalidArgumentException
+     * @throws \PHPUnit\Framework\MockObject\ReflectionException
      * @throws \RuntimeException
+     * @throws \SebastianBergmann\RecursionContext\InvalidArgumentException
      */
     public function testClose(): void
     {
@@ -268,6 +280,7 @@ class SessionHandlerTest extends TestCase
     }
 
     /**
+     * @return void
      * @throws \SebastianBergmann\RecursionContext\InvalidArgumentException
      * @throws ExpectationFailedException
      */
@@ -283,6 +296,7 @@ class SessionHandlerTest extends TestCase
      * @throws ExpectationFailedException
      * @throws InvalidArgumentException
      * @throws \Doctrine\DBAL\DBALException
+     * @throws \Doctrine\DBAL\Driver\Exception
      * @throws \PDOException
      * @throws \RuntimeException
      * @throws \SebastianBergmann\RecursionContext\InvalidArgumentException
@@ -306,14 +320,16 @@ class SessionHandlerTest extends TestCase
     }
 
     /**
+     * @return void
      * @throws DBALException
-     * @throws ExpectationFailedException
      * @throws DbcRuntimeException
-     * @throws DBALException
-     * @throws \SebastianBergmann\RecursionContext\InvalidArgumentException
+     * @throws ExpectationFailedException
+     * @throws \Doctrine\DBAL\DBALException
+     * @throws \Doctrine\DBAL\Driver\Exception
+     * @throws \PDOException
      * @throws \RuntimeException
-     * @throws Exception
-     * @throws Exception
+     * @throws \SebastianBergmann\RecursionContext\InvalidArgumentException
+     * @noinspection PhpDocMissingThrowsInspection - RandomException since 8.2, can't use in 8.1
      */
     public function testGc(): void
     {
@@ -339,6 +355,7 @@ class SessionHandlerTest extends TestCase
     }
 
     /**
+     * @return void
      * @throws DBALException
      * @throws ExpectationFailedException
      * @throws DbcRuntimeException
@@ -364,6 +381,7 @@ class SessionHandlerTest extends TestCase
     }
 
     /**
+     * @return void
      * @throws DBALException
      * @throws ExpectationFailedException
      * @throws DbcRuntimeException
@@ -389,6 +407,7 @@ class SessionHandlerTest extends TestCase
     }
 
     /**
+     * @return void
      * @throws ExpectationFailedException
      * @throws \Doctrine\DBAL\Driver\Exception
      * @throws DBALException
@@ -455,6 +474,7 @@ class SessionHandlerTest extends TestCase
     }
 
     /**
+     * @return void
      * @throws DBALException
      * @throws Throwable
      */

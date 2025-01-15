@@ -10,28 +10,22 @@ use JMS\Serializer\Annotation as Serializer;
  * Class Session
  *
  * @package Jtl\Connector\Core\Model
- * @Serializer\AccessType("public_method")
  */
+#[Serializer\AccessType(['value' => 'public_method'])]
 class Session extends AbstractModel
 {
-    /**
-     * @var string|null
-     * @Serializer\Type("string")
-     * @Serializer\SerializedName("sessionId")
-     * @Serializer\Accessor(getter="getSessionId",setter="setSessionId")
-     */
+    #[Serializer\Type('string')]
+    #[Serializer\SerializedName('sessionId')]
+    #[Serializer\Accessor(getter: 'getSessionId', setter: 'setSessionId')]
     protected ?string $sessionId = null;
 
-    /**
-     * @var integer
-     * @Serializer\Type("integer")
-     * @Serializer\SerializedName("lifetime")
-     * @Serializer\Accessor(getter="getLifetime",setter="setLifetime")
-     */
+    #[Serializer\Type('integer')]
+    #[Serializer\SerializedName('lifetime')]
+    #[Serializer\Accessor(getter: 'getLifetime', setter: 'setLifetime')]
     protected int $lifetime = 0;
 
     /**
-     * @return string
+     * @return string|null
      */
     public function getSessionId(): ?string
     {
@@ -41,11 +35,12 @@ class Session extends AbstractModel
     /**
      * @param string $sessionId
      *
-     * @return Session
+     * @return $this
      */
-    public function setSessionId(string $sessionId): Session
+    public function setSessionId(string $sessionId): self
     {
         $this->sessionId = $sessionId;
+
         return $this;
     }
 
@@ -60,11 +55,12 @@ class Session extends AbstractModel
     /**
      * @param int $lifetime
      *
-     * @return Session
+     * @return $this
      */
-    public function setLifetime(int $lifetime): Session
+    public function setLifetime(int $lifetime): self
     {
         $this->lifetime = $lifetime;
+
         return $this;
     }
 }

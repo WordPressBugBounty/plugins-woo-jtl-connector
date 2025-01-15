@@ -9,17 +9,17 @@ use Jtl\Connector\Core\Definition\ErrorCode;
 class AuthenticationException extends \Exception
 {
     /**
-     * @return AuthenticationException
+     * @return self
      */
-    public static function failed(): AuthenticationException
+    public static function failed(): self
     {
         return new self('Authentication failed', ErrorCode::AUTHENTICATION_FAILED);
     }
 
     /**
-     * @return AuthenticationException
+     * @return self
      */
-    public static function tokenMissing(): AuthenticationException
+    public static function tokenMissing(): self
     {
         return new self('Token is missing', ErrorCode::AUTHENTICATION_FAILED);
     }

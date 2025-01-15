@@ -8,12 +8,9 @@ use JMS\Serializer\Annotation as Serializer;
 
 abstract class AbstractIdentity extends AbstractModel implements IdentityInterface
 {
-    /**
-     * @var Identity Unique id
-     * @Serializer\Type("Jtl\Connector\Core\Model\Identity")
-     * @Serializer\SerializedName("id")
-     * @Serializer\Accessor(getter="getId",setter="setId")
-     */
+    #[Serializer\Type(Identity::class)]
+    #[Serializer\SerializedName('id')]
+    #[Serializer\Accessor(getter: 'getId', setter: 'setId')]
     protected Identity $id;
 
     /**
@@ -28,7 +25,7 @@ abstract class AbstractIdentity extends AbstractModel implements IdentityInterfa
     }
 
     /**
-     * @return Identity Unique id
+     * @inheritDoc
      */
     public function getId(): Identity
     {
@@ -36,13 +33,11 @@ abstract class AbstractIdentity extends AbstractModel implements IdentityInterfa
     }
 
     /**
-     * @param Identity $id Unique id
-     *
-     * @return $this
+     * @inheritDoc
      */
-    public function setId(Identity $id): self
+    public function setId(Identity $identity): self
     {
-        $this->id = $id;
+        $this->id = $identity;
 
         return $this;
     }

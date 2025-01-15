@@ -10,32 +10,25 @@ use JMS\Serializer\Annotation as Serializer;
  * @access     public
  * @package    Jtl\Connector\Core\Model
  * @subpackage Product
- * @Serializer\AccessType("public_method")
  */
+#[Serializer\AccessType(['value' => 'public_method'])]
 class DeliveryNoteTrackingList extends AbstractModel
 {
-    /**
-     * @var string
-     * @Serializer\Type("string")
-     * @Serializer\SerializedName("name")
-     * @Serializer\Accessor(getter="getName",setter="setName")
-     */
+    #[Serializer\Type('string')]
+    #[Serializer\SerializedName('name')]
+    #[Serializer\Accessor(getter: 'getName', setter: 'setName')]
     protected string $name = '';
 
-    /**
-     * @var string[]
-     * @Serializer\Type("array<string>")
-     * @Serializer\SerializedName("codes")
-     * @Serializer\AccessType("reflection")
-     */
+    /** @var string[] */
+    #[Serializer\Type('array<string>')]
+    #[Serializer\SerializedName('codes')]
+    #[Serializer\AccessType(['value' => 'reflection'])]
     protected array $codes = [];
 
-    /**
-     * @var string[]
-     * @Serializer\Type("array<string>")
-     * @Serializer\SerializedName("trackingURLs")
-     * @Serializer\AccessType("reflection")
-     */
+    /** @var string[] */
+    #[Serializer\Type('array<string>')]
+    #[Serializer\SerializedName('trackingURLs')]
+    #[Serializer\AccessType(['value' => 'reflection'])]
     protected array $trackingURLs = [];
 
     /**
@@ -49,9 +42,9 @@ class DeliveryNoteTrackingList extends AbstractModel
     /**
      * @param string $name
      *
-     * @return DeliveryNoteTrackingList
+     * @return $this
      */
-    public function setName(string $name): DeliveryNoteTrackingList
+    public function setName(string $name): self
     {
         $this->name = $name;
 
@@ -61,9 +54,9 @@ class DeliveryNoteTrackingList extends AbstractModel
     /**
      * @param string $code
      *
-     * @return DeliveryNoteTrackingList
+     * @return $this
      */
-    public function addCode(string $code): DeliveryNoteTrackingList
+    public function addCode(string $code): self
     {
         $this->codes[] = $code;
 
@@ -81,9 +74,9 @@ class DeliveryNoteTrackingList extends AbstractModel
     /**
      * @param string ...$codes
      *
-     * @return DeliveryNoteTrackingList
+     * @return $this
      */
-    public function setCodes(string ...$codes): DeliveryNoteTrackingList
+    public function setCodes(string ...$codes): self
     {
         $this->codes = $codes;
 
@@ -91,9 +84,9 @@ class DeliveryNoteTrackingList extends AbstractModel
     }
 
     /**
-     * @return DeliveryNoteTrackingList
+     * @return $this
      */
-    public function clearCodes(): DeliveryNoteTrackingList
+    public function clearCodes(): self
     {
         $this->codes = [];
 
@@ -111,31 +104,34 @@ class DeliveryNoteTrackingList extends AbstractModel
     /**
      * @param string ...$trackingURLs
      *
-     * @return DeliveryNoteTrackingList
+     * @return $this
      */
-    public function setTrackingURLs(string ...$trackingURLs): DeliveryNoteTrackingList
+    public function setTrackingURLs(string ...$trackingURLs): self
     {
         $this->trackingURLs = $trackingURLs;
+
         return $this;
     }
 
     /**
      * @param string $trackingURL
      *
-     * @return DeliveryNoteTrackingList
+     * @return $this
      */
-    public function addTrackingURL(string $trackingURL): DeliveryNoteTrackingList
+    public function addTrackingURL(string $trackingURL): self
     {
         $this->trackingURLs[] = $trackingURL;
+
         return $this;
     }
 
     /**
-     * @return DeliveryNoteTrackingList
+     * @return $this
      */
-    public function clearTrackingURLs(): DeliveryNoteTrackingList
+    public function clearTrackingURLs(): self
     {
         $this->trackingURLs = [];
+
         return $this;
     }
 }

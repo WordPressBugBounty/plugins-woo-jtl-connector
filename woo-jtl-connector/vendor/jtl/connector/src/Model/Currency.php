@@ -12,76 +12,67 @@ use JMS\Serializer\Annotation as Serializer;
  * @access     public
  * @package    Jtl\Connector\Core\Model
  * @subpackage Product
- * @Serializer\AccessType("public_method")
  */
+#[Serializer\AccessType(['value' => 'public_method'])]
 class Currency extends AbstractIdentity
 {
     /**
      * @var string Optional delimiter char for cent, default=",".
      *              Ignore this flag if you have the correct user locale preference.
-     * @Serializer\Type("string")
-     * @Serializer\SerializedName("delimiterCent")
-     * @Serializer\Accessor(getter="getDelimiterCent",setter="setDelimiterCent")
      */
+    #[Serializer\Type('string')]
+    #[Serializer\SerializedName('delimiterCent')]
+    #[Serializer\Accessor(getter: 'getDelimiterCent', setter: 'setDelimiterCent')]
     protected string $delimiterCent = '';
 
     /**
      * @var string Optional delimiter char for thousand. Default=".".
      *              Ignore this flag if you have the correct user locale preference.
-     * @Serializer\Type("string")
-     * @Serializer\SerializedName("delimiterThousand")
-     * @Serializer\Accessor(getter="getDelimiterThousand",setter="setDelimiterThousand")
      */
+    #[Serializer\Type('string')]
+    #[Serializer\SerializedName('delimiterThousand')]
+    #[Serializer\Accessor(getter: 'getDelimiterThousand', setter: 'setDelimiterThousand')]
     protected string $delimiterThousand = '';
 
-    /**
-     * @var double Optional conversion factor to default currency. Default is 1 (equals default currency)
-     * @Serializer\Type("double")
-     * @Serializer\SerializedName("factor")
-     * @Serializer\Accessor(getter="getFactor",setter="setFactor")
-     */
+    /** @var double Optional conversion factor to default currency. Default is 1 (equals default currency) */
+    #[Serializer\Type('double')]
+    #[Serializer\SerializedName('factor')]
+    #[Serializer\Accessor(getter: 'getFactor', setter: 'setFactor')]
     protected float $factor = 0.0;
 
     /**
-     * @var boolean Optional: Display currency before or after value.
+     * @var bool Optional: Display currency before or after value.
      *                  Ignore this flag if you have the correct user locale preference.
-     * @Serializer\Type("boolean")
-     * @Serializer\SerializedName("hasCurrencySignBeforeValue")
-     * @Serializer\Accessor(getter="getHasCurrencySignBeforeValue",setter="setHasCurrencySignBeforeValue")
      */
+    #[Serializer\Type('boolean')]
+    #[Serializer\SerializedName('hasCurrencySignBeforeValue')]
+    #[Serializer\Accessor(getter: 'getHasCurrencySignBeforeValue', setter: 'setHasCurrencySignBeforeValue')]
     protected bool $hasCurrencySignBeforeValue = false;
 
     /**
-     * @var boolean Optional: Flag default currency. True, if this is the default currency.
+     * @var bool Optional: Flag default currency. True, if this is the default currency.
      *                  Exact one currency must be marked as default.
-     * @Serializer\Type("boolean")
-     * @Serializer\SerializedName("isDefault")
-     * @Serializer\Accessor(getter="getIsDefault",setter="setIsDefault")
      */
+    #[Serializer\Type('boolean')]
+    #[Serializer\SerializedName('isDefault')]
+    #[Serializer\Accessor(getter: 'getIsDefault', setter: 'setIsDefault')]
     protected bool $isDefault = false;
 
-    /**
-     * @var string
-     * @Serializer\Type("string")
-     * @Serializer\SerializedName("iso")
-     * @Serializer\Accessor(getter="getIso",setter="setIso")
-     */
+    #[Serializer\Type('string')]
+    #[Serializer\SerializedName('iso')]
+    #[Serializer\Accessor(getter: 'getIso', setter: 'setIso')]
     protected string $iso = '';
 
-    /**
-     * @var string Currency name
-     * @Serializer\Type("string")
-     * @Serializer\SerializedName("name")
-     * @Serializer\Accessor(getter="getName",setter="setName")
-     */
+    /** @var string Currency name */
+    #[Serializer\Type('string')]
+    #[Serializer\SerializedName('name')]
+    #[Serializer\Accessor(getter: 'getName', setter: 'setName')]
     protected string $name = '';
 
-    /**
-     * @var string Optional HTML name e.g. "&euro;"
-     * @Serializer\Type("string")
-     * @Serializer\SerializedName("nameHtml")
-     * @Serializer\Accessor(getter="getNameHtml",setter="setNameHtml")
-     */
+    /** @var string Optional HTML name e.g. "&euro;" */
+    #[Serializer\Type('string')]
+    #[Serializer\SerializedName('nameHtml')]
+    #[Serializer\Accessor(getter: 'getNameHtml', setter: 'setNameHtml')]
     protected string $nameHtml = '';
 
     /**
@@ -97,9 +88,9 @@ class Currency extends AbstractIdentity
      * @param string $delimiterCent Optional delimiter char for cent, default=",".
      *                              Ignore this flag if you have the correct user locale preference.
      *
-     * @return Currency
+     * @return $this
      */
-    public function setDelimiterCent(string $delimiterCent): Currency
+    public function setDelimiterCent(string $delimiterCent): self
     {
         $this->delimiterCent = $delimiterCent;
 
@@ -119,9 +110,9 @@ class Currency extends AbstractIdentity
      * @param string $delimiterThousand Optional delimiter char for thousand. Default=".".
      *                                  Ignore this flag if you have the correct user locale preference.
      *
-     * @return Currency
+     * @return $this
      */
-    public function setDelimiterThousand(string $delimiterThousand): Currency
+    public function setDelimiterThousand(string $delimiterThousand): self
     {
         $this->delimiterThousand = $delimiterThousand;
 
@@ -129,7 +120,7 @@ class Currency extends AbstractIdentity
     }
 
     /**
-     * @return double Optional conversion factor to default currency. Default is 1 (equals default currency)
+     * @return float Optional conversion factor to default currency. Default is 1 (equals default currency)
      */
     public function getFactor(): float
     {
@@ -137,11 +128,11 @@ class Currency extends AbstractIdentity
     }
 
     /**
-     * @param double $factor Optional conversion factor to default currency. Default is 1 (equals default currency)
+     * @param float $factor Optional conversion factor to default currency. Default is 1 (equals default currency)
      *
-     * @return Currency
+     * @return $this
      */
-    public function setFactor(float $factor): Currency
+    public function setFactor(float $factor): self
     {
         $this->factor = $factor;
 
@@ -149,7 +140,7 @@ class Currency extends AbstractIdentity
     }
 
     /**
-     * @return boolean Optional: Display currency before or after value.
+     * @return bool Optional: Display currency before or after value.
      *                  Ignore this flag if you have the correct user locale preference.
      */
     public function getHasCurrencySignBeforeValue(): bool
@@ -158,12 +149,12 @@ class Currency extends AbstractIdentity
     }
 
     /**
-     * @param boolean $hasCurrencySignBeforeValue Optional: Display currency before or after value.
-     *                                            Ignore this flag if you have the correct user locale preference.
+     * @param bool $hasCurrencySignBeforeValue Optional: Display currency before or after value.
+     *                                         Ignore this flag if you have the correct user locale preference.
      *
-     * @return Currency
+     * @return $this
      */
-    public function setHasCurrencySignBeforeValue(bool $hasCurrencySignBeforeValue): Currency
+    public function setHasCurrencySignBeforeValue(bool $hasCurrencySignBeforeValue): self
     {
         $this->hasCurrencySignBeforeValue = $hasCurrencySignBeforeValue;
 
@@ -171,7 +162,7 @@ class Currency extends AbstractIdentity
     }
 
     /**
-     * @return boolean Optional: Flag default currency. True, if this is the default currency.
+     * @return bool Optional: Flag default currency. True, if this is the default currency.
      *                  Exact one currency must be marked as default.
      */
     public function getIsDefault(): bool
@@ -180,12 +171,12 @@ class Currency extends AbstractIdentity
     }
 
     /**
-     * @param boolean $isDefault Optional: Flag default currency. True, if this is the default currency.
-     *                           Exact one currency must be marked as default.
+     * @param bool $isDefault Optional: Flag default currency. True, if this is the default currency.
+     *                        Exact one currency must be marked as default.
      *
-     * @return Currency
+     * @return $this
      */
-    public function setIsDefault(bool $isDefault): Currency
+    public function setIsDefault(bool $isDefault): self
     {
         $this->isDefault = $isDefault;
 
@@ -203,9 +194,9 @@ class Currency extends AbstractIdentity
     /**
      * @param string $iso
      *
-     * @return Currency
+     * @return $this
      */
-    public function setIso(string $iso): Currency
+    public function setIso(string $iso): self
     {
         $this->iso = $iso;
 
@@ -223,9 +214,9 @@ class Currency extends AbstractIdentity
     /**
      * @param string $name Currency name
      *
-     * @return Currency
+     * @return $this
      */
-    public function setName(string $name): Currency
+    public function setName(string $name): self
     {
         $this->name = $name;
 
@@ -243,9 +234,9 @@ class Currency extends AbstractIdentity
     /**
      * @param string $nameHtml Optional HTML name e.g. "&euro;"
      *
-     * @return Currency
+     * @return $this
      */
-    public function setNameHtml(string $nameHtml): Currency
+    public function setNameHtml(string $nameHtml): self
     {
         $this->nameHtml = $nameHtml;
 

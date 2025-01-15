@@ -32,24 +32,28 @@ class Uuid4Type extends Type
     }
 
     /**
-     * @param string           $value
+     * @phpstan-param string   $value
+     *
+     * @param mixed            $value
      * @param AbstractPlatform $platform
      *
      * @return string
      */
-    public function convertToPHPValue($value, AbstractPlatform $platform): string
+    public function convertToPHPValue(mixed $value, AbstractPlatform $platform): string
     {
         return \ctype_xdigit(\str_replace('-', '', $value)) ? $value : \bin2hex($value);
     }
 
     /**
-     * @param string           $value
+     * @phpstan-param string   $value
+     *
+     * @param mixed            $value
      * @param AbstractPlatform $platform
      *
      * @return string
      * @throws ConversionException
      */
-    public function convertToDatabaseValue($value, AbstractPlatform $platform): string
+    public function convertToDatabaseValue(mixed $value, AbstractPlatform $platform): string
     {
         $converted = \hex2bin(\str_replace('-', '', $value));
         if ($converted === false) {
@@ -70,12 +74,15 @@ class Uuid4Type extends Type
     /**
      * Modifies the SQL expression (identifier, parameter) to convert to a PHP value.
      *
-     * @param string           $sqlExpr
-     * @param AbstractPlatform $platform
+     * @phpstan-param string           $sqlExpr
+     * @phpstan-param AbstractPlatform $platform
+     *
+     * @param mixed $sqlExpr
+     * @param mixed $platform
      *
      * @return string
      */
-    public function convertToPHPValueSQL($sqlExpr, $platform): string
+    public function convertToPHPValueSQL(mixed $sqlExpr, mixed $platform): string
     {
         if ($platform instanceof MySqlPlatform || $platform instanceof SqlitePlatform) {
             return $platform->getLowerExpression(\sprintf('HEX(%s)', $sqlExpr));
@@ -87,7 +94,7 @@ class Uuid4Type extends Type
     /**
      * @param AbstractPlatform $platform
      *
-     * @return boolean
+     * @return bool
      */
     public function requiresSQLCommentHint(AbstractPlatform $platform): bool
     {
@@ -95,7 +102,7 @@ class Uuid4Type extends Type
     }
 
     /**
-     * @return boolean
+     * @return bool
      */
     public function canRequireSQLConversion(): bool
     {

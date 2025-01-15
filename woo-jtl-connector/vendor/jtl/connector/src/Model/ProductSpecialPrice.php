@@ -12,71 +12,63 @@ use JMS\Serializer\Annotation as Serializer;
  * @access     public
  * @package    Jtl\Connector\Core\Model
  * @subpackage Product
- * @Serializer\AccessType("public_method")
  */
-class ProductSpecialPrice extends AbstractIdentity
+#[Serializer\AccessType(['value' => 'public_method'])]
+class ProductSpecialPrice extends AbstractIdentity implements ItemsInterface
 {
-    /**
-     * @var \DateTimeInterface|null Optional: Activate special price from date
-     * @Serializer\Type("DateTimeInterface")
-     * @Serializer\SerializedName("activeFromDate")
-     * @Serializer\Accessor(getter="getActiveFromDate",setter="setActiveFromDate")
-     */
+    /** @var \DateTimeInterface|null Optional: Activate special price from date */
+    #[Serializer\Type(\DateTimeInterface::class)]
+    #[Serializer\SerializedName('activeFromDate')]
+    #[Serializer\Accessor(getter: 'getActiveFromDate', setter: 'setActiveFromDate')]
     protected ?\DateTimeInterface $activeFromDate = null;
 
-    /**
-     * @var \DateTimeInterface|null Optional: Special price active until date
-     * @Serializer\Type("DateTimeInterface")
-     * @Serializer\SerializedName("activeUntilDate")
-     * @Serializer\Accessor(getter="getActiveUntilDate",setter="setActiveUntilDate")
-     */
+    /** @var \DateTimeInterface|null Optional: Special price active until date */
+    #[Serializer\Type(\DateTimeInterface::class)]
+    #[Serializer\SerializedName('activeUntilDate')]
+    #[Serializer\Accessor(getter: 'getActiveUntilDate', setter: 'setActiveUntilDate')]
     protected ?\DateTimeInterface $activeUntilDate = null;
 
     /**
-     * @var boolean Optional: Consider activeFrom/activeUntil date range.
+     * @var bool Optional: Consider activeFrom/activeUntil date range.
      *              If true, specialPrice will get active from activeFrom-date and will stop after activeUntil-date.
-     * @Serializer\Type("boolean")
-     * @Serializer\SerializedName("considerDateLimit")
-     * @Serializer\Accessor(getter="getConsiderDateLimit",setter="setConsiderDateLimit")
      */
+    #[Serializer\Type('boolean')]
+    #[Serializer\SerializedName('considerDateLimit')]
+    #[Serializer\Accessor(getter: 'getConsiderDateLimit', setter: 'setConsiderDateLimit')]
     protected bool $considerDateLimit = false;
 
     /**
-     * @var boolean Optional: Consider stockLimit value.
+     * @var bool Optional: Consider stockLimit value.
      *              If true, specialPrice will be only active until product stockLevel is greater or equal stockLimit.
-     * @Serializer\Type("boolean")
-     * @Serializer\SerializedName("considerStockLimit")
-     * @Serializer\Accessor(getter="getConsiderStockLimit",setter="setConsiderStockLimit")
      */
+    #[Serializer\Type('boolean')]
+    #[Serializer\SerializedName('considerStockLimit')]
+    #[Serializer\Accessor(getter: 'getConsiderStockLimit', setter: 'setConsiderStockLimit')]
     protected bool $considerStockLimit = false;
 
     /**
-     * @var boolean Special price is active? Default true, to activate specialPrice.
+     * @var bool Special price is active? Default true, to activate specialPrice.
      *              Special price can still be inactivated, if date or stock Limitations do not match.
-     * @Serializer\Type("boolean")
-     * @Serializer\SerializedName("isActive")
-     * @Serializer\Accessor(getter="getIsActive",setter="setIsActive")
      */
+    #[Serializer\Type('boolean')]
+    #[Serializer\SerializedName('isActive')]
+    #[Serializer\Accessor(getter: 'getIsActive', setter: 'setIsActive')]
     protected bool $isActive = false;
 
-    /**
-     * @var integer Optional: SpecialPrice active until stock level quantity
-     * @Serializer\Type("integer")
-     * @Serializer\SerializedName("stockLimit")
-     * @Serializer\Accessor(getter="getStockLimit",setter="setStockLimit")
-     */
+    /** @var int Optional: SpecialPrice active until stock level quantity */
+    #[Serializer\Type('integer')]
+    #[Serializer\SerializedName('stockLimit')]
+    #[Serializer\Accessor(getter: 'getStockLimit', setter: 'setStockLimit')]
     protected int $stockLimit = 0;
 
-    /**
-     * @var ProductSpecialPriceItem[]
-     * @Serializer\Type("array<Jtl\Connector\Core\Model\ProductSpecialPriceItem>")
-     * @Serializer\SerializedName("items")
-     * @Serializer\AccessType("reflection")
-     */
+    /** @var ProductSpecialPriceItem[] */
+    #[Serializer\Type('array<Jtl\Connector\Core\Model\ProductSpecialPriceItem>')]
+    #[Serializer\SerializedName('items')]
+    #[Serializer\AccessType(['value' => 'reflection'])]
     protected array $items = [];
 
     /**
-     * @return \DateTimeInterface Optional: Activate special price from date
+     * @return \DateTimeInterface|null Optional: Activate special price from date
      */
     public function getActiveFromDate(): ?\DateTimeInterface
     {
@@ -86,9 +78,9 @@ class ProductSpecialPrice extends AbstractIdentity
     /**
      * @param \DateTimeInterface|null $activeFromDate Optional: Activate special price from date
      *
-     * @return ProductSpecialPrice
+     * @return $this
      */
-    public function setActiveFromDate(?\DateTimeInterface $activeFromDate = null): ProductSpecialPrice
+    public function setActiveFromDate(?\DateTimeInterface $activeFromDate = null): self
     {
         $this->activeFromDate = $activeFromDate;
 
@@ -96,7 +88,7 @@ class ProductSpecialPrice extends AbstractIdentity
     }
 
     /**
-     * @return \DateTimeInterface Optional: Special price active until date
+     * @return \DateTimeInterface|null Optional: Special price active until date
      */
     public function getActiveUntilDate(): ?\DateTimeInterface
     {
@@ -106,9 +98,9 @@ class ProductSpecialPrice extends AbstractIdentity
     /**
      * @param \DateTimeInterface|null $activeUntilDate Optional: Special price active until date
      *
-     * @return ProductSpecialPrice
+     * @return $this
      */
-    public function setActiveUntilDate(?\DateTimeInterface $activeUntilDate = null): ProductSpecialPrice
+    public function setActiveUntilDate(?\DateTimeInterface $activeUntilDate = null): self
     {
         $this->activeUntilDate = $activeUntilDate;
 
@@ -116,7 +108,7 @@ class ProductSpecialPrice extends AbstractIdentity
     }
 
     /**
-     * @return boolean Optional: Consider activeFrom/activeUntil date range.
+     * @return bool Optional: Consider activeFrom/activeUntil date range.
      *                  If true, specialPrice will get active from activeFrom-date and will stop after activeUntil-date.
      */
     public function getConsiderDateLimit(): bool
@@ -125,13 +117,13 @@ class ProductSpecialPrice extends AbstractIdentity
     }
 
     /**
-     * @param boolean $considerDateLimit Optional: Consider activeFrom/activeUntil date range.
-     *                                   If true, specialPrice will get active from activeFrom-date and will
-     *                                   stop after activeUntil-date.
+     * @param bool $considerDateLimit Optional: Consider activeFrom/activeUntil date range.
+     *                                If true, specialPrice will get active from activeFrom-date and will
+     *                                stop after activeUntil-date.
      *
-     * @return ProductSpecialPrice
+     * @return $this
      */
-    public function setConsiderDateLimit(bool $considerDateLimit): ProductSpecialPrice
+    public function setConsiderDateLimit(bool $considerDateLimit): self
     {
         $this->considerDateLimit = $considerDateLimit;
 
@@ -139,7 +131,7 @@ class ProductSpecialPrice extends AbstractIdentity
     }
 
     /**
-     * @return boolean Optional: Consider stockLimit value.
+     * @return bool Optional: Consider stockLimit value.
      *                  If true, specialPrice will be only active until product
      *                  stockLevel is greater or equal stockLimit.
      */
@@ -149,13 +141,13 @@ class ProductSpecialPrice extends AbstractIdentity
     }
 
     /**
-     * @param boolean $considerStockLimit Optional: Consider stockLimit value.
-     *                                    If true, specialPrice will be only active until product stockLevel
-     *                                    is greater or equal stockLimit.
+     * @param bool $considerStockLimit Optional: Consider stockLimit value.
+     *                                 If true, specialPrice will be only active until product stockLevel
+     *                                 is greater or equal stockLimit.
      *
-     * @return ProductSpecialPrice
+     * @return $this
      */
-    public function setConsiderStockLimit(bool $considerStockLimit): ProductSpecialPrice
+    public function setConsiderStockLimit(bool $considerStockLimit): self
     {
         $this->considerStockLimit = $considerStockLimit;
 
@@ -163,7 +155,7 @@ class ProductSpecialPrice extends AbstractIdentity
     }
 
     /**
-     * @return boolean Special price is active? Default true, to activate specialPrice.
+     * @return bool Special price is active? Default true, to activate specialPrice.
      *                  Special price can still be inactivated, if date or stock Limitations do not match.
      */
     public function getIsActive(): bool
@@ -172,13 +164,13 @@ class ProductSpecialPrice extends AbstractIdentity
     }
 
     /**
-     * @param boolean $isActive         Special price is active? Default true, to activate specialPrice.
-     *                                  Special price can still be inactivated, if date or stock Limitations do not
-     *                                  match.
+     * @param bool $isActive Special price is active? Default true, to activate specialPrice.
+     *                       Special price can still be inactivated, if date or stock Limitations do not
+     *                       match.
      *
-     * @return ProductSpecialPrice
+     * @return $this
      */
-    public function setIsActive(bool $isActive): ProductSpecialPrice
+    public function setIsActive(bool $isActive): self
     {
         $this->isActive = $isActive;
 
@@ -186,7 +178,7 @@ class ProductSpecialPrice extends AbstractIdentity
     }
 
     /**
-     * @return integer Optional: SpecialPrice active until stock level quantity
+     * @return int Optional: SpecialPrice active until stock level quantity
      */
     public function getStockLimit(): int
     {
@@ -194,11 +186,11 @@ class ProductSpecialPrice extends AbstractIdentity
     }
 
     /**
-     * @param integer $stockLimit Optional: SpecialPrice active until stock level quantity
+     * @param int $stockLimit Optional: SpecialPrice active until stock level quantity
      *
-     * @return ProductSpecialPrice
+     * @return $this
      */
-    public function setStockLimit(int $stockLimit): ProductSpecialPrice
+    public function setStockLimit(int $stockLimit): self
     {
         $this->stockLimit = $stockLimit;
 
@@ -206,11 +198,13 @@ class ProductSpecialPrice extends AbstractIdentity
     }
 
     /**
-     * @param ProductSpecialPriceItem $item
+     * @phpstan-param ProductSpecialPriceItem $item
      *
-     * @return ProductSpecialPrice
+     * @param AbstractModel $item
+     *
+     * @return $this
      */
-    public function addItem(ProductSpecialPriceItem $item): ProductSpecialPrice
+    public function addItem(AbstractModel $item): self
     {
         $this->items[] = $item;
 
@@ -226,11 +220,13 @@ class ProductSpecialPrice extends AbstractIdentity
     }
 
     /**
-     * @param ProductSpecialPriceItem ...$items
+     * @phpstan-param ProductSpecialPriceItem ...$items
      *
-     * @return ProductSpecialPrice
+     * @param AbstractModel ...$items
+     *
+     * @return $this
      */
-    public function setItems(ProductSpecialPriceItem ...$items): ProductSpecialPrice
+    public function setItems(AbstractModel ...$items): self
     {
         $this->items = $items;
 
@@ -238,9 +234,9 @@ class ProductSpecialPrice extends AbstractIdentity
     }
 
     /**
-     * @return ProductSpecialPrice
+     * @inheritDoc
      */
-    public function clearItems(): ProductSpecialPrice
+    public function clearItems(): self
     {
         $this->items = [];
 

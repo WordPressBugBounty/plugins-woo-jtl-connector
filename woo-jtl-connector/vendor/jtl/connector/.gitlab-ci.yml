@@ -1,43 +1,104 @@
 variables:
   FF_USE_FASTZIP: 1
   COMPOSER_CACHE_DIR: ${CI_PROJECT_DIR}/.composer-cache
+  PHP_VERSION: '8.1'
 
 default:
-  image: gitlab.jtl-software.com:4567/connector/connector-utils/ci-docker/php/cli:8.1
+  image: ${CI_REGISTRY}/connector/connector-utils/ci-docker/php/cli:${PHP_VERSION}
   tags:
     - docker
-  before_script:
-    - composer update --no-interaction --no-progress
-  cache:
-    key: vendor
-    paths:
-      - vendor
-      - .composer-cache
 
 include:
   - project: 'connector/connector-utils/CI-Templates'
     file:
       - 'auto-create-mr/ci.yaml'
-      - 'code-quality/ci-phpstan.yaml'
 
 stages:
   - createMR
+  - build
   - test
 
-code_quality:
-  variables:
-    CQ_STANDARDS: '/tmp/code-quality/ConnectorCoreStandard.xml'
-    STAN_NEON_FILE: './phpstan.neon'
-  before_script: []
+build:
+  stage: build
+  script:
+    - composer config http-basic.gitlab.jtl-software.com gitlab-ci-token "${CI_JOB_TOKEN}"
+    - composer install --no-progress --no-interaction
+  cache:
+    key:
+      files:
+        - composer.lock
+        - composer.json
+    paths:
+      - vendor/
+  artifacts:
+    paths:
+      - vendor/
 
-#test:unit:
-#  parallel:
-#    matrix:
-#      - VERSION: [ '7.4','8.0','8.1' ]
-#  image: gitlab.jtl-software.com:4567/connector/connector-utils/ci-docker/php/cli:${VERSION}
-#  stage: test
-#  script:
-#    - vendor/bin/phpunit --configuration phpunit.xml.dist --log-junit junit.xml
-#  artifacts:
-#    reports:
-#      junit: junit.xml
+random_files:
+  image: alpine:latest
+  stage: test
+  needs: []
+  script:
+    - >-
+      if [ `find . \( -name .idea -o -name .code -o -name .DS_Store \) -not -path "./vendor/*"` ] ; then
+        echo "Found .idea, .code or .DS_Store. Please remove them from your project.";
+        exit 1
+      fi
+
+code_quality:
+  stage: test
+  needs:
+    - build
+  script:
+    - composer run phpcs:ci
+  artifacts:
+    paths:
+      - phpcs-quality-report.json
+    when: always
+
+phpstan:
+  stage: test
+  needs:
+    - build
+  script:
+    - composer run phpstan:ci
+  artifacts:
+    paths:
+      - phpstan-quality-report.json
+    when: always
+
+combine_reports:
+  stage: test
+  needs:
+    - code_quality
+    - phpstan
+  when: always
+  script:
+    - >-
+      if [[ -f phpcs-quality-report.json ]] && [[ -f phpstan-quality-report.json ]]; then
+        jq -s 'add' phpcs-quality-report.json phpstan-quality-report.json > codeclimate-quality-report.json;
+      elif [[ -f phpcs-quality-report.json ]]; then
+        mv phpcs-quality-report.json codeclimate-quality-report.json;
+      elif [[ -f phpstan-quality-report.json ]]; then
+        mv phpstan-quality-report.json codeclimate-quality-report.json;
+      fi
+  artifacts:
+    reports:
+      codequality: codeclimate-quality-report.json
+    when: always
+
+tests:
+  stage: test
+  needs:
+    - build
+  allow_failure: true # there might be some timezone issues with the tests
+  parallel:
+    matrix:
+      - PHP_VERSION: ['8.1', '8.2', '8.3']
+  image: ${CI_REGISTRY}/connector/connector-utils/ci-docker/php/cli:${PHP_VERSION}
+  script:
+    - composer run tests:ci
+  artifacts:
+    reports:
+      junit: phpunit.xml
+    when: always

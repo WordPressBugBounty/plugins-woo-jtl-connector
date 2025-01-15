@@ -32,6 +32,8 @@ class NullValuesSubscriber implements EventSubscriberInterface
      * Remove null values
      *
      * @param PreDeserializeEvent $event
+     *
+     * @return void
      */
     public function onPreDeserialize(PreDeserializeEvent $event): void
     {

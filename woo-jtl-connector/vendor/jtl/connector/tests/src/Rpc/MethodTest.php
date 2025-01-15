@@ -42,6 +42,7 @@ class MethodTest extends TestCase
      * @param string $expectedAction
      * @param bool   $isCore
      *
+     * @return void
      * @throws ExpectationFailedException
      * @throws InvalidArgumentException
      * @throws CaseConverterException

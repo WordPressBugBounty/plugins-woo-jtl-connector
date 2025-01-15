@@ -9,9 +9,6 @@ use Symfony\Contracts\EventDispatcher\Event;
 
 class CrossSellingEvent extends Event
 {
-    /**
-     * @var CrossSelling
-     */
     protected CrossSelling $crossSelling;
 
     /**

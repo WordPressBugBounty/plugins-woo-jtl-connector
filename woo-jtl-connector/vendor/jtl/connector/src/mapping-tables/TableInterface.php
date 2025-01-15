@@ -7,75 +7,75 @@ namespace Jtl\Connector\MappingTables;
 interface TableInterface
 {
     /**
-     * @return integer[]
+     * @return int[]
      */
     public function getTypes(): array;
 
     /**
      * @param string $endpoint
      *
-     * @return integer|null
+     * @return int|null
      */
     public function getHostId(string $endpoint): ?int;
 
     /**
-     * @param integer      $hostId
-     * @param integer|null $type
+     * @param int      $hostId
+     * @param int|null $type
      *
      * @return string|null
      */
-    public function getEndpoint(int $hostId, int $type = null): ?string;
+    public function getEndpoint(int $hostId, ?int $type = null): ?string;
 
     /**
-     * @param string  $endpoint
-     * @param integer $hostId
+     * @param string $endpoint
+     * @param int    $hostId
      *
-     * @return integer
+     * @return int
      */
     public function save(string $endpoint, int $hostId): int;
 
     /**
-     * @param string|null  $endpoint
-     * @param int|null     $hostId
-     * @param integer|null $type
+     * @param string|null $endpoint
+     * @param int|null    $hostId
+     * @param int|null    $type
      *
-     * @return integer
+     * @return int
      */
-    public function remove(string $endpoint = null, int $hostId = null, int $type = null): int;
+    public function remove(?string $endpoint = null, ?int $hostId = null, ?int $type = null): int;
 
     /**
-     * @param integer|null $type
+     * @param int|null $type
      *
-     * @return integer
+     * @return int
      */
-    public function clear(int $type = null): int;
+    public function clear(?int $type = null): int;
 
     /**
-     * @param string[]     $where
-     * @param mixed[]      $parameters
-     * @param string[]     $orderBy
-     * @param int|null     $limit
-     * @param int|null     $offset
-     * @param integer|null $type
+     * @param string[] $where
+     * @param mixed[]  $parameters
+     * @param string[] $orderBy
+     * @param int|null $limit
+     * @param int|null $offset
+     * @param int|null $type
      *
-     * @return integer
+     * @return int
      */
     public function count(
         array $where = [],
         array $parameters = [],
         array $orderBy = [],
-        int   $limit = null,
-        int   $offset = null,
-        int   $type = null
+        ?int   $limit = null,
+        ?int   $offset = null,
+        ?int   $type = null
     ): int;
 
     /**
-     * @param string[]     $where
-     * @param mixed[]      $parameters
-     * @param string[]     $orderBy
-     * @param int|null     $limit
-     * @param int|null     $offset
-     * @param integer|null $type
+     * @param string[] $where
+     * @param mixed[]  $parameters
+     * @param string[] $orderBy
+     * @param int|null $limit
+     * @param int|null $offset
+     * @param int|null $type
      *
      * @return string[]
      */
@@ -83,9 +83,9 @@ interface TableInterface
         array $where = [],
         array $parameters = [],
         array $orderBy = [],
-        int   $limit = null,
-        int   $offset = null,
-        int   $type = null
+        ?int   $limit = null,
+        ?int   $offset = null,
+        ?int   $type = null
     ): array;
 
     /**

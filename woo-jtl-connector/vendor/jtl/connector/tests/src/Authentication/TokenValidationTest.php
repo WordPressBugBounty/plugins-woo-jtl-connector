@@ -24,6 +24,7 @@ class TokenValidationTest extends TestCase
      * @param string $token
      * @param bool   $result
      *
+     * @return void
      * @throws TokenValidatorException
      * @throws ExpectationFailedException
      * @throws InvalidArgumentException

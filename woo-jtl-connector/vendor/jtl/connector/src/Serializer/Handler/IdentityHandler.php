@@ -15,9 +15,7 @@ use Jtl\Connector\Core\Model\Identity;
 
 class IdentityHandler implements SubscribingHandlerInterface
 {
-    /**
-     * @var array<int, array<int, Identity>>
-     */
+    /** @var array<int, array<int, Identity>> */
     protected array $identities;
 
     /**
@@ -79,12 +77,12 @@ class IdentityHandler implements SubscribingHandlerInterface
     /**
      * @param JsonSerializationVisitor $visitor
      * @param Identity                 $identity
-     * @param array                    $type
+     * @param array<mixed>             $type
      * @param Context                  $context
      *
      * @return array<int, string|int>
      */
-    public function serializeIdentity( //@phpstan-ignore-line
+    public function serializeIdentity(
         JsonSerializationVisitor $visitor,
         Identity                 $identity,
         array                    $type,

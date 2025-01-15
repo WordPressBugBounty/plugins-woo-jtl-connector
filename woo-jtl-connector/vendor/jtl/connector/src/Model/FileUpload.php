@@ -12,40 +12,30 @@ use JMS\Serializer\Annotation as Serializer;
  * @access     public
  * @package    Jtl\Connector\Core\Model
  * @subpackage Product
- * @Serializer\AccessType("public_method")
  */
+#[Serializer\AccessType(['value' => 'public_method'])]
 class FileUpload extends AbstractIdentity
 {
-    /**
-     * @var Identity Reference to product
-     * @Serializer\Type("Jtl\Connector\Core\Model\Identity")
-     * @Serializer\SerializedName("productId")
-     * @Serializer\Accessor(getter="getProductId",setter="setProductId")
-     */
+    /** @var Identity Reference to product */
+    #[Serializer\Type(Identity::class)]
+    #[Serializer\SerializedName('productId')]
+    #[Serializer\Accessor(getter: 'getProductId', setter: 'setProductId')]
     protected Identity $productId;
 
-    /**
-     * @var string
-     * @Serializer\Type("string")
-     * @Serializer\SerializedName("fileType")
-     * @Serializer\Accessor(getter="getFileType",setter="setFileType")
-     */
+    #[Serializer\Type('string')]
+    #[Serializer\SerializedName('fileType')]
+    #[Serializer\Accessor(getter: 'getFileType', setter: 'setFileType')]
     protected string $fileType = '';
 
-    /**
-     * @var boolean
-     * @Serializer\Type("boolean")
-     * @Serializer\SerializedName("isRequired")
-     * @Serializer\Accessor(getter="getIsRequired",setter="setIsRequired")
-     */
+    #[Serializer\Type('boolean')]
+    #[Serializer\SerializedName('isRequired')]
+    #[Serializer\Accessor(getter: 'getIsRequired', setter: 'setIsRequired')]
     protected bool $isRequired = false;
 
-    /**
-     * @var FileUploadI18n[]
-     * @Serializer\Type("array<Jtl\Connector\Core\Model\FileUploadI18n>")
-     * @Serializer\SerializedName("i18ns")
-     * @Serializer\AccessType("reflection")
-     */
+    /** @var FileUploadI18n[] */
+    #[Serializer\Type('array<Jtl\Connector\Core\Model\FileUploadI18n>')]
+    #[Serializer\SerializedName('i18ns')]
+    #[Serializer\AccessType(['value' => 'reflection'])]
     protected array $i18ns = [];
 
     /**
@@ -71,9 +61,9 @@ class FileUpload extends AbstractIdentity
     /**
      * @param Identity $productId Reference to product
      *
-     * @return FileUpload
+     * @return $this
      */
-    public function setProductId(Identity $productId): FileUpload
+    public function setProductId(Identity $productId): self
     {
         $this->productId = $productId;
 
@@ -91,9 +81,9 @@ class FileUpload extends AbstractIdentity
     /**
      * @param string $fileType
      *
-     * @return FileUpload
+     * @return $this
      */
-    public function setFileType(string $fileType): FileUpload
+    public function setFileType(string $fileType): self
     {
         $this->fileType = $fileType;
 
@@ -101,7 +91,7 @@ class FileUpload extends AbstractIdentity
     }
 
     /**
-     * @return boolean
+     * @return bool
      */
     public function getIsRequired(): bool
     {
@@ -109,11 +99,11 @@ class FileUpload extends AbstractIdentity
     }
 
     /**
-     * @param boolean $isRequired
+     * @param bool $isRequired
      *
-     * @return FileUpload
+     * @return $this
      */
-    public function setIsRequired(bool $isRequired): FileUpload
+    public function setIsRequired(bool $isRequired): self
     {
         $this->isRequired = $isRequired;
 
@@ -123,9 +113,9 @@ class FileUpload extends AbstractIdentity
     /**
      * @param FileUploadI18n $i18n
      *
-     * @return FileUpload
+     * @return $this
      */
-    public function addI18n(FileUploadI18n $i18n): FileUpload
+    public function addI18n(FileUploadI18n $i18n): self
     {
         $this->i18ns[] = $i18n;
 
@@ -143,9 +133,9 @@ class FileUpload extends AbstractIdentity
     /**
      * @param FileUploadI18n ...$i18ns
      *
-     * @return FileUpload
+     * @return $this
      */
-    public function setI18ns(FileUploadI18n ...$i18ns): FileUpload
+    public function setI18ns(FileUploadI18n ...$i18ns): self
     {
         $this->i18ns = $i18ns;
 
@@ -153,9 +143,9 @@ class FileUpload extends AbstractIdentity
     }
 
     /**
-     * @return FileUpload
+     * @return $this
      */
-    public function clearI18ns(): FileUpload
+    public function clearI18ns(): self
     {
         $this->i18ns = [];
 

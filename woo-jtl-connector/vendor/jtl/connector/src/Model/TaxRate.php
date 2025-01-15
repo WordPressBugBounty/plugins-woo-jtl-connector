@@ -10,28 +10,23 @@ use JMS\Serializer\Annotation as Serializer;
  * @access     public
  * @package    Jtl\Connector\Core\Model
  * @subpackage Product
- * @Serializer\AccessType("public_method")
  */
+#[Serializer\AccessType(['value' => 'public_method'])]
 class TaxRate extends AbstractIdentity
 {
-    /**
-     * @var string
-     * @Serializer\Type("string")
-     * @Serializer\SerializedName("countryIso")
-     * @Serializer\Accessor(getter="getCountryIso",setter="setCountryIso")
-     */
+    #[Serializer\Type('string')]
+    #[Serializer\SerializedName('countryIso')]
+    #[Serializer\Accessor(getter: 'getCountryIso', setter: 'setCountryIso')]
     protected string $countryIso = '';
 
-    /**
-     * @var double
-     * @Serializer\Type("double")
-     * @Serializer\SerializedName("rate")
-     * @Serializer\Accessor(getter="getRate",setter="setRate")
-     */
+
+    #[Serializer\Type('double')]
+    #[Serializer\SerializedName('rate')]
+    #[Serializer\Accessor(getter: 'getRate', setter: 'setRate')]
     protected float $rate = 0.0;
 
     /**
-     * @return double
+     * @return float
      */
     public function getRate(): float
     {
@@ -39,11 +34,11 @@ class TaxRate extends AbstractIdentity
     }
 
     /**
-     * @param double $rate
+     * @param float $rate
      *
-     * @return TaxRate
+     * @return $this
      */
-    public function setRate(float $rate): TaxRate
+    public function setRate(float $rate): self
     {
         $this->rate = $rate;
 
@@ -61,7 +56,7 @@ class TaxRate extends AbstractIdentity
     /**
      * @param string $countryIso
      *
-     * @return TaxRate
+     * @return $this
      */
     public function setCountryIso(string $countryIso): self
     {

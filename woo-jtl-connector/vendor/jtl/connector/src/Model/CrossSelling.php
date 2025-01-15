@@ -12,24 +12,20 @@ use JMS\Serializer\Annotation as Serializer;
  * @access     public
  * @package    Jtl\Connector\Core\Model
  * @subpackage Product
- * @Serializer\AccessType("public_method")
  */
-class CrossSelling extends AbstractIdentity
+#[Serializer\AccessType(['value' => 'public_method'])]
+class CrossSelling extends AbstractIdentity implements ItemsInterface
 {
-    /**
-     * @var Identity Source product
-     * @Serializer\Type("Jtl\Connector\Core\Model\Identity")
-     * @Serializer\SerializedName("productId")
-     * @Serializer\Accessor(getter="getProductId",setter="setProductId")
-     */
+    /** @var Identity Source product */
+    #[Serializer\Type(Identity::class)]
+    #[Serializer\SerializedName('productId')]
+    #[Serializer\Accessor(getter: 'getProductId', setter: 'setProductId')]
     protected Identity $productId;
 
-    /**
-     * @var CrossSellingItem[] Referenced cross-sold products grouped by their crossSellingGroup
-     * @Serializer\Type("array<Jtl\Connector\Core\Model\CrossSellingItem>")
-     * @Serializer\SerializedName("items")
-     * @Serializer\AccessType("reflection")
-     */
+    /** @var CrossSellingItem[] Referenced cross-sold products grouped by their crossSellingGroup */
+    #[Serializer\Type('array<Jtl\Connector\Core\Model\CrossSellingItem>')]
+    #[Serializer\SerializedName('items')]
+    #[Serializer\AccessType(['value' => 'reflection'])]
     protected array $items = [];
 
     /**
@@ -55,9 +51,9 @@ class CrossSelling extends AbstractIdentity
     /**
      * @param Identity $productId Source product
      *
-     * @return CrossSelling
+     * @return $this
      */
-    public function setProductId(Identity $productId): CrossSelling
+    public function setProductId(Identity $productId): self
     {
         $this->productId = $productId;
 
@@ -65,11 +61,13 @@ class CrossSelling extends AbstractIdentity
     }
 
     /**
-     * @param CrossSellingItem $item
+     * @phpstan-param CrossSellingItem $item
      *
-     * @return CrossSelling
+     * @param AbstractModel $item
+     *
+     * @return $this
      */
-    public function addItem(CrossSellingItem $item): CrossSelling
+    public function addItem(AbstractModel $item): self
     {
         $this->items[] = $item;
 
@@ -85,11 +83,13 @@ class CrossSelling extends AbstractIdentity
     }
 
     /**
-     * @param CrossSellingItem ...$items
+     * @phpstan-param CrossSellingItem ...$items
      *
-     * @return CrossSelling
+     * @param AbstractModel ...$items
+     *
+     * @return $this
      */
-    public function setItems(CrossSellingItem ...$items): CrossSelling
+    public function setItems(AbstractModel ...$items): self
     {
         $this->items = $items;
 
@@ -97,9 +97,9 @@ class CrossSelling extends AbstractIdentity
     }
 
     /**
-     * @return CrossSelling
+     * @inheritDoc
      */
-    public function clearItems(): CrossSelling
+    public function clearItems(): self
     {
         $this->items = [];
 

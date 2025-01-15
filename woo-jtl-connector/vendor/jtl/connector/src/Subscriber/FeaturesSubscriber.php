@@ -33,6 +33,8 @@ class FeaturesSubscriber implements EventSubscriberInterface
 
     /**
      * @param FeaturesEvent $event
+     *
+     * @return void
      */
     public function setNeedsFinishCallActive(FeaturesEvent $event): void
     {

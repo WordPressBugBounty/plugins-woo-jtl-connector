@@ -4,9 +4,13 @@ declare(strict_types=1);
 
 namespace Jtl\Connector\Core\Http;
 
+use Doctrine\Common\Annotations\AnnotationException;
 use InvalidArgumentException;
 use Jawira\CaseConverter\CaseConverterException;
+use JMS\Serializer\Exception\LogicException;
+use JMS\Serializer\Exception\NotAcceptableException;
 use JMS\Serializer\Exception\RuntimeException;
+use JMS\Serializer\Exception\UnsupportedFormatException;
 use JMS\Serializer\Serializer;
 use Jtl\Connector\Core\Definition\Event;
 use Jtl\Connector\Core\Event\RpcEvent;
@@ -34,15 +38,16 @@ class JsonResponse extends SymfonyJsonResponse implements LoggerAwareInterface
      * @param Serializer                          $serializer
      * @param mixed|null                          $data
      * @param int                                 $status
-     * @param array<string, null|string|string[]> $headers
+     * @param array<string, string|string[]|null> $headers
      * @param bool                                $json
      *
+     * @throws InvalidArgumentException
      * @throws TypeError
      */
     public function __construct(
         EventDispatcher $eventDispatcher,
         Serializer      $serializer,
-        $data = null,
+        mixed           $data = null,
         int             $status = 200,
         array           $headers = [],
         bool            $json = false
@@ -57,13 +62,19 @@ class JsonResponse extends SymfonyJsonResponse implements LoggerAwareInterface
      * @param RequestPacket  $requestPacket
      * @param ResponsePacket $responsePacket
      *
-     * @return JsonResponse
-     * @throws DefinitionException
+     * @return $this
      * @throws CaseConverterException
+     * @throws DefinitionException
      * @throws InvalidArgumentException
      * @throws RuntimeException
+     * @throws AnnotationException
+     * @throws \JMS\Serializer\Exception\InvalidArgumentException
+     * @throws LogicException
+     * @throws NotAcceptableException
+     * @throws UnsupportedFormatException
+     * @throws \Psr\Log\InvalidArgumentException
      */
-    public function prepareAndSend(RequestPacket $requestPacket, ResponsePacket $responsePacket): JsonResponse
+    public function prepareAndSend(RequestPacket $requestPacket, ResponsePacket $responsePacket): self
     {
         $method       = Method::createFromRpcMethod($requestPacket->getMethod());
         $responseData = $responsePacket->toArray($this->serializer);
@@ -79,7 +90,7 @@ class JsonResponse extends SymfonyJsonResponse implements LoggerAwareInterface
     /**
      * @param LoggerInterface $logger
      *
-     * @retrun void
+     * @return void
      */
     public function setLogger(LoggerInterface $logger): void
     {

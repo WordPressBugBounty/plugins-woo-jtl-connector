@@ -12,56 +12,44 @@ use JMS\Serializer\Annotation as Serializer;
  * @access     public
  * @package    Jtl\Connector\Core\Model
  * @subpackage Product
- * @Serializer\AccessType("public_method")
  */
+#[Serializer\AccessType(['value' => 'public_method'])]
 class SpecificValueI18n extends AbstractI18n
 {
-    /**
-     * @var string Optional localized description
-     * @Serializer\Type("string")
-     * @Serializer\SerializedName("description")
-     * @Serializer\Accessor(getter="getDescription",setter="setDescription")
-     */
+    /** @var string Optional localized description */
+    #[Serializer\Type('string')]
+    #[Serializer\SerializedName('description')]
+    #[Serializer\Accessor(getter: 'getDescription', setter: 'setDescription')]
     protected string $description = '';
 
-    /**
-     * @var string Optional localized meta description value
-     * @Serializer\Type("string")
-     * @Serializer\SerializedName("metaDescription")
-     * @Serializer\Accessor(getter="getMetaDescription",setter="setMetaDescription")
-     */
+    /** @var string Optional localized meta description value */
+    #[Serializer\Type('string')]
+    #[Serializer\SerializedName('metaDescription')]
+    #[Serializer\Accessor(getter: 'getMetaDescription', setter: 'setMetaDescription')]
     protected string $metaDescription = '';
 
-    /**
-     * @var string Optional localized meta keywords value
-     * @Serializer\Type("string")
-     * @Serializer\SerializedName("metaKeywords")
-     * @Serializer\Accessor(getter="getMetaKeywords",setter="setMetaKeywords")
-     */
+    /** @var string Optional localized meta keywords value */
+    #[Serializer\Type('string')]
+    #[Serializer\SerializedName('metaKeywords')]
+    #[Serializer\Accessor(getter: 'getMetaKeywords', setter: 'setMetaKeywords')]
     protected string $metaKeywords = '';
 
-    /**
-     * @var string Optional localized title tag value
-     * @Serializer\Type("string")
-     * @Serializer\SerializedName("titleTag")
-     * @Serializer\Accessor(getter="getTitleTag",setter="setTitleTag")
-     */
+    /** @var string Optional localized title tag value */
+    #[Serializer\Type('string')]
+    #[Serializer\SerializedName('titleTag')]
+    #[Serializer\Accessor(getter: 'getTitleTag', setter: 'setTitleTag')]
     protected string $titleTag = '';
 
-    /**
-     * @var string Optional localized URL path
-     * @Serializer\Type("string")
-     * @Serializer\SerializedName("urlPath")
-     * @Serializer\Accessor(getter="getUrlPath",setter="setUrlPath")
-     */
+    /** @var string Optional localized URL path */
+    #[Serializer\Type('string')]
+    #[Serializer\SerializedName('urlPath')]
+    #[Serializer\Accessor(getter: 'getUrlPath', setter: 'setUrlPath')]
     protected string $urlPath = '';
 
-    /**
-     * @var string Localized value
-     * @Serializer\Type("string")
-     * @Serializer\SerializedName("value")
-     * @Serializer\Accessor(getter="getValue",setter="setValue")
-     */
+    /** @var string Localized value */
+    #[Serializer\Type('string')]
+    #[Serializer\SerializedName('value')]
+    #[Serializer\Accessor(getter: 'getValue', setter: 'setValue')]
     protected string $value = '';
 
     /**
@@ -75,9 +63,9 @@ class SpecificValueI18n extends AbstractI18n
     /**
      * @param string $description Optional localized description
      *
-     * @return SpecificValueI18n
+     * @return $this
      */
-    public function setDescription(string $description): SpecificValueI18n
+    public function setDescription(string $description): self
     {
         $this->description = $description;
 
@@ -95,9 +83,9 @@ class SpecificValueI18n extends AbstractI18n
     /**
      * @param string $metaDescription Optional localized meta description value
      *
-     * @return SpecificValueI18n
+     * @return $this
      */
-    public function setMetaDescription(string $metaDescription): SpecificValueI18n
+    public function setMetaDescription(string $metaDescription): self
     {
         $this->metaDescription = $metaDescription;
 
@@ -115,9 +103,9 @@ class SpecificValueI18n extends AbstractI18n
     /**
      * @param string $metaKeywords Optional localized meta keywords value
      *
-     * @return SpecificValueI18n
+     * @return $this
      */
-    public function setMetaKeywords(string $metaKeywords): SpecificValueI18n
+    public function setMetaKeywords(string $metaKeywords): self
     {
         $this->metaKeywords = $metaKeywords;
 
@@ -135,9 +123,9 @@ class SpecificValueI18n extends AbstractI18n
     /**
      * @param string $titleTag Optional localized title tag value
      *
-     * @return SpecificValueI18n
+     * @return $this
      */
-    public function setTitleTag(string $titleTag): SpecificValueI18n
+    public function setTitleTag(string $titleTag): self
     {
         $this->titleTag = $titleTag;
 
@@ -155,9 +143,9 @@ class SpecificValueI18n extends AbstractI18n
     /**
      * @param string $urlPath Optional localized URL path
      *
-     * @return SpecificValueI18n
+     * @return $this
      */
-    public function setUrlPath(string $urlPath): SpecificValueI18n
+    public function setUrlPath(string $urlPath): self
     {
         $this->urlPath = $urlPath;
 
@@ -175,9 +163,9 @@ class SpecificValueI18n extends AbstractI18n
     /**
      * @param string $value Localized value
      *
-     * @return SpecificValueI18n
+     * @return $this
      */
-    public function setValue(string $value): SpecificValueI18n
+    public function setValue(string $value): self
     {
         $this->value = $value;
 

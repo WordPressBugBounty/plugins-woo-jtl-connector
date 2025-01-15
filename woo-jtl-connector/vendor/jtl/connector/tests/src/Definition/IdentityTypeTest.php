@@ -22,6 +22,7 @@ class IdentityTypeTest extends TestCase
      * @param int  $type
      * @param bool $shouldBeIdentityType
      *
+     * @return void
      * @throws ExpectationFailedException
      * @throws InvalidArgumentException
      */

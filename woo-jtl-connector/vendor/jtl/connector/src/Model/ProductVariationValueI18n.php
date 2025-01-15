@@ -12,16 +12,14 @@ use JMS\Serializer\Annotation as Serializer;
  * @access     public
  * @package    Jtl\Connector\Core\Model
  * @subpackage Product
- * @Serializer\AccessType("public_method")
  */
+#[Serializer\AccessType(['value' => 'public_method'])]
 class ProductVariationValueI18n extends AbstractI18n
 {
-    /**
-     * @var string Locale specific variationValue name
-     * @Serializer\Type("string")
-     * @Serializer\SerializedName("name")
-     * @Serializer\Accessor(getter="getName",setter="setName")
-     */
+    /** @var string Locale specific variationValue name */
+    #[Serializer\Type('string')]
+    #[Serializer\SerializedName('name')]
+    #[Serializer\Accessor(getter: 'getName', setter: 'setName')]
     protected string $name = '';
 
     /**
@@ -35,9 +33,9 @@ class ProductVariationValueI18n extends AbstractI18n
     /**
      * @param string $name Locale specific variationValue name
      *
-     * @return ProductVariationValueI18n
+     * @return $this
      */
-    public function setName(string $name): ProductVariationValueI18n
+    public function setName(string $name): self
     {
         $this->name = $name;
 

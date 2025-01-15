@@ -12,48 +12,38 @@ use JMS\Serializer\Annotation as Serializer;
  * @access     public
  * @package    Jtl\Connector\Core\Model
  * @subpackage Product
- * @Serializer\AccessType("public_method")
  */
+#[Serializer\AccessType(['value' => 'public_method'])]
 class Manufacturer extends AbstractIdentity
 {
-    /**
-     * @var string Manufacturer (brand) name
-     * @Serializer\Type("string")
-     * @Serializer\SerializedName("name")
-     * @Serializer\Accessor(getter="getName",setter="setName")
-     */
+    /** @var string Manufacturer (brand) name */
+    #[Serializer\Type('string')]
+    #[Serializer\SerializedName('name')]
+    #[Serializer\Accessor(getter: 'getName', setter: 'setName')]
     protected string $name = '';
 
-    /**
-     * @var integer Optional sort number
-     * @Serializer\Type("integer")
-     * @Serializer\SerializedName("sort")
-     * @Serializer\Accessor(getter="getSort",setter="setSort")
-     */
+    /** @var int Optional sort number */
+    #[Serializer\Type('integer')]
+    #[Serializer\SerializedName('sort')]
+    #[Serializer\Accessor(getter: 'getSort', setter: 'setSort')]
     protected int $sort = 0;
 
-    /**
-     * @var string Optional url path e.g. 'Products-manufactured-by-X'
-     * @Serializer\Type("string")
-     * @Serializer\SerializedName("urlPath")
-     * @Serializer\Accessor(getter="getUrlPath",setter="setUrlPath")
-     */
+    /** @var string Optional url path e.g. 'Products-manufactured-by-X' */
+    #[Serializer\Type('string')]
+    #[Serializer\SerializedName('urlPath')]
+    #[Serializer\Accessor(getter: 'getUrlPath', setter: 'setUrlPath')]
     protected string $urlPath = '';
 
-    /**
-     * @var string Optional manufacturer website URL
-     * @Serializer\Type("string")
-     * @Serializer\SerializedName("websiteUrl")
-     * @Serializer\Accessor(getter="getWebsiteUrl",setter="setWebsiteUrl")
-     */
+    /** @var string Optional manufacturer website URL */
+    #[Serializer\Type('string')]
+    #[Serializer\SerializedName('websiteUrl')]
+    #[Serializer\Accessor(getter: 'getWebsiteUrl', setter: 'setWebsiteUrl')]
     protected string $websiteUrl = '';
 
-    /**
-     * @var ManufacturerI18n[]
-     * @Serializer\Type("array<Jtl\Connector\Core\Model\ManufacturerI18n>")
-     * @Serializer\SerializedName("i18ns")
-     * @Serializer\AccessType("reflection")
-     */
+    /** @var ManufacturerI18n[] */
+    #[Serializer\Type('array<Jtl\Connector\Core\Model\ManufacturerI18n>')]
+    #[Serializer\SerializedName('i18ns')]
+    #[Serializer\AccessType(['value' => 'reflection'])]
     protected array $i18ns = [];
 
     /**
@@ -67,7 +57,7 @@ class Manufacturer extends AbstractIdentity
     /**
      * @param string $name Manufacturer (brand) name
      *
-     * @return Manufacturer
+     * @return $this
      */
     public function setName(string $name): self
     {
@@ -78,7 +68,7 @@ class Manufacturer extends AbstractIdentity
     }
 
     /**
-     * @return integer Optional sort number
+     * @return int Optional sort number
      */
     public function getSort(): int
     {
@@ -86,9 +76,9 @@ class Manufacturer extends AbstractIdentity
     }
 
     /**
-     * @param integer $sort Optional sort number
+     * @param int $sort Optional sort number
      *
-     * @return Manufacturer
+     * @return $this
      */
     public function setSort(int $sort): self
     {
@@ -108,7 +98,7 @@ class Manufacturer extends AbstractIdentity
     /**
      * @param string $urlPath Optional url path e.g. 'Products-manufactured-by-X'
      *
-     * @return Manufacturer
+     * @return $this
      */
     public function setUrlPath(string $urlPath): self
     {
@@ -128,7 +118,7 @@ class Manufacturer extends AbstractIdentity
     /**
      * @param string $websiteUrl Optional manufacturer website URL
      *
-     * @return Manufacturer
+     * @return $this
      */
     public function setWebsiteUrl(string $websiteUrl): self
     {
@@ -160,7 +150,7 @@ class Manufacturer extends AbstractIdentity
     /**
      * @param ManufacturerI18n ...$i18ns
      *
-     * @return Manufacturer
+     * @return $this
      */
     public function setI18ns(ManufacturerI18n ...$i18ns): self
     {
@@ -170,7 +160,7 @@ class Manufacturer extends AbstractIdentity
     }
 
     /**
-     * @return Manufacturer
+     * @return $this
      */
     public function clearI18ns(): self
     {

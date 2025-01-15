@@ -10,44 +10,32 @@ use JMS\Serializer\Annotation as Serializer;
  * @access     public
  * @package    Jtl\Connector\Core\Model
  * @subpackage Product
- * @Serializer\AccessType("public_method")
  */
+#[Serializer\AccessType(['value' => 'public_method'])]
 class ConnectorServerInfo extends AbstractModel
 {
-    /**
-     * @var integer
-     * @Serializer\Type("integer")
-     * @Serializer\SerializedName("memoryLimit")
-     * @Serializer\Accessor(getter="getMemoryLimit",setter="setMemoryLimit")
-     */
+    #[Serializer\Type('integer')]
+    #[Serializer\SerializedName('memoryLimit')]
+    #[Serializer\Accessor(getter: 'getMemoryLimit', setter: 'setMemoryLimit')]
     protected int $memoryLimit = 0;
 
-    /**
-     * @var integer
-     * @Serializer\Type("integer")
-     * @Serializer\SerializedName("executionTime")
-     * @Serializer\Accessor(getter="getExecutionTime",setter="setExecutionTime")
-     */
+    #[Serializer\Type('integer')]
+    #[Serializer\SerializedName('executionTime')]
+    #[Serializer\Accessor(getter: 'getExecutionTime', setter: 'setExecutionTime')]
     protected int $executionTime = 0;
 
-    /**
-     * @var integer
-     * @Serializer\Type("integer")
-     * @Serializer\SerializedName("postMaxSize")
-     * @Serializer\Accessor(getter="getPostMaxSize",setter="setPostMaxSize")
-     */
+    #[Serializer\Type('integer')]
+    #[Serializer\SerializedName('postMaxSize')]
+    #[Serializer\Accessor(getter: 'getPostMaxSize', setter: 'setPostMaxSize')]
     protected int $postMaxSize = 0;
 
-    /**
-     * @var integer
-     * @Serializer\Type("integer")
-     * @Serializer\SerializedName("uploadMaxFilesize")
-     * @Serializer\Accessor(getter="getUploadMaxFilesize",setter="setUploadMaxFilesize")
-     */
+    #[Serializer\Type('integer')]
+    #[Serializer\SerializedName('uploadMaxFilesize')]
+    #[Serializer\Accessor(getter: 'getUploadMaxFilesize', setter: 'setUploadMaxFilesize')]
     protected int $uploadMaxFilesize = 0;
 
     /**
-     * @return integer
+     * @return int
      */
     public function getMemoryLimit(): int
     {
@@ -55,11 +43,11 @@ class ConnectorServerInfo extends AbstractModel
     }
 
     /**
-     * @param integer $memoryLimit
+     * @param int $memoryLimit
      *
-     * @return ConnectorServerInfo
+     * @return $this
      */
-    public function setMemoryLimit(int $memoryLimit): ConnectorServerInfo
+    public function setMemoryLimit(int $memoryLimit): self
     {
         $this->memoryLimit = $memoryLimit;
 
@@ -75,11 +63,11 @@ class ConnectorServerInfo extends AbstractModel
     }
 
     /**
-     * @param integer $executionTime
+     * @param int $executionTime
      *
-     * @return ConnectorServerInfo
+     * @return $this
      */
-    public function setExecutionTime(int $executionTime): ConnectorServerInfo
+    public function setExecutionTime(int $executionTime): self
     {
         $this->executionTime = $executionTime;
 
@@ -95,11 +83,11 @@ class ConnectorServerInfo extends AbstractModel
     }
 
     /**
-     * @param integer $postMaxSize
+     * @param int $postMaxSize
      *
-     * @return ConnectorServerInfo
+     * @return $this
      */
-    public function setPostMaxSize(int $postMaxSize): ConnectorServerInfo
+    public function setPostMaxSize(int $postMaxSize): self
     {
         $this->postMaxSize = $postMaxSize;
 
@@ -115,11 +103,11 @@ class ConnectorServerInfo extends AbstractModel
     }
 
     /**
-     * @param integer $uploadMaxFilesize
+     * @param int $uploadMaxFilesize
      *
-     * @return ConnectorServerInfo
+     * @return $this
      */
-    public function setUploadMaxFilesize(int $uploadMaxFilesize): ConnectorServerInfo
+    public function setUploadMaxFilesize(int $uploadMaxFilesize): self
     {
         $this->uploadMaxFilesize = $uploadMaxFilesize;
 

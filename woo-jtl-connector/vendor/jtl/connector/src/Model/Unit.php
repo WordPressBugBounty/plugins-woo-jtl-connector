@@ -12,24 +12,22 @@ use JMS\Serializer\Annotation as Serializer;
  * @access     public
  * @package    Jtl\Connector\Core\Model
  * @subpackage Product
- * @Serializer\AccessType("public_method")
  */
+#[Serializer\AccessType(['value' => 'public_method'])]
 class Unit extends AbstractIdentity
 {
-    /**
-     * @var UnitI18n[]
-     * @Serializer\Type("array<Jtl\Connector\Core\Model\UnitI18n>")
-     * @Serializer\SerializedName("i18ns")
-     * @Serializer\AccessType("reflection")
-     */
+    /** @var UnitI18n[] */
+    #[Serializer\Type('array<Jtl\Connector\Core\Model\UnitI18n>')]
+    #[Serializer\SerializedName('i18ns')]
+    #[Serializer\AccessType(['value' => 'reflection'])]
     protected array $i18ns = [];
 
     /**
      * @param UnitI18n $i18n
      *
-     * @return Unit
+     * @return $this
      */
-    public function addI18n(UnitI18n $i18n): Unit
+    public function addI18n(UnitI18n $i18n): self
     {
         $this->i18ns[] = $i18n;
 
@@ -47,9 +45,9 @@ class Unit extends AbstractIdentity
     /**
      * @param UnitI18n ...$i18ns
      *
-     * @return Unit
+     * @return $this
      */
-    public function setI18ns(UnitI18n ...$i18ns): Unit
+    public function setI18ns(UnitI18n ...$i18ns): self
     {
         $this->i18ns = $i18ns;
 
@@ -57,9 +55,9 @@ class Unit extends AbstractIdentity
     }
 
     /**
-     * @return Unit
+     * @return $this
      */
-    public function clearI18ns(): Unit
+    public function clearI18ns(): self
     {
         $this->i18ns = [];
 

@@ -9,9 +9,6 @@ use Symfony\Contracts\EventDispatcher\Event;
 
 class StatusChangeEvent extends Event
 {
-    /**
-     * @var StatusChange
-     */
     protected StatusChange $statusChange;
 
     /**

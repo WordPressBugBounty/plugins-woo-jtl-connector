@@ -9,9 +9,6 @@ use Symfony\Contracts\EventDispatcher\Event;
 
 class RequestEvent extends Event
 {
-    /**
-     * @var Request
-     */
     protected Request $request;
 
     /**

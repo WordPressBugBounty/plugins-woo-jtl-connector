@@ -15,40 +15,32 @@ use TypeError;
  * @access     public
  * @package    Jtl\Connector\Core\Model
  * @subpackage Product
- * @Serializer\AccessType("public_method")
  */
-class ProductPrice extends AbstractIdentity
+#[Serializer\AccessType(['value' => 'public_method'])]
+class ProductPrice extends AbstractIdentity implements ItemsInterface
 {
-    /**
-     * @var Identity Reference to customerGroup
-     * @Serializer\Type("Jtl\Connector\Core\Model\Identity")
-     * @Serializer\SerializedName("customerGroupId")
-     * @Serializer\Accessor(getter="getCustomerGroupId",setter="setCustomerGroupId")
-     */
+    /** @var Identity Reference to customerGroup */
+    #[Serializer\Type(Identity::class)]
+    #[Serializer\SerializedName('customerGroupId')]
+    #[Serializer\Accessor(getter: 'getCustomerGroupId', setter: 'setCustomerGroupId')]
     protected Identity $customerGroupId;
 
-    /**
-     * @var Identity Reference to customer
-     * @Serializer\Type("Jtl\Connector\Core\Model\Identity")
-     * @Serializer\SerializedName("customerId")
-     * @Serializer\Accessor(getter="getCustomerId",setter="setCustomerId")
-     */
+    /** @var Identity Reference to customer */
+    #[Serializer\Type(Identity::class)]
+    #[Serializer\SerializedName('customerId')]
+    #[Serializer\Accessor(getter: 'getCustomerId', setter: 'setCustomerId')]
     protected Identity $customerId;
 
-    /**
-     * @var Identity Reference to product
-     * @Serializer\Type("Jtl\Connector\Core\Model\Identity")
-     * @Serializer\SerializedName("productId")
-     * @Serializer\Accessor(getter="getProductId",setter="setProductId")
-     */
+    /** @var Identity Reference to product */
+    #[Serializer\Type(Identity::class)]
+    #[Serializer\SerializedName('productId')]
+    #[Serializer\Accessor(getter: 'getProductId', setter: 'setProductId')]
     protected Identity $productId;
 
-    /**
-     * @var ProductPriceItem[]
-     * @Serializer\Type("array<Jtl\Connector\Core\Model\ProductPriceItem>")
-     * @Serializer\SerializedName("items")
-     * @Serializer\AccessType("reflection")
-     */
+    /** @var ProductPriceItem[] */
+    #[Serializer\Type('array<Jtl\Connector\Core\Model\ProductPriceItem>')]
+    #[Serializer\SerializedName('items')]
+    #[Serializer\AccessType(['value' => 'reflection'])]
     protected array $items = [];
 
     /**
@@ -78,9 +70,9 @@ class ProductPrice extends AbstractIdentity
     /**
      * @param Identity $customerGroupId Reference to customerGroup
      *
-     * @return ProductPrice
+     * @return $this
      */
-    public function setCustomerGroupId(Identity $customerGroupId): ProductPrice
+    public function setCustomerGroupId(Identity $customerGroupId): self
     {
         $this->customerGroupId = $customerGroupId;
 
@@ -100,9 +92,9 @@ class ProductPrice extends AbstractIdentity
     /**
      * @param Identity $customerId Reference to customer
      *
-     * @return ProductPrice
+     * @return $this
      */
-    public function setCustomerId(Identity $customerId): ProductPrice
+    public function setCustomerId(Identity $customerId): self
     {
         $this->customerId = $customerId;
 
@@ -122,9 +114,9 @@ class ProductPrice extends AbstractIdentity
     /**
      * @param Identity $productId Reference to product
      *
-     * @return ProductPrice
+     * @return $this
      */
-    public function setProductId(Identity $productId): ProductPrice
+    public function setProductId(Identity $productId): self
     {
         $this->productId = $productId;
 
@@ -132,11 +124,13 @@ class ProductPrice extends AbstractIdentity
     }
 
     /**
-     * @param ProductPriceItem $item
+     * @phpstan-param ProductPriceItem $item
      *
-     * @return ProductPrice
+     * @param AbstractModel $item
+     *
+     * @return $this
      */
-    public function addItem(ProductPriceItem $item): ProductPrice
+    public function addItem(AbstractModel $item): self
     {
         $this->items[] = $item;
 
@@ -152,11 +146,13 @@ class ProductPrice extends AbstractIdentity
     }
 
     /**
-     * @param ProductPriceItem ...$items
+     * @phpstan-param ProductPriceItem ...$items
      *
-     * @return ProductPrice
+     * @param AbstractModel ...$items
+     *
+     * @return $this
      */
-    public function setItems(ProductPriceItem ...$items): ProductPrice
+    public function setItems(AbstractModel ...$items): self
     {
         $this->items = $items;
 
@@ -164,9 +160,9 @@ class ProductPrice extends AbstractIdentity
     }
 
     /**
-     * @return ProductPrice
+     * @inheritDoc
      */
-    public function clearItems(): ProductPrice
+    public function clearItems(): self
     {
         $this->items = [];
 

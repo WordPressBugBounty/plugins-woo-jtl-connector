@@ -9,9 +9,6 @@ use Symfony\Contracts\EventDispatcher\Event;
 
 class ConnectorIdentificationEvent extends Event
 {
-    /**
-     * @var ConnectorIdentification
-     */
     protected ConnectorIdentification $connectorIdentification;
 
     /**

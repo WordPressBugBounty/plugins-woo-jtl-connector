@@ -12,32 +12,23 @@ use Jtl\Connector\Core\Utilities\Validator\Validate;
  * @access     public
  * @package    Jtl\Connector\Core\Model
  * @subpackage Product
- * @Serializer\AccessType("public_method")
  */
+#[Serializer\AccessType(['value' => 'public_method'])]
 class StatusChange extends AbstractModel
 {
-    /**
-     * @var Identity
-     * @Serializer\Type("Jtl\Connector\Core\Model\Identity")
-     * @Serializer\SerializedName("customerOrderId")
-     * @Serializer\Accessor(getter="getCustomerOrderId",setter="setCustomerOrderId")
-     */
+    #[Serializer\Type(Identity::class)]
+    #[Serializer\SerializedName('customerOrderId')]
+    #[Serializer\Accessor(getter: 'getCustomerOrderId', setter: 'setCustomerOrderId')]
     protected Identity $customerOrderId;
 
-    /**
-     * @var string
-     * @Serializer\Type("string")
-     * @Serializer\SerializedName("orderStatus")
-     * @Serializer\Accessor(getter="getOrderStatus",setter="setOrderStatus")
-     */
+    #[Serializer\Type('string')]
+    #[Serializer\SerializedName('orderStatus')]
+    #[Serializer\Accessor(getter: 'getOrderStatus', setter: 'setOrderStatus')]
     protected string $orderStatus = '';
 
-    /**
-     * @var string
-     * @Serializer\Type("string")
-     * @Serializer\SerializedName("paymentStatus")
-     * @Serializer\Accessor(getter="getPaymentStatus",setter="setPaymentStatus")
-     */
+    #[Serializer\Type('string')]
+    #[Serializer\SerializedName('paymentStatus')]
+    #[Serializer\Accessor(getter: 'getPaymentStatus', setter: 'setPaymentStatus')]
     protected string $paymentStatus = '';
 
     /**
@@ -59,7 +50,7 @@ class StatusChange extends AbstractModel
     /**
      * @param Identity $customerOrderId
      *
-     * @return StatusChange
+     * @return $this
      */
     public function setCustomerOrderId(Identity $customerOrderId): self
     {
@@ -79,7 +70,7 @@ class StatusChange extends AbstractModel
     /**
      * @param string $orderStatus
      *
-     * @return StatusChange
+     * @return $this
      */
     public function setOrderStatus(string $orderStatus): self
     {
@@ -99,7 +90,7 @@ class StatusChange extends AbstractModel
     /**
      * @param string $paymentStatus
      *
-     * @return StatusChange
+     * @return $this
      */
     public function setPaymentStatus(string $paymentStatus): self
     {

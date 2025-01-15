@@ -12,6 +12,7 @@ use Jtl\Connector\Dbc\Query\QueryBuilder;
 use Jtl\Connector\Dbc\Schema\TableRestriction;
 use Jtl\Connector\MappingTables\Validator;
 use PHPUnit\Framework\ExpectationFailedException;
+use SebastianBergmann\RecursionContext\InvalidArgumentException;
 use Throwable;
 
 class ConnectionTest extends TestCase
@@ -20,16 +21,16 @@ class ConnectionTest extends TestCase
 
     /**
      * @return void
-     * @throws \Doctrine\DBAL\DBALException
+     * @throws DBALException
+     * @throws DbcRuntimeException
+     * @throws Exception
+     * @throws ExpectationFailedException
+     * @throws InvalidArgumentException
+     * @throws SchemaException
      * @throws \Doctrine\DBAL\Driver\Exception
-     * @throws \Doctrine\DBAL\Exception
-     * @throws \Doctrine\DBAL\Schema\SchemaException
-     * @throws \Jtl\Connector\Dbc\DbcRuntimeException
      * @throws \PDOException
      * @throws \PHPUnit\Framework\Exception
-     * @throws \PHPUnit\Framework\ExpectationFailedException
      * @throws \RuntimeException
-     * @throws \SebastianBergmann\RecursionContext\InvalidArgumentException
      */
     public function testInsertWithTableRestriction(): void
     {
@@ -63,16 +64,16 @@ class ConnectionTest extends TestCase
 
     /**
      * @return void
-     * @throws \Doctrine\DBAL\DBALException
+     * @throws DBALException
+     * @throws DbcRuntimeException
+     * @throws Exception
+     * @throws ExpectationFailedException
+     * @throws InvalidArgumentException
+     * @throws SchemaException
      * @throws \Doctrine\DBAL\Driver\Exception
-     * @throws \Doctrine\DBAL\Exception
-     * @throws \Doctrine\DBAL\Schema\SchemaException
-     * @throws \Jtl\Connector\Dbc\DbcRuntimeException
      * @throws \PDOException
      * @throws \PHPUnit\Framework\Exception
-     * @throws \PHPUnit\Framework\ExpectationFailedException
      * @throws \RuntimeException
-     * @throws \SebastianBergmann\RecursionContext\InvalidArgumentException
      */
     public function testUpdateWithTableRestriction(): void
     {
@@ -107,14 +108,16 @@ class ConnectionTest extends TestCase
 
     /**
      * @return void
-     * @throws \Doctrine\DBAL\Exception
-     * @throws \Doctrine\DBAL\Schema\SchemaException
-     * @throws \Jtl\Connector\Dbc\DbcRuntimeException
+     * @throws DBALException
+     * @throws DbcRuntimeException
+     * @throws Exception
+     * @throws ExpectationFailedException
+     * @throws SchemaException
+     * @throws \Doctrine\DBAL\Driver\Exception
      * @throws \PDOException
      * @throws \PHPUnit\Framework\Exception
-     * @throws \PHPUnit\Framework\ExpectationFailedException
      * @throws \RuntimeException
-     * @throws \SebastianBergmann\RecursionContext\InvalidArgumentException
+     * @throws InvalidArgumentException
      */
     public function testDeleteWithTableRestriction(): void
     {
@@ -137,13 +140,15 @@ class ConnectionTest extends TestCase
 
     /**
      * @return void
-     * @throws \Doctrine\DBAL\Exception
-     * @throws \Doctrine\DBAL\Schema\SchemaException
-     * @throws \Jtl\Connector\Dbc\DbcRuntimeException
+     * @throws DBALException
+     * @throws DbcRuntimeException
+     * @throws Exception
+     * @throws ExpectationFailedException
+     * @throws InvalidArgumentException
+     * @throws SchemaException
+     * @throws \Doctrine\DBAL\Driver\Exception
      * @throws \PDOException
-     * @throws \PHPUnit\Framework\ExpectationFailedException
      * @throws \RuntimeException
-     * @throws \SebastianBergmann\RecursionContext\InvalidArgumentException
      */
     public function testDeleteWithTableRestrictionAndAdditionalIdentifier(): void
     {
@@ -156,11 +161,12 @@ class ConnectionTest extends TestCase
     }
 
     /**
+     * @return void
      * @throws DBALException
      * @throws ExpectationFailedException
      * @throws SchemaException
      * @throws DbcRuntimeException
-     * @throws \SebastianBergmann\RecursionContext\InvalidArgumentException
+     * @throws InvalidArgumentException
      */
     public function testHasTableRestriction(): void
     {
@@ -172,6 +178,7 @@ class ConnectionTest extends TestCase
     }
 
     /**
+     * @return void
      * @throws DBALException
      * @throws SchemaException
      * @throws \Exception
@@ -200,6 +207,7 @@ class ConnectionTest extends TestCase
     }
 
     /**
+     * @return void
      * @throws DBALException
      * @throws SchemaException
      * @throws \Exception
@@ -221,8 +229,9 @@ class ConnectionTest extends TestCase
     }
 
     /**
+     * @return void
      * @throws \PHPUnit\Framework\Exception
-     * @throws \SebastianBergmann\RecursionContext\InvalidArgumentException
+     * @throws InvalidArgumentException
      * @throws ExpectationFailedException
      */
     public function testCreateQueryBuilder(): void
@@ -231,12 +240,15 @@ class ConnectionTest extends TestCase
     }
 
     /**
+     * @return void
      * @throws DBALException
+     * @throws DbcRuntimeException
      * @throws Exception
      * @throws ExpectationFailedException
-     * @throws DbcRuntimeException
-     * @throws DbcRuntimeException
-     * @throws \SebastianBergmann\RecursionContext\InvalidArgumentException
+     * @throws InvalidArgumentException
+     * @throws \Doctrine\DBAL\Driver\Exception
+     * @throws \PDOException
+     * @throws \RuntimeException
      */
     public function testInsert(): void
     {
@@ -250,8 +262,15 @@ class ConnectionTest extends TestCase
     }
 
     /**
+     * @return void
      * @throws DBALException
-     * @throws \Exception
+     * @throws DbcRuntimeException
+     * @throws Exception
+     * @throws ExpectationFailedException
+     * @throws InvalidArgumentException
+     * @throws \Doctrine\DBAL\Driver\Exception
+     * @throws \PDOException
+     * @throws \RuntimeException
      */
     public function testMultiInsert(): void
     {
@@ -273,6 +292,7 @@ class ConnectionTest extends TestCase
     }
 
     /**
+     * @return void
      * @throws \Exception
      */
     public function testMultiInsertThrowsException(): void
@@ -290,12 +310,13 @@ class ConnectionTest extends TestCase
     }
 
     /**
-     * @throws DBALException
+     * @return void
+     * @throws DbcRuntimeException
      * @throws Exception
      * @throws ExpectationFailedException
-     * @throws DbcRuntimeException
+     * @throws InvalidArgumentException
      * @throws \PHPUnit\Framework\Exception
-     * @throws \SebastianBergmann\RecursionContext\InvalidArgumentException
+     * @throws \RuntimeException
      */
     public function testUpdateRow(): void
     {
@@ -333,13 +354,15 @@ class ConnectionTest extends TestCase
 
     /**
      * @return void
-     * @throws \Doctrine\DBAL\Exception
-     * @throws \Jtl\Connector\Dbc\DbcRuntimeException
+     * @throws DBALException
+     * @throws DbcRuntimeException
+     * @throws Exception
+     * @throws ExpectationFailedException
+     * @throws InvalidArgumentException
+     * @throws \Doctrine\DBAL\Driver\Exception
      * @throws \PDOException
      * @throws \PHPUnit\Framework\Exception
-     * @throws \PHPUnit\Framework\ExpectationFailedException
      * @throws \RuntimeException
-     * @throws \SebastianBergmann\RecursionContext\InvalidArgumentException
      */
     public function testDeleteRow(): void
     {
@@ -360,6 +383,7 @@ class ConnectionTest extends TestCase
     }
 
     /**
+     * @return void
      * @throws Exception
      * @throws DBALException
      * @throws \Exception

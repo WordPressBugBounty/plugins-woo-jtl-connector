@@ -4,9 +4,7 @@ declare(strict_types=1);
 
 namespace Jtl\Connector\Core\Model\Generator;
 
-use Exception;
 use Jtl\Connector\Core\Definition\IdentityType;
-use Jtl\Connector\Core\Model\AbstractI18n;
 use Jtl\Connector\Core\Model\Product;
 
 class ProductFactory extends AbstractModelFactory
@@ -19,7 +17,7 @@ class ProductFactory extends AbstractModelFactory
      * @return object[]
      * @throws \Exception
      */
-    public function makeOneProductVariant(array $i18ns = null): array
+    public function makeOneProductVariant(?array $i18ns = null): array
     {
         $data = $this->makeOneProductVariantArray($i18ns);
         return $this->make(\count($data), $data);
@@ -30,9 +28,9 @@ class ProductFactory extends AbstractModelFactory
      *
      * @return array<mixed>
      * @throws \RuntimeException
-     * @throws Exception
+     * @throws \Exception
      */
-    public function makeOneProductVariantArray(array $i18ns = null): array
+    public function makeOneProductVariantArray(?array $i18ns = null): array
     {
         $variationsQuantity = 2;
         if (\is_null($i18ns)) {
@@ -111,6 +109,7 @@ class ProductFactory extends AbstractModelFactory
 
     /**
      * @return array<string, mixed>
+     * @throws \RuntimeException
      * @throws \Exception
      */
     protected function makeFakeArray(): array
@@ -211,16 +210,17 @@ class ProductFactory extends AbstractModelFactory
             'upc'                         => $this->faker->uuid,
             'vat'                         => $taxRates[\random_int(0, $taxRatesMaxCount)]['rate'],
             'width'                       => $this->faker->randomFloat(2),
-            'attributes'                  => [],
+            'attributes'                  => $this->getFactory('TranslatableAttribute')->makeArray(\random_int(1, 3)),
             'categories'                  => $this->getFactory('Product2Category')->makeArray(\random_int(1, 3)),
-            'checksums'                   => [],
-            //'configGroups' => [],
-            //'customerGroupPackagingQuantities' => [],
+            'checksums'                   => $this->getFactory('Checksum')->makeArray(\random_int(1, 3)),
+            'configGroups'                => $this->getFactory('ProductConfigGroup')->makeArray(\random_int(1, 3)),
+            'customerGroupPackagingQuantities' => $this->getFactory('CustomerGroupPackagingQuantity')
+                ->makeArray(\random_int(1, 3)),
             //'fileDownloads' => [],
             'i18ns'                       => [$this->getFactory('ProductI18n')->makeOneArray()],
-            'invisibilities'              => [],
+            'invisibilities'              => $this->getFactory('ProductInvisibility')->makeArray(\random_int(1, 3)),
             'mediaFiles'                  => [],
-            'partsLists'                  => [],
+            'partsLists'                  => $this->getFactory('PartsList')->makeArray(\random_int(1, 3)),
             'prices'                      => [
                 $productPriceFactory
                     ->setWithBulkPrices(\random_int(0, 1) === 1)
@@ -230,7 +230,7 @@ class ProductFactory extends AbstractModelFactory
             'specifics'                   => [],
             'taxRates'                    => $taxRates,
             'variations'                  => [],
-            //'warehouseInfo' => [],
+            'warehouseInfo'               => $this->getFactory('ProductWarehouseInfo')->makeArray(\random_int(1, 3)),
         ];
     }
 

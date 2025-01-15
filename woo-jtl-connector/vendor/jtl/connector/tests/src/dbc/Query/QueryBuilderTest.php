@@ -18,27 +18,17 @@ use Throwable;
 
 class QueryBuilderTest extends TestCase
 {
-    /**
-     * @var QueryBuilder
-     */
     protected QueryBuilder $qb;
 
-    /**
-     * @var CoordinatesStub
-     */
     protected CoordinatesStub $coordsTable;
 
-    /**
-     * @var string
-     */
     protected string $tableExpression = 'yolo';
 
-    /**
-     * @var string[]
-     */
+    /** @var string[] */
     protected array $globalIdentifiers = ['foo' => 'bar'];
 
     /**
+     * @return void
      * @throws QueryException
      * @throws ExpectationFailedException
      * @throws InvalidArgumentException
@@ -59,6 +49,7 @@ class QueryBuilderTest extends TestCase
     }
 
     /**
+     * @return void
      * @throws QueryException
      * @throws ExpectationFailedException
      * @throws InvalidArgumentException
@@ -78,6 +69,7 @@ class QueryBuilderTest extends TestCase
     }
 
     /**
+     * @return void
      * @throws QueryException
      * @throws ExpectationFailedException
      * @throws InvalidArgumentException
@@ -112,6 +104,7 @@ class QueryBuilderTest extends TestCase
     }
 
     /**
+     * @return void
      * @throws QueryException
      * @throws ExpectationFailedException
      * @throws InvalidArgumentException
@@ -127,6 +120,7 @@ class QueryBuilderTest extends TestCase
     }
 
     /**
+     * @return void
      * @throws DBALException
      * @throws Exception
      * @throws ExpectationFailedException
@@ -163,6 +157,7 @@ class QueryBuilderTest extends TestCase
     }
 
     /**
+     * @return void
      * @throws DBALException
      * @throws ExpectationFailedException
      * @throws InvalidArgumentException
@@ -180,6 +175,7 @@ class QueryBuilderTest extends TestCase
     }
 
     /**
+     * @return void
      * @throws DBALException
      * @throws ExpectationFailedException
      * @throws InvalidArgumentException
@@ -198,6 +194,7 @@ class QueryBuilderTest extends TestCase
     }
 
     /**
+     * @return void
      * @throws DBALException
      * @throws ExpectationFailedException
      * @throws InvalidArgumentException
@@ -215,6 +212,7 @@ class QueryBuilderTest extends TestCase
     }
 
     /**
+     * @return void
      * @throws DBALException
      * @throws ExpectationFailedException
      * @throws InvalidArgumentException
@@ -232,6 +230,7 @@ class QueryBuilderTest extends TestCase
     }
 
     /**
+     * @return void
      * @throws DBALException
      * @throws ExpectationFailedException
      * @throws InvalidArgumentException
@@ -250,6 +249,7 @@ class QueryBuilderTest extends TestCase
     }
 
     /**
+     * @return void
      * @throws DBALException
      * @throws ExpectationFailedException
      * @throws InvalidArgumentException
@@ -267,6 +267,7 @@ class QueryBuilderTest extends TestCase
     }
 
     /**
+     * @return void
      * @throws DBALException
      * @throws ExpectationFailedException
      * @throws InvalidArgumentException
@@ -284,6 +285,7 @@ class QueryBuilderTest extends TestCase
     }
 
     /**
+     * @return void
      * @throws DBALException
      * @throws QueryException
      * @throws ExpectationFailedException
@@ -312,6 +314,7 @@ class QueryBuilderTest extends TestCase
     }
 
     /**
+     * @return void
      * @throws DBALException
      * @throws \Exception
      * @throws Throwable

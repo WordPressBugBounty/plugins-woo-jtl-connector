@@ -11,11 +11,19 @@ use Symfony\Component\EventDispatcher\EventDispatcher;
 
 class Bootstrap implements PluginInterface
 {
-    public function registerListener(
+    /**
+     * @param ConfigInterface $config
+     * @param Container       $container
+     * @param EventDispatcher $dispatcher
+     *
+     * @return mixed
+     */
+    public function registerListener( //phpcs:ignore
         ConfigInterface $config,
         Container       $container,
-        EventDispatcher $eventDispatcher
-    ): void {
+        EventDispatcher $dispatcher
+    ) {
         // TODO: Implement registerListener() method.
+        return null;
     }
 }

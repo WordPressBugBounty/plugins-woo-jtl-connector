@@ -28,6 +28,7 @@ use SebastianBergmann\RecursionContext\InvalidArgumentException;
 class Uuid4TypeTest extends TestCase
 {
     /**
+     * @return void
      * @throws InvalidMethodNameException
      * @throws ClassIsFinalException
      * @throws ExpectationFailedException
@@ -54,6 +55,7 @@ class Uuid4TypeTest extends TestCase
      * @param string $givenValue
      * @param string $convertedValue
      *
+     * @return void
      * @throws ClassAlreadyExistsException
      * @throws ClassIsFinalException
      * @throws ClassIsReadonlyException
@@ -81,6 +83,7 @@ class Uuid4TypeTest extends TestCase
      * @param string $givenValue
      * @param string $convertedValue
      *
+     * @return void
      * @throws ClassAlreadyExistsException
      * @throws ClassIsFinalException
      * @throws ClassIsReadonlyException
@@ -108,6 +111,7 @@ class Uuid4TypeTest extends TestCase
      * @param string           $columnExpresion
      * @param string           $expectedExpression
      *
+     * @return void
      * @throws ExpectationFailedException
      * @throws InvalidArgumentException
      */

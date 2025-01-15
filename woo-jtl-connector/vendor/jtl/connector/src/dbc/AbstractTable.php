@@ -16,14 +16,8 @@ use Jtl\Connector\Dbc\Schema\TableRestriction;
 
 abstract class AbstractTable
 {
-    /**
-     * @var DbManager
-     */
     protected DbManager $dbManager;
 
-    /**
-     * @var Table
-     */
     protected Table $tableSchema;
 
     /**
@@ -46,9 +40,9 @@ abstract class AbstractTable
      * @return int
      * @throws DBALException
      * @throws DbcRuntimeException
-     * @throws DbcRuntimeException
+     * @throws \RuntimeException
      */
-    public function insert(array $data, array $types = null): int
+    public function insert(array $data, ?array $types = null): int
     {
         if (\is_null($types)) {
             $types = $this->getColumnTypesFor(...\array_keys($data));
@@ -132,13 +126,15 @@ abstract class AbstractTable
 
     /**
      * @param Table $schemaTable
+     *
+     * @return void
      */
     protected function preCreateTableSchema(Table $schemaTable): void
     {
     }
 
     /**
-     * @param $tableSchema Table
+     * @param Table $tableSchema
      *
      * @return void
      */
@@ -146,6 +142,8 @@ abstract class AbstractTable
 
     /**
      * @param Table $schemaTable
+     *
+     * @return void
      */
     protected function postCreateTableSchema(Table $schemaTable): void
     {
@@ -172,10 +170,10 @@ abstract class AbstractTable
      * @param mixed[]       $identifiers
      * @param string[]|null $types
      *
-     * @return integer
+     * @return int
      * @throws DBALException
      * @throws DbcRuntimeException
-     * @throws DbcRuntimeException
+     * @throws \RuntimeException
      */
     public function update(array $data, array $identifiers, ?array $types = null): int
     {
@@ -193,11 +191,10 @@ abstract class AbstractTable
      *
      * @return int
      * @throws DBALException
-     * @throws InvalidArgumentException
      * @throws DbcRuntimeException
-     * @throws DbcRuntimeException
+     * @throws \RuntimeException
      */
-    public function delete(array $identifiers, array $types = null): int
+    public function delete(array $identifiers, ?array $types = null): int
     {
         if (\is_null($types)) {
             $types = $this->getColumnTypesFor(...\array_keys($identifiers));
@@ -223,7 +220,7 @@ abstract class AbstractTable
      * @return mixed
      * @throws Exception
      */
-    protected function convertToDatabaseValue(string $doctrineType, $phpValue)
+    protected function convertToDatabaseValue(string $doctrineType, mixed $phpValue): mixed
     {
         return Type::getType($doctrineType)->convertToDatabaseValue(
             $phpValue,
@@ -293,7 +290,7 @@ abstract class AbstractTable
      * @return QueryBuilder
      * @throws DbcRuntimeException
      */
-    protected function createQueryBuilder(string $tableAlias = null): QueryBuilder
+    protected function createQueryBuilder(?string $tableAlias = null): QueryBuilder
     {
         return new QueryBuilder(
             $this->getConnection(),
@@ -307,14 +304,15 @@ abstract class AbstractTable
      * @param string $column
      * @param mixed  $value
      *
-     * @return AbstractTable
+     * @return $this
      * @throws DbcRuntimeException
      * @throws DBALException
      * @throws SchemaException
      */
-    protected function restrict(string $column, $value): AbstractTable
+    protected function restrict(string $column, mixed $value): self
     {
         $this->getConnection()->restrictTable(new TableRestriction($this->getTableSchema(), $column, $value));
+
         return $this;
     }
 }

@@ -12,64 +12,50 @@ use JMS\Serializer\Annotation as Serializer;
  * @access     public
  * @package    Jtl\Connector\Core\Model
  * @subpackage Product
- * @Serializer\AccessType("public_method")
  */
+#[Serializer\AccessType(['value' => 'public_method'])]
 class ProductMediaFile extends AbstractIdentity
 {
-    /**
-     * @var string Optional media file category name
-     * @Serializer\Type("string")
-     * @Serializer\SerializedName("mediaFileCategory")
-     * @Serializer\Accessor(getter="getMediaFileCategory",setter="setMediaFileCategory")
-     */
+    /** @var string Optional media file category name */
+    #[Serializer\Type('string')]
+    #[Serializer\SerializedName('mediaFileCategory')]
+    #[Serializer\Accessor(getter: 'getMediaFileCategory', setter: 'setMediaFileCategory')]
     protected string $mediaFileCategory = '';
 
-    /**
-     * @var string File path
-     * @Serializer\Type("string")
-     * @Serializer\SerializedName("path")
-     * @Serializer\Accessor(getter="getPath",setter="setPath")
-     */
+    /** @var string File path */
+    #[Serializer\Type('string')]
+    #[Serializer\SerializedName('path')]
+    #[Serializer\Accessor(getter: 'getPath', setter: 'setPath')]
     protected string $path = '';
 
-    /**
-     * @var integer Optional sort number
-     * @Serializer\Type("integer")
-     * @Serializer\SerializedName("sort")
-     * @Serializer\Accessor(getter="getSort",setter="setSort")
-     */
+    /** @var int Optional sort number */
+    #[Serializer\Type('integer')]
+    #[Serializer\SerializedName('sort')]
+    #[Serializer\Accessor(getter: 'getSort', setter: 'setSort')]
     protected int $sort = 0;
 
-    /**
-     * @var string Media file type e.g. 'pdf'
-     * @Serializer\Type("string")
-     * @Serializer\SerializedName("type")
-     * @Serializer\Accessor(getter="getType",setter="setType")
-     */
+    /** @var string Media file type e.g. 'pdf' */
+    #[Serializer\Type('string')]
+    #[Serializer\SerializedName('type')]
+    #[Serializer\Accessor(getter: 'getType', setter: 'setType')]
     protected string $type = '';
 
-    /**
-     * @var string Complete URL
-     * @Serializer\Type("string")
-     * @Serializer\SerializedName("url")
-     * @Serializer\Accessor(getter="getUrl",setter="setUrl")
-     */
+    /** @var string Complete URL */
+    #[Serializer\Type('string')]
+    #[Serializer\SerializedName('url')]
+    #[Serializer\Accessor(getter: 'getUrl', setter: 'setUrl')]
     protected string $url = '';
 
-    /**
-     * @var ProductMediaFileAttr[]
-     * @Serializer\Type("array<Jtl\Connector\Core\Model\ProductMediaFileAttr>")
-     * @Serializer\SerializedName("attributes")
-     * @Serializer\AccessType("reflection")
-     */
+    /** @var ProductMediaFileAttr[] */
+    #[Serializer\Type('array<Jtl\Connector\Core\Model\ProductMediaFileAttr>')]
+    #[Serializer\SerializedName('attributes')]
+    #[Serializer\AccessType(['value' => 'reflection'])]
     protected array $attributes = [];
 
-    /**
-     * @var ProductMediaFileI18n[]
-     * @Serializer\Type("array<Jtl\Connector\Core\Model\ProductMediaFileI18n>")
-     * @Serializer\SerializedName("i18ns")
-     * @Serializer\AccessType("reflection")
-     */
+    /** @var ProductMediaFileI18n[] */
+    #[Serializer\Type('array<Jtl\Connector\Core\Model\ProductMediaFileI18n>')]
+    #[Serializer\SerializedName('i18ns')]
+    #[Serializer\AccessType(['value' => 'reflection'])]
     protected array $i18ns = [];
 
     /**
@@ -83,9 +69,9 @@ class ProductMediaFile extends AbstractIdentity
     /**
      * @param string $mediaFileCategory Optional media file category name
      *
-     * @return ProductMediaFile
+     * @return $this
      */
-    public function setMediaFileCategory(string $mediaFileCategory): ProductMediaFile
+    public function setMediaFileCategory(string $mediaFileCategory): self
     {
         $this->mediaFileCategory = $mediaFileCategory;
 
@@ -103,9 +89,9 @@ class ProductMediaFile extends AbstractIdentity
     /**
      * @param string $path File path
      *
-     * @return ProductMediaFile
+     * @return $this
      */
-    public function setPath(string $path): ProductMediaFile
+    public function setPath(string $path): self
     {
         $this->path = $path;
 
@@ -113,7 +99,7 @@ class ProductMediaFile extends AbstractIdentity
     }
 
     /**
-     * @return integer Optional sort number
+     * @return int Optional sort number
      */
     public function getSort(): int
     {
@@ -121,11 +107,11 @@ class ProductMediaFile extends AbstractIdentity
     }
 
     /**
-     * @param integer $sort Optional sort number
+     * @param int $sort Optional sort number
      *
-     * @return ProductMediaFile
+     * @return $this
      */
-    public function setSort(int $sort): ProductMediaFile
+    public function setSort(int $sort): self
     {
         $this->sort = $sort;
 
@@ -143,9 +129,9 @@ class ProductMediaFile extends AbstractIdentity
     /**
      * @param string $type Media file type e.g. 'pdf'
      *
-     * @return ProductMediaFile
+     * @return $this
      */
-    public function setType(string $type): ProductMediaFile
+    public function setType(string $type): self
     {
         $this->type = $type;
 
@@ -163,9 +149,9 @@ class ProductMediaFile extends AbstractIdentity
     /**
      * @param string $url Complete URL
      *
-     * @return ProductMediaFile
+     * @return $this
      */
-    public function setUrl(string $url): ProductMediaFile
+    public function setUrl(string $url): self
     {
         $this->url = $url;
 
@@ -175,9 +161,9 @@ class ProductMediaFile extends AbstractIdentity
     /**
      * @param ProductMediaFileAttr $attribute
      *
-     * @return ProductMediaFile
+     * @return $this
      */
-    public function addAttribute(ProductMediaFileAttr $attribute): ProductMediaFile
+    public function addAttribute(ProductMediaFileAttr $attribute): self
     {
         $this->attributes[] = $attribute;
 
@@ -195,9 +181,9 @@ class ProductMediaFile extends AbstractIdentity
     /**
      * @param ProductMediaFileAttr ...$attributes
      *
-     * @return ProductMediaFile
+     * @return $this
      */
-    public function setAttributes(ProductMediaFileAttr ...$attributes): ProductMediaFile
+    public function setAttributes(ProductMediaFileAttr ...$attributes): self
     {
         $this->attributes = $attributes;
 
@@ -205,9 +191,9 @@ class ProductMediaFile extends AbstractIdentity
     }
 
     /**
-     * @return ProductMediaFile
+     * @return $this
      */
-    public function clearAttributes(): ProductMediaFile
+    public function clearAttributes(): self
     {
         $this->attributes = [];
 
@@ -217,9 +203,9 @@ class ProductMediaFile extends AbstractIdentity
     /**
      * @param ProductMediaFileI18n $i18n
      *
-     * @return ProductMediaFile
+     * @return $this
      */
-    public function addI18n(ProductMediaFileI18n $i18n): ProductMediaFile
+    public function addI18n(ProductMediaFileI18n $i18n): self
     {
         $this->i18ns[] = $i18n;
 
@@ -237,9 +223,9 @@ class ProductMediaFile extends AbstractIdentity
     /**
      * @param ProductMediaFileI18n ...$i18ns
      *
-     * @return ProductMediaFile
+     * @return $this
      */
-    public function setI18ns(ProductMediaFileI18n ...$i18ns): ProductMediaFile
+    public function setI18ns(ProductMediaFileI18n ...$i18ns): self
     {
         $this->i18ns = $i18ns;
 
@@ -247,9 +233,9 @@ class ProductMediaFile extends AbstractIdentity
     }
 
     /**
-     * @return ProductMediaFile
+     * @return $this
      */
-    public function clearI18ns(): ProductMediaFile
+    public function clearI18ns(): self
     {
         $this->i18ns = [];
 

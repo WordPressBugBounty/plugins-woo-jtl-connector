@@ -33,7 +33,7 @@ class Request
      * @param mixed[] $params
      *
      * @return Request
-     * @deprecated
+     * @deprecated - check if still needed
      */
     public static function create(string $controller, string $action, array $params): self
     {
@@ -67,11 +67,12 @@ class Request
     /**
      * @param mixed[] $params
      *
-     * @return Request
+     * @return $this
      */
     public function setParams(array $params): self
     {
         $this->params = $params;
+
         return $this;
     }
 }

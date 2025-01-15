@@ -18,7 +18,7 @@ class DbcRuntimeException extends \RuntimeException
     /**
      * @param string $tableName
      *
-     * @return DbcRuntimeException
+     * @return self
      */
     public static function tableNotFound(string $tableName): self
     {
@@ -28,7 +28,7 @@ class DbcRuntimeException extends \RuntimeException
     /**
      * @param string $tableName
      *
-     * @return DbcRuntimeException
+     * @return self
      */
     public static function tableEmpty(string $tableName): self
     {
@@ -41,7 +41,7 @@ class DbcRuntimeException extends \RuntimeException
     /**
      * @param string $columnName
      *
-     * @return DbcRuntimeException
+     * @return self
      */
     public static function columnNotFound(string $columnName): self
     {
@@ -51,7 +51,7 @@ class DbcRuntimeException extends \RuntimeException
     /**
      * @param string $className
      *
-     * @return DbcRuntimeException
+     * @return self
      */
     public static function classNotFound(string $className): self
     {
@@ -61,7 +61,7 @@ class DbcRuntimeException extends \RuntimeException
     /**
      * @param string $className
      *
-     * @return DbcRuntimeException
+     * @return self
      */
     public static function classNotChildOfTable(string $className): self
     {
@@ -72,7 +72,7 @@ class DbcRuntimeException extends \RuntimeException
     }
 
     /**
-     * @return DbcRuntimeException
+     * @return self
      */
     public static function numericIndicesMissing(): self
     {

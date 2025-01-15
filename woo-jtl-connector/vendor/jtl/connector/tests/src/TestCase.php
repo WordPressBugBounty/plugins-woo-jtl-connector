@@ -9,8 +9,10 @@ use Faker\Generator;
 use Jtl\Connector\Core\Config\ArrayConfig;
 use Jtl\Connector\Core\Config\FileConfig;
 use Jtl\Connector\Core\Model\Identity;
+use Noodlehaus\Exception\EmptyDirectoryException;
 use org\bovigo\vfs\vfsStream;
 use org\bovigo\vfs\vfsStreamDirectory;
+use org\bovigo\vfs\vfsStreamException;
 use PHPUnit\Framework\ExpectationFailedException;
 use SebastianBergmann\RecursionContext\InvalidArgumentException;
 
@@ -136,6 +138,7 @@ class TestCase extends \Jtl\Connector\MappingTables\TestCase
      * @param string $extension
      *
      * @return FileConfig
+     * @throws EmptyDirectoryException
      */
     protected function createFileConfig(string $payload = '{}', string $extension = 'json'): FileConfig
     {
@@ -157,6 +160,8 @@ class TestCase extends \Jtl\Connector\MappingTables\TestCase
 
     /**
      * @return string
+     * @throws \InvalidArgumentException
+     * @throws vfsStreamException
      */
     protected function createFile(): string
     {
@@ -167,6 +172,8 @@ class TestCase extends \Jtl\Connector\MappingTables\TestCase
      * @param int $quantity
      *
      * @return array<int, string>
+     * @throws \InvalidArgumentException
+     * @throws vfsStreamException
      */
     protected function createFiles(int $quantity = 2): array
     {
@@ -185,6 +192,8 @@ class TestCase extends \Jtl\Connector\MappingTables\TestCase
 
     /**
      * @return vfsStreamDirectory
+     * @throws \InvalidArgumentException
+     * @throws vfsStreamException
      */
     protected function getRootDir(): vfsStreamDirectory
     {
@@ -195,7 +204,7 @@ class TestCase extends \Jtl\Connector\MappingTables\TestCase
     }
 
     /**
-     *
+     * @return void
      */
     protected function setUp(): void
     {
@@ -204,6 +213,7 @@ class TestCase extends \Jtl\Connector\MappingTables\TestCase
 
     /**
      * @return Generator
+     * @throws \InvalidArgumentException
      */
     protected function getFaker(): Generator
     {

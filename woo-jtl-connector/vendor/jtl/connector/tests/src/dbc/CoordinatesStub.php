@@ -17,9 +17,11 @@ class CoordinatesStub extends AbstractTable
         COL_Y = 'y',
         COL_Z = 'z';
 
-    public const
-        TABLE_NAME = 'coordinates';
+    public const TABLE_NAME = 'coordinates';
 
+    /**
+     * @return string
+     */
     public function getName(): string
     {
         return self::TABLE_NAME;
@@ -30,10 +32,10 @@ class CoordinatesStub extends AbstractTable
      * @param float $y
      * @param float $z
      *
-     * @return boolean
+     * @return bool
+     * @throws DbcRuntimeException
      * @throws Exception
-     * @throws DbcRuntimeException
-     * @throws DbcRuntimeException
+     * @throws \RuntimeException
      */
     public function addCoordinate(float $x, float $y, float $z): bool
     {
@@ -119,8 +121,11 @@ class CoordinatesStub extends AbstractTable
     }
 
     /**
-     * @throws SchemaException
+     * @param Table $tableSchema
+     *
+     * @return void
      * @throws Exception
+     * @throws SchemaException
      */
     protected function createTableSchema(Table $tableSchema): void
     {

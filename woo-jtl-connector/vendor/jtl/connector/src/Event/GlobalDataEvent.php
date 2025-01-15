@@ -9,9 +9,6 @@ use Symfony\Contracts\EventDispatcher\Event;
 
 class GlobalDataEvent extends Event
 {
-    /**
-     * @var GlobalData
-     */
     protected GlobalData $globalData;
 
     /**

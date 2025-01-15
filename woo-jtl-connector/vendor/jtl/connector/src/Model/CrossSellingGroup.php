@@ -12,24 +12,22 @@ use JMS\Serializer\Annotation as Serializer;
  * @access     public
  * @package    Jtl\Connector\Core\Model
  * @subpackage Product
- * @Serializer\AccessType("public_method")
  */
+#[Serializer\AccessType(['value' => 'public_method'])]
 class CrossSellingGroup extends AbstractIdentity
 {
-    /**
-     * @var CrossSellingGroupI18n[]
-     * @Serializer\Type("array<Jtl\Connector\Core\Model\CrossSellingGroupI18n>")
-     * @Serializer\SerializedName("i18ns")
-     * @Serializer\AccessType("reflection")
-     */
+    /** @var CrossSellingGroupI18n[] */
+    #[Serializer\Type("array<Jtl\Connector\Core\Model\CrossSellingGroupI18n>")]
+    #[Serializer\SerializedName("i18ns")]
+    #[Serializer\AccessType(['value' => 'reflection'])]
     protected array $i18ns = [];
 
     /**
      * @param CrossSellingGroupI18n $i18n
      *
-     * @return CrossSellingGroup
+     * @return $this
      */
-    public function addI18n(CrossSellingGroupI18n $i18n): CrossSellingGroup
+    public function addI18n(CrossSellingGroupI18n $i18n): self
     {
         $this->i18ns[] = $i18n;
 
@@ -47,9 +45,9 @@ class CrossSellingGroup extends AbstractIdentity
     /**
      * @param CrossSellingGroupI18n ...$i18ns
      *
-     * @return CrossSellingGroup
+     * @return $this
      */
-    public function setI18ns(CrossSellingGroupI18n ...$i18ns): CrossSellingGroup
+    public function setI18ns(CrossSellingGroupI18n ...$i18ns): self
     {
         $this->i18ns = $i18ns;
 
@@ -57,9 +55,9 @@ class CrossSellingGroup extends AbstractIdentity
     }
 
     /**
-     * @return CrossSellingGroup
+     * @return $this
      */
-    public function clearI18ns(): CrossSellingGroup
+    public function clearI18ns(): self
     {
         $this->i18ns = [];
 

@@ -11,7 +11,7 @@ final class RelationType
     /**
      * @param string $relationType
      *
-     * @return integer
+     * @return int
      * @throws DefinitionException
      */
     public static function getRelatedImageIdentityType(string $relationType): int
@@ -37,7 +37,7 @@ final class RelationType
     /**
      * @param string $relationType
      *
-     * @return boolean
+     * @return bool
      */
     public static function hasIdentityType(string $relationType): bool
     {

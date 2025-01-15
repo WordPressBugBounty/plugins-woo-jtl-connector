@@ -17,16 +17,14 @@ use TypeError;
  * @access     public
  * @package    Jtl\Connector\Core\Model
  * @subpackage Product
- * @Serializer\AccessType("public_method")
  */
+#[Serializer\AccessType(['value' => 'public_method'])]
 class ProductSpecific extends AbstractIdentity
 {
-    /**
-     * @var Identity Reference to specificValue
-     * @Serializer\Type("Jtl\Connector\Core\Model\Identity")
-     * @Serializer\SerializedName("specificValueId")
-     * @Serializer\Accessor(getter="getSpecificValueId",setter="setSpecificValueId")
-     */
+    /** @var Identity Reference to specificValue */
+    #[Serializer\Type(Identity::class)]
+    #[Serializer\SerializedName('specificValueId')]
+    #[Serializer\Accessor(getter: 'getSpecificValueId', setter: 'setSpecificValueId')]
     protected Identity $specificValueId ;
 
     /**
@@ -54,9 +52,9 @@ class ProductSpecific extends AbstractIdentity
     /**
      * @param Identity $specificValueId Reference to specificValue
      *
-     * @return ProductSpecific
+     * @return $this
      */
-    public function setSpecificValueId(Identity $specificValueId): ProductSpecific
+    public function setSpecificValueId(Identity $specificValueId): self
     {
         $this->specificValueId = $specificValueId;
 

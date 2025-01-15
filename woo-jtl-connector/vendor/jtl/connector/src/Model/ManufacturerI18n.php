@@ -12,40 +12,32 @@ use JMS\Serializer\Annotation as Serializer;
  * @access     public
  * @package    Jtl\Connector\Core\Model
  * @subpackage Product
- * @Serializer\AccessType("public_method")
  */
+#[Serializer\AccessType(['value' => 'public_method'])]
 class ManufacturerI18n extends AbstractI18n
 {
-    /**
-     * @var string Optional manufacturer description (HTML)
-     * @Serializer\Type("string")
-     * @Serializer\SerializedName("description")
-     * @Serializer\Accessor(getter="getDescription",setter="setDescription")
-     */
+    /** @var string Optional manufacturer description (HTML) */
+    #[Serializer\Type('string')]
+    #[Serializer\SerializedName('description')]
+    #[Serializer\Accessor(getter: 'getDescription', setter: 'setDescription')]
     protected string $description = '';
 
-    /**
-     * @var string Optional meta description tag value
-     * @Serializer\Type("string")
-     * @Serializer\SerializedName("metaDescription")
-     * @Serializer\Accessor(getter="getMetaDescription",setter="setMetaDescription")
-     */
+    /** @var string Optional meta description tag value */
+    #[Serializer\Type('string')]
+    #[Serializer\SerializedName('metaDescription')]
+    #[Serializer\Accessor(getter: 'getMetaDescription', setter: 'setMetaDescription')]
     protected string $metaDescription = '';
 
-    /**
-     * @var string Optional meta keywords tag value
-     * @Serializer\Type("string")
-     * @Serializer\SerializedName("metaKeywords")
-     * @Serializer\Accessor(getter="getMetaKeywords",setter="setMetaKeywords")
-     */
+    /** @var string Optional meta keywords tag value */
+    #[Serializer\Type('string')]
+    #[Serializer\SerializedName('metaKeywords')]
+    #[Serializer\Accessor(getter: 'getMetaKeywords', setter: 'setMetaKeywords')]
     protected string $metaKeywords = '';
 
-    /**
-     * @var string Optional title tag value
-     * @Serializer\Type("string")
-     * @Serializer\SerializedName("titleTag")
-     * @Serializer\Accessor(getter="getTitleTag",setter="setTitleTag")
-     */
+    /** @var string Optional title tag value */
+    #[Serializer\Type('string')]
+    #[Serializer\SerializedName('titleTag')]
+    #[Serializer\Accessor(getter: 'getTitleTag', setter: 'setTitleTag')]
     protected string $titleTag = '';
 
     /**
@@ -59,9 +51,9 @@ class ManufacturerI18n extends AbstractI18n
     /**
      * @param string $description Optional manufacturer description (HTML)
      *
-     * @return ManufacturerI18n
+     * @return $this
      */
-    public function setDescription(string $description): ManufacturerI18n
+    public function setDescription(string $description): self
     {
         $this->description = $description;
 
@@ -79,9 +71,9 @@ class ManufacturerI18n extends AbstractI18n
     /**
      * @param string $metaDescription Optional meta description tag value
      *
-     * @return ManufacturerI18n
+     * @return $this
      */
-    public function setMetaDescription(string $metaDescription): ManufacturerI18n
+    public function setMetaDescription(string $metaDescription): self
     {
         $this->metaDescription = $metaDescription;
 
@@ -99,9 +91,9 @@ class ManufacturerI18n extends AbstractI18n
     /**
      * @param string $metaKeywords Optional meta keywords tag value
      *
-     * @return ManufacturerI18n
+     * @return $this
      */
-    public function setMetaKeywords(string $metaKeywords): ManufacturerI18n
+    public function setMetaKeywords(string $metaKeywords): self
     {
         $this->metaKeywords = $metaKeywords;
 
@@ -119,9 +111,9 @@ class ManufacturerI18n extends AbstractI18n
     /**
      * @param string $titleTag Optional title tag value
      *
-     * @return ManufacturerI18n
+     * @return $this
      */
-    public function setTitleTag(string $titleTag): ManufacturerI18n
+    public function setTitleTag(string $titleTag): self
     {
         $this->titleTag = $titleTag;
 

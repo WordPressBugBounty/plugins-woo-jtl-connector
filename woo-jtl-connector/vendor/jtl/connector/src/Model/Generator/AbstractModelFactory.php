@@ -4,14 +4,18 @@ declare(strict_types=1);
 
 namespace Jtl\Connector\Core\Model\Generator;
 
+use Doctrine\Common\Annotations\AnnotationException;
 use Faker\Factory;
 use Faker\Generator;
 use JMS\Serializer\Exception\InvalidArgumentException;
+use JMS\Serializer\Exception\LogicException;
+use JMS\Serializer\Exception\NotAcceptableException;
+use JMS\Serializer\Exception\RuntimeException;
+use JMS\Serializer\Exception\UnsupportedFormatException;
 use JMS\Serializer\Serializer;
 use Jtl\Connector\Core\Model\AbstractModel;
 use Jtl\Connector\Core\Model\Identity;
 use Jtl\Connector\Core\Serializer\SerializerBuilder;
-use RuntimeException;
 
 /**
  * Class ModelFactory
@@ -35,11 +39,17 @@ abstract class AbstractModelFactory
      * @param Generator|null  $faker
      * @param Serializer|null $serializer
      *
+     * @throws AnnotationException
      * @throws InvalidArgumentException
-     * @throws \JMS\Serializer\Exception\RuntimeException
+     * @throws \InvalidArgumentException
+     * @throws LogicException
+     * @throws RuntimeException
      */
-    public function __construct(string $defaultLocale = 'de_DE', Generator $faker = null, Serializer $serializer = null)
-    {
+    public function __construct(
+        string      $defaultLocale = 'de_DE',
+        ?Generator  $faker = null,
+        ?Serializer $serializer = null
+    ) {
         $this->defaultLocale = $defaultLocale;
 
         if ($faker === null) {
@@ -67,14 +77,15 @@ abstract class AbstractModelFactory
         ) {
             return self::getIdentity($identityType, $endpoint);
         }
+
         return null;
     }
 
     /**
-     * @param integer $identityType
-     * @param integer $host
+     * @param int $identityType
+     * @param int $host
      *
-     * @return boolean
+     * @return bool
      */
     public static function hasIdentityByHost(int $identityType, int $host): bool
     {
@@ -82,8 +93,8 @@ abstract class AbstractModelFactory
     }
 
     /**
-     * @param integer $identityType
-     * @param string  $endpoint
+     * @param int    $identityType
+     * @param string $endpoint
      *
      * @return array{0: string, 1: int}|null
      */
@@ -95,14 +106,15 @@ abstract class AbstractModelFactory
                 self::$identities[$identityType][$endpoint],
             ];
         }
+
         return null;
     }
 
     /**
-     * @param integer $identityType
-     * @param string  $endpoint
+     * @param int    $identityType
+     * @param string $endpoint
      *
-     * @return boolean
+     * @return bool
      */
     public static function hasIdentity(int $identityType, string $endpoint): bool
     {
@@ -122,6 +134,7 @@ abstract class AbstractModelFactory
         for ($i = 0; $i < $quantity; $i++) {
             $models[] = $this->makeOneArray(\array_merge($globalOverrides, $specificOverrides[$i] ?? []));
         }
+
         return $models;
     }
 
@@ -157,6 +170,10 @@ abstract class AbstractModelFactory
      * @param array<mixed> $globalOverrides
      *
      * @return array<int, AbstractModel>
+     * @throws LogicException
+     * @throws RuntimeException
+     * @throws NotAcceptableException
+     * @throws UnsupportedFormatException
      */
     public function make(int $quantity, array $specificOverrides = [], array $globalOverrides = []): array
     {
@@ -179,12 +196,12 @@ abstract class AbstractModelFactory
     abstract protected function getModelClass(): string;
 
     /**
-     * @param integer $identityType
+     * @param int $identityType
      *
      * @return mixed
      * @throws \Exception
      */
-    public function makeIdentity(int $identityType)
+    public function makeIdentity(int $identityType): mixed
     {
         return $this->serializer->fromArray($this->makeIdentityArray($identityType), Identity::class);
     }
@@ -193,7 +210,8 @@ abstract class AbstractModelFactory
      * @param int $identityType
      *
      * @return array{0: string, 1: int}
-     * @throws RuntimeException|\InvalidArgumentException
+     * @throws \RuntimeException
+     * @throws \InvalidArgumentException
      */
     public function makeIdentityArray(int $identityType): array
     {
@@ -223,7 +241,7 @@ abstract class AbstractModelFactory
      * @param string $name
      *
      * @return AbstractModelFactory
-     * @throws RuntimeException
+     * @throws \RuntimeException
      */
     public function getFactory(string $name): AbstractModelFactory
     {
@@ -237,13 +255,13 @@ abstract class AbstractModelFactory
      * @param Serializer|null $serializer
      *
      * @return AbstractModelFactory
-     * @throws RuntimeException
+     * @throws \RuntimeException
      */
     public static function createFactory(
-        string     $name,
-        string     $locale = 'de_DE',
-        Generator  $faker = null,
-        Serializer $serializer = null
+        string      $name,
+        string      $locale = 'de_DE',
+        ?Generator  $faker = null,
+        ?Serializer $serializer = null
     ): AbstractModelFactory {
         $className = \sprintf('%s\\%sFactory', __NAMESPACE__, \ucfirst($name));
         if (!\class_exists($className)) {
@@ -262,9 +280,11 @@ abstract class AbstractModelFactory
     }
 
     /**
-     * @param integer $identityType
-     * @param string  $endpoint
-     * @param integer $host
+     * @param int    $identityType
+     * @param string $endpoint
+     * @param int    $host
+     *
+     * @return void
      */
     public static function setIdentity(int $identityType, string $endpoint, int $host): void
     {
@@ -287,6 +307,6 @@ abstract class AbstractModelFactory
      */
     protected function dateBetween(string $from, string $to = 'now'): string
     {
-        return $this->faker->dateTimeBetween($from, $to)->format(\DateTime::ATOM);
+        return $this->faker->dateTimeBetween($from, $to)->format(\DateTimeInterface::ATOM);
     }
 }

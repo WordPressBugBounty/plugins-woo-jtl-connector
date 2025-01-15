@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace Jtl\Connector\MappingTables;
 
 use Doctrine\DBAL\DBALException;
-use Exception;
+use PHPUnit\Framework\Exception;
 use PHPUnit\Framework\ExpectationFailedException;
 use PHPUnit\Framework\MockObject\ClassAlreadyExistsException;
 use PHPUnit\Framework\MockObject\ClassIsFinalException;
@@ -17,19 +17,16 @@ use PHPUnit\Framework\MockObject\ReflectionException;
 use PHPUnit\Framework\MockObject\RuntimeException;
 use PHPUnit\Framework\MockObject\UnknownTypeException;
 use SebastianBergmann\RecursionContext\InvalidArgumentException;
-use Throwable;
 
 class TableCollectionTest extends TestCase
 {
-    /**
-     * @var TableCollection
-     */
     protected TableCollection $collection;
 
     /**
+     * @return void
      * @throws ExpectationFailedException
      * @throws InvalidArgumentException
-     * @throws \PHPUnit\Framework\Exception
+     * @throws Exception
      */
     public function testToArray(): void
     {
@@ -41,10 +38,11 @@ class TableCollectionTest extends TestCase
     }
 
     /**
+     * @return void
      * @throws ExpectationFailedException
      * @throws InvalidArgumentException
      * @throws MappingTablesException
-     * @throws \PHPUnit\Framework\Exception
+     * @throws Exception
      */
     public function testSetAndGet(): void
     {
@@ -60,8 +58,9 @@ class TableCollectionTest extends TestCase
     }
 
     /**
+     * @return void
      * @throws InvalidArgumentException
-     * @throws ExpectationFailedException|\PHPUnit\Framework\Exception
+     * @throws ExpectationFailedException|Exception
      */
     public function testHas(): void
     {
@@ -71,8 +70,9 @@ class TableCollectionTest extends TestCase
     }
 
     /**
+     * @return void
      * @throws InvalidArgumentException
-     * @throws ExpectationFailedException|\PHPUnit\Framework\Exception
+     * @throws ExpectationFailedException|Exception
      */
     public function testHasNot(): void
     {
@@ -82,6 +82,7 @@ class TableCollectionTest extends TestCase
     }
 
     /**
+     * @return void
      * @throws InvalidMethodNameException
      * @throws RuntimeException
      * @throws OriginalConstructorInvocationRequiredException
@@ -93,7 +94,7 @@ class TableCollectionTest extends TestCase
      * @throws ClassIsReadonlyException
      * @throws ReflectionException
      * @throws UnknownTypeException
-     * @throws \PHPUnit\Framework\Exception
+     * @throws Exception
      * @throws ClassAlreadyExistsException
      */
     public function testRemoveByType(): void
@@ -112,6 +113,7 @@ class TableCollectionTest extends TestCase
     }
 
     /**
+     * @return void
      * @throws ExpectationFailedException
      * @throws InvalidArgumentException
      * @throws MappingTablesException
@@ -125,8 +127,7 @@ class TableCollectionTest extends TestCase
      * @throws ReflectionException
      * @throws RuntimeException
      * @throws UnknownTypeException
-     * @throws Exception
-     * @throws Exception
+     * @throws \Exception
      */
     public function testRemoveByInstance(): void
     {
@@ -141,12 +142,11 @@ class TableCollectionTest extends TestCase
 
     /**
      * @return void
-     * @throws \Jtl\Connector\MappingTables\MappingTablesException
-     * @throws \PHPUnit\Framework\Exception
-     * @throws \PHPUnit\Framework\ExpectationFailedException
-     * @throws \SebastianBergmann\RecursionContext\InvalidArgumentException
+     * @throws MappingTablesException
+     * @throws Exception
+     * @throws ExpectationFailedException
+     * @throws InvalidArgumentException
      */
-
     public function testGetNotExistingTableWithStrictModeEnabled(): void
     {
         $this->expectException(MappingTablesException::class);
@@ -158,8 +158,9 @@ class TableCollectionTest extends TestCase
     }
 
     /**
+     * @return void
      * @throws MappingTablesException
-     * @throws \PHPUnit\Framework\Exception
+     * @throws Exception
      * @throws ExpectationFailedException
      * @throws InvalidArgumentException
      */
@@ -175,9 +176,10 @@ class TableCollectionTest extends TestCase
     }
 
     /**
+     * @return void
      * @throws DBALException
-     * @throws Throwable
-     * @throws Exception
+     * @throws \Throwable
+     * @throws \Exception
      */
     protected function setUp(): void
     {

@@ -12,22 +12,16 @@ class Method
 {
     /**
      * Rcp Method
-     *
-     * @var string
      */
     protected string $rpcMethod = '';
 
     /**
      * Connector Controller
-     *
-     * @var string
      */
     protected string $controller = '';
 
     /**
      * Connector Action
-     *
-     * @var string
      */
     protected string $action = '';
 
@@ -48,10 +42,10 @@ class Method
     /**
      * @param RequestPacket $packet
      *
-     * @return Method
+     * @return self
      * @throws CaseConverterException
      */
-    public static function createFromRequestPacket(RequestPacket $packet): Method
+    public static function createFromRequestPacket(RequestPacket $packet): self
     {
         return static::createFromRpcMethod(RpcMethod::mapMethod($packet->getMethod()));
     }
@@ -59,10 +53,10 @@ class Method
     /**
      * @param string $rpcMethod
      *
-     * @return Method
+     * @return self
      * @throws CaseConverterException
      */
-    public static function createFromRpcMethod(string $rpcMethod): Method
+    public static function createFromRpcMethod(string $rpcMethod): self
     {
         $parts      = \explode('.', $rpcMethod);
         $partsCount = \count($parts);
@@ -75,6 +69,7 @@ class Method
         $offset     = $partsCount === 3 ? 1 : 0;
         $controller = Str::toPascalCase($parts[0 + $offset]);
         $action     = Str::toCamelCase($parts[1 + $offset]);
+
         return new self($rpcMethod, $controller, $action);
     }
 
@@ -95,11 +90,11 @@ class Method
     }
 
     /**
-     * @return boolean
+     * @return bool
      */
     public function isCore(): bool
     {
-        return \strpos($this->getRpcMethod(), 'core.') !== false;
+        return \str_contains($this->getRpcMethod(), 'core.');
     }
 
     /**

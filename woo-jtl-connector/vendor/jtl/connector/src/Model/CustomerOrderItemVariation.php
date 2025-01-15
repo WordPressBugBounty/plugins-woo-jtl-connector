@@ -12,56 +12,43 @@ use JMS\Serializer\Annotation as Serializer;
  * @access     public
  * @package    Jtl\Connector\Core\Model
  * @subpackage Product
- * @Serializer\AccessType("public_method")
  */
+#[Serializer\AccessType(['value' => 'public_method'])]
 class CustomerOrderItemVariation extends AbstractIdentity
 {
-    /**
-     * @var Identity Reference to productVariation
-     * @Serializer\Type("Jtl\Connector\Core\Model\Identity")
-     * @Serializer\SerializedName("productVariationId")
-     * @Serializer\Accessor(getter="getProductVariationId",setter="setProductVariationId")
-     */
+    /** @var Identity Reference to productVariation */
+    #[Serializer\Type(Identity::class)]
+    #[Serializer\SerializedName('productVariationId')]
+    #[Serializer\Accessor(getter: 'getProductVariationId', setter: 'setProductVariationId')]
     protected Identity $productVariationId;
 
-    /**
-     * @var Identity Reference to productVariationValue
-     * @Serializer\Type("Jtl\Connector\Core\Model\Identity")
-     * @Serializer\SerializedName("productVariationValueId")
-     * @Serializer\Accessor(getter="getProductVariationValueId",setter="setProductVariationValueId")
-     */
+    /** @var Identity Reference to productVariationValue */
+    #[Serializer\Type(Identity::class)]
+    #[Serializer\SerializedName('productVariationValueId')]
+    #[Serializer\Accessor(getter: 'getProductVariationValueId', setter: 'setProductVariationValueId')]
     protected Identity $productVariationValueId;
 
-    /**
-     * @var string Optional custom text value for variation
-     * @Serializer\Type("string")
-     * @Serializer\SerializedName("freeField")
-     * @Serializer\Accessor(getter="getFreeField",setter="setFreeField")
-     */
+    /** @var string Optional custom text value for variation */
+    #[Serializer\Type('string')]
+    #[Serializer\SerializedName('freeField')]
+    #[Serializer\Accessor(getter: 'getFreeField', setter: 'setFreeField')]
     protected string $freeField = '';
 
-    /**
-     * @var string Variation name e.g. 'color'
-     * @Serializer\Type("string")
-     * @Serializer\SerializedName("productVariationName")
-     * @Serializer\Accessor(getter="getProductVariationName",setter="setProductVariationName")
-     */
+    /** @var string Variation name e.g. 'color' */
+    #[Serializer\Type('string')]
+    #[Serializer\SerializedName('productVariationName')]
+    #[Serializer\Accessor(getter: 'getProductVariationName', setter: 'setProductVariationName')]
     protected string $productVariationName = '';
 
-    /**
-     * @var double
-     * @Serializer\Type("double")
-     * @Serializer\SerializedName("surcharge")
-     * @Serializer\Accessor(getter="getSurcharge",setter="setSurcharge")
-     */
+
+    #[Serializer\Type('double')]
+    #[Serializer\SerializedName('surcharge')]
+    #[Serializer\Accessor(getter: 'getSurcharge', setter: 'setSurcharge')]
     protected float $surcharge = 0.0;
 
-    /**
-     * @var string
-     * @Serializer\Type("string")
-     * @Serializer\SerializedName("valueName")
-     * @Serializer\Accessor(getter="getValueName",setter="setValueName")
-     */
+    #[Serializer\Type('string')]
+    #[Serializer\SerializedName('valueName')]
+    #[Serializer\Accessor(getter: 'getValueName', setter: 'setValueName')]
     protected string $valueName = '';
 
     /**
@@ -88,9 +75,9 @@ class CustomerOrderItemVariation extends AbstractIdentity
     /**
      * @param Identity $productVariationId Reference to productVariation
      *
-     * @return CustomerOrderItemVariation
+     * @return $this
      */
-    public function setProductVariationId(Identity $productVariationId): CustomerOrderItemVariation
+    public function setProductVariationId(Identity $productVariationId): self
     {
         $this->productVariationId = $productVariationId;
 
@@ -108,9 +95,9 @@ class CustomerOrderItemVariation extends AbstractIdentity
     /**
      * @param Identity $productVariationValueId Reference to productVariationValue
      *
-     * @return CustomerOrderItemVariation
+     * @return $this
      */
-    public function setProductVariationValueId(Identity $productVariationValueId): CustomerOrderItemVariation
+    public function setProductVariationValueId(Identity $productVariationValueId): self
     {
         $this->productVariationValueId = $productVariationValueId;
 
@@ -128,9 +115,9 @@ class CustomerOrderItemVariation extends AbstractIdentity
     /**
      * @param string $freeField Optional custom text value for variation
      *
-     * @return CustomerOrderItemVariation
+     * @return $this
      */
-    public function setFreeField(string $freeField): CustomerOrderItemVariation
+    public function setFreeField(string $freeField): self
     {
         $this->freeField = $freeField;
 
@@ -148,9 +135,9 @@ class CustomerOrderItemVariation extends AbstractIdentity
     /**
      * @param string $productVariationName Variation name e.g. 'color'
      *
-     * @return CustomerOrderItemVariation
+     * @return $this
      */
-    public function setProductVariationName(string $productVariationName): CustomerOrderItemVariation
+    public function setProductVariationName(string $productVariationName): self
     {
         $this->productVariationName = $productVariationName;
 
@@ -158,7 +145,7 @@ class CustomerOrderItemVariation extends AbstractIdentity
     }
 
     /**
-     * @return double
+     * @return float
      */
     public function getSurcharge(): float
     {
@@ -166,11 +153,11 @@ class CustomerOrderItemVariation extends AbstractIdentity
     }
 
     /**
-     * @param double $surcharge
+     * @param float $surcharge
      *
-     * @return CustomerOrderItemVariation
+     * @return $this
      */
-    public function setSurcharge(float $surcharge): CustomerOrderItemVariation
+    public function setSurcharge(float $surcharge): self
     {
         $this->surcharge = $surcharge;
 
@@ -188,9 +175,9 @@ class CustomerOrderItemVariation extends AbstractIdentity
     /**
      * @param string $valueName
      *
-     * @return CustomerOrderItemVariation
+     * @return $this
      */
-    public function setValueName(string $valueName): CustomerOrderItemVariation
+    public function setValueName(string $valueName): self
     {
         $this->valueName = $valueName;
 

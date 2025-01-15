@@ -12,7 +12,6 @@ use JMS\Serializer\Visitor\SerializationVisitorInterface;
 use Jtl\Connector\Core\Model\Product;
 use Jtl\Connector\Core\Model\TranslatableAttribute;
 use Jtl\Connector\Core\Model\TranslatableAttributeI18n;
-use RuntimeException;
 
 class ProductAttributeSubscriber implements EventSubscriberInterface
 {
@@ -33,7 +32,8 @@ class ProductAttributeSubscriber implements EventSubscriberInterface
     /**
      * @param ObjectEvent $event
      *
-     * @throws RuntimeException
+     * @return void
+     * @throws \RuntimeException
      */
     public function onPostSerialize(ObjectEvent $event): void
     {

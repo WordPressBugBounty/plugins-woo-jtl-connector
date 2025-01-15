@@ -12,34 +12,30 @@ use JMS\Serializer\Annotation as Serializer;
  * @access     public
  * @package    Jtl\Connector\Core\Model
  * @subpackage Product
- * @Serializer\AccessType("public_method")
  */
+#[Serializer\AccessType(['value' => 'public_method'])]
 class ConfigItemPrice extends AbstractModel
 {
-    /**
-     * @var Identity Reference to customerGroup
-     * @Serializer\Type("Jtl\Connector\Core\Model\Identity")
-     * @Serializer\SerializedName("customerGroupId")
-     * @Serializer\Accessor(getter="getCustomerGroupId",setter="setCustomerGroupId")
-     */
+    /** @var Identity Reference to customerGroup */
+    #[Serializer\Type(Identity::class)]
+    #[Serializer\SerializedName('customerGroupId')]
+    #[Serializer\Accessor(getter: 'getCustomerGroupId', setter: 'setCustomerGroupId')]
     protected Identity $customerGroupId;
 
     /**
      * @var double  Net price or percental value to add/deduct to/from product price (depending on type).
      *              Positive value means surcharge, negative value means discount.
      *              Also see configItem.vat for value added tax.
-     * @Serializer\Type("double")
-     * @Serializer\SerializedName("price")
-     * @Serializer\Accessor(getter="getPrice",setter="setPrice")
      */
+    #[Serializer\Type('double')]
+    #[Serializer\SerializedName('price')]
+    #[Serializer\Accessor(getter: 'getPrice', setter: 'setPrice')]
     protected float $price = 0.0;
 
-    /**
-     * @var integer Optional type. Default is fixed price (Type 0). Type 1 defines percental price type.
-     * @Serializer\Type("integer")
-     * @Serializer\SerializedName("type")
-     * @Serializer\Accessor(getter="getType",setter="setType")
-     */
+    /** @var int Optional type. Default is fixed price (Type 0). Type 1 defines percental price type. */
+    #[Serializer\Type('integer')]
+    #[Serializer\SerializedName('type')]
+    #[Serializer\Accessor(getter: 'getType', setter: 'setType')]
     protected int $type = 0;
 
     /**
@@ -61,9 +57,9 @@ class ConfigItemPrice extends AbstractModel
     /**
      * @param Identity $customerGroupId Reference to customerGroup
      *
-     * @return ConfigItemPrice
+     * @return $this
      */
-    public function setCustomerGroupId(Identity $customerGroupId): ConfigItemPrice
+    public function setCustomerGroupId(Identity $customerGroupId): self
     {
         $this->customerGroupId = $customerGroupId;
 
@@ -71,7 +67,7 @@ class ConfigItemPrice extends AbstractModel
     }
 
     /**
-     * @return double   Net price or percental value to add/deduct to/from product price (depending on type).
+     * @return float   Net price or percental value to add/deduct to/from product price (depending on type).
      *                  Positive value means surcharge, negative value means discount.
      *                  Also see configItem.vat for value added tax.
      */
@@ -81,13 +77,13 @@ class ConfigItemPrice extends AbstractModel
     }
 
     /**
-     * @param double $price Net price or percental value to add/deduct to/from product price (depending on type).
-     *                      Positive value means surcharge, negative value means discount.
-     *                      Also see configItem.vat for value added tax.
+     * @param float $price Net price or percental value to add/deduct to/from product price (depending on type).
+     *                     Positive value means surcharge, negative value means discount.
+     *                     Also see configItem.vat for value added tax.
      *
-     * @return ConfigItemPrice
+     * @return $this
      */
-    public function setPrice(float $price): ConfigItemPrice
+    public function setPrice(float $price): self
     {
         $this->price = $price;
 
@@ -95,7 +91,7 @@ class ConfigItemPrice extends AbstractModel
     }
 
     /**
-     * @return integer Optional type. Default is fixed price (Type 0). Type 1 defines percental price type.
+     * @return int Optional type. Default is fixed price (Type 0). Type 1 defines percental price type.
      */
     public function getType(): int
     {
@@ -103,11 +99,11 @@ class ConfigItemPrice extends AbstractModel
     }
 
     /**
-     * @param integer $type Optional type. Default is fixed price (Type 0). Type 1 defines percental price type.
+     * @param int $type Optional type. Default is fixed price (Type 0). Type 1 defines percental price type.
      *
-     * @return ConfigItemPrice
+     * @return $this
      */
-    public function setType(int $type): ConfigItemPrice
+    public function setType(int $type): self
     {
         $this->type = $type;
 

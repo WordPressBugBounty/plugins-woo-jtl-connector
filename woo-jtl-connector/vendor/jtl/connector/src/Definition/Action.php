@@ -19,14 +19,10 @@ final class Action
         IDENTIFY  = 'identify',
         INIT      = 'init';
 
-    /**
-     * @var string[]|null
-     */
+    /** @var string[]|null */
     protected static ?array $actions = null;
 
-    /**
-     * @var string[]
-     */
+    /** @var string[] */
     protected static array $coreActions = [
         self::AUTH,
         self::ACK,
@@ -40,7 +36,7 @@ final class Action
     /**
      * @param string $actionName
      *
-     * @return boolean
+     * @return bool
      */
     public static function isAction(string $actionName): bool
     {
@@ -64,7 +60,7 @@ final class Action
     /**
      * @param string $actionName
      *
-     * @return boolean
+     * @return bool
      */
     public static function isCoreAction(string $actionName): bool
     {

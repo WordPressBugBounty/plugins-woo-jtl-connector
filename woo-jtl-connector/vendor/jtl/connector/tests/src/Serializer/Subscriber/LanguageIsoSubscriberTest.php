@@ -4,7 +4,11 @@ declare(strict_types=1);
 
 namespace Jtl\Connector\Core\Test\Serializer\Subscriber;
 
+use Doctrine\Common\Annotations\AnnotationException;
+use JMS\Serializer\Exception\LogicException;
+use JMS\Serializer\Exception\NotAcceptableException;
 use JMS\Serializer\Exception\RuntimeException;
+use JMS\Serializer\Exception\UnsupportedFormatException;
 use JsonException;
 use Jtl\Connector\Core\Model\AbstractI18n;
 use Jtl\Connector\Core\Model\CategoryI18n;
@@ -45,13 +49,19 @@ class LanguageIsoSubscriberTest extends TestCase
      *
      * @param class-string $model
      *
+     * @return void
+     * @throws AnnotationException
      * @throws AssertionFailedError
+     * @throws Exception
      * @throws ExpectationFailedException
      * @throws InvalidArgumentException
      * @throws JsonException
+     * @throws LogicException
+     * @throws NotAcceptableException
      * @throws RuntimeException
+     * @throws UnsupportedFormatException
+     * @throws \InvalidArgumentException
      * @throws \JMS\Serializer\Exception\InvalidArgumentException
-     * @throws Exception
      */
     public function testOnPostSerializeWithInvalidValue(string $model): void
     {
@@ -76,8 +86,13 @@ class LanguageIsoSubscriberTest extends TestCase
      * @param AbstractI18n $i18nModel
      *
      * @return string
-     * @throws \JMS\Serializer\Exception\InvalidArgumentException
+     * @throws AnnotationException
+     * @throws LogicException
+     * @throws NotAcceptableException
      * @throws RuntimeException
+     * @throws UnsupportedFormatException
+     * @throws \InvalidArgumentException
+     * @throws \JMS\Serializer\Exception\InvalidArgumentException
      */
     protected function serializeModel(AbstractI18n $i18nModel): string
     {
@@ -89,11 +104,19 @@ class LanguageIsoSubscriberTest extends TestCase
      *
      * @param class-string $model
      *
+     * @return void
+     * @throws AnnotationException
+     * @throws AssertionFailedError
      * @throws Exception
      * @throws ExpectationFailedException
      * @throws InvalidArgumentException
+     * @throws JsonException
+     * @throws LogicException
+     * @throws NotAcceptableException
      * @throws RuntimeException
-     * @throws \JMS\Serializer\Exception\InvalidArgumentException|\JsonException
+     * @throws UnsupportedFormatException
+     * @throws \InvalidArgumentException
+     * @throws \JMS\Serializer\Exception\InvalidArgumentException
      */
     public function testOnPostSerializeWithEmptyValue(string $model): void
     {
@@ -116,12 +139,19 @@ class LanguageIsoSubscriberTest extends TestCase
      *
      * @param string $model
      *
+     * @return void
+     * @throws AnnotationException
+     * @throws AssertionFailedError
      * @throws Exception
      * @throws ExpectationFailedException
      * @throws InvalidArgumentException
-     * @throws RuntimeException
-     * @throws \JMS\Serializer\Exception\InvalidArgumentException
      * @throws JsonException
+     * @throws LogicException
+     * @throws NotAcceptableException
+     * @throws RuntimeException
+     * @throws UnsupportedFormatException
+     * @throws \InvalidArgumentException
+     * @throws \JMS\Serializer\Exception\InvalidArgumentException
      */
     public function testOnPostSerializeWithValidValue(string $model): void
     {
@@ -145,11 +175,18 @@ class LanguageIsoSubscriberTest extends TestCase
      *
      * @param class-string $model
      *
+     * @return void
+     * @throws AnnotationException
+     * @throws AssertionFailedError
      * @throws Exception
      * @throws ExpectationFailedException
      * @throws InvalidArgumentException
      * @throws JsonException
+     * @throws LogicException
+     * @throws NotAcceptableException
      * @throws RuntimeException
+     * @throws UnsupportedFormatException
+     * @throws \InvalidArgumentException
      * @throws \JMS\Serializer\Exception\InvalidArgumentException
      */
     public function testOnPostSerializeWithNoValue(string $model): void
@@ -172,11 +209,18 @@ class LanguageIsoSubscriberTest extends TestCase
      *
      * @param class-string $model
      *
+     * @return void
+     * @throws AnnotationException
      * @throws AssertionFailedError
+     * @throws Exception
      * @throws ExpectationFailedException
      * @throws InvalidArgumentException
+     * @throws LogicException
+     * @throws NotAcceptableException
      * @throws RuntimeException
-     * @throws \JMS\Serializer\Exception\InvalidArgumentException|Exception
+     * @throws UnsupportedFormatException
+     * @throws \InvalidArgumentException
+     * @throws \JMS\Serializer\Exception\InvalidArgumentException
      */
     public function testOnPreDeserializeWithValidValue(string $model): void
     {
@@ -200,7 +244,12 @@ class LanguageIsoSubscriberTest extends TestCase
      * @throws ExpectationFailedException
      * @throws InvalidArgumentException
      * @throws RuntimeException
+     * @throws AnnotationException
+     * @throws \InvalidArgumentException
      * @throws \JMS\Serializer\Exception\InvalidArgumentException
+     * @throws LogicException
+     * @throws NotAcceptableException
+     * @throws UnsupportedFormatException
      */
     protected function serializeAndDeserializeModel(AbstractI18n $i18nModel): ProductI18n
     {
@@ -216,10 +265,17 @@ class LanguageIsoSubscriberTest extends TestCase
      *
      * @param class-string $model
      *
+     * @return void
+     * @throws AnnotationException
+     * @throws AssertionFailedError
      * @throws Exception
      * @throws ExpectationFailedException
      * @throws InvalidArgumentException
+     * @throws LogicException
+     * @throws NotAcceptableException
      * @throws RuntimeException
+     * @throws UnsupportedFormatException
+     * @throws \InvalidArgumentException
      * @throws \JMS\Serializer\Exception\InvalidArgumentException
      */
     public function testOnPreDeserializeWithInValidValue(string $model): void

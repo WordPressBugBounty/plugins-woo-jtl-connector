@@ -15,24 +15,20 @@ use TypeError;
  * @access     public
  * @package    Jtl\Connector\Core\Model
  * @subpackage Product
- * @Serializer\AccessType("public_method")
  */
+#[Serializer\AccessType(['value' => 'public_method'])]
 class ProductConfigGroup extends AbstractModel
 {
-    /**
-     * @var Identity Reference to configGroup
-     * @Serializer\Type("Jtl\Connector\Core\Model\Identity")
-     * @Serializer\SerializedName("configGroupId")
-     * @Serializer\Accessor(getter="getConfigGroupId",setter="setConfigGroupId")
-     */
+    /** @var Identity Reference to configGroup */
+    #[Serializer\Type(Identity::class)]
+    #[Serializer\SerializedName('configGroupId')]
+    #[Serializer\AccessType(['value' => 'reflection'])]
     protected Identity $configGroupId;
 
-    /**
-     * @var integer Optional sort number
-     * @Serializer\Type("integer")
-     * @Serializer\SerializedName("sort")
-     * @Serializer\Accessor(getter="getSort",setter="setSort")
-     */
+    /** @var int Optional sort number */
+    #[Serializer\Type('integer')]
+    #[Serializer\SerializedName('sort')]
+    #[Serializer\Accessor(getter: 'getSort', setter: 'setSort')]
     protected int $sort = 0;
 
     /**
@@ -56,9 +52,9 @@ class ProductConfigGroup extends AbstractModel
     /**
      * @param Identity $configGroupId Reference to configGroup
      *
-     * @return ProductConfigGroup
+     * @return $this
      */
-    public function setConfigGroupId(Identity $configGroupId): ProductConfigGroup
+    public function setConfigGroupId(Identity $configGroupId): self
     {
         $this->configGroupId = $configGroupId;
 
@@ -66,7 +62,7 @@ class ProductConfigGroup extends AbstractModel
     }
 
     /**
-     * @return integer Optional sort number
+     * @return int Optional sort number
      */
     public function getSort(): int
     {
@@ -74,11 +70,11 @@ class ProductConfigGroup extends AbstractModel
     }
 
     /**
-     * @param integer $sort Optional sort number
+     * @param int $sort Optional sort number
      *
-     * @return ProductConfigGroup
+     * @return $this
      */
-    public function setSort(int $sort): ProductConfigGroup
+    public function setSort(int $sort): self
     {
         $this->sort = $sort;
 

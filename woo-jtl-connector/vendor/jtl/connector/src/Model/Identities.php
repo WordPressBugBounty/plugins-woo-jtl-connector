@@ -10,17 +10,14 @@ use JMS\Serializer\Annotation as Serializer;
  * Class Identities
  *
  * @package Jtl\Connector\Core\Model
- *
- * @Serializer\AccessType("public_method")
  */
+#[Serializer\AccessType(['value' => 'public_method'])]
 class Identities extends AbstractModel
 {
-    /**
-     * @var array<string, array<int, Identity>|null>
-     * @Serializer\Type("array<string, array<Jtl\Connector\Core\Model\Identity>>")
-     * @Serializer\SerializedName("identities")
-     * @Serializer\Accessor(getter="getIdentities",setter="setIdentities")
-     */
+    /** @var array<string, array<int, Identity>|null> */
+    #[Serializer\Type('array<string, array<Jtl\Connector\Core\Model\Identity>>')]
+    #[Serializer\SerializedName('identities')]
+    #[Serializer\Accessor(getter: 'getIdentities', setter: 'setIdentities')]
     protected array $identities = [];
 
     /**
@@ -38,7 +35,7 @@ class Identities extends AbstractModel
      *
      * @param array<string, array<int, Identity>|null> $identities
      *
-     * @return self
+     * @return $this
      */
     public function setIdentities(array $identities): self
     {

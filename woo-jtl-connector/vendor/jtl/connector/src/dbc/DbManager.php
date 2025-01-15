@@ -18,9 +18,7 @@ class DbManager
 {
     protected Connection $connection;
 
-    /**
-     * @var AbstractTable[]
-     */
+    /** @var AbstractTable[] */
     protected array   $tables = [];
     protected ?string $tablesPrefix;
 
@@ -30,7 +28,7 @@ class DbManager
      * @param Connection  $connection
      * @param string|null $tablesPrefix
      */
-    public function __construct(Connection $connection, string $tablesPrefix = null)
+    public function __construct(Connection $connection, ?string $tablesPrefix = null)
     {
         $this->connection   = $connection;
         $this->tablesPrefix = $tablesPrefix;
@@ -54,8 +52,8 @@ class DbManager
      */
     public static function createFromParams(
         array         $params,
-        Configuration $config = null,
-        string        $tablesPrefix = null
+        ?Configuration $config = null,
+        ?string        $tablesPrefix = null
     ): self {
         $params['wrapperClass'] = Connection::class;
         /** @var Connection $connection */
@@ -67,10 +65,10 @@ class DbManager
     /**
      * @param AbstractTable $table
      *
-     * @return DbManager
+     * @return $this
      * @throws DbcRuntimeException
      */
-    public function registerTable(AbstractTable $table): DbManager
+    public function registerTable(AbstractTable $table): self
     {
         $this->tables[$table->getTableName()] = $table;
 
@@ -108,7 +106,7 @@ class DbManager
     }
 
     /**
-     * @return boolean
+     * @return bool
      * @throws DBALException
      * @throws DbcRuntimeException
      * @throws DbcRuntimeException|\RuntimeException
@@ -158,11 +156,12 @@ class DbManager
     }
 
     /**
+     * @return void
      * @throws \Throwable
      */
     public function updateDatabaseSchema(): void
     {
-        $this->connection->transactional(function ($connection) {
+        $this->connection->transactional(function ($connection): void {
             foreach ($this->getSchemaUpdates() as $ddl) {
                 $connection->executeQuery($ddl);
             }
@@ -170,7 +169,7 @@ class DbManager
     }
 
     /**
-     * @return boolean
+     * @return bool
      */
     public function hasTablesPrefix(): bool
     {

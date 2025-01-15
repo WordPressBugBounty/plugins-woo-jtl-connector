@@ -9,9 +9,6 @@ use Symfony\Contracts\EventDispatcher\Event;
 
 class CustomerOrderEvent extends Event
 {
-    /**
-     * @var CustomerOrder
-     */
     protected CustomerOrder $order;
 
     /**

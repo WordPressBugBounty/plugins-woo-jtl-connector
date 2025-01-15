@@ -4,7 +4,7 @@
 
 namespace Composer\Autoload;
 
-class ComposerStaticInit9af3dd9e6f470993e81161dc87d465e9
+class ComposerStaticInitd1aa62b9f0ab4fb9a84427170d64734a
 {
     public static $files = array (
         '6e3fae29631ef280660b3cdad06f25a8' => __DIR__ . '/..' . '/symfony/deprecation-contracts/function.php',
@@ -1589,6 +1589,7 @@ class ComposerStaticInit9af3dd9e6f470993e81161dc87d465e9
         'Jtl\\Connector\\Core\\Config\\ArrayConfig' => __DIR__ . '/..' . '/jtl/connector/src/Config/ArrayConfig.php',
         'Jtl\\Connector\\Core\\Config\\ConfigParameter' => __DIR__ . '/..' . '/jtl/connector/src/Config/ConfigParameter.php',
         'Jtl\\Connector\\Core\\Config\\ConfigSchema' => __DIR__ . '/..' . '/jtl/connector/src/Config/ConfigSchema.php',
+        'Jtl\\Connector\\Core\\Config\\ConfigSchemaConfigInterface' => __DIR__ . '/..' . '/jtl/connector/src/Config/ConfigSchemaConfigInterface.php',
         'Jtl\\Connector\\Core\\Config\\CoreConfigInterface' => __DIR__ . '/..' . '/jtl/connector/src/Config/CoreConfigInterface.php',
         'Jtl\\Connector\\Core\\Config\\FileConfig' => __DIR__ . '/..' . '/jtl/connector/src/Config/FileConfig.php',
         'Jtl\\Connector\\Core\\Connector\\ConnectorInterface' => __DIR__ . '/..' . '/jtl/connector/src/Connector/ConnectorInterface.php',
@@ -1665,6 +1666,7 @@ class ComposerStaticInit9af3dd9e6f470993e81161dc87d465e9
         'Jtl\\Connector\\Core\\Logger\\Handler\\ChunkedHandler' => __DIR__ . '/..' . '/jtl/connector/src/Logger/Handler/ChunkedHandler.php',
         'Jtl\\Connector\\Core\\Logger\\LoggerService' => __DIR__ . '/..' . '/jtl/connector/src/Logger/LoggerService.php',
         'Jtl\\Connector\\Core\\Logger\\Processor\\RequestProcessor' => __DIR__ . '/..' . '/jtl/connector/src/Logger/Processor/RequestProcessor.php',
+        'Jtl\\Connector\\Core\\Logger\\Processor\\WarningProcessor' => __DIR__ . '/..' . '/jtl/connector/src/Logger/Processor/WarningProcessor.php',
         'Jtl\\Connector\\Core\\Mapper\\PrimaryKeyMapperInterface' => __DIR__ . '/..' . '/jtl/connector/src/Mapper/PrimaryKeyMapperInterface.php',
         'Jtl\\Connector\\Core\\Model\\AbstractI18n' => __DIR__ . '/..' . '/jtl/connector/src/Model/AbstractI18n.php',
         'Jtl\\Connector\\Core\\Model\\AbstractIdentity' => __DIR__ . '/..' . '/jtl/connector/src/Model/AbstractIdentity.php',
@@ -1715,23 +1717,34 @@ class ComposerStaticInit9af3dd9e6f470993e81161dc87d465e9
         'Jtl\\Connector\\Core\\Model\\FileUploadI18n' => __DIR__ . '/..' . '/jtl/connector/src/Model/FileUploadI18n.php',
         'Jtl\\Connector\\Core\\Model\\Generator\\AbstractI18nFactory' => __DIR__ . '/..' . '/jtl/connector/src/Model/Generator/AbstractI18nFactory.php',
         'Jtl\\Connector\\Core\\Model\\Generator\\AbstractModelFactory' => __DIR__ . '/..' . '/jtl/connector/src/Model/Generator/AbstractModelFactory.php',
+        'Jtl\\Connector\\Core\\Model\\Generator\\CategoryCustomerGroupFactory' => __DIR__ . '/..' . '/jtl/connector/src/Model/Generator/CategoryCustomerGroupFactory.php',
         'Jtl\\Connector\\Core\\Model\\Generator\\CategoryFactory' => __DIR__ . '/..' . '/jtl/connector/src/Model/Generator/CategoryFactory.php',
         'Jtl\\Connector\\Core\\Model\\Generator\\CategoryI18nFactory' => __DIR__ . '/..' . '/jtl/connector/src/Model/Generator/CategoryI18nFactory.php',
+        'Jtl\\Connector\\Core\\Model\\Generator\\CategoryInvisibilityFactory' => __DIR__ . '/..' . '/jtl/connector/src/Model/Generator/CategoryInvisibilityFactory.php',
+        'Jtl\\Connector\\Core\\Model\\Generator\\ChecksumFactory' => __DIR__ . '/..' . '/jtl/connector/src/Model/Generator/ChecksumFactory.php',
         'Jtl\\Connector\\Core\\Model\\Generator\\CrossSellingGroupI18nFactory' => __DIR__ . '/..' . '/jtl/connector/src/Model/Generator/CrossSellingGroupI18nFactory.php',
         'Jtl\\Connector\\Core\\Model\\Generator\\CustomerFactory' => __DIR__ . '/..' . '/jtl/connector/src/Model/Generator/CustomerFactory.php',
+        'Jtl\\Connector\\Core\\Model\\Generator\\CustomerGroupFactory' => __DIR__ . '/..' . '/jtl/connector/src/Model/Generator/CustomerGroupFactory.php',
+        'Jtl\\Connector\\Core\\Model\\Generator\\CustomerGroupI18nFactory' => __DIR__ . '/..' . '/jtl/connector/src/Model/Generator/CustomerGroupI18nFactory.php',
+        'Jtl\\Connector\\Core\\Model\\Generator\\CustomerGroupPackagingQuantityFactory' => __DIR__ . '/..' . '/jtl/connector/src/Model/Generator/CustomerGroupPackagingQuantityFactory.php',
         'Jtl\\Connector\\Core\\Model\\Generator\\Faker\\VatProvider' => __DIR__ . '/..' . '/jtl/connector/src/Model/Generator/Faker/VatProvider.php',
         'Jtl\\Connector\\Core\\Model\\Generator\\I18nFactory' => __DIR__ . '/..' . '/jtl/connector/src/Model/Generator/I18nFactory.php',
         'Jtl\\Connector\\Core\\Model\\Generator\\IdentityFactory' => __DIR__ . '/..' . '/jtl/connector/src/Model/Generator/IdentityFactory.php',
         'Jtl\\Connector\\Core\\Model\\Generator\\ManufacturerFactory' => __DIR__ . '/..' . '/jtl/connector/src/Model/Generator/ManufacturerFactory.php',
         'Jtl\\Connector\\Core\\Model\\Generator\\ManufacturerI18nFactory' => __DIR__ . '/..' . '/jtl/connector/src/Model/Generator/ManufacturerI18nFactory.php',
+        'Jtl\\Connector\\Core\\Model\\Generator\\PartsListFactory' => __DIR__ . '/..' . '/jtl/connector/src/Model/Generator/PartsListFactory.php',
         'Jtl\\Connector\\Core\\Model\\Generator\\Product2CategoryFactory' => __DIR__ . '/..' . '/jtl/connector/src/Model/Generator/Product2CategoryFactory.php',
+        'Jtl\\Connector\\Core\\Model\\Generator\\ProductAttributeFactory' => __DIR__ . '/..' . '/jtl/connector/src/Model/Generator/ProductAttributeFactory.php',
+        'Jtl\\Connector\\Core\\Model\\Generator\\ProductConfigGroupFactory' => __DIR__ . '/..' . '/jtl/connector/src/Model/Generator/ProductConfigGroupFactory.php',
         'Jtl\\Connector\\Core\\Model\\Generator\\ProductFactory' => __DIR__ . '/..' . '/jtl/connector/src/Model/Generator/ProductFactory.php',
         'Jtl\\Connector\\Core\\Model\\Generator\\ProductI18nFactory' => __DIR__ . '/..' . '/jtl/connector/src/Model/Generator/ProductI18nFactory.php',
+        'Jtl\\Connector\\Core\\Model\\Generator\\ProductInvisibilityFactory' => __DIR__ . '/..' . '/jtl/connector/src/Model/Generator/ProductInvisibilityFactory.php',
         'Jtl\\Connector\\Core\\Model\\Generator\\ProductPriceFactory' => __DIR__ . '/..' . '/jtl/connector/src/Model/Generator/ProductPriceFactory.php',
         'Jtl\\Connector\\Core\\Model\\Generator\\ProductVariationFactory' => __DIR__ . '/..' . '/jtl/connector/src/Model/Generator/ProductVariationFactory.php',
         'Jtl\\Connector\\Core\\Model\\Generator\\ProductVariationI18nFactory' => __DIR__ . '/..' . '/jtl/connector/src/Model/Generator/ProductVariationI18nFactory.php',
         'Jtl\\Connector\\Core\\Model\\Generator\\ProductVariationValueFactory' => __DIR__ . '/..' . '/jtl/connector/src/Model/Generator/ProductVariationValueFactory.php',
         'Jtl\\Connector\\Core\\Model\\Generator\\ProductVariationValueI18nFactory' => __DIR__ . '/..' . '/jtl/connector/src/Model/Generator/ProductVariationValueI18nFactory.php',
+        'Jtl\\Connector\\Core\\Model\\Generator\\ProductWarehouseInfoFactory' => __DIR__ . '/..' . '/jtl/connector/src/Model/Generator/ProductWarehouseInfoFactory.php',
         'Jtl\\Connector\\Core\\Model\\Generator\\SpecificFactory' => __DIR__ . '/..' . '/jtl/connector/src/Model/Generator/SpecificFactory.php',
         'Jtl\\Connector\\Core\\Model\\Generator\\SpecificI18nFactory' => __DIR__ . '/..' . '/jtl/connector/src/Model/Generator/SpecificI18nFactory.php',
         'Jtl\\Connector\\Core\\Model\\Generator\\SpecificValueFactory' => __DIR__ . '/..' . '/jtl/connector/src/Model/Generator/SpecificValueFactory.php',
@@ -1745,6 +1758,7 @@ class ComposerStaticInit9af3dd9e6f470993e81161dc87d465e9
         'Jtl\\Connector\\Core\\Model\\Identity' => __DIR__ . '/..' . '/jtl/connector/src/Model/Identity.php',
         'Jtl\\Connector\\Core\\Model\\IdentityInterface' => __DIR__ . '/..' . '/jtl/connector/src/Model/IdentityInterface.php',
         'Jtl\\Connector\\Core\\Model\\ImageI18n' => __DIR__ . '/..' . '/jtl/connector/src/Model/ImageI18n.php',
+        'Jtl\\Connector\\Core\\Model\\ItemsInterface' => __DIR__ . '/..' . '/jtl/connector/src/Model/ItemsInterface.php',
         'Jtl\\Connector\\Core\\Model\\KeyValueAttribute' => __DIR__ . '/..' . '/jtl/connector/src/Model/KeyValueAttribute.php',
         'Jtl\\Connector\\Core\\Model\\Language' => __DIR__ . '/..' . '/jtl/connector/src/Model/Language.php',
         'Jtl\\Connector\\Core\\Model\\Manufacturer' => __DIR__ . '/..' . '/jtl/connector/src/Model/Manufacturer.php',
@@ -1815,6 +1829,7 @@ class ComposerStaticInit9af3dd9e6f470993e81161dc87d465e9
         'Jtl\\Connector\\Core\\Rpc\\Packet' => __DIR__ . '/..' . '/jtl/connector/src/Rpc/Packet.php',
         'Jtl\\Connector\\Core\\Rpc\\RequestPacket' => __DIR__ . '/..' . '/jtl/connector/src/Rpc/RequestPacket.php',
         'Jtl\\Connector\\Core\\Rpc\\ResponsePacket' => __DIR__ . '/..' . '/jtl/connector/src/Rpc/ResponsePacket.php',
+        'Jtl\\Connector\\Core\\Rpc\\Warnings' => __DIR__ . '/..' . '/jtl/connector/src/Rpc/Warnings.php',
         'Jtl\\Connector\\Core\\Serializer\\Handler\\FeaturesHandler' => __DIR__ . '/..' . '/jtl/connector/src/Serializer/Handler/FeaturesHandler.php',
         'Jtl\\Connector\\Core\\Serializer\\Handler\\IdentityHandler' => __DIR__ . '/..' . '/jtl/connector/src/Serializer/Handler/IdentityHandler.php',
         'Jtl\\Connector\\Core\\Serializer\\Json' => __DIR__ . '/..' . '/jtl/connector/src/Serializer/Json.php',
@@ -2496,12 +2511,12 @@ class ComposerStaticInit9af3dd9e6f470993e81161dc87d465e9
         'Symfony\\Contracts\\Service\\Attribute\\Required' => __DIR__ . '/..' . '/symfony/service-contracts/Attribute/Required.php',
         'Symfony\\Contracts\\Service\\Attribute\\SubscribedService' => __DIR__ . '/..' . '/symfony/service-contracts/Attribute/SubscribedService.php',
         'Symfony\\Contracts\\Service\\ResetInterface' => __DIR__ . '/..' . '/symfony/service-contracts/ResetInterface.php',
+        'Symfony\\Contracts\\Service\\ServiceCollectionInterface' => __DIR__ . '/..' . '/symfony/service-contracts/ServiceCollectionInterface.php',
         'Symfony\\Contracts\\Service\\ServiceLocatorTrait' => __DIR__ . '/..' . '/symfony/service-contracts/ServiceLocatorTrait.php',
+        'Symfony\\Contracts\\Service\\ServiceMethodsSubscriberTrait' => __DIR__ . '/..' . '/symfony/service-contracts/ServiceMethodsSubscriberTrait.php',
         'Symfony\\Contracts\\Service\\ServiceProviderInterface' => __DIR__ . '/..' . '/symfony/service-contracts/ServiceProviderInterface.php',
         'Symfony\\Contracts\\Service\\ServiceSubscriberInterface' => __DIR__ . '/..' . '/symfony/service-contracts/ServiceSubscriberInterface.php',
         'Symfony\\Contracts\\Service\\ServiceSubscriberTrait' => __DIR__ . '/..' . '/symfony/service-contracts/ServiceSubscriberTrait.php',
-        'Symfony\\Contracts\\Service\\Test\\ServiceLocatorTest' => __DIR__ . '/..' . '/symfony/service-contracts/Test/ServiceLocatorTest.php',
-        'Symfony\\Contracts\\Service\\Test\\ServiceLocatorTestCase' => __DIR__ . '/..' . '/symfony/service-contracts/Test/ServiceLocatorTestCase.php',
         'Symfony\\Polyfill\\Ctype\\Ctype' => __DIR__ . '/..' . '/symfony/polyfill-ctype/Ctype.php',
         'Symfony\\Polyfill\\Intl\\Grapheme\\Grapheme' => __DIR__ . '/..' . '/symfony/polyfill-intl-grapheme/Grapheme.php',
         'Symfony\\Polyfill\\Intl\\Normalizer\\Normalizer' => __DIR__ . '/..' . '/symfony/polyfill-intl-normalizer/Normalizer.php',
@@ -2547,9 +2562,9 @@ class ComposerStaticInit9af3dd9e6f470993e81161dc87d465e9
     public static function getInitializer(ClassLoader $loader)
     {
         return \Closure::bind(function () use ($loader) {
-            $loader->prefixLengthsPsr4 = ComposerStaticInit9af3dd9e6f470993e81161dc87d465e9::$prefixLengthsPsr4;
-            $loader->prefixDirsPsr4 = ComposerStaticInit9af3dd9e6f470993e81161dc87d465e9::$prefixDirsPsr4;
-            $loader->classMap = ComposerStaticInit9af3dd9e6f470993e81161dc87d465e9::$classMap;
+            $loader->prefixLengthsPsr4 = ComposerStaticInitd1aa62b9f0ab4fb9a84427170d64734a::$prefixLengthsPsr4;
+            $loader->prefixDirsPsr4 = ComposerStaticInitd1aa62b9f0ab4fb9a84427170d64734a::$prefixDirsPsr4;
+            $loader->classMap = ComposerStaticInitd1aa62b9f0ab4fb9a84427170d64734a::$classMap;
 
         }, null, ClassLoader::class);
     }

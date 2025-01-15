@@ -9,9 +9,6 @@ use Symfony\Contracts\EventDispatcher\Event;
 
 class AckEvent extends Event
 {
-    /**
-     * @var Ack
-     */
     protected Ack $ack;
 
     /**

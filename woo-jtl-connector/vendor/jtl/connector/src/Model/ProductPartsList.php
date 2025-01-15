@@ -12,20 +12,18 @@ use JMS\Serializer\Annotation as Serializer;
  * @access     public
  * @package    Jtl\Connector\Core\Model
  * @subpackage Product
- * @Serializer\AccessType("public_method")
  */
+#[Serializer\AccessType(['value' => 'public_method'])]
 class ProductPartsList extends AbstractIdentity
 {
-    /**
-     * @var double Component quantity
-     * @Serializer\Type("double")
-     * @Serializer\SerializedName("quantity")
-     * @Serializer\Accessor(getter="getQuantity",setter="setQuantity")
-     */
+    /** @var double Component quantity */
+    #[Serializer\Type('double')]
+    #[Serializer\SerializedName('quantity')]
+    #[Serializer\Accessor(getter: 'getQuantity', setter: 'setQuantity')]
     protected float $quantity = 0.0;
 
     /**
-     * @return double Component quantity
+     * @return float Component quantity
      */
     public function getQuantity(): float
     {
@@ -33,11 +31,11 @@ class ProductPartsList extends AbstractIdentity
     }
 
     /**
-     * @param double $quantity Component quantity
+     * @param float $quantity Component quantity
      *
-     * @return ProductPartsList
+     * @return $this
      */
-    public function setQuantity(float $quantity): ProductPartsList
+    public function setQuantity(float $quantity): self
     {
         $this->quantity = $quantity;
 

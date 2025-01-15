@@ -10,24 +10,18 @@ use JMS\Serializer\Annotation as Serializer;
  * @access     public
  * @package    Jtl\Connector\Core\Model
  * @subpackage Product
- * @Serializer\AccessType("public_method")
  */
+#[Serializer\AccessType(['value' => 'public_method'])]
 class ProductMediaFileAttrI18n extends AbstractI18n
 {
-    /**
-     * @var string
-     * @Serializer\Type("string")
-     * @Serializer\SerializedName("name")
-     * @Serializer\Accessor(getter="getName",setter="setName")
-     */
+    #[Serializer\Type('string')]
+    #[Serializer\SerializedName('name')]
+    #[Serializer\Accessor(getter: 'getName', setter: 'setName')]
     protected string $name = '';
 
-    /**
-     * @var string
-     * @Serializer\Type("string")
-     * @Serializer\SerializedName("value")
-     * @Serializer\Accessor(getter="getValue",setter="setValue")
-     */
+    #[Serializer\Type('string')]
+    #[Serializer\SerializedName('value')]
+    #[Serializer\Accessor(getter: 'getValue', setter: 'setValue')]
     protected string $value = '';
 
     /**
@@ -41,9 +35,9 @@ class ProductMediaFileAttrI18n extends AbstractI18n
     /**
      * @param string $name
      *
-     * @return ProductMediaFileAttrI18n
+     * @return $this
      */
-    public function setName(string $name): ProductMediaFileAttrI18n
+    public function setName(string $name): self
     {
         $this->name = $name;
 
@@ -61,9 +55,9 @@ class ProductMediaFileAttrI18n extends AbstractI18n
     /**
      * @param string $value
      *
-     * @return ProductMediaFileAttrI18n
+     * @return $this
      */
-    public function setValue(string $value): ProductMediaFileAttrI18n
+    public function setValue(string $value): self
     {
         $this->value = $value;
 

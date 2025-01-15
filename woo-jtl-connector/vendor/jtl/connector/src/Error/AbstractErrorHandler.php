@@ -10,6 +10,9 @@ abstract class AbstractErrorHandler
 {
     protected RequestPacket $requestPacket;
 
+    /**
+     * @return void
+     */
     public function register(): void
     {
         \set_exception_handler($this->getExceptionHandler());

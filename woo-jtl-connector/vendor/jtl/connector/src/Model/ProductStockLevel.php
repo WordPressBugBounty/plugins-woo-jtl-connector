@@ -13,24 +13,19 @@ use TypeError;
  * @access     public
  * @package    Jtl\Connector\Core\Model
  * @subpackage Product
- * @Serializer\AccessType("public_method")
  */
+#[Serializer\AccessType(['value' => 'public_method'])]
 class ProductStockLevel extends AbstractModel
 {
-    /**
-     * @var Identity
-     * @Serializer\Type("Jtl\Connector\Core\Model\Identity")
-     * @Serializer\SerializedName("productId")
-     * @Serializer\Accessor(getter="getProductId",setter="setProductId")
-     */
+    #[Serializer\Type(Identity::class)]
+    #[Serializer\SerializedName('productId')]
+    #[Serializer\Accessor(getter: 'getProductId', setter: 'setProductId')]
     protected Identity $productId;
 
-    /**
-     * @var double
-     * @Serializer\Type("double")
-     * @Serializer\SerializedName("stockLevel")
-     * @Serializer\Accessor(getter="getStockLevel",setter="setStockLevel")
-     */
+
+    #[Serializer\Type('double')]
+    #[Serializer\SerializedName('stockLevel')]
+    #[Serializer\Accessor(getter: 'getStockLevel', setter: 'setStockLevel')]
     protected float $stockLevel = 0.0;
 
     /**
@@ -54,16 +49,17 @@ class ProductStockLevel extends AbstractModel
     /**
      * @param Identity $productId
      *
-     * @return ProductStockLevel
+     * @return $this
      */
-    public function setProductId(Identity $productId): ProductStockLevel
+    public function setProductId(Identity $productId): self
     {
         $this->productId = $productId;
+
         return $this;
     }
 
     /**
-     * @return double
+     * @return float
      */
     public function getStockLevel(): float
     {
@@ -71,11 +67,11 @@ class ProductStockLevel extends AbstractModel
     }
 
     /**
-     * @param double $stockLevel
+     * @param float $stockLevel
      *
-     * @return ProductStockLevel
+     * @return $this
      */
-    public function setStockLevel(float $stockLevel): ProductStockLevel
+    public function setStockLevel(float $stockLevel): self
     {
         $this->stockLevel = $stockLevel;
 

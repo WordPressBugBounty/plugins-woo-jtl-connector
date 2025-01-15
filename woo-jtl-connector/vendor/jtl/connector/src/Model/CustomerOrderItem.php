@@ -12,129 +12,88 @@ use JMS\Serializer\Annotation as Serializer;
  * @access     public
  * @package    Jtl\Connector\Core\Model
  * @subpackage Product
- * @Serializer\AccessType("public_method")
  */
+#[Serializer\AccessType(['value' => 'public_method'])]
 class CustomerOrderItem extends AbstractIdentity
 {
-    /**
-     * @var string - Discount
-     */
     public const TYPE_DISCOUNT = 'discount';
 
-    /**
-     * @var string - Product
-     */
     public const TYPE_PRODUCT = 'product';
 
-    /**
-     * @var string - Shipping
-     */
     public const TYPE_SHIPPING = 'shipping';
 
-    /**
-     * @var string - Surcharge
-     */
     public const TYPE_SURCHARGE = 'surcharge';
 
-    /**
-     * @var string - Coupon
-     */
     public const TYPE_COUPON = 'coupon';
 
-    /**
-     * @var Identity Optional reference to configItemId (if item is part of a configurable item)
-     * @Serializer\Type("Jtl\Connector\Core\Model\Identity")
-     * @Serializer\SerializedName("configItemId")
-     * @Serializer\Accessor(getter="getConfigItemId",setter="setConfigItemId")
-     */
+    /** @var Identity Optional reference to configItemId (if item is part of a configurable item) */
+    #[Serializer\Type(Identity::class)]
+    #[Serializer\SerializedName('configItemId')]
+    #[Serializer\Accessor(getter: 'getConfigItemId', setter: 'setConfigItemId')]
     protected Identity $configItemId;
 
-    /**
-     * @var Identity Reference to product
-     * @Serializer\Type("Jtl\Connector\Core\Model\Identity")
-     * @Serializer\SerializedName("productId")
-     * @Serializer\Accessor(getter="getProductId",setter="setProductId")
-     */
+    /** @var Identity Reference to product */
+    #[Serializer\Type(Identity::class)]
+    #[Serializer\SerializedName('productId')]
+    #[Serializer\Accessor(getter: 'getProductId', setter: 'setProductId')]
     protected Identity $productId;
 
-    /**
-     * @var string Order item name
-     * @Serializer\Type("string")
-     * @Serializer\SerializedName("name")
-     * @Serializer\Accessor(getter="getName",setter="setName")
-     */
+    /** @var string Order item name */
+    #[Serializer\Type('string')]
+    #[Serializer\SerializedName('name')]
+    #[Serializer\Accessor(getter: 'getName', setter: 'setName')]
     protected string $name = '';
 
-    /**
-     * @var double Price (net)
-     * @Serializer\Type("double")
-     * @Serializer\SerializedName("price")
-     * @Serializer\Accessor(getter="getPrice",setter="setPrice")
-     */
+    /** @var double Price (net) */
+    #[Serializer\Type('double')]
+    #[Serializer\SerializedName('price')]
+    #[Serializer\Accessor(getter: 'getPrice', setter: 'setPrice')]
     protected float $price = 0.0;
 
-    /**
-     * @var double Price (gross)
-     * @Serializer\Type("double")
-     * @Serializer\SerializedName("priceGross")
-     * @Serializer\Accessor(getter="getPriceGross",setter="setPriceGross")
-     */
+    /** @var double Price (gross) */
+    #[Serializer\Type('double')]
+    #[Serializer\SerializedName('priceGross')]
+    #[Serializer\Accessor(getter: 'getPriceGross', setter: 'setPriceGross')]
     protected float $priceGross = 0.0;
 
-    /**
-     * @var double Quantity purchased
-     * @Serializer\Type("double")
-     * @Serializer\SerializedName("quantity")
-     * @Serializer\Accessor(getter="getQuantity",setter="setQuantity")
-     */
+    /** @var double Quantity purchased */
+    #[Serializer\Type('double')]
+    #[Serializer\SerializedName('quantity')]
+    #[Serializer\Accessor(getter: 'getQuantity', setter: 'setQuantity')]
     protected float $quantity = 0.0;
 
-    /**
-     * @var string Stock keeping Unit (unique item identifier)
-     * @Serializer\Type("string")
-     * @Serializer\SerializedName("sku")
-     * @Serializer\Accessor(getter="getSku",setter="setSku")
-     */
+    /** @var string Stock keeping Unit (unique item identifier) */
+    #[Serializer\Type('string')]
+    #[Serializer\SerializedName('sku')]
+    #[Serializer\Accessor(getter: 'getSku', setter: 'setSku')]
     protected string $sku = '';
 
-    /**
-     * @var string
-     * @Serializer\Type("string")
-     * @Serializer\SerializedName("type")
-     * @Serializer\Accessor(getter="getType",setter="setType")
-     */
+    #[Serializer\Type('string')]
+    #[Serializer\SerializedName('type')]
+    #[Serializer\Accessor(getter: 'getType', setter: 'setType')]
     protected string $type = '';
 
-    /**
-     * @var string
-     * @Serializer\Type("string")
-     * @Serializer\SerializedName("note")
-     * @Serializer\Accessor(getter="getNote",setter="setNote")
-     */
+    #[Serializer\Type('string')]
+    #[Serializer\SerializedName('note')]
+    #[Serializer\Accessor(getter: 'getNote', setter: 'setNote')]
     protected string $note = '';
 
-    /**
-     * @var string Optional unique Hashsum (if item is part of configurable item
-     * @Serializer\Type("string")
-     * @Serializer\SerializedName("unique")
-     * @Serializer\Accessor(getter="getUnique",setter="setUnique")
-     */
+    /** @var string Optional unique Hashsum (if item is part of configurable item */
+    #[Serializer\Type('string')]
+    #[Serializer\SerializedName('unique')]
+    #[Serializer\Accessor(getter: 'getUnique', setter: 'setUnique')]
     protected string $unique = '';
 
-    /**
-     * @var double Value added tax
-     * @Serializer\Type("double")
-     * @Serializer\SerializedName("vat")
-     * @Serializer\Accessor(getter="getVat",setter="setVat")
-     */
+    /** @var double Value added tax */
+    #[Serializer\Type('double')]
+    #[Serializer\SerializedName('vat')]
+    #[Serializer\Accessor(getter: 'getVat', setter: 'setVat')]
     protected float $vat = 0.0;
 
-    /**
-     * @var CustomerOrderItemVariation[]
-     * @Serializer\Type("array<Jtl\Connector\Core\Model\CustomerOrderItemVariation>")
-     * @Serializer\SerializedName("variations")
-     * @Serializer\AccessType("reflection")
-     */
+    /** @var CustomerOrderItemVariation[] */
+    #[Serializer\Type('array<Jtl\Connector\Core\Model\CustomerOrderItemVariation>')]
+    #[Serializer\SerializedName('variations')]
+    #[Serializer\AccessType(['value' => 'reflection'])]
     protected array $variations = [];
 
     /**
@@ -161,9 +120,9 @@ class CustomerOrderItem extends AbstractIdentity
     /**
      * @param Identity $configItemId Optional reference to configItemId (if item is part of a configurable item)
      *
-     * @return CustomerOrderItem
+     * @return $this
      */
-    public function setConfigItemId(Identity $configItemId): CustomerOrderItem
+    public function setConfigItemId(Identity $configItemId): self
     {
         $this->configItemId = $configItemId;
 
@@ -181,9 +140,9 @@ class CustomerOrderItem extends AbstractIdentity
     /**
      * @param Identity $productId Reference to product
      *
-     * @return CustomerOrderItem
+     * @return $this
      */
-    public function setProductId(Identity $productId): CustomerOrderItem
+    public function setProductId(Identity $productId): self
     {
         $this->productId = $productId;
 
@@ -201,9 +160,9 @@ class CustomerOrderItem extends AbstractIdentity
     /**
      * @param string $name Order item name
      *
-     * @return CustomerOrderItem
+     * @return $this
      */
-    public function setName(string $name): CustomerOrderItem
+    public function setName(string $name): self
     {
         $this->name = $name;
 
@@ -211,7 +170,7 @@ class CustomerOrderItem extends AbstractIdentity
     }
 
     /**
-     * @return double Price (net)
+     * @return float Price (net)
      */
     public function getPrice(): float
     {
@@ -219,11 +178,11 @@ class CustomerOrderItem extends AbstractIdentity
     }
 
     /**
-     * @param double $price Price (net)
+     * @param float $price Price (net)
      *
-     * @return CustomerOrderItem
+     * @return $this
      */
-    public function setPrice(float $price): CustomerOrderItem
+    public function setPrice(float $price): self
     {
         $this->price = $price;
 
@@ -231,7 +190,7 @@ class CustomerOrderItem extends AbstractIdentity
     }
 
     /**
-     * @return double PriceGross (gross)
+     * @return float PriceGross (gross)
      */
     public function getPriceGross(): float
     {
@@ -239,11 +198,11 @@ class CustomerOrderItem extends AbstractIdentity
     }
 
     /**
-     * @param double $priceGross Price (gross)
+     * @param float $priceGross Price (gross)
      *
-     * @return CustomerOrderItem
+     * @return $this
      */
-    public function setPriceGross(float $priceGross): CustomerOrderItem
+    public function setPriceGross(float $priceGross): self
     {
         $this->priceGross = $priceGross;
 
@@ -251,7 +210,7 @@ class CustomerOrderItem extends AbstractIdentity
     }
 
     /**
-     * @return double Quantity purchased
+     * @return float Quantity purchased
      */
     public function getQuantity(): float
     {
@@ -259,11 +218,11 @@ class CustomerOrderItem extends AbstractIdentity
     }
 
     /**
-     * @param double $quantity Quantity purchased
+     * @param float $quantity Quantity purchased
      *
-     * @return CustomerOrderItem
+     * @return $this
      */
-    public function setQuantity(float $quantity): CustomerOrderItem
+    public function setQuantity(float $quantity): self
     {
         $this->quantity = $quantity;
 
@@ -281,9 +240,9 @@ class CustomerOrderItem extends AbstractIdentity
     /**
      * @param string $sku Stock keeping Unit (unique item identifier)
      *
-     * @return CustomerOrderItem
+     * @return $this
      */
-    public function setSku(string $sku): CustomerOrderItem
+    public function setSku(string $sku): self
     {
         $this->sku = $sku;
 
@@ -301,9 +260,9 @@ class CustomerOrderItem extends AbstractIdentity
     /**
      * @param string $type
      *
-     * @return CustomerOrderItem
+     * @return $this
      */
-    public function setType(string $type): CustomerOrderItem
+    public function setType(string $type): self
     {
         $this->type = $type;
 
@@ -321,9 +280,9 @@ class CustomerOrderItem extends AbstractIdentity
     /**
      * @param string $note
      *
-     * @return CustomerOrderItem
+     * @return $this
      */
-    public function setNote(string $note): CustomerOrderItem
+    public function setNote(string $note): self
     {
         $this->note = $note;
 
@@ -341,9 +300,9 @@ class CustomerOrderItem extends AbstractIdentity
     /**
      * @param string $unique Optional unique Hashsum (if item is part of configurable item
      *
-     * @return CustomerOrderItem
+     * @return $this
      */
-    public function setUnique(string $unique): CustomerOrderItem
+    public function setUnique(string $unique): self
     {
         $this->unique = $unique;
 
@@ -351,7 +310,7 @@ class CustomerOrderItem extends AbstractIdentity
     }
 
     /**
-     * @return double Value added tax
+     * @return float Value added tax
      */
     public function getVat(): float
     {
@@ -359,11 +318,11 @@ class CustomerOrderItem extends AbstractIdentity
     }
 
     /**
-     * @param double $vat Value added tax
+     * @param float $vat Value added tax
      *
-     * @return CustomerOrderItem
+     * @return $this
      */
-    public function setVat(float $vat): CustomerOrderItem
+    public function setVat(float $vat): self
     {
         $this->vat = $vat;
 
@@ -373,9 +332,9 @@ class CustomerOrderItem extends AbstractIdentity
     /**
      * @param CustomerOrderItemVariation $variation
      *
-     * @return CustomerOrderItem
+     * @return $this
      */
-    public function addVariation(CustomerOrderItemVariation $variation): CustomerOrderItem
+    public function addVariation(CustomerOrderItemVariation $variation): self
     {
         $this->variations[] = $variation;
 
@@ -393,9 +352,9 @@ class CustomerOrderItem extends AbstractIdentity
     /**
      * @param CustomerOrderItemVariation ...$variations
      *
-     * @return CustomerOrderItem
+     * @return $this
      */
-    public function setVariations(CustomerOrderItemVariation ...$variations): CustomerOrderItem
+    public function setVariations(CustomerOrderItemVariation ...$variations): self
     {
         $this->variations = $variations;
 
@@ -403,9 +362,9 @@ class CustomerOrderItem extends AbstractIdentity
     }
 
     /**
-     * @return CustomerOrderItem
+     * @return $this
      */
-    public function clearVariations(): CustomerOrderItem
+    public function clearVariations(): self
     {
         $this->variations = [];
 

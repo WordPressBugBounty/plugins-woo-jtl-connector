@@ -54,9 +54,9 @@ class IdentityType
     protected static ?array $types = null;
 
     /**
-     * @param integer $type
+     * @param int $type
      *
-     * @return boolean
+     * @return bool
      */
     public static function isType(int $type): bool
     {

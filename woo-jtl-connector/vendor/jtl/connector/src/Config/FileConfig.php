@@ -6,16 +6,10 @@ namespace Jtl\Connector\Core\Config;
 
 use Jtl\Connector\Core\Exception\ConfigException;
 use Noodlehaus\Config;
+use Noodlehaus\Exception\EmptyDirectoryException;
 use Noodlehaus\Parser\Json;
-use RuntimeException;
 
-/**
- * Config Class
- *
- * @access public
- * @author Daniel Böhmer <daniel.boehmer@jtl-software.com>
- */
-class FileConfig extends Config implements CoreConfigInterface
+class FileConfig extends Config implements CoreConfigInterface, ConfigSchemaConfigInterface
 {
     protected string $filePath = '';
 
@@ -26,6 +20,8 @@ class FileConfig extends Config implements CoreConfigInterface
      *
      * @param string            $filePath
      * @param ConfigSchema|null $configSchema
+     *
+     * @throws EmptyDirectoryException
      */
     public function __construct(string $filePath, ?ConfigSchema $configSchema = null)
     {
@@ -58,13 +54,15 @@ class FileConfig extends Config implements CoreConfigInterface
     }
 
     /**
-     * @param string $key
-     * @param mixed  $value
+     * @phpstan-param string $key
+     *
+     * @param mixed $key
+     * @param mixed $value
      *
      * @return void
      * @throws ConfigException
      */
-    public function set($key, $value): void
+    public function set(mixed $key, mixed $value): void
     {
         if (empty($key)) {
             throw ConfigException::keyIsEmpty();
@@ -73,32 +71,23 @@ class FileConfig extends Config implements CoreConfigInterface
         parent::set($key, $value);
     }
 
+    /**
+     * @return void
+     */
     public function write(): void
     {
         $this->toFile($this->filePath);
     }
 
     /**
-     * @inheritDoc
-     */
-    public function getBool(string $valueName, ?bool $default = null): bool
-    {
-        if ($this->check($valueName, $default) === false) {
-            self::throwTypeError($valueName, ConfigParameter::TYPE_BOOLEAN);
-        }
-
-        return (bool)$this->get($valueName, $default);
-    }
-
-    /**
      * @param string $valueName
-     * @param scalar|null $default
-     * @phpstan-param mixed $default
+     * @param mixed  $default
      *
      * @return bool
      * @throws ConfigException
+     * @throws \TypeError
      */
-    private function check(string $valueName, $default): bool
+    private function check(string $valueName, mixed $default): bool
     {
         if (!\is_scalar($default) && !\is_null($default)) {
             self::throwTypeError(
@@ -107,6 +96,7 @@ class FileConfig extends Config implements CoreConfigInterface
             );
         }
         $value = $this->get($valueName, $default);
+
         return $this->configSchema->getParameter($valueName)->isValidValue($value);
     }
 
@@ -124,17 +114,95 @@ class FileConfig extends Config implements CoreConfigInterface
 
     /**
      * @inheritDoc
-     * @throws RuntimeException
+     * @throws \RuntimeException
      */
-    public function getString(string $valueName, ?string $default = null): string
+    public function getString(string $valueName, ?string $default = null): ?string
     {
+        $value = $this->get($valueName, $default);
+        if (empty($value)) {
+            return '';
+        }
+        if ($value === $default) {
+            return $default;
+        }
         if ($this->check($valueName, $default) === false) {
             self::throwTypeError($valueName, ConfigParameter::TYPE_STRING);
         }
-        if (!\is_scalar(($returnStr = $this->get($valueName, $default)))) {
+        if (!\is_scalar($value)) {
             throw new \RuntimeException('getString must return a scalar type!');
         }
 
-        return (string)$returnStr;
+        return (string)$value;
+    }
+
+    /**
+     * @inheritDoc
+     * @throws \RuntimeException
+     */
+    public function getBool(string $valueName, ?bool $default = null): ?bool
+    {
+        $value = $this->get($valueName, $default);
+        if (empty($value)) {
+            return null;
+        }
+        if ($value === $default) {
+            return $default;
+        }
+        if ($this->check($valueName, $default) === false) {
+            self::throwTypeError($valueName, ConfigParameter::TYPE_BOOLEAN);
+        }
+
+        if (!\is_scalar($value)) {
+            throw new \RuntimeException('getBool must have a scalar value!');
+        }
+
+        return (bool)$value;
+    }
+
+    /**
+     * @inheritDoc
+     * @throws \RuntimeException
+     */
+    public function getInt(string $valueName, ?int $default = null): ?int
+    {
+        $value = $this->get($valueName, $default);
+        if (empty($value)) {
+            return null;
+        }
+        if ($value === $default) {
+            return $default;
+        }
+        if ($this->has($valueName) && $this->check($valueName, $default) === false) {
+            self::throwTypeError($valueName, ConfigParameter::TYPE_INTEGER);
+        }
+        if (!\is_numeric($value)) {
+            throw new \RuntimeException('getInt must return a numeric type!');
+        }
+
+        return (int)$value;
+    }
+
+    /**
+     * @inheritDoc
+     * @throws \RuntimeException
+     */
+    public function getFloat(string $valueName, ?float $default = null): ?float
+    {
+        $value = $this->get($valueName, $default);
+        if (empty($value)) {
+            return null;
+        }
+        if ($value === $default) {
+            return $default;
+        }
+        if ($this->has($valueName) && $this->check($valueName, $default) === false) {
+            self::throwTypeError($valueName, ConfigParameter::TYPE_DOUBLE);
+        }
+
+        if (!\is_numeric($value)) {
+            throw new \RuntimeException('getFloat must return a numeric type!');
+        }
+
+        return (float)$value;
     }
 }

@@ -12,64 +12,49 @@ use JMS\Serializer\Annotation as Serializer;
  * @access     public
  * @package    Jtl\Connector\Core\Model
  * @subpackage Product
- * @Serializer\AccessType("public_method")
  */
+#[Serializer\AccessType(['value' => 'public_method'])]
 class ConfigGroup extends AbstractIdentity
 {
-    /**
-     * @var string Optional internal comment to differantiate config groups by comment name
-     * @Serializer\Type("string")
-     * @Serializer\SerializedName("comment")
-     * @Serializer\Accessor(getter="getComment",setter="setComment")
-     */
+    /** @var string Optional internal comment to differantiate config groups by comment name */
+    #[Serializer\Type('string')]
+    #[Serializer\SerializedName('comment')]
+    #[Serializer\Accessor(getter: 'getComment', setter: 'setComment')]
     protected string $comment = '';
 
-    /**
-     * @var string
-     * @Serializer\Type("string")
-     * @Serializer\SerializedName("imagePath")
-     * @Serializer\Accessor(getter="getImagePath",setter="setImagePath")
-     */
+    #[Serializer\Type('string')]
+    #[Serializer\SerializedName('imagePath')]
+    #[Serializer\Accessor(getter: 'getImagePath', setter: 'setImagePath')]
     protected string $imagePath = '';
 
-    /**
-     * @var integer Optional maximum number allowed selections. Default 0 for no maximum limitation.
-     * @Serializer\Type("integer")
-     * @Serializer\SerializedName("maximumSelection")
-     * @Serializer\Accessor(getter="getMaximumSelection",setter="setMaximumSelection")
-     */
+    /** @var int Optional maximum number allowed selections. Default 0 for no maximum limitation. */
+    #[Serializer\Type('integer')]
+    #[Serializer\SerializedName('maximumSelection')]
+    #[Serializer\Accessor(getter: 'getMaximumSelection', setter: 'setMaximumSelection')]
     protected int $maximumSelection = 0;
 
-    /**
-     * @var integer Optional minimum number required selections. Default 0 for no minimum requirement.
-     * @Serializer\Type("integer")
-     * @Serializer\SerializedName("minimumSelection")
-     * @Serializer\Accessor(getter="getMinimumSelection",setter="setMinimumSelection")
-     */
+    /** @var int Optional minimum number required selections. Default 0 for no minimum requirement. */
+    #[Serializer\Type('integer')]
+    #[Serializer\SerializedName('minimumSelection')]
+    #[Serializer\Accessor(getter: 'getMinimumSelection', setter: 'setMinimumSelection')]
     protected int $minimumSelection = 0;
 
-    /**
-     * @var integer Optional sort order number
-     * @Serializer\Type("integer")
-     * @Serializer\SerializedName("sort")
-     * @Serializer\Accessor(getter="getSort",setter="setSort")
-     */
+    /** @var int Optional sort order number */
+    #[Serializer\Type('integer')]
+    #[Serializer\SerializedName('sort')]
+    #[Serializer\Accessor(getter: 'getSort', setter: 'setSort')]
     protected int $sort = 0;
 
-    /**
-     * @var integer Config group item type. 0: Checkbox, 1:Radio, 2, Dropdown, 3: Multiselect
-     * @Serializer\Type("integer")
-     * @Serializer\SerializedName("type")
-     * @Serializer\Accessor(getter="getType",setter="setType")
-     */
+    /** @var int Config group item type. 0: Checkbox, 1:Radio, 2, Dropdown, 3: Multiselect */
+    #[Serializer\Type('integer')]
+    #[Serializer\SerializedName('type')]
+    #[Serializer\Accessor(getter: 'getType', setter: 'setType')]
     protected int $type = 0;
 
-    /**
-     * @var ConfigGroupI18n[]
-     * @Serializer\Type("array<Jtl\Connector\Core\Model\ConfigGroupI18n>")
-     * @Serializer\SerializedName("i18ns")
-     * @Serializer\AccessType("reflection")
-     */
+    /** @var ConfigGroupI18n[] */
+    #[Serializer\Type('array<Jtl\Connector\Core\Model\ConfigGroupI18n>')]
+    #[Serializer\SerializedName('i18ns')]
+    #[Serializer\AccessType(['value' => 'reflection'])]
     protected array $i18ns = [];
 
     /**
@@ -83,9 +68,9 @@ class ConfigGroup extends AbstractIdentity
     /**
      * @param string $comment Optional internal comment to differantiate config groups by comment name
      *
-     * @return ConfigGroup
+     * @return $this
      */
-    public function setComment(string $comment): ConfigGroup
+    public function setComment(string $comment): self
     {
         $this->comment = $comment;
 
@@ -103,9 +88,9 @@ class ConfigGroup extends AbstractIdentity
     /**
      * @param string $imagePath
      *
-     * @return ConfigGroup
+     * @return $this
      */
-    public function setImagePath(string $imagePath): ConfigGroup
+    public function setImagePath(string $imagePath): self
     {
         $this->imagePath = $imagePath;
 
@@ -113,7 +98,7 @@ class ConfigGroup extends AbstractIdentity
     }
 
     /**
-     * @return integer Optional maximum number allowed selections. Default 0 for no maximum limitation.
+     * @return int Optional maximum number allowed selections. Default 0 for no maximum limitation.
      */
     public function getMaximumSelection(): int
     {
@@ -121,11 +106,11 @@ class ConfigGroup extends AbstractIdentity
     }
 
     /**
-     * @param integer $maximumSelection Optional maximum number allowed selections. Default 0 for no maximum limitation.
+     * @param int $maximumSelection Optional maximum number allowed selections. Default 0 for no maximum limitation.
      *
-     * @return ConfigGroup
+     * @return $this
      */
-    public function setMaximumSelection(int $maximumSelection): ConfigGroup
+    public function setMaximumSelection(int $maximumSelection): self
     {
         $this->maximumSelection = $maximumSelection;
 
@@ -133,7 +118,7 @@ class ConfigGroup extends AbstractIdentity
     }
 
     /**
-     * @return integer Optional minimum number required selections. Default 0 for no minimum requirement.
+     * @return int Optional minimum number required selections. Default 0 for no minimum requirement.
      */
     public function getMinimumSelection(): int
     {
@@ -141,12 +126,12 @@ class ConfigGroup extends AbstractIdentity
     }
 
     /**
-     * @param integer $minimumSelection Optional minimum number required selections.
+     * @param int $minimumSelection Optional minimum number required selections.
      *                                  Default 0 for no minimum requirement.
      *
-     * @return ConfigGroup
+     * @return $this
      */
-    public function setMinimumSelection(int $minimumSelection): ConfigGroup
+    public function setMinimumSelection(int $minimumSelection): self
     {
         $this->minimumSelection = $minimumSelection;
 
@@ -154,7 +139,7 @@ class ConfigGroup extends AbstractIdentity
     }
 
     /**
-     * @return integer Optional sort order number
+     * @return int Optional sort order number
      */
     public function getSort(): int
     {
@@ -162,11 +147,11 @@ class ConfigGroup extends AbstractIdentity
     }
 
     /**
-     * @param integer $sort Optional sort order number
+     * @param int $sort Optional sort order number
      *
-     * @return ConfigGroup
+     * @return $this
      */
-    public function setSort(int $sort): ConfigGroup
+    public function setSort(int $sort): self
     {
         $this->sort = $sort;
 
@@ -174,7 +159,7 @@ class ConfigGroup extends AbstractIdentity
     }
 
     /**
-     * @return integer Config group item type. 0: Checkbox, 1:Radio, 2, Dropdown, 3: Multiselect
+     * @return int Config group item type. 0: Checkbox, 1:Radio, 2, Dropdown, 3: Multiselect
      */
     public function getType(): int
     {
@@ -182,11 +167,11 @@ class ConfigGroup extends AbstractIdentity
     }
 
     /**
-     * @param integer $type Config group item type. 0: Checkbox, 1:Radio, 2, Dropdown, 3: Multiselect
+     * @param int $type Config group item type. 0: Checkbox, 1:Radio, 2, Dropdown, 3: Multiselect
      *
-     * @return ConfigGroup
+     * @return $this
      */
-    public function setType(int $type): ConfigGroup
+    public function setType(int $type): self
     {
         $this->type = $type;
 
@@ -196,9 +181,9 @@ class ConfigGroup extends AbstractIdentity
     /**
      * @param ConfigGroupI18n $i18n
      *
-     * @return ConfigGroup
+     * @return $this
      */
-    public function addI18n(ConfigGroupI18n $i18n): ConfigGroup
+    public function addI18n(ConfigGroupI18n $i18n): self
     {
         $this->i18ns[] = $i18n;
 
@@ -216,9 +201,9 @@ class ConfigGroup extends AbstractIdentity
     /**
      * @param ConfigGroupI18n ...$i18ns
      *
-     * @return ConfigGroup
+     * @return $this
      */
-    public function setI18ns(ConfigGroupI18n ...$i18ns): ConfigGroup
+    public function setI18ns(ConfigGroupI18n ...$i18ns): self
     {
         $this->i18ns = $i18ns;
 
@@ -226,9 +211,9 @@ class ConfigGroup extends AbstractIdentity
     }
 
     /**
-     * @return ConfigGroup
+     * @return $this
      */
-    public function clearI18ns(): ConfigGroup
+    public function clearI18ns(): self
     {
         $this->i18ns = [];
 

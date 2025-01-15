@@ -15,16 +15,14 @@ use TypeError;
  * @access     public
  * @package    Jtl\Connector\Core\Model
  * @subpackage Product
- * @Serializer\AccessType("public_method")
  */
+#[Serializer\AccessType(['value' => 'public_method'])]
 class ProductVariationInvisibility extends AbstractModel
 {
-    /**
-     * @var Identity Reference to customerGroup
-     * @Serializer\Type("Jtl\Connector\Core\Model\Identity")
-     * @Serializer\SerializedName("customerGroupId")
-     * @Serializer\Accessor(getter="getCustomerGroupId",setter="setCustomerGroupId")
-     */
+    /** @var Identity Reference to customerGroup */
+    #[Serializer\Type(Identity::class)]
+    #[Serializer\SerializedName('customerGroupId')]
+    #[Serializer\Accessor(getter: 'getCustomerGroupId', setter: 'setCustomerGroupId')]
     protected Identity $customerGroupId;
 
     /**
@@ -48,9 +46,9 @@ class ProductVariationInvisibility extends AbstractModel
     /**
      * @param Identity $customerGroupId Reference to customerGroup
      *
-     * @return ProductVariationInvisibility
+     * @return $this
      */
-    public function setCustomerGroupId(Identity $customerGroupId): ProductVariationInvisibility
+    public function setCustomerGroupId(Identity $customerGroupId): self
     {
         $this->customerGroupId = $customerGroupId;
 

@@ -20,6 +20,7 @@ class StrTest extends TestCase
      * @param string $data
      * @param string $expectedResult
      *
+     * @return void
      * @throws \Exception
      */
     public function testToCamelCase(string $data, string $expectedResult): void
@@ -52,6 +53,7 @@ class StrTest extends TestCase
      * @param string $data
      * @param string $expectedResult
      *
+     * @return void
      * @throws \Exception
      */
     public function testPascalCase(string $data, string $expectedResult): void
@@ -84,6 +86,7 @@ class StrTest extends TestCase
      * @param string $data
      * @param string $expectedResult
      *
+     * @return void
      * @throws \Exception
      */
     public function testSnakeCase(string $data, string $expectedResult): void

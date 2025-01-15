@@ -14,24 +14,20 @@ use Jtl\Connector\Core\Utilities\Validator\Validate;
  * @access     public
  * @package    Jtl\Connector\Core\Model
  * @subpackage Product
- * @Serializer\AccessType("public_method")
  */
+#[Serializer\AccessType(['value' => 'public_method'])]
 class ProductVariationValueExtraCharge extends AbstractModel
 {
-    /**
-     * @var Identity Reference to customerGroup
-     * @Serializer\Type("Jtl\Connector\Core\Model\Identity")
-     * @Serializer\SerializedName("customerGroupId")
-     * @Serializer\Accessor(getter="getCustomerGroupId",setter="setCustomerGroupId")
-     */
+    /** @var Identity Reference to customerGroup */
+    #[Serializer\Type(Identity::class)]
+    #[Serializer\SerializedName('customerGroupId')]
+    #[Serializer\Accessor(getter: 'getCustomerGroupId', setter: 'setCustomerGroupId')]
     protected Identity $customerGroupId;
 
-    /**
-     * @var double Extra charge (net)
-     * @Serializer\Type("double")
-     * @Serializer\SerializedName("extraChargeNet")
-     * @Serializer\Accessor(getter="getExtraChargeNet",setter="setExtraChargeNet")
-     */
+    /** @var double Extra charge (net) */
+    #[Serializer\Type('double')]
+    #[Serializer\SerializedName('extraChargeNet')]
+    #[Serializer\Accessor(getter: 'getExtraChargeNet', setter: 'setExtraChargeNet')]
     protected float $extraChargeNet = 0.0;
 
     /**
@@ -54,9 +50,9 @@ class ProductVariationValueExtraCharge extends AbstractModel
     /**
      * @param Identity $customerGroupId Reference to customerGroup
      *
-     * @return ProductVariationValueExtraCharge
+     * @return $this
      */
-    public function setCustomerGroupId(Identity $customerGroupId): ProductVariationValueExtraCharge
+    public function setCustomerGroupId(Identity $customerGroupId): self
     {
         $this->customerGroupId = $customerGroupId;
 
@@ -64,7 +60,7 @@ class ProductVariationValueExtraCharge extends AbstractModel
     }
 
     /**
-     * @return double Extra charge (net)
+     * @return float Extra charge (net)
      */
     public function getExtraChargeNet(): float
     {
@@ -72,11 +68,11 @@ class ProductVariationValueExtraCharge extends AbstractModel
     }
 
     /**
-     * @param double $extraChargeNet Extra charge (net)
+     * @param float $extraChargeNet Extra charge (net)
      *
-     * @return ProductVariationValueExtraCharge
+     * @return $this
      */
-    public function setExtraChargeNet(float $extraChargeNet): ProductVariationValueExtraCharge
+    public function setExtraChargeNet(float $extraChargeNet): self
     {
         $this->extraChargeNet = $extraChargeNet;
 

@@ -4,7 +4,11 @@ declare(strict_types=1);
 
 namespace Jtl\Connector\Core\Test\Serializer\Subscriber;
 
+use Doctrine\Common\Annotations\AnnotationException;
+use JMS\Serializer\Exception\LogicException;
+use JMS\Serializer\Exception\NotAcceptableException;
 use JMS\Serializer\Exception\RuntimeException;
+use JMS\Serializer\Exception\UnsupportedFormatException;
 use Jtl\Connector\Core\Model\Ack;
 use Jtl\Connector\Core\Model\Identity;
 use Jtl\Connector\Core\Model\ManufacturerImage;
@@ -18,10 +22,15 @@ class ImageSubscriberTest extends TestCase
 {
     /**
      * @return void
-     * @throws \JMS\Serializer\Exception\InvalidArgumentException
-     * @throws RuntimeException
+     * @throws AnnotationException
      * @throws ExpectationFailedException
      * @throws InvalidArgumentException
+     * @throws LogicException
+     * @throws NotAcceptableException
+     * @throws RuntimeException
+     * @throws UnsupportedFormatException
+     * @throws \InvalidArgumentException
+     * @throws \JMS\Serializer\Exception\InvalidArgumentException
      */
     public function testOnPostSerialize(): void
     {
@@ -37,11 +46,16 @@ class ImageSubscriberTest extends TestCase
 
     /**
      * @return void
-     * @throws \JMS\Serializer\Exception\InvalidArgumentException
-     * @throws RuntimeException
      * @throws Exception
      * @throws ExpectationFailedException
      * @throws InvalidArgumentException
+     * @throws RuntimeException
+     * @throws AnnotationException
+     * @throws \InvalidArgumentException
+     * @throws \JMS\Serializer\Exception\InvalidArgumentException
+     * @throws LogicException
+     * @throws NotAcceptableException
+     * @throws UnsupportedFormatException
      */
     public function testOnPostDeserialize(): void
     {

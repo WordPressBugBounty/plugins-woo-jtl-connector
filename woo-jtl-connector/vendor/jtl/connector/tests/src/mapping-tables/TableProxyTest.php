@@ -13,12 +13,10 @@ use Throwable;
 
 class TableProxyTest extends TestCase
 {
-    /**
-     * @var TableProxy
-     */
     protected TableProxy $proxy;
 
     /**
+     * @return void
      * @throws MappingTablesException
      * @throws DBALException
      * @throws Throwable
@@ -33,6 +31,7 @@ class TableProxyTest extends TestCase
     }
 
     /**
+     * @return void
      * @throws DBALException
      * @throws Exception
      * @throws ExpectationFailedException
@@ -49,6 +48,7 @@ class TableProxyTest extends TestCase
     }
 
     /**
+     * @return void
      * @throws DBALException
      * @throws Exception
      * @throws ExpectationFailedException
@@ -65,6 +65,7 @@ class TableProxyTest extends TestCase
     }
 
     /**
+     * @return void
      * @throws DBALException
      * @throws Exception
      * @throws ExpectationFailedException
@@ -81,6 +82,7 @@ class TableProxyTest extends TestCase
     }
 
     /**
+     * @return void
      * @throws DBALException
      * @throws Exception
      * @throws ExpectationFailedException
@@ -97,6 +99,7 @@ class TableProxyTest extends TestCase
     }
 
     /**
+     * @return void
      * @throws ExpectationFailedException
      * @throws InvalidArgumentException
      * @throws MappingTablesException
@@ -113,6 +116,7 @@ class TableProxyTest extends TestCase
     }
 
     /**
+     * @return void
      * @throws ExpectationFailedException
      * @throws InvalidArgumentException
      * @throws MappingTablesException
@@ -130,6 +134,7 @@ class TableProxyTest extends TestCase
     }
 
     /**
+     * @return void
      * @throws DBALException
      * @throws Exception
      * @throws ExpectationFailedException
@@ -146,6 +151,7 @@ class TableProxyTest extends TestCase
     }
 
     /**
+     * @return void
      * @throws DBALException
      * @throws Exception
      * @throws ExpectationFailedException
@@ -162,6 +168,7 @@ class TableProxyTest extends TestCase
     }
 
     /**
+     * @return void
      * @throws DBALException
      * @throws Exception
      * @throws ExpectationFailedException
@@ -178,6 +185,7 @@ class TableProxyTest extends TestCase
     }
 
     /**
+     * @return void
      * @throws ExpectationFailedException
      * @throws InvalidArgumentException
      * @throws MappingTablesException
@@ -189,6 +197,10 @@ class TableProxyTest extends TestCase
         $this->assertEquals(TableStub::TYPE2, $this->proxy->getType());
     }
 
+    /**
+     * @return void
+     * @throws MappingTablesException
+     */
     public function testSetWrongType(): void
     {
         $this->expectException(MappingTablesException::class);
@@ -197,6 +209,7 @@ class TableProxyTest extends TestCase
     }
 
     /**
+     * @return void
      * @throws DBALException
      * @throws Exception
      * @throws ExpectationFailedException
@@ -217,6 +230,7 @@ class TableProxyTest extends TestCase
     }
 
     /**
+     * @return void
      * @throws DBALException
      * @throws MappingTablesException
      * @throws \PHPUnit\Framework\Exception
@@ -230,6 +244,7 @@ class TableProxyTest extends TestCase
     }
 
     /**
+     * @return void
      * @throws InvalidArgumentException
      * @throws \PHPUnit\Framework\Exception
      * @throws ExpectationFailedException

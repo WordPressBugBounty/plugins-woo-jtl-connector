@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace Jtl\Connector\Core\Test\Definition;
 
-use Exception;
 use Jawira\CaseConverter\CaseConverterException;
 use Jtl\Connector\Core\Definition\Action;
 use Jtl\Connector\Core\Definition\Controller;
@@ -36,6 +35,7 @@ class EventTest extends TestCase
     }
 
     /**
+     * @return void
      * @throws DefinitionException
      */
     public function testCreateRpcEventNameInvalidMoment(): void
@@ -48,6 +48,7 @@ class EventTest extends TestCase
     }
 
     /**
+     * @return void
      * @throws DefinitionException
      * @throws ExpectationFailedException
      * @throws InvalidArgumentException
@@ -59,6 +60,7 @@ class EventTest extends TestCase
     }
 
     /**
+     * @return void
      * @throws DefinitionException
      * @throws ExpectationFailedException
      * @throws InvalidArgumentException
@@ -72,6 +74,7 @@ class EventTest extends TestCase
     }
 
     /**
+     * @return void
      * @throws CaseConverterException
      * @throws DefinitionException
      * @throws ExpectationFailedException
@@ -87,11 +90,12 @@ class EventTest extends TestCase
     /**
      * @dataProvider createEventNameInvalidParamsDataProvider
      *
-     * @param string    $controller
-     * @param string    $action
-     * @param string    $moment
-     * @param Exception $expectedException
+     * @param string     $controller
+     * @param string     $action
+     * @param string     $moment
+     * @param \Exception $expectedException
      *
+     * @return void
      * @throws CaseConverterException
      * @throws DefinitionException
      */
@@ -119,6 +123,7 @@ class EventTest extends TestCase
     }
 
     /**
+     * @return void
      * @throws CaseConverterException
      * @throws DefinitionException
      * @throws ExpectationFailedException

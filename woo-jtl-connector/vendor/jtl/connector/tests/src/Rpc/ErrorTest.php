@@ -8,6 +8,7 @@ use Jtl\Connector\Core\Exception\RpcException;
 use Jtl\Connector\Core\Rpc\Error;
 use Jtl\Connector\Core\Test\TestCase;
 use PHPUnit\Framework\AssertionFailedError;
+use SebastianBergmann\RecursionContext\InvalidArgumentException;
 
 /**
  * Class ErrorTest
@@ -17,6 +18,7 @@ use PHPUnit\Framework\AssertionFailedError;
 class ErrorTest extends TestCase
 {
     /**
+     * @return void
      * @throws RpcException
      */
     public function testValidateThrowExceptionWhenCodeIsNull(): void
@@ -28,6 +30,7 @@ class ErrorTest extends TestCase
     }
 
     /**
+     * @return void
      * @throws RpcException
      */
     public function testValidateThrowExceptionWhenMessageIsNotSet(): void
@@ -43,7 +46,8 @@ class ErrorTest extends TestCase
 
     /**
      * @return void
-     * @throws AssertionFailedError|\SebastianBergmann\RecursionContext\InvalidArgumentException
+     * @throws AssertionFailedError
+     * @throws InvalidArgumentException
      */
     public function testValidateCorrect(): void
     {

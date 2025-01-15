@@ -11,6 +11,7 @@ use Jtl\Connector\Core\Test\TestCase;
 class ProductStockLevelSubscriberTest extends TestCase
 {
     /**
+     * @return void
      * @throws \Exception
      */
     public function testOnPostSerialize(): void

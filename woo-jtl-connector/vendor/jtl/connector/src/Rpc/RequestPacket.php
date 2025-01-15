@@ -4,19 +4,17 @@ declare(strict_types=1);
 
 namespace Jtl\Connector\Core\Rpc;
 
+use Doctrine\Common\Annotations\AnnotationException;
 use JMS\Serializer\Annotation as Serializer;
 use JMS\Serializer\Exception\InvalidArgumentException;
+use JMS\Serializer\Exception\LogicException;
+use JMS\Serializer\Exception\NotAcceptableException;
+use JMS\Serializer\Exception\UnsupportedFormatException;
 use JMS\Serializer\Serializer as JmsSerializer;
 use Jtl\Connector\Core\Definition\RpcMethod;
 use Jtl\Connector\Core\Serializer\SerializerBuilder;
 use RuntimeException;
 
-/**
- * Rpc Request Packet
- *
- * @access public
- * @author Daniel Böhmer <daniel.boehmer@jtl-software.de>
- */
 class RequestPacket extends Packet
 {
     /**
@@ -25,12 +23,10 @@ class RequestPacket extends Packet
      * (U+002E or ASCII 46)
      * are reserved for rpc-internal methods and extensions and MUST NOT be used
      * for anything else.
-     *
-     * @var string
-     * @Serializer\Type("string")
-     * @Serializer\SerializedName("method")
-     * @Serializer\Accessor(getter="getMethod",setter="setMethod")
      */
+    #[Serializer\Type('string')]
+    #[Serializer\SerializedName('method')]
+    #[Serializer\Accessor(getter: 'getMethod', setter: 'setMethod')]
     protected string $method = 'undefined.undefined';
 
     /**
@@ -39,10 +35,10 @@ class RequestPacket extends Packet
      * This member MAY be omitted.
      *
      * @var mixed[]
-     * @Serializer\Type("array")
-     * @Serializer\SerializedName("params")
-     * @Serializer\Accessor(getter="getParams",setter="setParams")
      */
+    #[Serializer\Type('array')]
+    #[Serializer\SerializedName('params')]
+    #[Serializer\Accessor(getter: 'getParams', setter: 'setParams')]
     protected array $params = [];
 
     /**
@@ -50,10 +46,16 @@ class RequestPacket extends Packet
      * @param JmsSerializer|null $serializer
      *
      * @return RequestPacket
-     * @throws RuntimeException
      * @throws InvalidArgumentException
+     * @throws RuntimeException
+     * @throws AnnotationException
+     * @throws \InvalidArgumentException
+     * @throws LogicException
+     * @throws NotAcceptableException
+     * @throws \JMS\Serializer\Exception\RuntimeException
+     * @throws UnsupportedFormatException
      */
-    public static function createFromJtlrpc(string $jtlrpc, JmsSerializer $serializer = null): RequestPacket
+    public static function createFromJtlrpc(string $jtlrpc, ?JmsSerializer $serializer = null): RequestPacket
     {
         if (\is_null($serializer)) {
             $serializer = SerializerBuilder::create()->build();
@@ -82,9 +84,9 @@ class RequestPacket extends Packet
     /**
      * @param mixed[] $params
      *
-     * @return RequestPacket
+     * @return $this
      */
-    public function setParams(array $params): RequestPacket
+    public function setParams(array $params): self
     {
         $this->params = $params;
 
@@ -92,7 +94,7 @@ class RequestPacket extends Packet
     }
 
     /**
-     * @return boolean
+     * @return bool
      */
     public function isValid(): bool
     {
@@ -128,9 +130,9 @@ class RequestPacket extends Packet
     /**
      * @param string $method
      *
-     * @return RequestPacket
+     * @return $this
      */
-    public function setMethod(string $method): RequestPacket
+    public function setMethod(string $method): self
     {
         $this->method = $method;
 

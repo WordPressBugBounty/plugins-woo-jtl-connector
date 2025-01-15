@@ -13,44 +13,31 @@ class Sqlite3 implements DatabaseInterface, LoggerAwareInterface
 {
     /**
      * Sqlite 3 sharedcache value
-     *
-     * @var integer
      */
     public const SQLITE3_OPEN_SHAREDCACHE = 0x00020000;
     /**
      * Path to the SQLite database, or :memory: to use in-memory database.
-     *
-     * @var string
      */
     public string $location;
     /**
      * Optional flags used to determine how to open the SQLite database.
-     *
-     * @var integer
      */
     public int $mode;
     /**
      * Database connection state
-     *
-     * @var bool
      */
     protected bool $isConnected = false;
     /**
      * Sqlite 3 Database object
-     *
-     * @var \SQLite3
      */
-    protected \SQLite3 $db;
-    /**
-     * @var LoggerInterface
-     */
+    protected \SQLite3        $db;
     protected LoggerInterface $logger;
 
     /**
      * @inheritDoc
      * @throws DatabaseException
      */
-    public function connect(array $options = null): void
+    public function connect(?array $options = null): void
     {
         $this->setOptions($options);
         if (isset($this->location) && $this->location === '') {
@@ -79,6 +66,8 @@ class Sqlite3 implements DatabaseInterface, LoggerAwareInterface
      * Set Options
      *
      * @param array<string, mixed>|null $options
+     *
+     * @return void
      */
     public function setOptions(?array $options = null): void
     {
@@ -119,7 +108,7 @@ class Sqlite3 implements DatabaseInterface, LoggerAwareInterface
      *
      * @return mixed
      */
-    public function fetchSingle(string $query)
+    public function fetchSingle(string $query): mixed
     {
         return $this->db->querySingle($query);
     }
@@ -129,9 +118,9 @@ class Sqlite3 implements DatabaseInterface, LoggerAwareInterface
      *
      * @param string $query
      *
-     * @return \SQLite3Stmt|boolean Returns an SQLite3Stmt object on success or FALSE on failure.
+     * @return \SQLite3Stmt|bool Returns an SQLite3Stmt object on success or FALSE on failure.
      */
-    public function prepare(string $query)
+    public function prepare(string $query): \SQLite3Stmt|bool
     {
         return $this->db->prepare($query);
     }
@@ -156,7 +145,7 @@ class Sqlite3 implements DatabaseInterface, LoggerAwareInterface
     }
 
     /**
-     * @return integer
+     * @return int
      */
     public function getLastInsertRowId(): int
     {
@@ -190,34 +179,30 @@ class Sqlite3 implements DatabaseInterface, LoggerAwareInterface
         if ($result !== false && $result->fetchArray()) {
             return true;
         }
+
         return false;
     }
 
     /**
-     * @param $query
+     * @param string $query
      *
      * @return array<int, array<string, mixed>>|bool|int|null
      * @throws \RuntimeException
      * @throws \Throwable
      */
-    public function query($query)
+    public function query(string $query): int|bool|array|null
     {
         if (($length = \strpos($query, ' ')) === false) {
             throw new \RuntimeException('$length must not be false.');
         }
         $command = \substr($query, 0, $length);
 
-        switch (\strtoupper($command)) {
-            case 'SELECT':
-                return $this->fetch($query);
-            case 'UPDATE':
-            case 'DELETE':
-                return $this->exec($query);
-            case 'INSERT':
-                return $this->insert($query);
-        }
-
-        return null;
+        return match (\strtoupper($command)) {
+            'SELECT'           => $this->fetch($query),
+            'UPDATE', 'DELETE' => $this->exec($query),
+            'INSERT'           => $this->insert($query),
+            default            => null,
+        };
     }
 
     /**
@@ -273,9 +258,9 @@ class Sqlite3 implements DatabaseInterface, LoggerAwareInterface
      *
      * @param string $query
      *
-     * @return boolean|int
+     * @return bool|int
      */
-    public function insert(string $query)
+    public function insert(string $query): bool|int
     {
         if ($this->db->exec($query)) {
             return $this->db->lastInsertRowID();

@@ -21,7 +21,7 @@ class Validate
      * @return string
      * @throws TypeError
      */
-    public static function string($value): string
+    public static function string(mixed $value): string
     {
         return self::initValidator($value)->string();
     }
@@ -31,7 +31,7 @@ class Validate
      *
      * @return Validator
      */
-    private static function initValidator($value): Validator
+    private static function initValidator(mixed $value): Validator
     {
         return new Validator($value);
     }
@@ -42,7 +42,7 @@ class Validate
      * @return ResponsePacket
      * @throws TypeError
      */
-    public static function responsePacket($value): ResponsePacket
+    public static function responsePacket(mixed $value): ResponsePacket
     {
         self::initValidator($value)->instanceOf(ResponsePacket::class);
 
@@ -56,7 +56,7 @@ class Validate
      * @return RequestPacket
      * @throws TypeError
      */
-    public static function requestPacket($value): RequestPacket
+    public static function requestPacket(mixed $value): RequestPacket
     {
         self::initValidator($value)->instanceOf(RequestPacket::class);
 
@@ -72,7 +72,7 @@ class Validate
      * @throws \RuntimeException
      * @throws InvalidArgumentException
      */
-    public static function productObj($value): object
+    public static function productObj(mixed $value): object
     {
         self::initValidator($value)->hasProperty('attributes');
         /** @var object $value */
@@ -88,7 +88,7 @@ class Validate
      * @throws MustNotBeNullException
      * @throws TypeError
      */
-    public static function checkIdentityAndNotNull($value): Identity
+    public static function checkIdentityAndNotNull(mixed $value): Identity
     {
         if ($value === null) {
             throw MustNotBeNullException::fromExpectedType(Identity::class);
@@ -106,7 +106,7 @@ class Validate
      * @return \DateTimeInterface|null
      * @throws TypeError
      */
-    public static function checkDateTimeInterfaceOrNull($value): ?\DateTimeInterface
+    public static function checkDateTimeInterfaceOrNull(mixed $value): ?\DateTimeInterface
     {
         if ($value === null) {
             return null;
@@ -124,7 +124,7 @@ class Validate
      * @throws MustNotBeNullException
      * @throws TypeError
      */
-    public static function checkGeneratorAndNotNull($value): Generator
+    public static function checkGeneratorAndNotNull(mixed $value): Generator
     {
         if ($value === null) {
             throw MustNotBeNullException::fromExpectedType(Generator::class);

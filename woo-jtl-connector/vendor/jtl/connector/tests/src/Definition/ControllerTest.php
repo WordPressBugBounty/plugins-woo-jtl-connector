@@ -17,6 +17,7 @@ class ControllerTest extends TestCase
      * @param string $controllerName
      * @param bool   $shouldBeController
      *
+     * @return void
      * @throws ExpectationFailedException
      * @throws InvalidArgumentException
      */

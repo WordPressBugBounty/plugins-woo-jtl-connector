@@ -17,5 +17,9 @@ interface PluginInterface
      *
      * @return mixed
      */
-    public function registerListener(ConfigInterface $config, Container $container, EventDispatcher $dispatcher);
+    public function registerListener( //phpcs:ignore
+        ConfigInterface $config,
+        Container           $container,
+        EventDispatcher     $dispatcher
+    );
 }

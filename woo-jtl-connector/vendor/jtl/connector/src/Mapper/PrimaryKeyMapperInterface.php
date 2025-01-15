@@ -9,18 +9,18 @@ interface PrimaryKeyMapperInterface
     /**
      * Host ID getter
      *
-     * @param integer $type
-     * @param string  $endpointId
+     * @param int    $type
+     * @param string $endpointId
      *
-     * @return integer|null
+     * @return int|null
      */
     public function getHostId(int $type, string $endpointId): ?int;
 
     /**
      * Endpoint ID getter
      *
-     * @param integer $type
-     * @param integer $hostId
+     * @param int $type
+     * @param int $hostId
      *
      * @return string|null
      */
@@ -29,31 +29,31 @@ interface PrimaryKeyMapperInterface
     /**
      * Save link to database
      *
-     * @param integer $type
-     * @param string  $endpointId
-     * @param integer $hostId
+     * @param int    $type
+     * @param string $endpointId
+     * @param int    $hostId
      *
-     * @return boolean
+     * @return bool
      */
     public function save(int $type, string $endpointId, int $hostId): bool;
 
     /**
      * Delete link from database
      *
-     * @param integer     $type
+     * @param int         $type
      * @param string|null $endpointId
      * @param int|null    $hostId
      *
-     * @return boolean
+     * @return bool
      */
-    public function delete(int $type, string $endpointId = null, int $hostId = null): bool;
+    public function delete(int $type, ?string $endpointId = null, ?int $hostId = null): bool;
 
     /**
      * Clears the entire link table
      *
-     * @param integer|null $type
+     * @param int|null $type
      *
-     * @return boolean
+     * @return bool
      */
-    public function clear(int $type = null): bool;
+    public function clear(?int $type = null): bool;
 }

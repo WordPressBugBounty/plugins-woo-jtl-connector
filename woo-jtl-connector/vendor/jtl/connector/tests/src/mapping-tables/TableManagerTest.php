@@ -13,12 +13,10 @@ use Throwable;
 
 class TableManagerTest extends TestCase
 {
-    /**
-     * @var TableManager
-     */
     protected TableManager $mtm;
 
     /**
+     * @return void
      * @throws ExpectationFailedException
      * @throws InvalidArgumentException
      * @throws MappingTablesException
@@ -31,6 +29,7 @@ class TableManagerTest extends TestCase
     }
 
     /**
+     * @return void
      * @throws ExpectationFailedException
      * @throws InvalidArgumentException
      * @throws MappingTablesException
@@ -44,6 +43,7 @@ class TableManagerTest extends TestCase
     }
 
     /**
+     * @return void
      * @throws ExpectationFailedException
      * @throws InvalidArgumentException
      * @throws MappingTablesException
@@ -56,6 +56,7 @@ class TableManagerTest extends TestCase
     }
 
     /**
+     * @return void
      * @throws ExpectationFailedException
      * @throws InvalidArgumentException
      * @throws MappingTablesException
@@ -70,6 +71,7 @@ class TableManagerTest extends TestCase
     }
 
     /**
+     * @return void
      * @throws ExpectationFailedException
      * @throws InvalidArgumentException
      * @throws MappingTablesException
@@ -82,6 +84,7 @@ class TableManagerTest extends TestCase
     }
 
     /**
+     * @return void
      * @throws ExpectationFailedException
      * @throws InvalidArgumentException
      * @throws MappingTablesException
@@ -94,6 +97,7 @@ class TableManagerTest extends TestCase
     }
 
     /**
+     * @return void
      * @throws ExpectationFailedException
      * @throws InvalidArgumentException
      * @throws MappingTablesException
@@ -106,6 +110,7 @@ class TableManagerTest extends TestCase
     }
 
     /**
+     * @return void
      * @throws ExpectationFailedException
      * @throws InvalidArgumentException
      * @throws MappingTablesException
@@ -132,11 +137,15 @@ class TableManagerTest extends TestCase
     }
 
     /**
+     * @return void
      * @throws DBALException
+     * @throws DbcRuntimeException
      * @throws ExpectationFailedException
      * @throws InvalidArgumentException
      * @throws MappingTablesException
-     * @throws DbcRuntimeException
+     * @throws \Doctrine\DBAL\Driver\Exception
+     * @throws \Doctrine\DBAL\Exception
+     * @throws \PDOException
      * @throws \RuntimeException
      */
     public function testClear(): void
@@ -147,11 +156,15 @@ class TableManagerTest extends TestCase
     }
 
     /**
+     * @return void
      * @throws DBALException
+     * @throws DbcRuntimeException
      * @throws ExpectationFailedException
      * @throws InvalidArgumentException
      * @throws MappingTablesException
-     * @throws DbcRuntimeException
+     * @throws \Doctrine\DBAL\Driver\Exception
+     * @throws \Doctrine\DBAL\Exception
+     * @throws \PDOException
      * @throws \RuntimeException
      */
     public function testClearByType(): void
@@ -166,6 +179,7 @@ class TableManagerTest extends TestCase
     }
 
     /**
+     * @return void
      * @throws ExpectationFailedException
      * @throws InvalidArgumentException
      * @throws MappingTablesException
@@ -176,6 +190,7 @@ class TableManagerTest extends TestCase
     }
 
     /**
+     * @return void
      * @throws MappingTablesException
      * @throws \PHPUnit\Framework\Exception
      * @throws ExpectationFailedException
@@ -189,6 +204,10 @@ class TableManagerTest extends TestCase
         $this->assertInstanceOf(TableDummy::class, $table);
     }
 
+    /**
+     * @return void
+     * @throws MappingTablesException
+     */
     public function testGetNotExistingTableWithStrictModeEnabled(): void
     {
         $this->expectException(MappingTablesException::class);
@@ -198,6 +217,7 @@ class TableManagerTest extends TestCase
     }
 
     /**
+     * @return void
      * @throws DBALException
      * @throws Throwable
      * @throws Exception

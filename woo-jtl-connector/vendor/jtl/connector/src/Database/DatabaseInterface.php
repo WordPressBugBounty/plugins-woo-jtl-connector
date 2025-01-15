@@ -6,8 +6,6 @@ namespace Jtl\Connector\Core\Database;
 
 /**
  * Database Interface
- *
- * @author Daniel Böhmer <daniel.boehmer@jtl-software.de>
  */
 interface DatabaseInterface
 {
@@ -15,6 +13,8 @@ interface DatabaseInterface
      * Connect to Database
      *
      * @param array<string, mixed>|null $options
+     *
+     * @return void
      */
     public function connect(?array $options = null): void;
 
@@ -32,7 +32,7 @@ interface DatabaseInterface
      *
      * @return bool|int|array<int, array<string, mixed>>|null
      */
-    public function query(string $query);
+    public function query(string $query): bool|int|array|null;
 
     /**
      * Database connection state

@@ -8,15 +8,12 @@ use Symfony\Contracts\EventDispatcher\Event;
 
 class BoolEvent extends Event
 {
-    /**
-     * @var bool
-     */
     protected bool $result;
 
     /**
      * BoolEvent constructor.
      *
-     * @param boolean $result
+     * @param bool $result
      */
     public function __construct(bool &$result)
     {
@@ -24,7 +21,7 @@ class BoolEvent extends Event
     }
 
     /**
-     * @return boolean
+     * @return bool
      */
     public function getResult(): bool
     {
@@ -32,13 +29,14 @@ class BoolEvent extends Event
     }
 
     /**
-     * @param boolean $result
+     * @param bool $result
      *
-     * @return BoolEvent
+     * @return $this
      */
-    public function setResult(bool $result): BoolEvent
+    public function setResult(bool $result): self
     {
         $this->result = $result;
+
         return $this;
     }
 }

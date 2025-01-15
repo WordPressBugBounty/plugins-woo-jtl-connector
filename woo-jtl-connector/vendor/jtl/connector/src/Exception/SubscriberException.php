@@ -4,11 +4,6 @@ declare(strict_types=1);
 
 namespace Jtl\Connector\Core\Exception;
 
-/**
- * Class SubscriberException
- *
- * @package Jtl\Connector\Core\Exception
- */
 class SubscriberException extends \Exception
 {
     public const INVALID_MODEL_TYPE = 10;
@@ -17,7 +12,7 @@ class SubscriberException extends \Exception
      * @param string $expectedModelClass
      * @param string $givenModelClass
      *
-     * @return SubscriberException
+     * @return self
      */
     public static function invalidModelTypeInArray(
         string $expectedModelClass,

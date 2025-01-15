@@ -35,6 +35,7 @@ class SqliteSessionHandlerTest extends TestCase
      * @return void
      * @throws ExpectationFailedException
      * @throws InvalidArgumentException
+     * @throws \Psr\Log\InvalidArgumentException
      */
     public function testClose(): void
     {
@@ -98,9 +99,13 @@ class SqliteSessionHandlerTest extends TestCase
 
     /**
      * @return void
-     * @throws \PDOException
+     * @throws DatabaseException
      * @throws ExpectationFailedException
      * @throws InvalidArgumentException
+     * @throws RuntimeException
+     * @throws \InvalidArgumentException
+     * @throws \PDOException
+     * @throws \Psr\Log\InvalidArgumentException
      */
     public function testWriteInsert(): void
     {
@@ -118,9 +123,13 @@ class SqliteSessionHandlerTest extends TestCase
 
     /**
      * @return void
+     * @throws DatabaseException
      * @throws ExpectationFailedException
      * @throws InvalidArgumentException
+     * @throws RuntimeException
+     * @throws \InvalidArgumentException
      * @throws \PDOException
+     * @throws \Psr\Log\InvalidArgumentException
      */
     public function testWriteUpdate(): void
     {
@@ -226,6 +235,7 @@ class SqliteSessionHandlerTest extends TestCase
      * @return void
      * @throws ExpectationFailedException
      * @throws InvalidArgumentException
+     * @throws \Psr\Log\InvalidArgumentException
      */
     public function testOpen(): void
     {
@@ -280,8 +290,9 @@ class SqliteSessionHandlerTest extends TestCase
      * @return void
      * @throws ExpectationFailedException
      * @throws InvalidArgumentException
+     * @throws RuntimeException
+     * @throws \InvalidArgumentException
      * @throws \PDOException
-     * @throws \RuntimeException
      */
     public function testUpdateTimestamp(): void
     {

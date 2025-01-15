@@ -6,13 +6,11 @@ namespace Jtl\Connector\Core\Rpc;
 
 use JMS\Serializer\Annotation as Serializer;
 use Jtl\Connector\Core\Exception\RpcException;
-use RuntimeException;
 
 /**
  * Rpc Error
  *
  * @access public
- * @author Daniel Böhmer <daniel.boehmer@jtl-software.de>
  */
 class Error
 {
@@ -20,20 +18,16 @@ class Error
      * A Number that indicates the error type that occurred.
      *
      * This MUST be an integer.
-     *
-     * @var integer
-     * @Serializer\Type("integer")
      */
+    #[Serializer\Type('integer')]
     public int $code = 0;
 
     /**
      * A String providing a short description of the error.
      *
      * The message SHOULD be limited to a concise single sentence.
-     *
-     * @var string
-     * @Serializer\Type("string")
      */
+    #[Serializer\Type('string')]
     public string $message = '';
 
     /**
@@ -42,19 +36,17 @@ class Error
      *
      * This may be omitted. The value of this member is defined by the Server
      * (e.g. detailed error information, nested errors etc.).
-     *
-     * @var mixed
      */
-    public $data = null;
+    public mixed $data = null;
 
     /**
      * @param \Throwable  $exception
      * @param string|null $additionalMessage
      *
      * @return string
-     * @throws RuntimeException
+     * @throws \RuntimeException
      */
-    public static function createDataFromException(\Throwable $exception, string $additionalMessage = null): string
+    public static function createDataFromException(\Throwable $exception, ?string $additionalMessage = null): string
     {
         $lastSlashPos = \strrpos($exception->getFile(), '/');
         if ($lastSlashPos === false) {
@@ -81,7 +73,7 @@ class Error
     /**
      * Getter for $code
      *
-     * @return integer
+     * @return int
      */
     public function getCode(): int
     {
@@ -93,11 +85,12 @@ class Error
      *
      * @param int $code
      *
-     * @return Error
+     * @return $this
      */
-    public function setCode(int $code): Error
+    public function setCode(int $code): self
     {
         $this->code = $code;
+
         return $this;
     }
 
@@ -106,7 +99,7 @@ class Error
      *
      * @return mixed
      */
-    public function getData()
+    public function getData(): mixed
     {
         return $this->data;
     }
@@ -116,17 +109,19 @@ class Error
      *
      * @param mixed $data
      *
-     * @return Error
+     * @return $this
      */
-    public function setData($data): Error
+    public function setData(mixed $data): self
     {
         $this->data = $data;
+
         return $this;
     }
 
     /**
      * Validates a Rpc Error
      *
+     * @return void
      * @throws RpcException
      */
     final public function validate(): void
@@ -159,11 +154,12 @@ class Error
      *
      * @param string $message
      *
-     * @return Error
+     * @return $this
      */
-    public function setMessage(string $message): Error
+    public function setMessage(string $message): self
     {
         $this->message = $message;
+
         return $this;
     }
 }

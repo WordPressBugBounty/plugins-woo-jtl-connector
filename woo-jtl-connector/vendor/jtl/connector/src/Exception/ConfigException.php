@@ -14,7 +14,7 @@ class ConfigException extends \Exception
         SCHEMA_VALIDATION_ERRORS = 50;
 
     /**
-     * @return ConfigException
+     * @return self
      */
     public static function keyIsEmpty(): self
     {
@@ -24,7 +24,7 @@ class ConfigException extends \Exception
     /**
      * @param string $type
      *
-     * @return ConfigException
+     * @return self
      */
     public static function unknownType(string $type): self
     {
@@ -35,7 +35,7 @@ class ConfigException extends \Exception
      * @param string $expectedType
      * @param string $givenType
      *
-     * @return ConfigException
+     * @return self
      */
     public static function wrongType(string $expectedType, string $givenType): self
     {
@@ -52,7 +52,7 @@ class ConfigException extends \Exception
     /**
      * @param string $key
      *
-     * @return ConfigException
+     * @return self
      */
     public static function unknownParameter(string $key): self
     {
@@ -63,7 +63,7 @@ class ConfigException extends \Exception
      * @param array<scalar> $invalidProperties
      * @param array<scalar> $missingProperties
      *
-     * @return ConfigException
+     * @return self
      */
     public static function configValidationErrors(array $invalidProperties, array $missingProperties): self
     {

@@ -9,9 +9,6 @@ use Symfony\Contracts\EventDispatcher\Event;
 
 class ProductEvent extends Event
 {
-    /**
-     * @var Product
-     */
     protected Product $product;
 
     /**

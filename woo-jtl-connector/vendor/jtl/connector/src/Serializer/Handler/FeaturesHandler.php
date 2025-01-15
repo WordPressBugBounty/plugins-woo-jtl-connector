@@ -30,12 +30,12 @@ class FeaturesHandler implements SubscribingHandlerInterface
     /**
      * @param JsonSerializationVisitor $visitor
      * @param Features                 $features
-     * @param array                    $type
+     * @param array<mixed>             $type
      * @param Context                  $context
      *
-     * @return array|array[]
+     * @return array<mixed>
      */
-    public function serializeFeaturesToJson( //@phpstan-ignore-line
+    public function serializeFeaturesToJson(
         JsonSerializationVisitor $visitor,
         Features                 $features,
         array                    $type,

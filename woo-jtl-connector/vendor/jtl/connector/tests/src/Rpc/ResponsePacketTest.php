@@ -28,11 +28,12 @@ class ResponsePacketTest extends TestCase
      * @param string     $jtlRpc
      * @param bool       $isValid
      *
+     * @return void
      * @throws RpcException
      * @throws ExpectationFailedException
      * @throws InvalidArgumentException
      */
-    public function testIsValid(string $id, ?Error $error, $result, string $jtlRpc, bool $isValid): void
+    public function testIsValid(string $id, ?Error $error, mixed $result, string $jtlRpc, bool $isValid): void
     {
         $responsePacket = new ResponsePacket();
         $responsePacket->setId($id);
@@ -47,7 +48,7 @@ class ResponsePacketTest extends TestCase
     }
 
     /**
-     * @return array<int, array<int, string|null|bool|Error|array{Products: array{0: Product}}|array{}>>
+     * @return array<int, array<int, string|bool|Error|array{Products: array{0: Product}}|array{}|null>>
      */
     public function isValidDataProvider(): array
     {

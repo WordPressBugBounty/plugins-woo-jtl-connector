@@ -10,24 +10,20 @@ use JMS\Serializer\Annotation as Serializer;
  * @access     public
  * @package    Jtl\Connector\Core\Model
  * @subpackage Product
- * @Serializer\AccessType("public_method")
  */
+#[Serializer\AccessType(['value' => 'public_method'])]
 class CrossSellingGroupI18n extends AbstractI18n
 {
-    /**
-     * @var string Optional localized description
-     * @Serializer\Type("string")
-     * @Serializer\SerializedName("description")
-     * @Serializer\Accessor(getter="getDescription",setter="setDescription")
-     */
+    /** @var string Optional localized description */
+    #[Serializer\Type('string')]
+    #[Serializer\SerializedName('description')]
+    #[Serializer\Accessor(getter: 'getDescription', setter: 'setDescription')]
     protected string $description = '';
 
-    /**
-     * @var string Localized name
-     * @Serializer\Type("string")
-     * @Serializer\SerializedName("name")
-     * @Serializer\Accessor(getter="getName",setter="setName")
-     */
+    /** @var string Localized name */
+    #[Serializer\Type('string')]
+    #[Serializer\SerializedName('name')]
+    #[Serializer\Accessor(getter: 'getName', setter: 'setName')]
     protected string $name = '';
 
     /**
@@ -41,9 +37,9 @@ class CrossSellingGroupI18n extends AbstractI18n
     /**
      * @param string $description Optional localized description
      *
-     * @return CrossSellingGroupI18n
+     * @return $this
      */
-    public function setDescription(string $description): CrossSellingGroupI18n
+    public function setDescription(string $description): self
     {
         $this->description = $description;
 
@@ -61,9 +57,9 @@ class CrossSellingGroupI18n extends AbstractI18n
     /**
      * @param string $name Localized name
      *
-     * @return CrossSellingGroupI18n
+     * @return $this
      */
-    public function setName(string $name): CrossSellingGroupI18n
+    public function setName(string $name): self
     {
         $this->name = $name;
 

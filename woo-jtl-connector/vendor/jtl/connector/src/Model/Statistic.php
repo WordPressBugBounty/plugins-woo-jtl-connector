@@ -15,24 +15,18 @@ use JMS\Serializer\Annotation as Serializer;
  */
 class Statistic extends AbstractModel
 {
-    /**
-     * @var int
-     * @Serializer\Type("integer")
-     * @Serializer\SerializedName("available")
-     * @Serializer\Accessor(getter="getAvailable",setter="setAvailable")
-     */
+    #[Serializer\Type('integer')]
+    #[Serializer\SerializedName('available')]
+    #[Serializer\Accessor(getter: 'getAvailable', setter: 'setAvailable')]
     protected int $available = 0;
 
-    /**
-     * @var string
-     * @Serializer\Type("string")
-     * @Serializer\SerializedName("controllerName")
-     * @Serializer\Accessor(getter="getControllerName",setter="setControllerName")
-     */
+    #[Serializer\Type('string')]
+    #[Serializer\SerializedName('controllerName')]
+    #[Serializer\Accessor(getter: 'getControllerName', setter: 'setControllerName')]
     protected string $controllerName = '';
 
     /**
-     * @return integer
+     * @return int
      */
     public function getAvailable(): int
     {
@@ -40,11 +34,11 @@ class Statistic extends AbstractModel
     }
 
     /**
-     * @param integer $available
+     * @param int $available
      *
-     * @return Statistic
+     * @return $this
      */
-    public function setAvailable(int $available): Statistic
+    public function setAvailable(int $available): self
     {
         $this->available = $available;
 
@@ -62,9 +56,9 @@ class Statistic extends AbstractModel
     /**
      * @param string $controllerName
      *
-     * @return Statistic
+     * @return $this
      */
-    public function setControllerName(string $controllerName): Statistic
+    public function setControllerName(string $controllerName): self
     {
         $this->controllerName = $controllerName;
 

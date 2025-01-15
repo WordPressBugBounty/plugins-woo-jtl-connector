@@ -14,9 +14,6 @@ use Symfony\Contracts\EventDispatcher\Event;
  */
 class QueryFilterEvent extends Event
 {
-    /**
-     * @var QueryFilter
-     */
     protected QueryFilter $queryFilter;
 
     /**

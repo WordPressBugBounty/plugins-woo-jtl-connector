@@ -9,9 +9,6 @@ use Symfony\Contracts\EventDispatcher\Event;
 
 class DeliveryNoteEvent extends Event
 {
-    /**
-     * @var DeliveryNote
-     */
     protected DeliveryNote $deliveryNote;
 
     /**

@@ -4,12 +4,6 @@ declare(strict_types=1);
 
 namespace Jtl\Connector\Core\Exception;
 
-/**
- * HTTP Exception Class
- *
- * @access public
- * @author Daniel Böhmer <daniel.boehmer@jtl-software.de>
- */
 class HttpException extends \Exception
 {
     public const UNKNOWN_METHOD = 10;
@@ -17,7 +11,7 @@ class HttpException extends \Exception
     /**
      * @param string $method
      *
-     * @return HttpException
+     * @return self
      */
     public static function unknownMethod(string $method): HttpException
     {

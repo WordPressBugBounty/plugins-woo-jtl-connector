@@ -27,9 +27,9 @@ class CategoryFactory extends AbstractModelFactory
             'sort'             => $this->faker->numberBetween(0, 10),
             'id'               => $identityFactory->makeOneArray(),
             'isActive'         => $this->faker->boolean,
-            'attributes'       => [],
-            'customerGroups'   => [],
-            'invisibilities'   => [],
+            'attributes'       => $this->getFactory('TranslatableAttribute')->makeArray(\random_int(1, 3)),
+            'customerGroups'   => $this->getFactory('CategoryCustomerGroup')->makeArray(\random_int(1, 3)),
+            'invisibilities'   => $this->getFactory('CategoryInvisibility')->makeArray(\random_int(1, 3)),
             'i18ns'            => $this->getFactory('CategoryI18n')->makeArray(\random_int(1, 3)),
         ];
     }

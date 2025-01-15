@@ -13,77 +13,48 @@ use JMS\Serializer\Annotation as Serializer;
  * @access     public
  * @package    Jtl\Connector\Core\Model
  * @subpackage Product
- * @Serializer\AccessType("public_method")
  */
+#[Serializer\AccessType(['value' => 'public_method'])]
 class ProductVariation extends AbstractIdentity
 {
-    /**
-     * @var string - Multiple values displayed as radio buttons.
-     */
-    public const TYPE_RADIO = 'radio';
-    /**
-     * @var string - Multiple values displayed as drop down.
-     */
-    public const TYPE_SELECT = 'select';
-    /**
-     * @var string - boxes showing a text
-     */
-    public const TYPE_TEXTBOX = 'textbox';
-    /**
-     * @var string - Optional text input (no values)
-     */
-    public const TYPE_FREE_TEXT = 'freetext';
-    /**
-     * @var string - Required text input (no values)
-     */
+    public const TYPE_RADIO                = 'radio';
+    public const TYPE_SELECT               = 'select';
+    public const TYPE_TEXTBOX              = 'textbox';
+    public const TYPE_FREE_TEXT            = 'freetext';
     public const TYPE_FREE_TEXT_OBLIGATORY = 'obligatory_freetext';
-    /**
-     * @var string - boxes showing a color
-     */
-    public const TYPE_IMAGE_SWATCHES = 'image_swatches';
+    public const TYPE_IMAGE_SWATCHES       = 'image_swatches';
 
-    /**
-     * @var integer Optional sort number
-     * @Serializer\Type("integer")
-     * @Serializer\SerializedName("sort")
-     * @Serializer\Accessor(getter="getSort",setter="setSort")
-     */
+    /** @var int Optional sort number */
+    #[Serializer\Type('integer')]
+    #[Serializer\SerializedName('sort')]
+    #[Serializer\Accessor(getter: 'getSort', setter: 'setSort')]
     protected int $sort = 0;
 
-    /**
-     * @var string
-     * @Serializer\Type("string")
-     * @Serializer\SerializedName("type")
-     * @Serializer\Accessor(getter="getType",setter="setType")
-     */
+    #[Serializer\Type('string')]
+    #[Serializer\SerializedName('type')]
+    #[Serializer\Accessor(getter: 'getType', setter: 'setType')]
     protected string $type = '';
 
-    /**
-     * @var ProductVariationI18n[]
-     * @Serializer\Type("array<Jtl\Connector\Core\Model\ProductVariationI18n>")
-     * @Serializer\SerializedName("i18ns")
-     * @Serializer\AccessType("reflection")
-     */
+    /** @var ProductVariationI18n[] */
+    #[Serializer\Type('array<Jtl\Connector\Core\Model\ProductVariationI18n>')]
+    #[Serializer\SerializedName('i18ns')]
+    #[Serializer\AccessType(['value' => 'reflection'])]
     protected array $i18ns = [];
 
-    /**
-     * @var ProductVariationInvisibility[]
-     * @Serializer\Type("array<Jtl\Connector\Core\Model\ProductVariationInvisibility>")
-     * @Serializer\SerializedName("invisibilities")
-     * @Serializer\AccessType("reflection")
-     */
+    /** @var ProductVariationInvisibility[] */
+    #[Serializer\Type('array<Jtl\Connector\Core\Model\ProductVariationInvisibility>')]
+    #[Serializer\SerializedName('invisibilities')]
+    #[Serializer\AccessType(['value' => 'reflection'])]
     protected array $invisibilities = [];
 
-    /**
-     * @var ProductVariationValue[]
-     * @Serializer\Type("array<Jtl\Connector\Core\Model\ProductVariationValue>")
-     * @Serializer\SerializedName("values")
-     * @Serializer\AccessType("reflection")
-     */
+    /** @var ProductVariationValue[] */
+    #[Serializer\Type('array<Jtl\Connector\Core\Model\ProductVariationValue>')]
+    #[Serializer\SerializedName('values')]
+    #[Serializer\AccessType(['value' => 'reflection'])]
     protected array $values = [];
 
     /**
-     * @return integer Optional sort number
+     * @return int Optional sort number
      */
     public function getSort(): int
     {
@@ -91,11 +62,11 @@ class ProductVariation extends AbstractIdentity
     }
 
     /**
-     * @param integer $sort Optional sort number
+     * @param int $sort Optional sort number
      *
-     * @return ProductVariation
+     * @return $this
      */
-    public function setSort(int $sort): ProductVariation
+    public function setSort(int $sort): self
     {
         $this->sort = $sort;
 
@@ -113,9 +84,9 @@ class ProductVariation extends AbstractIdentity
     /**
      * @param string $type
      *
-     * @return ProductVariation
+     * @return $this
      */
-    public function setType(string $type): ProductVariation
+    public function setType(string $type): self
     {
         $this->type = $type;
 
@@ -125,9 +96,9 @@ class ProductVariation extends AbstractIdentity
     /**
      * @param ProductVariationI18n $i18n
      *
-     * @return ProductVariation
+     * @return $this
      */
-    public function addI18n(ProductVariationI18n $i18n): ProductVariation
+    public function addI18n(ProductVariationI18n $i18n): self
     {
         $this->i18ns[] = $i18n;
 
@@ -145,9 +116,9 @@ class ProductVariation extends AbstractIdentity
     /**
      * @param ProductVariationI18n ...$i18ns
      *
-     * @return ProductVariation
+     * @return $this
      */
-    public function setI18ns(ProductVariationI18n ...$i18ns): ProductVariation
+    public function setI18ns(ProductVariationI18n ...$i18ns): self
     {
         $this->i18ns = $i18ns;
 
@@ -155,9 +126,9 @@ class ProductVariation extends AbstractIdentity
     }
 
     /**
-     * @return ProductVariation
+     * @return $this
      */
-    public function clearI18ns(): ProductVariation
+    public function clearI18ns(): self
     {
         $this->i18ns = [];
 
@@ -167,9 +138,9 @@ class ProductVariation extends AbstractIdentity
     /**
      * @param ProductVariationInvisibility $invisibility
      *
-     * @return ProductVariation
+     * @return $this
      */
-    public function addInvisibility(ProductVariationInvisibility $invisibility): ProductVariation
+    public function addInvisibility(ProductVariationInvisibility $invisibility): self
     {
         $this->invisibilities[] = $invisibility;
 
@@ -187,9 +158,9 @@ class ProductVariation extends AbstractIdentity
     /**
      * @param ProductVariationInvisibility ...$invisibilities
      *
-     * @return ProductVariation
+     * @return $this
      */
-    public function setInvisibilities(ProductVariationInvisibility ...$invisibilities): ProductVariation
+    public function setInvisibilities(ProductVariationInvisibility ...$invisibilities): self
     {
         $this->invisibilities = $invisibilities;
 
@@ -197,9 +168,9 @@ class ProductVariation extends AbstractIdentity
     }
 
     /**
-     * @return ProductVariation
+     * @return $this
      */
-    public function clearInvisibilities(): ProductVariation
+    public function clearInvisibilities(): self
     {
         $this->invisibilities = [];
 
@@ -209,9 +180,9 @@ class ProductVariation extends AbstractIdentity
     /**
      * @param ProductVariationValue $value
      *
-     * @return ProductVariation
+     * @return $this
      */
-    public function addValue(ProductVariationValue $value): ProductVariation
+    public function addValue(ProductVariationValue $value): self
     {
         $this->values[] = $value;
 
@@ -229,9 +200,9 @@ class ProductVariation extends AbstractIdentity
     /**
      * @param ProductVariationValue ...$values
      *
-     * @return ProductVariation
+     * @return $this
      */
-    public function setValues(ProductVariationValue ...$values): ProductVariation
+    public function setValues(ProductVariationValue ...$values): self
     {
         $this->values = $values;
 
@@ -239,9 +210,9 @@ class ProductVariation extends AbstractIdentity
     }
 
     /**
-     * @return ProductVariation
+     * @return $this
      */
-    public function clearValues(): ProductVariation
+    public function clearValues(): self
     {
         $this->values = [];
 

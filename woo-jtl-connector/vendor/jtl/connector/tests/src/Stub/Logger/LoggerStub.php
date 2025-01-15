@@ -8,6 +8,7 @@ use Monolog\Logger as MonoLogger;
 
 /**
  * Class LoggerStub
+ *
  * @package Jtl\Connector\Core\Test\Stub\Logger
  */
 class LoggerStub

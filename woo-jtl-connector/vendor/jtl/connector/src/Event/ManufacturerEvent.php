@@ -9,9 +9,6 @@ use Symfony\Contracts\EventDispatcher\Event;
 
 class ManufacturerEvent extends Event
 {
-    /**
-     * @var Manufacturer
-     */
     protected Manufacturer $manufacturer;
 
     /**

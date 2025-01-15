@@ -6,23 +6,13 @@ namespace Jtl\Connector\MappingTables;
 
 class TableCollection
 {
-    /**
-     * @var boolean
-     */
-    protected bool $strictMode = false;
-
-    /**
-     * @var TableDummy
-     */
+    protected bool       $strictMode = false;
     protected TableDummy $tableDummy;
 
-    /**
-     * @var array<TableInterface>
-     */
+    /** @var array<TableInterface> */
     protected array $tables = [];
 
     /**
-     * TableCollection constructor.
      * @param TableInterface ...$tables
      */
     public function __construct(TableInterface ...$tables)
@@ -34,7 +24,8 @@ class TableCollection
 
     /**
      * @param TableInterface $table
-     * @return TableCollection
+     *
+     * @return $this
      */
     public function set(TableInterface $table): self
     {
@@ -47,6 +38,8 @@ class TableCollection
 
     /**
      * @param TableInterface $table
+     *
+     * @return void
      */
     public function removeByInstance(TableInterface $table): void
     {
@@ -56,7 +49,9 @@ class TableCollection
     }
 
     /**
-     * @param integer $type
+     * @param int $type
+     *
+     * @return void
      */
     public function removeByType(int $type): void
     {
@@ -66,8 +61,9 @@ class TableCollection
     }
 
     /**
-     * @param integer $type
-     * @return boolean
+     * @param int $type
+     *
+     * @return bool
      */
     public function has(int $type): bool
     {
@@ -75,7 +71,8 @@ class TableCollection
     }
 
     /**
-     * @param integer $type
+     * @param int $type
+     *
      * @return TableInterface
      * @throws MappingTablesException
      */
@@ -108,7 +105,7 @@ class TableCollection
     }
 
     /**
-     * @return boolean
+     * @return bool
      */
     public function isStrictMode(): bool
     {
@@ -116,17 +113,20 @@ class TableCollection
     }
 
     /**
-     * @param boolean $strictMode
-     * @return TableCollection
+     * @param bool $strictMode
+     *
+     * @return $this
      */
     public function setStrictMode(bool $strictMode): self
     {
         $this->strictMode = $strictMode;
+
         return $this;
     }
 
     /**
-     * @param integer $type
+     * @param int $type
+     *
      * @return TableDummy
      */
     protected function getTableDummy(int $type): TableDummy

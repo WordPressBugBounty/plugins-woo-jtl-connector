@@ -5,35 +5,27 @@ declare(strict_types=1);
 namespace Jtl\Connector\Core\Model;
 
 use JMS\Serializer\Annotation as Serializer;
-use JsonException;
 use Jtl\Connector\Core\Exception\TranslatableAttributeException;
 
 /**
  * @access     public
  * @package    Jtl\Connector\Core\Model
  * @subpackage Product
- * @Serializer\AccessType("public_method")
  */
+#[Serializer\AccessType(['value' => 'public_method'])]
 class TranslatableAttributeI18n extends AbstractI18n
 {
-    /**
-     * @var bool
-     * @Serializer\Exclude
-     */
+    #[Serializer\Exclude]
     protected static bool $strictMode = false;
-    /**
-     * @var string
-     * @Serializer\Type("string")
-     * @Serializer\SerializedName("name")
-     * @Serializer\Accessor(getter="getName",setter="setName")
-     */
+
+    #[Serializer\Type('string')]
+    #[Serializer\SerializedName('name')]
+    #[Serializer\Accessor(getter: 'getName', setter: 'setName')]
     protected string $name = '';
-    /**
-     * @var string
-     * @Serializer\Type("string")
-     * @Serializer\SerializedName("value")
-     * @Serializer\Accessor(getter="getValue",setter="setValue")
-     */
+
+    #[Serializer\Type('string')]
+    #[Serializer\SerializedName('value')]
+    #[Serializer\Accessor(getter: 'getValueAsString', setter: 'setValue')]
     protected string $value = '';
 
     /**
@@ -46,6 +38,8 @@ class TranslatableAttributeI18n extends AbstractI18n
 
     /**
      * @param bool $strictMode
+     *
+     * @return void
      */
     public static function setStrictMode(bool $strictMode): void
     {
@@ -63,7 +57,7 @@ class TranslatableAttributeI18n extends AbstractI18n
     /**
      * @param string $name
      *
-     * @return TranslatableAttributeI18n
+     * @return $this
      */
     public function setName(string $name): self
     {
@@ -73,48 +67,109 @@ class TranslatableAttributeI18n extends AbstractI18n
     }
 
     /**
-     * @param string $castToType
-     *
-     * @return bool|float|int|string|object
+     * @return string
+     */
+    public function getValueAsString(): string
+    {
+        return $this->value;
+    }
+
+    /**
+     * @return int
+     */
+    public function getValueAsInt(): int
+    {
+        return (int)$this->value;
+    }
+
+    /**
+     * @return float
+     */
+    public function getValueAsFloat(): float
+    {
+        return (float)$this->value;
+    }
+
+    /**
+     * @return bool
      * @throws TranslatableAttributeException
      */
-    public function getValue(string $castToType = TranslatableAttribute::TYPE_STRING)
+    public function getValueAsBool(): bool
     {
-        $value = $this->value;
-        switch ($castToType) {
-            case TranslatableAttribute::TYPE_BOOL:
-                $value = !('false' === $this->value) && $this->value;
-                break;
-
-            case TranslatableAttribute::TYPE_INT:
-                $value = (int)$this->value;
-                break;
-
-            case TranslatableAttribute::TYPE_JSON:
-                /** @var object $value */
-                /** @noinspection JsonEncodingApiUsageInspection */
-                $value = \json_decode($value, true);
-                if (self::$strictMode && \json_last_error() !== \JSON_ERROR_NONE) {
-                    throw TranslatableAttributeException::decodingValueFailed($this->name, \json_last_error_msg());
-                }
-                break;
-
-            case TranslatableAttribute::TYPE_FLOAT:
-                $value = (float)$this->value;
-                break;
+        if (self::$strictMode === true) {
+            if (!\in_array($this->value, ['0', '1'], true)) {
+                throw TranslatableAttributeException::valueTypeInvalid(
+                    $this->name . ' : ' . $this->value,
+                    'bool'
+                );
+            }
+        } elseif (\in_array(\strtolower($this->value), ['0', '1', 'true', 'false'], true)) {
+            if (\strtolower($this->value) === 'true') {
+                $this->value = '1';
+            } elseif (\strtolower($this->value) === 'false') {
+                $this->value = '0';
+            }
+        } else {
+            return (bool)$this->value;
         }
 
-        return $value;
+        return $this->value === '1';
+    }
+
+    /**
+     * @return array<mixed>|null
+     * @throws TranslatableAttributeException
+     */
+    public function getValueAsJsonArr(): ?array
+    {
+        $jsonArr = \json_decode($this->value, true);
+        if (self::$strictMode === false && \json_last_error() !== \JSON_ERROR_NONE) {
+            return null;
+        }
+
+        if (self::$strictMode && \json_last_error() !== \JSON_ERROR_NONE) {
+            throw TranslatableAttributeException::decodingValueFailed($this->name, \json_last_error_msg());
+        }
+        if (!\is_array($jsonArr)) {
+            throw TranslatableAttributeException::valueTypeInvalid($this->name, 'array');
+        }
+
+        return $jsonArr;
+    }
+
+    /**
+     * @param string $castToType
+     *
+     * @return bool|float|int|string|array<mixed>|null
+     * @throws TranslatableAttributeException|\JsonException
+     */
+    public function getValue(string $castToType = TranslatableAttribute::TYPE_STRING): array|float|bool|int|string|null
+    {
+        switch ($castToType) {
+            case TranslatableAttribute::TYPE_BOOL:
+                return $this->getValueAsBool();
+
+            case TranslatableAttribute::TYPE_INT:
+                return $this->getValueAsInt();
+
+            case TranslatableAttribute::TYPE_JSON:
+                return $this->getValueAsJsonArr();
+
+            case TranslatableAttribute::TYPE_FLOAT:
+                return $this->getValueAsFloat();
+            default:
+                return $this->getValueAsString();
+        }
     }
 
     /**
      * @param mixed $value
      *
-     * @return TranslatableAttributeI18n
+     * @return $this
      * @throws TranslatableAttributeException
-     * @throws JsonException
+     * @throws \JsonException
      */
-    public function setValue($value): self
+    public function setValue(mixed $value): self
     {
         $type = \gettype($value);
 

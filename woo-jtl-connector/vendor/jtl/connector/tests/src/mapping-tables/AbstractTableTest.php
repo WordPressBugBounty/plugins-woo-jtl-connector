@@ -11,6 +11,7 @@ use Doctrine\DBAL\Exception;
 use Doctrine\DBAL\Schema\Column;
 use Doctrine\DBAL\Schema\SchemaException;
 use Doctrine\DBAL\Types\Types;
+use Jtl\Connector\Dbc\DbcRuntimeException;
 use Jtl\Connector\Dbc\DbManager;
 use PHPUnit\Framework\ExpectationFailedException;
 use PHPUnit\Framework\MockObject\ClassAlreadyExistsException;
@@ -31,10 +32,11 @@ use Throwable;
 class AbstractTableTest extends TestCase
 {
     /**
+     * @return void
      * @throws DBALException
      * @throws ExpectationFailedException
      * @throws InvalidArgumentException
-     * @throws \Jtl\Connector\Dbc\DbcRuntimeException
+     * @throws DbcRuntimeException
      * @throws \RuntimeException
      */
     public function testTableSchema(): void
@@ -49,11 +51,12 @@ class AbstractTableTest extends TestCase
     }
 
     /**
+     * @return void
      * @throws DBALException
      * @throws ExpectationFailedException
      * @throws InvalidArgumentException
      * @throws SchemaException
-     * @throws \Jtl\Connector\Dbc\DbcRuntimeException
+     * @throws DbcRuntimeException
      * @throws \PHPUnit\Framework\Exception
      * @throws \RuntimeException
      */
@@ -73,11 +76,12 @@ class AbstractTableTest extends TestCase
     }
 
     /**
+     * @return void
      * @throws DBALException
      * @throws ExpectationFailedException
      * @throws InvalidArgumentException
      * @throws SchemaException
-     * @throws \Jtl\Connector\Dbc\DbcRuntimeException
+     * @throws DbcRuntimeException
      * @throws \PHPUnit\Framework\Exception
      * @throws \RuntimeException
      */
@@ -98,11 +102,12 @@ class AbstractTableTest extends TestCase
     }
 
     /**
+     * @return void
      * @throws DBALException
      * @throws ExpectationFailedException
      * @throws InvalidArgumentException
      * @throws SchemaException
-     * @throws \Jtl\Connector\Dbc\DbcRuntimeException
+     * @throws DbcRuntimeException
      * @throws \PHPUnit\Framework\Exception
      * @throws \RuntimeException
      */
@@ -123,6 +128,7 @@ class AbstractTableTest extends TestCase
     }
 
     /**
+     * @return void
      * @throws DBALException
      * @throws ExpectationFailedException
      * @throws InvalidArgumentException
@@ -141,11 +147,12 @@ class AbstractTableTest extends TestCase
     }
 
     /**
+     * @return void
      * @throws Exception
      * @throws ExpectationFailedException
      * @throws InvalidArgumentException
      * @throws MappingTablesException
-     * @throws \Jtl\Connector\Dbc\DbcRuntimeException
+     * @throws DbcRuntimeException
      * @throws \RuntimeException
      */
     public function testGetEndpointId(): void
@@ -168,11 +175,16 @@ class AbstractTableTest extends TestCase
     }
 
     /**
+     * @return void
      * @throws DBALException
+     * @throws DbcRuntimeException
+     * @throws Exception
      * @throws ExpectationFailedException
      * @throws InvalidArgumentException
      * @throws MappingTablesException
-     * @throws \Jtl\Connector\Dbc\DbcRuntimeException
+     * @throws \Doctrine\DBAL\Driver\Exception
+     * @throws \PDOException
+     * @throws \PHPUnit\Framework\Exception
      * @throws \RuntimeException
      */
     public function testSave(): void
@@ -185,12 +197,16 @@ class AbstractTableTest extends TestCase
     }
 
     /**
+     * @return void
      * @throws DBALException
+     * @throws DbcRuntimeException
      * @throws Exception
      * @throws ExpectationFailedException
      * @throws InvalidArgumentException
      * @throws MappingTablesException
-     * @throws \Jtl\Connector\Dbc\DbcRuntimeException
+     * @throws \Doctrine\DBAL\Driver\Exception
+     * @throws \PDOException
+     * @throws \PHPUnit\Framework\Exception
      * @throws \RuntimeException
      */
     public function testDeleteByEndpointId(): void
@@ -208,12 +224,16 @@ class AbstractTableTest extends TestCase
     }
 
     /**
+     * @return void
      * @throws DBALException
+     * @throws DbcRuntimeException
      * @throws Exception
      * @throws ExpectationFailedException
      * @throws InvalidArgumentException
      * @throws MappingTablesException
-     * @throws \Jtl\Connector\Dbc\DbcRuntimeException
+     * @throws \Doctrine\DBAL\Driver\Exception
+     * @throws \PDOException
+     * @throws \PHPUnit\Framework\Exception
      * @throws \RuntimeException
      */
     public function testDeleteByHostId(): void
@@ -235,13 +255,14 @@ class AbstractTableTest extends TestCase
      *
      * @param string|null $endpoint
      *
+     * @return void
      * @throws DBALException
      * @throws Exception
      * @throws ExpectationFailedException
      * @throws InvalidArgumentException
      * @throws MappingTablesException
      * @throws \Doctrine\DBAL\Driver\Exception
-     * @throws \Jtl\Connector\Dbc\DbcRuntimeException
+     * @throws DbcRuntimeException
      * @throws \RuntimeException
      */
     public function testDeleteByHostIdMultipleEntries(?string $endpoint): void
@@ -272,12 +293,16 @@ class AbstractTableTest extends TestCase
     }
 
     /**
+     * @return void
      * @throws DBALException
+     * @throws DbcRuntimeException
      * @throws Exception
      * @throws ExpectationFailedException
      * @throws InvalidArgumentException
      * @throws MappingTablesException
-     * @throws \Jtl\Connector\Dbc\DbcRuntimeException
+     * @throws \Doctrine\DBAL\Driver\Exception
+     * @throws \PDOException
+     * @throws \PHPUnit\Framework\Exception
      * @throws \RuntimeException
      */
     public function testClearDifferentTypes(): void
@@ -292,12 +317,16 @@ class AbstractTableTest extends TestCase
     }
 
     /**
+     * @return void
      * @throws DBALException
      * @throws Exception
      * @throws ExpectationFailedException
      * @throws InvalidArgumentException
      * @throws MappingTablesException
-     * @throws \Jtl\Connector\Dbc\DbcRuntimeException
+     * @throws \Doctrine\DBAL\Driver\Exception
+     * @throws DbcRuntimeException
+     * @throws \PDOException
+     * @throws \PHPUnit\Framework\Exception
      * @throws \RuntimeException
      */
     public function testClearAll(): void
@@ -311,10 +340,11 @@ class AbstractTableTest extends TestCase
     }
 
     /**
+     * @return void
      * @throws Exception
      * @throws MappingTablesException
-     * @throws \Jtl\Connector\Dbc\DbcRuntimeException
-     * @throws \RuntimeException|\SebastianBergmann\RecursionContext\InvalidArgumentException
+     * @throws DbcRuntimeException
+     * @throws \RuntimeException|InvalidArgumentException
      */
     public function testClearUnknownType(): void
     {
@@ -327,13 +357,14 @@ class AbstractTableTest extends TestCase
     }
 
     /**
+     * @return void
      * @throws DBALException
      * @throws Exception
      * @throws ExpectationFailedException
      * @throws InvalidArgumentException
      * @throws MappingTablesException
      * @throws \Doctrine\DBAL\Driver\Exception
-     * @throws \Jtl\Connector\Dbc\DbcRuntimeException
+     * @throws DbcRuntimeException
      * @throws \RuntimeException
      */
     public function testCount(): void
@@ -350,6 +381,7 @@ class AbstractTableTest extends TestCase
     }
 
     /**
+     * @return void
      * @throws DBALException
      * @throws ExpectationFailedException
      * @throws InvalidArgumentException
@@ -378,6 +410,7 @@ class AbstractTableTest extends TestCase
     }
 
     /**
+     * @return void
      * @throws DBALException
      * @throws Exception
      * @throws ExpectationFailedException
@@ -401,12 +434,13 @@ class AbstractTableTest extends TestCase
     }
 
     /**
+     * @return void
      * @throws DBALException
      * @throws Exception
      * @throws ExpectationFailedException
      * @throws InvalidArgumentException
      * @throws MappingTablesException
-     * @throws \Jtl\Connector\Dbc\DbcRuntimeException
+     * @throws DbcRuntimeException
      * @throws \RuntimeException
      */
     public function testFindAllEndpointsWithNoData(): void
@@ -421,12 +455,13 @@ class AbstractTableTest extends TestCase
     }
 
     /**
+     * @return void
      * @throws DBALException
      * @throws Exception
      * @throws ExpectationFailedException
      * @throws InvalidArgumentException
      * @throws MappingTablesException
-     * @throws \Jtl\Connector\Dbc\DbcRuntimeException
+     * @throws DbcRuntimeException
      * @throws \PHPUnit\Framework\Exception
      * @throws \RuntimeException
      */
@@ -454,6 +489,7 @@ class AbstractTableTest extends TestCase
     }
 
     /**
+     * @return void
      * @throws ExpectationFailedException
      * @throws InvalidArgumentException
      * @throws ReflectionException
@@ -477,9 +513,9 @@ class AbstractTableTest extends TestCase
     /**
      * @return void
      * @throws \PHPUnit\Framework\Exception
-     * @throws \PHPUnit\Framework\ExpectationFailedException
+     * @throws ExpectationFailedException
      * @throws \ReflectionException
-     * @throws \SebastianBergmann\RecursionContext\InvalidArgumentException
+     * @throws InvalidArgumentException
      */
     public function testCreateEndpointDataFailsTooMuchData(): void
     {
@@ -493,9 +529,9 @@ class AbstractTableTest extends TestCase
     /**
      * @return void
      * @throws \PHPUnit\Framework\Exception
-     * @throws \PHPUnit\Framework\ExpectationFailedException
+     * @throws ExpectationFailedException
      * @throws \ReflectionException
-     * @throws \SebastianBergmann\RecursionContext\InvalidArgumentException
+     * @throws InvalidArgumentException
      */
     public function testCreateEndpointDataFailsNotEnoughData(): void
     {
@@ -509,8 +545,8 @@ class AbstractTableTest extends TestCase
     /**
      * @return void
      * @throws \PHPUnit\Framework\Exception
-     * @throws \PHPUnit\Framework\ExpectationFailedException
-     * @throws \SebastianBergmann\RecursionContext\InvalidArgumentException
+     * @throws ExpectationFailedException
+     * @throws InvalidArgumentException
      */
     public function testBuildEndpoint(): void
     {
@@ -530,6 +566,7 @@ class AbstractTableTest extends TestCase
      * @param array<int, string>   $endpointColumnNames
      * @param string               $expectedEndpoint
      *
+     * @return void
      * @throws ClassAlreadyExistsException
      * @throws ClassIsFinalException
      * @throws ClassIsReadonlyException
@@ -579,11 +616,12 @@ class AbstractTableTest extends TestCase
     }
 
     /**
+     * @return void
      * @throws DBALException
      * @throws ExpectationFailedException
      * @throws InvalidArgumentException
      * @throws MappingTablesException
-     * @throws \Jtl\Connector\Dbc\DbcRuntimeException
+     * @throws DbcRuntimeException
      * @throws \RuntimeException
      */
     public function testExtractEndpoint(): void
@@ -604,6 +642,7 @@ class AbstractTableTest extends TestCase
     }
 
     /**
+     * @return void
      * @throws ExpectationFailedException
      * @throws InvalidArgumentException
      * @throws MappingTablesException
@@ -627,10 +666,10 @@ class AbstractTableTest extends TestCase
 
     /**
      * @return void
-     * @throws \Jtl\Connector\MappingTables\MappingTablesException
+     * @throws MappingTablesException
      * @throws \PHPUnit\Framework\Exception
-     * @throws \PHPUnit\Framework\ExpectationFailedException
-     * @throws \SebastianBergmann\RecursionContext\InvalidArgumentException
+     * @throws ExpectationFailedException
+     * @throws InvalidArgumentException
      */
     public function testExplodeEndpointWithEmptyString(): void
     {
@@ -643,9 +682,10 @@ class AbstractTableTest extends TestCase
     }
 
     /**
+     * @return void
      * @throws DBALException
-     * @throws \Jtl\Connector\Dbc\DbcRuntimeException
-     * @throws \RuntimeException|\SebastianBergmann\RecursionContext\InvalidArgumentException
+     * @throws DbcRuntimeException
+     * @throws \RuntimeException|InvalidArgumentException
      */
     public function testExtractEndpointUnknownType(): void
     {
@@ -659,6 +699,7 @@ class AbstractTableTest extends TestCase
     }
 
     /**
+     * @return void
      * @throws MappingTablesException
      * @throws SchemaException
      * @throws DBALException
@@ -675,6 +716,7 @@ class AbstractTableTest extends TestCase
     }
 
     /**
+     * @return void
      * @throws MappingTablesException
      * @throws DBALException
      * @throws Exception
@@ -691,6 +733,7 @@ class AbstractTableTest extends TestCase
     }
 
     /**
+     * @return void
      * @throws MappingTablesException
      * @throws DBALException
      * @throws Exception
@@ -708,6 +751,7 @@ class AbstractTableTest extends TestCase
     }
 
     /**
+     * @return void
      * @throws DBALException
      * @throws \RuntimeException
      */
@@ -716,6 +760,9 @@ class AbstractTableTest extends TestCase
         $this->expectException(MappingTablesException::class);
         $this->expectExceptionCode(MappingTablesException::TYPES_ARRAY_EMPTY);
         new class ($this->getDBManager()) extends TableStub {
+            /**
+             * @return array{}
+             */
             public function getTypes(): array
             {
                 return [];
@@ -730,14 +777,15 @@ class AbstractTableTest extends TestCase
      * @param string     $endpoint
      * @param int|string $expectedValue
      *
+     * @return void
      * @throws DBALException
      * @throws MappingTablesException
      * @throws ExpectationFailedException
      * @throws InvalidArgumentException
-     * @throws \Jtl\Connector\Dbc\DbcRuntimeException
+     * @throws DbcRuntimeException
      * @throws \RuntimeException
      */
-    public function testExtractValueFromEndpoint(string $field, string $endpoint, $expectedValue): void
+    public function testExtractValueFromEndpoint(string $field, string $endpoint, int|string $expectedValue): void
     {
         $this->assertInstanceOf(TableStub::class, $this->table);
         /** @var TableStub $tableStub */
@@ -763,6 +811,7 @@ class AbstractTableTest extends TestCase
      *
      * @param mixed[] $types
      *
+     * @return void
      * @throws DBALException
      * @throws \RuntimeException
      */
@@ -808,6 +857,7 @@ class AbstractTableTest extends TestCase
     }
 
     /**
+     * @return void
      * @throws DBALException
      * @throws \Exception
      * @throws Throwable

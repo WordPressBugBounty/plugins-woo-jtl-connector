@@ -12,28 +12,24 @@ use JMS\Serializer\Annotation as Serializer;
  * @access     public
  * @package    Jtl\Connector\Core\Model
  * @subpackage Product
- * @Serializer\AccessType("public_method")
  */
+#[Serializer\AccessType(['value' => 'public_method'])]
 class SpecificValue extends AbstractIdentity
 {
-    /**
-     * @var integer Optional sort number
-     * @Serializer\Type("integer")
-     * @Serializer\SerializedName("sort")
-     * @Serializer\Accessor(getter="getSort",setter="setSort")
-     */
+    /**  @var int Optional sort number */
+    #[Serializer\Type('integer')]
+    #[Serializer\SerializedName('sort')]
+    #[Serializer\Accessor(getter: 'getSort', setter: 'setSort')]
     protected int $sort = 1;
 
-    /**
-     * @var SpecificValueI18n[]
-     * @Serializer\Type("array<Jtl\Connector\Core\Model\SpecificValueI18n>")
-     * @Serializer\SerializedName("i18ns")
-     * @Serializer\AccessType("reflection")
-     */
+    /** @var SpecificValueI18n[] */
+    #[Serializer\Type('array<Jtl\Connector\Core\Model\SpecificValueI18n>')]
+    #[Serializer\SerializedName('i18ns')]
+    #[Serializer\AccessType(['value' => 'reflection'])]
     protected array $i18ns = [];
 
     /**
-     * @return integer Optional sort number
+     * @return int Optional sort number
      */
     public function getSort(): int
     {
@@ -41,11 +37,11 @@ class SpecificValue extends AbstractIdentity
     }
 
     /**
-     * @param integer $sort Optional sort number
+     * @param int $sort Optional sort number
      *
-     * @return SpecificValue
+     * @return $this
      */
-    public function setSort(int $sort): SpecificValue
+    public function setSort(int $sort): self
     {
         $this->sort = $sort;
 
@@ -55,9 +51,9 @@ class SpecificValue extends AbstractIdentity
     /**
      * @param SpecificValueI18n $i18n
      *
-     * @return SpecificValue
+     * @return $this
      */
-    public function addI18n(SpecificValueI18n $i18n): SpecificValue
+    public function addI18n(SpecificValueI18n $i18n): self
     {
         $this->i18ns[] = $i18n;
 
@@ -75,9 +71,9 @@ class SpecificValue extends AbstractIdentity
     /**
      * @param SpecificValueI18n ...$i18ns
      *
-     * @return SpecificValue
+     * @return $this
      */
-    public function setI18ns(SpecificValueI18n ...$i18ns): SpecificValue
+    public function setI18ns(SpecificValueI18n ...$i18ns): self
     {
         $this->i18ns = $i18ns;
 
@@ -85,9 +81,9 @@ class SpecificValue extends AbstractIdentity
     }
 
     /**
-     * @return SpecificValue
+     * @return $this
      */
-    public function clearI18ns(): SpecificValue
+    public function clearI18ns(): self
     {
         $this->i18ns = [];
 

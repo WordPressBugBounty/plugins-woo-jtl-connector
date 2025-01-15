@@ -6,6 +6,7 @@ namespace Jtl\Connector\MappingTables;
 
 use Doctrine\DBAL\DBALException;
 use Doctrine\DBAL\Exception;
+use Jtl\Connector\Dbc\DbcRuntimeException;
 use RuntimeException;
 
 class TableProxy
@@ -28,11 +29,11 @@ class TableProxy
     }
 
     /**
-     * @return integer
+     * @return int
      * @throws Exception
      * @throws MappingTablesException
      * @throws RuntimeException
-     * @throws \Jtl\Connector\Dbc\DbcRuntimeException
+     * @throws DbcRuntimeException
      */
     public function clear(): int
     {
@@ -56,8 +57,8 @@ class TableProxy
         array $where = [],
         array $parameters = [],
         array $orderBy = [],
-        int   $limit = null,
-        int   $offset = null
+        ?int   $limit = null,
+        ?int   $offset = null
     ): int {
         return $this->table->count($where, $parameters, $orderBy, $limit, $offset, $this->type);
     }
@@ -67,7 +68,7 @@ class TableProxy
      *
      * @return string
      */
-    public function createEndpoint(...$parts): string
+    public function createEndpoint(mixed ...$parts): string
     {
         if (!$this->table->isSingleIdentity()) {
             $parts[] = $this->type;
@@ -85,19 +86,19 @@ class TableProxy
      * @throws Exception
      * @throws MappingTablesException
      * @throws RuntimeException
-     * @throws \Jtl\Connector\Dbc\DbcRuntimeException
+     * @throws DbcRuntimeException
      */
-    public function delete(string $endpoint = null, int $hostId = null): int
+    public function delete(?string $endpoint = null, ?int $hostId = null): int
     {
         return $this->table->remove($endpoint, $hostId, $this->type);
     }
 
     /**
-     * @param string[]     $where
-     * @param string[]     $parameters
-     * @param string[]     $orderBy
-     * @param integer|null $limit
-     * @param integer|null $offset
+     * @param string[] $where
+     * @param string[] $parameters
+     * @param string[] $orderBy
+     * @param int|null $limit
+     * @param int|null $offset
      *
      * @return string[]
      * @throws DBALException
@@ -109,8 +110,8 @@ class TableProxy
         array $where = [],
         array $parameters = [],
         array $orderBy = [],
-        int   $limit = null,
-        int   $offset = null
+        ?int   $limit = null,
+        ?int   $offset = null
     ): array {
         return $this->table->findEndpoints($where, $parameters, $orderBy, $limit, $offset, $this->type);
     }
@@ -123,7 +124,7 @@ class TableProxy
      * @throws Exception
      * @throws MappingTablesException
      * @throws RuntimeException
-     * @throws \Jtl\Connector\Dbc\DbcRuntimeException
+     * @throws DbcRuntimeException
      */
     public function filterMappedEndpoints(array $endpoints): array
     {
@@ -137,7 +138,7 @@ class TableProxy
      * @throws Exception
      * @throws MappingTablesException
      * @throws RuntimeException
-     * @throws \Jtl\Connector\Dbc\DbcRuntimeException
+     * @throws DbcRuntimeException
      */
     public function getEndpoint(int $hostId): ?string
     {
@@ -167,7 +168,7 @@ class TableProxy
     }
 
     /**
-     * @return integer
+     * @return int
      */
     public function getType(): int
     {
@@ -175,18 +176,19 @@ class TableProxy
     }
 
     /**
-     * @param integer $type
+     * @param int $type
      *
-     * @return TableProxy
+     * @return $this
      * @throws MappingTablesException
      */
-    public function setType(int $type): TableProxy
+    public function setType(int $type): self
     {
         if (!\in_array($type, $this->table->getTypes(), true)) {
             throw MappingTablesException::tableNotResponsibleForType($type);
         }
 
         $this->type = $type;
+
         return $this;
     }
 
@@ -196,7 +198,7 @@ class TableProxy
      *
      * @return int
      * @throws DBALException|MappingTablesException
-     * @throws \Jtl\Connector\Dbc\DbcRuntimeException
+     * @throws DbcRuntimeException
      * @throws RuntimeException
      */
     public function save(string $endpoint, int $hostId): int

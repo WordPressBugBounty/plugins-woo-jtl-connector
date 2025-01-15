@@ -14,32 +14,25 @@ use Jtl\Connector\Core\Utilities\Validator\Validate;
  * @access     public
  * @package    Jtl\Connector\Core\Model
  * @subpackage Product
- * @Serializer\AccessType("public_method")
  */
+#[Serializer\AccessType(['value' => 'public_method'])]
 class ProductWarehouseInfo extends AbstractModel
 {
-    /**
-     * @var Identity
-     * @Serializer\Type("Jtl\Connector\Core\Model\Identity")
-     * @Serializer\SerializedName("warehouseId")
-     * @Serializer\Accessor(getter="getwarehouseId",setter="setwarehouseId")
-     */
+    #[Serializer\Type(Identity::class)]
+    #[Serializer\SerializedName('warehouseId')]
+    #[Serializer\Accessor(getter: 'getWarehouseId', setter: 'setWarehouseId')]
     protected Identity $warehouseId;
 
-    /**
-     * @var double Optional product inflow quantity for specified warehouse
-     * @Serializer\Type("double")
-     * @Serializer\SerializedName("inflowQuantity")
-     * @Serializer\Accessor(getter="getInflowQuantity",setter="setInflowQuantity")
-     */
+    /** @var double Optional product inflow quantity for specified warehouse */
+    #[Serializer\Type('double')]
+    #[Serializer\SerializedName('inflowQuantity')]
+    #[Serializer\Accessor(getter: 'getInflowQuantity', setter: 'setInflowQuantity')]
     protected float $inflowQuantity = 0.0;
 
-    /**
-     * @var double
-     * @Serializer\Type("double")
-     * @Serializer\SerializedName("stockLevel")
-     * @Serializer\Accessor(getter="getstockLevel",setter="setstockLevel")
-     */
+
+    #[Serializer\Type('double')]
+    #[Serializer\SerializedName('stockLevel')]
+    #[Serializer\Accessor(getter: 'getStockLevel', setter: 'setStockLevel')]
     protected float $stockLevel = 0.0;
 
     /**
@@ -62,9 +55,9 @@ class ProductWarehouseInfo extends AbstractModel
     /**
      * @param Identity $warehouseId
      *
-     * @return ProductWarehouseInfo
+     * @return $this
      */
-    public function setWarehouseId(Identity $warehouseId): ProductWarehouseInfo
+    public function setWarehouseId(Identity $warehouseId): self
     {
         $this->warehouseId = $warehouseId;
 
@@ -72,7 +65,7 @@ class ProductWarehouseInfo extends AbstractModel
     }
 
     /**
-     * @return double Optional product inflow quantity for specified warehouse
+     * @return float Optional product inflow quantity for specified warehouse
      */
     public function getInflowQuantity(): float
     {
@@ -80,11 +73,11 @@ class ProductWarehouseInfo extends AbstractModel
     }
 
     /**
-     * @param double $inflowQuantity Optional product inflow quantity for specified warehouse
+     * @param float $inflowQuantity Optional product inflow quantity for specified warehouse
      *
-     * @return ProductWarehouseInfo
+     * @return $this
      */
-    public function setInflowQuantity(float $inflowQuantity): ProductWarehouseInfo
+    public function setInflowQuantity(float $inflowQuantity): self
     {
         $this->inflowQuantity = $inflowQuantity;
 
@@ -92,7 +85,7 @@ class ProductWarehouseInfo extends AbstractModel
     }
 
     /**
-     * @return double
+     * @return float
      */
     public function getStockLevel(): float
     {
@@ -100,11 +93,11 @@ class ProductWarehouseInfo extends AbstractModel
     }
 
     /**
-     * @param double $stockLevel
+     * @param float $stockLevel
      *
-     * @return ProductWarehouseInfo
+     * @return $this
      */
-    public function setStockLevel(float $stockLevel): ProductWarehouseInfo
+    public function setStockLevel(float $stockLevel): self
     {
         $this->stockLevel = $stockLevel;
 

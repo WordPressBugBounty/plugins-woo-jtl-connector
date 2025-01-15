@@ -9,17 +9,18 @@ use Monolog\Processor\ProcessorInterface;
 
 class RequestProcessor implements ProcessorInterface
 {
-    /**
-     * @var array<string, string>
-     */
+    /** @var array<string, string> */
     protected array $extraFields = [];
 
+    /**
+     * RequestProcessor constructor.
+     */
     public function __construct()
     {
         $this->extraFields = [
-            'http_method'     => $_SERVER['REQUEST_METHOD'] ?? '',
-            'user_agent'      => $_SERVER['HTTP_USER_AGENT'] ?? '',
-            'domain'          => $_SERVER['HTTP_HOST'] ?? $_SERVER['SERVER_NAME'] ?? ''
+            'http_method' => $_SERVER['REQUEST_METHOD'] ?? '',
+            'user_agent'  => $_SERVER['HTTP_USER_AGENT'] ?? '',
+            'domain'      => $_SERVER['HTTP_HOST'] ?? $_SERVER['SERVER_NAME'] ?? ''
         ];
 
         // strip jtlauth value from uri
@@ -36,7 +37,7 @@ class RequestProcessor implements ProcessorInterface
         if (false === $input) {
             $input = '';
         }
-        $requestSize = (float) \strlen($input);
+        $requestSize = (float)\strlen($input);
         $unit        = 'B';
         if ($requestSize > 1024 && $requestSize < 1024 * 1024) {
             $requestSize /= 1024;
@@ -56,15 +57,17 @@ class RequestProcessor implements ProcessorInterface
 
     /**
      * multiple param and return types are needed because some connectors use an older version of monolog
+     *
      * @param array{extra:array<mixed>}|LogRecord $record
-     * @phpstan-param array{extra:array<mixed>} $record
+     *
+     * @phpstan-param array{extra:array<mixed>}   $record
      * @return array{extra:array<mixed>}|LogRecord
      */
-    public function __invoke($record) // @phpstan-ignore-line
+    public function __invoke(array|LogRecord $record): array|LogRecord
     {
         if (\is_array($record)) {
             $record['extra'] = \array_merge($record['extra'], $this->extraFields);
-        } elseif ($record instanceof LogRecord) { // @phpstan-ignore-line
+        } elseif ($record instanceof LogRecord) {
             $record->extra = \array_merge($record->extra, $this->extraFields);
         }
 

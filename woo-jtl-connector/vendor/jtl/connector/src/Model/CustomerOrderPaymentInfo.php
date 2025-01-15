@@ -12,96 +12,73 @@ use JMS\Serializer\Annotation as Serializer;
  * @access     public
  * @package    Jtl\Connector\Core\Model
  * @subpackage Product
- * @Serializer\AccessType("public_method")
  */
+#[Serializer\AccessType(['value' => 'public_method'])]
 class CustomerOrderPaymentInfo extends AbstractIdentity
 {
-    /**
-     * @var string Bank account holder name
-     * @Serializer\Type("string")
-     * @Serializer\SerializedName("accountHolder")
-     * @Serializer\Accessor(getter="getAccountHolder",setter="setAccountHolder")
-     */
+    /** @var string Bank account holder name */
+    #[Serializer\Type('string')]
+    #[Serializer\SerializedName('accountHolder')]
+    #[Serializer\Accessor(getter: 'getAccountHolder', setter: 'setAccountHolder')]
     protected string $accountHolder = '';
 
-    /**
-     * @var string Bank account number (deprecated in DE since SEPA)
-     * @Serializer\Type("string")
-     * @Serializer\SerializedName("accountNumber")
-     * @Serializer\Accessor(getter="getAccountNumber",setter="setAccountNumber")
-     */
+    /** @var string Bank account number (deprecated in DE since SEPA) */
+    #[Serializer\Type('string')]
+    #[Serializer\SerializedName('accountNumber')]
+    #[Serializer\Accessor(getter: 'getAccountNumber', setter: 'setAccountNumber')]
     protected string $accountNumber = '';
 
-    /**
-     * @var string Bank code (deprecated in DE since SEPA)
-     * @Serializer\Type("string")
-     * @Serializer\SerializedName("bankCode")
-     * @Serializer\Accessor(getter="getBankCode",setter="setBankCode")
-     */
+    /** @var string Bank code (deprecated in DE since SEPA) */
+    #[Serializer\Type('string')]
+    #[Serializer\SerializedName('bankCode')]
+    #[Serializer\Accessor(getter: 'getBankCode', setter: 'setBankCode')]
     protected string $bankCode = '';
 
-    /**
-     * @var string Bank name
-     * @Serializer\Type("string")
-     * @Serializer\SerializedName("bankName")
-     * @Serializer\Accessor(getter="getBankName",setter="setBankName")
-     */
+    /** @var string Bank name */
+    #[Serializer\Type('string')]
+    #[Serializer\SerializedName('bankName')]
+    #[Serializer\Accessor(getter: 'getBankName', setter: 'setBankName')]
     protected string $bankName = '';
 
-    /**
-     * @var string Bank Identifier Code (BIC)
-     * @Serializer\Type("string")
-     * @Serializer\SerializedName("bic")
-     * @Serializer\Accessor(getter="getBic",setter="setBic")
-     */
+    /** @var string Bank Identifier Code (BIC) */
+    #[Serializer\Type('string')]
+    #[Serializer\SerializedName('bic')]
+    #[Serializer\Accessor(getter: 'getBic', setter: 'setBic')]
     protected string $bic = '';
 
-    /**
-     * @var string Credit card expiration date
-     * @Serializer\Type("string")
-     * @Serializer\SerializedName("creditCardExpiration")
-     * @Serializer\Accessor(getter="getCreditCardExpiration",setter="setCreditCardExpiration")
-     */
+    /** @var string Credit card expiration date */
+    #[Serializer\Type('string')]
+    #[Serializer\SerializedName('creditCardExpiration')]
+    #[Serializer\Accessor(getter: 'getCreditCardExpiration', setter: 'setCreditCardExpiration')]
     protected string $creditCardExpiration = '';
 
-    /**
-     * @var string
-     * @Serializer\Type("string")
-     * @Serializer\SerializedName("creditCardHolder")
-     * @Serializer\Accessor(getter="getCreditCardHolder",setter="setCreditCardHolder")
-     */
+    #[Serializer\Type('string')]
+    #[Serializer\SerializedName('creditCardHolder')]
+    #[Serializer\Accessor(getter: 'getCreditCardHolder', setter: 'setCreditCardHolder')]
     protected string $creditCardHolder = '';
 
-    /**
-     * @var string Credit card number
-     * @Serializer\Type("string")
-     * @Serializer\SerializedName("creditCardNumber")
-     * @Serializer\Accessor(getter="getCreditCardNumber",setter="setCreditCardNumber")
-     */
+    /** @var string Credit card number */
+    #[Serializer\Type('string')]
+    #[Serializer\SerializedName('creditCardNumber')]
+    #[Serializer\Accessor(getter: 'getCreditCardNumber', setter: 'setCreditCardNumber')]
     protected string $creditCardNumber = '';
 
-    /**
-     * @var string Credit card type (e.g. "visa")
-     * @Serializer\Type("string")
-     * @Serializer\SerializedName("creditCardType")
-     * @Serializer\Accessor(getter="getCreditCardType",setter="setCreditCardType")
-     */
+    /** @var string Credit card type (e.g. "visa") */
+    #[Serializer\Type('string')]
+    #[Serializer\SerializedName('creditCardType')]
+    #[Serializer\Accessor(getter: 'getCreditCardType', setter: 'setCreditCardType')]
     protected string $creditCardType = '';
 
-    /**
-     * @var string Credit card verification number
-     * @Serializer\Type("string")
-     * @Serializer\SerializedName("creditCardVerificationNumber")
-     * @Serializer\Accessor(getter="getCreditCardVerificationNumber",setter="setCreditCardVerificationNumber")
-     */
+    /** @var string Credit card verification number */
+    #[Serializer\Type('string')]
+    #[Serializer\SerializedName('creditCardVerificationNumber')]
+    #[Serializer\Accessor(getter: 'getCreditCardVerificationNumber', setter: 'setCreditCardVerificationNumber')]
     protected string $creditCardVerificationNumber = '';
 
-    /**
-     * @var string International Bank Account Number (IBAN)
-     * @Serializer\Type("string")
-     * @Serializer\SerializedName("iban")
-     * @Serializer\Accessor(getter="getIban",setter="setIban")
-     */
+    /** @var string International Bank Account Number (IBAN) */
+    #[Serializer\Type('string')]
+    #[Serializer\SerializedName('iban')]
+    #[Serializer\Accessor(getter: 'getIban', setter: 'setIban')]
     protected string $iban = '';
 
     /**
@@ -115,9 +92,9 @@ class CustomerOrderPaymentInfo extends AbstractIdentity
     /**
      * @param string $accountHolder Bank account holder name
      *
-     * @return CustomerOrderPaymentInfo
+     * @return $this
      */
-    public function setAccountHolder(string $accountHolder): CustomerOrderPaymentInfo
+    public function setAccountHolder(string $accountHolder): self
     {
         $this->accountHolder = $accountHolder;
 
@@ -135,9 +112,9 @@ class CustomerOrderPaymentInfo extends AbstractIdentity
     /**
      * @param string $accountNumber Bank account number (deprecated in DE since SEPA)
      *
-     * @return CustomerOrderPaymentInfo
+     * @return $this
      */
-    public function setAccountNumber(string $accountNumber): CustomerOrderPaymentInfo
+    public function setAccountNumber(string $accountNumber): self
     {
         $this->accountNumber = $accountNumber;
 
@@ -155,9 +132,9 @@ class CustomerOrderPaymentInfo extends AbstractIdentity
     /**
      * @param string $bankCode Bank code (deprecated in DE since SEPA)
      *
-     * @return CustomerOrderPaymentInfo
+     * @return $this
      */
-    public function setBankCode(string $bankCode): CustomerOrderPaymentInfo
+    public function setBankCode(string $bankCode): self
     {
         $this->bankCode = $bankCode;
 
@@ -175,9 +152,9 @@ class CustomerOrderPaymentInfo extends AbstractIdentity
     /**
      * @param string $bankName Bank name
      *
-     * @return CustomerOrderPaymentInfo
+     * @return $this
      */
-    public function setBankName(string $bankName): CustomerOrderPaymentInfo
+    public function setBankName(string $bankName): self
     {
         $this->bankName = $bankName;
 
@@ -195,9 +172,9 @@ class CustomerOrderPaymentInfo extends AbstractIdentity
     /**
      * @param string $bic Bank Identifier Code (BIC)
      *
-     * @return CustomerOrderPaymentInfo
+     * @return $this
      */
-    public function setBic(string $bic): CustomerOrderPaymentInfo
+    public function setBic(string $bic): self
     {
         $this->bic = $bic;
 
@@ -215,9 +192,9 @@ class CustomerOrderPaymentInfo extends AbstractIdentity
     /**
      * @param string $creditCardExpiration Credit card expiration date
      *
-     * @return CustomerOrderPaymentInfo
+     * @return $this
      */
-    public function setCreditCardExpiration(string $creditCardExpiration): CustomerOrderPaymentInfo
+    public function setCreditCardExpiration(string $creditCardExpiration): self
     {
         $this->creditCardExpiration = $creditCardExpiration;
 
@@ -235,9 +212,9 @@ class CustomerOrderPaymentInfo extends AbstractIdentity
     /**
      * @param string $creditCardHolder
      *
-     * @return CustomerOrderPaymentInfo
+     * @return $this
      */
-    public function setCreditCardHolder(string $creditCardHolder): CustomerOrderPaymentInfo
+    public function setCreditCardHolder(string $creditCardHolder): self
     {
         $this->creditCardHolder = $creditCardHolder;
 
@@ -255,9 +232,9 @@ class CustomerOrderPaymentInfo extends AbstractIdentity
     /**
      * @param string $creditCardNumber Credit card number
      *
-     * @return CustomerOrderPaymentInfo
+     * @return $this
      */
-    public function setCreditCardNumber(string $creditCardNumber): CustomerOrderPaymentInfo
+    public function setCreditCardNumber(string $creditCardNumber): self
     {
         $this->creditCardNumber = $creditCardNumber;
 
@@ -275,9 +252,9 @@ class CustomerOrderPaymentInfo extends AbstractIdentity
     /**
      * @param string $creditCardType Credit card type (e.g. "visa")
      *
-     * @return CustomerOrderPaymentInfo
+     * @return $this
      */
-    public function setCreditCardType(string $creditCardType): CustomerOrderPaymentInfo
+    public function setCreditCardType(string $creditCardType): self
     {
         $this->creditCardType = $creditCardType;
 
@@ -295,9 +272,9 @@ class CustomerOrderPaymentInfo extends AbstractIdentity
     /**
      * @param string $creditCardVerificationNumber Credit card verification number
      *
-     * @return CustomerOrderPaymentInfo
+     * @return $this
      */
-    public function setCreditCardVerificationNumber(string $creditCardVerificationNumber): CustomerOrderPaymentInfo
+    public function setCreditCardVerificationNumber(string $creditCardVerificationNumber): self
     {
         $this->creditCardVerificationNumber = $creditCardVerificationNumber;
 
@@ -315,9 +292,9 @@ class CustomerOrderPaymentInfo extends AbstractIdentity
     /**
      * @param string $iban International Bank Account Number (IBAN)
      *
-     * @return CustomerOrderPaymentInfo
+     * @return $this
      */
-    public function setIban(string $iban): CustomerOrderPaymentInfo
+    public function setIban(string $iban): self
     {
         $this->iban = $iban;
 

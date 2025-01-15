@@ -12,6 +12,15 @@ use Jtl\Connector\Core\Model\ProductImage;
 use Jtl\Connector\Core\Model\ProductVariationValueImage;
 use Jtl\Connector\Core\Test\TestCase;
 use PHPUnit\Framework\ExpectationFailedException;
+use PHPUnit\Framework\MockObject\ClassAlreadyExistsException;
+use PHPUnit\Framework\MockObject\ClassIsFinalException;
+use PHPUnit\Framework\MockObject\ClassIsReadonlyException;
+use PHPUnit\Framework\MockObject\DuplicateMethodException;
+use PHPUnit\Framework\MockObject\InvalidMethodNameException;
+use PHPUnit\Framework\MockObject\OriginalConstructorInvocationRequiredException;
+use PHPUnit\Framework\MockObject\ReflectionException;
+use PHPUnit\Framework\MockObject\UnknownClassException;
+use PHPUnit\Framework\MockObject\UnknownTypeException;
 use RuntimeException;
 use SebastianBergmann\RecursionContext\InvalidArgumentException;
 
@@ -23,6 +32,7 @@ class AbstractImageTest extends TestCase
      * @param AbstractImage $image
      * @param string        $relationType
      *
+     * @return void
      * @throws DefinitionException
      * @throws ExpectationFailedException
      * @throws InvalidArgumentException
@@ -57,8 +67,20 @@ class AbstractImageTest extends TestCase
      * @param string $fileName
      * @param string $expectedExtension
      *
+     * @return void
      * @throws ExpectationFailedException
      * @throws InvalidArgumentException
+     * @throws \PHPUnit\Framework\InvalidArgumentException
+     * @throws ClassAlreadyExistsException
+     * @throws ClassIsFinalException
+     * @throws ClassIsReadonlyException
+     * @throws DuplicateMethodException
+     * @throws InvalidMethodNameException
+     * @throws OriginalConstructorInvocationRequiredException
+     * @throws ReflectionException
+     * @throws \PHPUnit\Framework\MockObject\RuntimeException
+     * @throws UnknownClassException
+     * @throws UnknownTypeException
      */
     public function testGetExtension(string $fileName, string $expectedExtension): void
     {

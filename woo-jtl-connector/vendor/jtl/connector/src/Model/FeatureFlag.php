@@ -24,21 +24,15 @@ class FeatureFlag
         VARIATION_PRODUCTS_SUPPORTED             = 'variation_products_supported',
         VARIATION_COMBINATIONS_SUPPORTED         = 'variation_combinations_supported';
 
-    /**
-     * @var string
-     */
     protected string $name = '';
 
-    /**
-     * @var boolean
-     */
     protected bool $active = false;
 
     /**
      * FeatureFlag constructor.
      *
-     * @param string  $name
-     * @param boolean $active
+     * @param string $name
+     * @param bool   $active
      */
     public function __construct(string $name, bool $active = false)
     {
@@ -57,11 +51,12 @@ class FeatureFlag
     /**
      * @param string $name
      *
-     * @return FeatureFlag
+     * @return $this
      */
-    public function setName(string $name): FeatureFlag
+    public function setName(string $name): self
     {
         $this->name = $name;
+
         return $this;
     }
 
@@ -76,11 +71,12 @@ class FeatureFlag
     /**
      * @param bool $active
      *
-     * @return FeatureFlag
+     * @return $this
      */
-    public function setActive(bool $active): FeatureFlag
+    public function setActive(bool $active): self
     {
         $this->active = $active;
+
         return $this;
     }
 }

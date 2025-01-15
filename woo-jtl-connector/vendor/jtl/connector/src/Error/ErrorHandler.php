@@ -12,9 +12,7 @@ use Jtl\Connector\Core\Utilities\Validator\Validate;
 
 class ErrorHandler extends AbstractErrorHandler
 {
-    /**
-     * @var integer[]
-     */
+    /** @var int[] */
     protected static array $shutdownHandleErrors = [
         \E_ERROR,
         \E_CORE_ERROR,
@@ -61,7 +59,7 @@ class ErrorHandler extends AbstractErrorHandler
      */
     public function getShutdownHandler(): callable
     {
-        return function () {
+        return function (): void {
             if (($err = \error_get_last()) && \in_array($err['type'], static::$shutdownHandleErrors, true)) {
                 \ob_clean();
 

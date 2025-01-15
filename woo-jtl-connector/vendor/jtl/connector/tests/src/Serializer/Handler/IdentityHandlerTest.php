@@ -20,6 +20,7 @@ use Jtl\Connector\Core\Test\TestCase;
 class IdentityHandlerTest extends TestCase
 {
     /**
+     * @return void
      * @throws \Exception
      */
     public function testSerializeEntityMethod(): void
@@ -41,6 +42,7 @@ class IdentityHandlerTest extends TestCase
     }
 
     /**
+     * @return void
      * @throws \Exception
      */
     public function testDeserializeEntityMethod(): void
@@ -74,6 +76,7 @@ class IdentityHandlerTest extends TestCase
      * @param IdentityHandler          $identityHandler
      * @param array{0: string, 1: int} $identityArray
      *
+     * @return void
      * @throws \Exception
      */
     public function testDeserializeEntityMultipleMethod(IdentityHandler $identityHandler, array $identityArray): void

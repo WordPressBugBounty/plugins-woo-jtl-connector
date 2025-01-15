@@ -12,16 +12,14 @@ use JMS\Serializer\Annotation as Serializer;
  * @access     public
  * @package    Jtl\Connector\Core\Model
  * @subpackage Product
- * @Serializer\AccessType("public_method")
  */
+#[Serializer\AccessType(['value' => 'public_method'])]
 class TaxZoneCountry extends AbstractModel
 {
-    /**
-     * @var string Country ISO 3166-2 (2 letter Uppercase)
-     * @Serializer\Type("string")
-     * @Serializer\SerializedName("countryIso")
-     * @Serializer\Accessor(getter="getCountryIso",setter="setCountryIso")
-     */
+    /** @var string Country ISO 3166-2 (2 letter Uppercase) */
+    #[Serializer\Type('string')]
+    #[Serializer\SerializedName('countryIso')]
+    #[Serializer\Accessor(getter: 'getCountryIso', setter: 'setCountryIso')]
     protected string $countryIso = '';
 
     /**
@@ -35,9 +33,9 @@ class TaxZoneCountry extends AbstractModel
     /**
      * @param string $countryIso Country ISO 3166-2 (2 letter Uppercase)
      *
-     * @return TaxZoneCountry
+     * @return $this
      */
-    public function setCountryIso(string $countryIso): TaxZoneCountry
+    public function setCountryIso(string $countryIso): self
     {
         $this->countryIso = $countryIso;
 

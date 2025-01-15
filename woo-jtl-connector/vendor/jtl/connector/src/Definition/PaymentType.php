@@ -94,15 +94,13 @@ final class PaymentType
         WIRECARD             = 'pm_wirecard',
         WORLDPAY             = 'pm_worldpay';
 
-    /**
-     * @var null|string[]
-     */
+    /** @var string[]|null */
     protected static ?array $types = null;
 
     /**
      * @param string $type
      *
-     * @return boolean
+     * @return bool
      */
     public static function isType(string $type): bool
     {

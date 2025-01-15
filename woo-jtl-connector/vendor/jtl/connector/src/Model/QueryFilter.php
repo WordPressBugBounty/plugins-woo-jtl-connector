@@ -4,17 +4,15 @@ declare(strict_types=1);
 
 namespace Jtl\Connector\Core\Model;
 
-use InvalidArgumentException;
 use JMS\Serializer\Annotation as Serializer;
-use stdClass;
 
 /**
  * Database Query Filter
  *
  * @access  public
  * @package Jtl\Connector\Core\Model
- * @Serializer\AccessType("public_method")
  */
+#[Serializer\AccessType(['value' => 'public_method'])]
 class QueryFilter
 {
     public const
@@ -22,28 +20,24 @@ class QueryFilter
         FILTER_PARENT_ID      = 'parentId',
         FILTER_RELATION_TYPE  = 'relationType';
 
-    /**
-     * Query item count limitation
-     *
-     * @var integer
-     * @Serializer\Type("integer")
-     * @Serializer\SerializedName("limit")
-     */
+    /** Query item count limitation */
+    #[Serializer\Type('integer')]
+    #[Serializer\SerializedName('limit')]
     protected int $limit = 100;
 
     /**
      * Query item filter (where)
      *
      * @var array<string, string>
-     * @Serializer\Type("array<string, string>")
-     * @Serializer\SerializedName("filters")
      */
+    #[Serializer\Type('array<string, string>')]
+    #[Serializer\SerializedName('filters')]
     protected array $filters = [];
 
     /**
      * Constructor
      *
-     * @param integer $limit
+     * @param int $limit
      */
     public function __construct(int $limit = 100)
     {
@@ -54,7 +48,7 @@ class QueryFilter
     /**
      * Limit Getter
      *
-     * @return integer
+     * @return int
      */
     public function getLimit(): int
     {
@@ -64,11 +58,11 @@ class QueryFilter
     /**
      * Limit Setter
      *
-     * @param integer $limit
+     * @param int $limit
      *
-     * @return QueryFilter
+     * @return $this
      */
-    public function setLimit(int $limit): QueryFilter
+    public function setLimit(int $limit): self
     {
         $this->limit = $limit;
 
@@ -90,10 +84,10 @@ class QueryFilter
      *
      * @param array<string, mixed> $filters
      *
-     * @return QueryFilter
-     * @throws InvalidArgumentException
+     * @return $this
+     * @throws \InvalidArgumentException
      */
-    public function setFilters(array $filters): QueryFilter
+    public function setFilters(array $filters): self
     {
         foreach ($filters as $index => $filter) {
             if (\is_scalar($filter)) {
@@ -114,9 +108,9 @@ class QueryFilter
      * @param string $key   Filter key
      * @param string $value Filter value
      *
-     * @return QueryFilter
+     * @return $this
      */
-    public function addFilter(string $key, string $value): QueryFilter
+    public function addFilter(string $key, string $value): self
     {
         $this->filters[$key] = $value;
 
@@ -128,7 +122,7 @@ class QueryFilter
      *
      * @param string $key
      *
-     * @return boolean
+     * @return bool
      */
     public function deleteFilter(string $key): bool
     {
@@ -144,7 +138,7 @@ class QueryFilter
     /**
      * @param string $key
      *
-     * @return boolean
+     * @return bool
      */
     public function isFilter(string $key): bool
     {
@@ -154,9 +148,9 @@ class QueryFilter
     /**
      * @param string $key
      *
-     * @return mixed|NULL
+     * @return mixed
      */
-    public function getFilter(string $key)
+    public function getFilter(string $key): mixed
     {
         if ($this->isFilter($key)) {
             return $this->filters[$key];
@@ -174,14 +168,14 @@ class QueryFilter
     }
 
     /**
-     * @param string $oldKey
-     * @param string $newKey
-     * @param mixed  $value
+     * @param string     $oldKey
+     * @param string     $newKey
+     * @param mixed|null $value
      *
-     * @return boolean
-     * @throws InvalidArgumentException
+     * @return bool
+     * @throws \InvalidArgumentException
      */
-    public function overrideFilter(string $oldKey, string $newKey, $value = null): bool
+    public function overrideFilter(string $oldKey, string $newKey, mixed $value = null): bool
     {
         if ($this->isFilter($oldKey)) {
             if ($value === null) {
@@ -205,9 +199,10 @@ class QueryFilter
     /**
      * Setter
      *
-     * @param stdClass $obj
+     * @param \stdClass $obj
      *
-     * @throws InvalidArgumentException
+     * @return void
+     * @throws \InvalidArgumentException
      */
     public function set(\stdClass $obj): void
     {

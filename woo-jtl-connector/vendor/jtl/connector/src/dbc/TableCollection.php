@@ -6,9 +6,7 @@ namespace Jtl\Connector\Dbc;
 
 class TableCollection
 {
-    /**
-     * @var AbstractTable[]
-     */
+    /** @var AbstractTable[] */
     protected array $tables = [];
 
     /**
@@ -28,20 +26,21 @@ class TableCollection
     /**
      * @param AbstractTable $table
      *
-     * @return TableCollection
+     * @return $this
      * @throws DbcRuntimeException
      * @throws DbcRuntimeException
      */
-    public function set(AbstractTable $table): TableCollection
+    public function set(AbstractTable $table): self
     {
         $this->tables[$table->getTableName()] = $table;
+
         return $this;
     }
 
     /**
      * @param AbstractTable $table
      *
-     * @return boolean
+     * @return bool
      * @throws \Exception
      */
     public function removeByInstance(AbstractTable $table): bool
@@ -56,7 +55,7 @@ class TableCollection
     /**
      * @param string $name
      *
-     * @return boolean
+     * @return bool
      */
     public function has(string $name): bool
     {
@@ -80,7 +79,7 @@ class TableCollection
     /**
      * @param string $name
      *
-     * @return boolean
+     * @return bool
      */
     public function removeByName(string $name): bool
     {
@@ -94,7 +93,7 @@ class TableCollection
     /**
      * @param string $className
      *
-     * @return TableCollection
+     * @return self
      * @throws DbcRuntimeException
      */
     public function filterByInstanceClass(string $className): TableCollection

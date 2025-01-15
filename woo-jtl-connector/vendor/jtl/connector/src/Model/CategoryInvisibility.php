@@ -12,16 +12,14 @@ use JMS\Serializer\Annotation as Serializer;
  * @access     public
  * @package    Jtl\Connector\Core\Model
  * @subpackage Product
- * @Serializer\AccessType("public_method")
  */
+#[Serializer\AccessType(['value' => 'public_method'])]
 class CategoryInvisibility extends AbstractModel
 {
-    /**
-     * @var Identity Reference to customerGroup that is not allowed to view categoryId
-     * @Serializer\Type("Jtl\Connector\Core\Model\Identity")
-     * @Serializer\SerializedName("customerGroupId")
-     * @Serializer\Accessor(getter="getCustomerGroupId",setter="setCustomerGroupId")
-     */
+    /** @var Identity Reference to customerGroup that is not allowed to view categoryId */
+    #[Serializer\Type(Identity::class)]
+    #[Serializer\SerializedName('customerGroupId')]
+    #[Serializer\Accessor(getter: 'getCustomerGroupId', setter: 'setCustomerGroupId')]
     protected Identity $customerGroupId;
 
     /**
@@ -43,9 +41,9 @@ class CategoryInvisibility extends AbstractModel
     /**
      * @param Identity $customerGroupId Reference to customerGroup that is not allowed to view categoryId
      *
-     * @return CategoryInvisibility
+     * @return $this
      */
-    public function setCustomerGroupId(Identity $customerGroupId): CategoryInvisibility
+    public function setCustomerGroupId(Identity $customerGroupId): self
     {
         $this->customerGroupId = $customerGroupId;
 

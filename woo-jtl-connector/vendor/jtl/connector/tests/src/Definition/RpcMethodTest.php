@@ -22,6 +22,7 @@ class RpcMethodTest extends TestCase
      * @param string $methodName
      * @param bool   $shouldBeMethod
      *
+     * @return void
      * @throws ExpectationFailedException
      * @throws InvalidArgumentException
      */
@@ -60,6 +61,7 @@ class RpcMethodTest extends TestCase
      * @param string $methodName
      * @param string $expectedMapping
      *
+     * @return void
      * @throws ExpectationFailedException
      * @throws InvalidArgumentException
      */

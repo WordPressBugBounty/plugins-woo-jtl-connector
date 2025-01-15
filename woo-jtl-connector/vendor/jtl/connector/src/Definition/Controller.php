@@ -23,15 +23,13 @@ final class Controller
         SPECIFIC            = 'Specific',
         STATUS_CHANGE       = 'StatusChange';
 
-    /**
-     * @var array<string, string>|null
-     */
+    /** @var array<string, string>|null */
     protected static ?array $controllers = null;
 
     /**
      * @param string $controllerName
      *
-     * @return boolean
+     * @return bool
      */
     public static function isController(string $controllerName): bool
     {

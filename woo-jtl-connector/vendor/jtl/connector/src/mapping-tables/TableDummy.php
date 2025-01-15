@@ -6,13 +6,11 @@ namespace Jtl\Connector\MappingTables;
 
 class TableDummy implements TableInterface
 {
-    /**
-     * @var integer[]
-     */
+    /** @var int[] */
     protected array $types = [];
 
     /**
-     * @return integer[]
+     * @return int[]
      */
     public function getTypes(): array
     {
@@ -20,7 +18,9 @@ class TableDummy implements TableInterface
     }
 
     /**
-     * @param integer $type
+     * @param int $type
+     *
+     * @return void
      */
     public function setType(int $type): void
     {
@@ -32,7 +32,7 @@ class TableDummy implements TableInterface
     /**
      * @param string $endpoint
      *
-     * @return integer
+     * @return int|null
      */
     public function getHostId(string $endpoint): ?int
     {
@@ -40,21 +40,21 @@ class TableDummy implements TableInterface
     }
 
     /**
-     * @param integer      $hostId
-     * @param integer|null $type
+     * @param int      $hostId
+     * @param int|null $type
      *
-     * @return string
+     * @return string|null
      */
-    public function getEndpoint(int $hostId, int $type = null): ?string
+    public function getEndpoint(int $hostId, ?int $type = null): ?string
     {
         return null;
     }
 
     /**
-     * @param string  $endpoint
-     * @param integer $hostId
+     * @param string $endpoint
+     * @param int    $hostId
      *
-     * @return integer
+     * @return int
      */
     public function save(string $endpoint, int $hostId): int
     {
@@ -62,55 +62,55 @@ class TableDummy implements TableInterface
     }
 
     /**
-     * @param string|null  $endpoint
-     * @param integer|null $hostId
-     * @param integer|null $type
+     * @param string|null $endpoint
+     * @param int|null    $hostId
+     * @param int|null    $type
      *
-     * @return integer
+     * @return int
      */
-    public function remove(string $endpoint = null, int $hostId = null, int $type = null): int
+    public function remove(?string $endpoint = null, ?int $hostId = null, ?int $type = null): int
     {
         return 0;
     }
 
     /**
-     * @param integer|null $type
+     * @param int|null $type
      *
-     * @return integer
+     * @return int
      */
-    public function clear(int $type = null): int
+    public function clear(?int $type = null): int
     {
         return 0;
     }
 
     /**
-     * @param string[]     $where
-     * @param string[]     $parameters
-     * @param string[]     $orderBy
-     * @param integer|null $limit
-     * @param integer|null $offset
-     * @param integer|null $type
+     * @param string[] $where
+     * @param string[] $parameters
+     * @param string[] $orderBy
+     * @param int|null $limit
+     * @param int|null $offset
+     * @param int|null $type
      *
-     * @return integer
+     * @return int
      */
     public function count(
         array $where = [],
         array $parameters = [],
         array $orderBy = [],
-        int   $limit = null,
-        int   $offset = null,
-        int   $type = null
+        ?int  $limit = null,
+        ?int  $offset = null,
+        ?int  $type = null
     ): int {
         return 0;
     }
 
     /**
-     * @param string[]     $where
-     * @param string[]     $parameters
-     * @param string[]     $orderBy
-     * @param integer|null $limit
-     * @param integer|null $offset
-     * @param integer|null $type
+     * @param string[] $where
+     * @param string[] $parameters
+     * @param string[] $orderBy
+     * @param int|null $limit
+     * @param int|null $offset
+     * @param int|null $type
      *
      * @return array<empty>
      */
@@ -118,9 +118,9 @@ class TableDummy implements TableInterface
         array $where = [],
         array $parameters = [],
         array $orderBy = [],
-        int   $limit = null,
-        int   $offset = null,
-        int   $type = null
+        ?int  $limit = null,
+        ?int  $offset = null,
+        ?int  $type = null
     ): array {
         return [];
     }

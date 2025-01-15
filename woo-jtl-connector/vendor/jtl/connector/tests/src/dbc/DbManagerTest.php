@@ -17,6 +17,7 @@ use Throwable;
 class DbManagerTest extends TestCase
 {
     /**
+     * @return void
      * @throws DBALException
      * @throws Exception
      */
@@ -32,6 +33,7 @@ class DbManagerTest extends TestCase
     }
 
     /**
+     * @return void
      * @throws DBALException
      * @throws Exception
      */
@@ -49,6 +51,7 @@ class DbManagerTest extends TestCase
     }
 
     /**
+     * @return void
      * @throws DBALException
      * @throws Exception
      */
@@ -62,6 +65,7 @@ class DbManagerTest extends TestCase
     }
 
     /**
+     * @return void
      * @throws DBALException
      * @throws Exception
      */
@@ -74,6 +78,7 @@ class DbManagerTest extends TestCase
     }
 
     /**
+     * @return void
      * @throws Throwable
      * @throws DBALException
      */
@@ -86,6 +91,7 @@ class DbManagerTest extends TestCase
     }
 
     /**
+     * @return void
      * @throws DBALException
      * @throws ExpectationFailedException
      * @throws InvalidArgumentException
@@ -98,6 +104,7 @@ class DbManagerTest extends TestCase
     }
 
     /**
+     * @return void
      * @throws DBALException
      * @throws ExpectationFailedException
      * @throws InvalidArgumentException
@@ -127,7 +134,7 @@ class DbManagerTest extends TestCase
      * @return array<int, AbstractTable>
      * @throws Exception
      */
-    protected function createTableStubs(DbManager $dbManager, int $amount = null): array
+    protected function createTableStubs(DbManager $dbManager, ?int $amount = null): array
     {
         if (\is_null($amount)) {
             $amount = \random_int(1, 10);
@@ -137,22 +144,36 @@ class DbManagerTest extends TestCase
             return new class ($dbManager) extends AbstractTable {
                 protected string $tableName;
 
+                /**
+                 * @param DbManager $dbManager
+                 */
                 public function __construct(DbManager $dbManager)
                 {
                     $this->tableName = \uniqid('tbl-', false);
                     parent::__construct($dbManager);
                 }
 
+                /**
+                 * @return string
+                 */
                 public function getTableName(): string
                 {
                     return $this->tableName;
                 }
 
+                /**
+                 * @return string
+                 */
                 protected function getName(): string
                 {
                     return $this->tableName;
                 }
 
+                /**
+                 * @param Table $tableSchema
+                 *
+                 * @return void
+                 */
                 protected function createTableSchema(Table $tableSchema): void
                 {
                     $tableSchema->addColumn('id', Types::INTEGER);
@@ -169,6 +190,7 @@ class DbManagerTest extends TestCase
      * @param string|null $tablesPrefix
      * @param string      $expectedTableName
      *
+     * @return void
      * @throws DBALException
      * @throws DbcRuntimeException
      * @throws ExpectationFailedException
@@ -182,6 +204,7 @@ class DbManagerTest extends TestCase
     }
 
     /**
+     * @return void
      * @throws DBALException
      * @throws DbcRuntimeException
      */
@@ -194,7 +217,7 @@ class DbManagerTest extends TestCase
     }
 
     /**
-     * @return array<array{0: 'foo'|'post', 1: null|'pre', 2: 'foo'|'prepost'}>
+     * @return array<array{0: 'foo'|'post', 1: 'pre'|null, 2: 'foo'|'prepost'}>
      */
     public function tableNameProvider(): array
     {
@@ -205,6 +228,7 @@ class DbManagerTest extends TestCase
     }
 
     /**
+     * @return void
      * @throws DBALException
      * @throws Exception
      * @throws Throwable

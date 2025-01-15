@@ -13,53 +13,35 @@ use TypeError;
  * @access     public
  * @package    Jtl\Connector\Core\Model
  * @subpackage Product
- * @Serializer\AccessType("public_method")
  */
+#[Serializer\AccessType(['value' => 'public_method'])]
 class ProductChecksum extends Checksum
 {
-    /**
-     * @var int - Checksum used to check variations for change
-     */
     public const TYPE_VARIATION = 1;
 
-    /**
-     * @var Identity
-     * @Serializer\Type("Jtl\Connector\Core\Model\Identity")
-     * @Serializer\SerializedName("foreignKey")
-     * @Serializer\Accessor(getter="getForeignKey",setter="setForeignKey")
-     */
+    #[Serializer\Type(Identity::class)]
+    #[Serializer\SerializedName('foreignKey')]
+    #[Serializer\Accessor(getter: 'getForeignKey', setter: 'setForeignKey')]
     protected Identity $foreignKey;
 
-    /**
-     * @var string
-     * @Serializer\Type("string")
-     * @Serializer\SerializedName("endpoint")
-     * @Serializer\Accessor(getter="getEndpoint",setter="setEndpoint")
-     */
+    #[Serializer\Type('string')]
+    #[Serializer\SerializedName('endpoint')]
+    #[Serializer\Accessor(getter: 'getEndpoint', setter: 'setEndpoint')]
     protected string $endpoint = '';
 
-    /**
-     * @var boolean
-     * @Serializer\Type("boolean")
-     * @Serializer\SerializedName("hasChanged")
-     * @Serializer\Accessor(getter="hasChanged",setter="setHasChanged")
-     */
+    #[Serializer\Type('boolean')]
+    #[Serializer\SerializedName('hasChanged')]
+    #[Serializer\Accessor(getter: 'getHasChanged', setter: 'setHasChanged')]
     protected bool $hasChanged = false;
 
-    /**
-     * @var string
-     * @Serializer\Type("string")
-     * @Serializer\SerializedName("host")
-     * @Serializer\Accessor(getter="getHost",setter="setHost")
-     */
+    #[Serializer\Type('string')]
+    #[Serializer\SerializedName('host')]
+    #[Serializer\Accessor(getter: 'getHost', setter: 'setHost')]
     protected string $host = '';
 
-    /**
-     * @var integer
-     * @Serializer\Type("integer")
-     * @Serializer\SerializedName("type")
-     * @Serializer\Accessor(getter="getType",setter="setType")
-     */
+    #[Serializer\Type('integer')]
+    #[Serializer\SerializedName('type')]
+    #[Serializer\Accessor(getter: 'getType', setter: 'setType')]
     protected int $type = self::TYPE_VARIATION;
 
     /**
@@ -75,9 +57,9 @@ class ProductChecksum extends Checksum
     /**
      * @param Identity $foreignKey
      *
-     * @return ProductChecksum
+     * @return $this
      */
-    public function setForeignKey(Identity $foreignKey): ProductChecksum
+    public function setForeignKey(Identity $foreignKey): self
     {
         $this->foreignKey = $foreignKey;
 
@@ -95,9 +77,9 @@ class ProductChecksum extends Checksum
     /**
      * @param string $endpoint
      *
-     * @return ProductChecksum
+     * @return $this
      */
-    public function setEndpoint(string $endpoint): ProductChecksum
+    public function setEndpoint(string $endpoint): self
     {
         $this->endpoint = $endpoint;
 
@@ -105,7 +87,7 @@ class ProductChecksum extends Checksum
     }
 
     /**
-     * @return boolean
+     * @return bool
      */
     public function hasChanged(): bool
     {
@@ -113,7 +95,7 @@ class ProductChecksum extends Checksum
     }
 
     /**
-     * @return boolean
+     * @return bool
      */
     public function getHasChanged(): bool
     {
@@ -121,11 +103,11 @@ class ProductChecksum extends Checksum
     }
 
     /**
-     * @param boolean $hasChanged
+     * @param bool $hasChanged
      *
-     * @return ProductChecksum
+     * @return $this
      */
-    public function setHasChanged(bool $hasChanged): ProductChecksum
+    public function setHasChanged(bool $hasChanged): self
     {
         $this->hasChanged = $hasChanged;
 
@@ -143,9 +125,9 @@ class ProductChecksum extends Checksum
     /**
      * @param string $host
      *
-     * @return ProductChecksum
+     * @return $this
      */
-    public function setHost(string $host): ProductChecksum
+    public function setHost(string $host): self
     {
         $this->host = $host;
 
@@ -153,7 +135,7 @@ class ProductChecksum extends Checksum
     }
 
     /**
-     * @return integer
+     * @return int
      */
     public function getType(): int
     {
@@ -161,11 +143,11 @@ class ProductChecksum extends Checksum
     }
 
     /**
-     * @param integer $type
+     * @param int $type
      *
-     * @return ProductChecksum
+     * @return $this
      */
-    public function setType(int $type): ProductChecksum
+    public function setType(int $type): self
     {
         $this->type = $type;
 

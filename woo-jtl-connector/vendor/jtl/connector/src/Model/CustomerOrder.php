@@ -13,243 +13,155 @@ use JMS\Serializer\Annotation as Serializer;
  * @access     public
  * @package    Jtl\Connector\Core\Model
  * @subpackage Product
- * @Serializer\AccessType("public_method")
  */
-class CustomerOrder extends AbstractI18n implements IdentityInterface
+#[Serializer\AccessType(['value' => 'public_method'])]
+class CustomerOrder extends AbstractI18n implements IdentityInterface, ItemsInterface
 {
-    /**
-     * @var string - Status when payment is completed
-     */
-    public const PAYMENT_STATUS_COMPLETED = 'completed';
+    public const
+        PAYMENT_STATUS_COMPLETED = 'completed',
+        PAYMENT_STATUS_PARTIALLY = 'partially_paid',
+        PAYMENT_STATUS_UNPAID    = 'unpaid',
+        STATUS_NEW               = 'new',
+        STATUS_CANCELLED         = 'cancelled',
+        STATUS_PARTIALLY_SHIPPED = 'partially_shipped',
+        STATUS_SHIPPED           = 'shipped';
 
-    /**
-     * @var string - Status when order is partially paid
-     */
-    public const PAYMENT_STATUS_PARTIALLY = 'partially_paid';
-
-    /**
-     * @var string - Status when order is unpaid
-     */
-    public const PAYMENT_STATUS_UNPAID = 'unpaid';
-
-    /**
-     * @var string - New order
-     */
-    public const STATUS_NEW = 'new';
-
-    /**
-     * @var string - Cancelled by merchant or customer
-     */
-    public const STATUS_CANCELLED = 'cancelled';
-
-    /**
-     * @var string - Order has been shipped partially
-     */
-    public const STATUS_PARTIALLY_SHIPPED = 'partially_shipped';
-
-    /**
-     * @var string - Order has been shipped
-     */
-    public const STATUS_SHIPPED = 'shipped';
-
-    /**
-     * @var Identity Optional reference to customer.
-     * @Serializer\Type("Jtl\Connector\Core\Model\Identity")
-     * @Serializer\SerializedName("customerId")
-     * @Serializer\Accessor(getter="getCustomerId",setter="setCustomerId")
-     */
+    /** @var Identity Optional reference to customer. */
+    #[Serializer\Type(Identity::class)]
+    #[Serializer\SerializedName('customerId')]
+    #[Serializer\Accessor(getter: 'getCustomerId', setter: 'setCustomerId')]
     protected Identity $customerId;
 
-    /**
-     * @var Identity Unique customerOrder id
-     * @Serializer\Type("Jtl\Connector\Core\Model\Identity")
-     * @Serializer\SerializedName("id")
-     * @Serializer\Accessor(getter="getId",setter="setId")
-     */
+    /** @var Identity Unique customerOrder id */
+    #[Serializer\Type(Identity::class)]
+    #[Serializer\SerializedName('id')]
+    #[Serializer\Accessor(getter: 'getId', setter: 'setId')]
     protected Identity $id;
 
-    /**
-     * @var CustomerOrderBillingAddress|null Billing address
-     * @Serializer\Type("Jtl\Connector\Core\Model\CustomerOrderBillingAddress")
-     * @Serializer\SerializedName("billingAddress")
-     * @Serializer\Accessor(getter="getBillingAddress",setter="setBillingAddress")
-     */
+    /** @var CustomerOrderBillingAddress|null Billing address */
+    #[Serializer\Type(CustomerOrderBillingAddress::class)]
+    #[Serializer\SerializedName('billingAddress')]
+    #[Serializer\Accessor(getter: 'getBillingAddress', setter: 'setBillingAddress')]
     protected ?CustomerOrderBillingAddress $billingAddress = null;
 
-    /**
-     * @var string
-     * @Serializer\Type("string")
-     * @Serializer\SerializedName("carrierName")
-     * @Serializer\Accessor(getter="getCarrierName",setter="setCarrierName")
-     */
+    #[Serializer\Type('string')]
+    #[Serializer\SerializedName('carrierName')]
+    #[Serializer\Accessor(getter: 'getCarrierName', setter: 'setCarrierName')]
     protected string $carrierName = '';
 
-    /**
-     * @var \DateTimeInterface|null Date of creation
-     * @Serializer\Type("DateTimeInterface")
-     * @Serializer\SerializedName("creationDate")
-     * @Serializer\Accessor(getter="getCreationDate",setter="setCreationDate")
-     */
+    /** @var \DateTimeInterface|null Date of creation */
+    #[Serializer\Type(\DateTimeInterface::class)]
+    #[Serializer\SerializedName('creationDate')]
+    #[Serializer\Accessor(getter: 'getCreationDate', setter: 'setCreationDate')]
     protected ?\DateTimeInterface $creationDate = null;
 
-    /**
-     * @var string
-     * @Serializer\Type("string")
-     * @Serializer\SerializedName("currencyIso")
-     * @Serializer\Accessor(getter="getCurrencyIso",setter="setCurrencyIso")
-     */
+    #[Serializer\Type('string')]
+    #[Serializer\SerializedName('currencyIso')]
+    #[Serializer\Accessor(getter: 'getCurrencyIso', setter: 'setCurrencyIso')]
     protected string $currencyIso = '';
 
-    /**
-     * @var string
-     * @Serializer\Type("string")
-     * @Serializer\SerializedName("customerNote")
-     * @Serializer\Accessor(getter="getCustomerNote",setter="setCustomerNote")
-     */
+    #[Serializer\Type('string')]
+    #[Serializer\SerializedName('customerNote')]
+    #[Serializer\Accessor(getter: 'getCustomerNote', setter: 'setCustomerNote')]
     protected string $customerNote = '';
 
-    /**
-     * @var \DateTimeInterface|null
-     * @Serializer\Type("DateTimeInterface")
-     * @Serializer\SerializedName("estimatedDeliveryDate")
-     * @Serializer\Accessor(getter="getEstimatedDeliveryDate",setter="setEstimatedDeliveryDate")
-     */
+    #[Serializer\Type(\DateTimeInterface::class)]
+    #[Serializer\SerializedName('estimatedDeliveryDate')]
+    #[Serializer\Accessor(getter: 'getEstimatedDeliveryDate', setter: 'setEstimatedDeliveryDate')]
     protected ?\DateTimeInterface $estimatedDeliveryDate = null;
 
-    /**
-     * @var string
-     * @Serializer\Type("string")
-     * @Serializer\SerializedName("note")
-     * @Serializer\Accessor(getter="getNote",setter="setNote")
-     */
+    #[Serializer\Type('string')]
+    #[Serializer\SerializedName('note')]
+    #[Serializer\Accessor(getter: 'getNote', setter: 'setNote')]
     protected string $note = '';
 
-    /**
-     * @var string Optional order number (usually set by ERP System later)
-     * @Serializer\Type("string")
-     * @Serializer\SerializedName("orderNumber")
-     * @Serializer\Accessor(getter="getOrderNumber",setter="setOrderNumber")
-     */
+    /** @var string Optional order number (usually set by ERP System later) */
+    #[Serializer\Type('string')]
+    #[Serializer\SerializedName('orderNumber')]
+    #[Serializer\Accessor(getter: 'getOrderNumber', setter: 'setOrderNumber')]
     protected string $orderNumber = '';
 
-    /**
-     * @var \DateTimeInterface|null Payment date
-     * @Serializer\Type("DateTimeInterface")
-     * @Serializer\SerializedName("paymentDate")
-     * @Serializer\Accessor(getter="getPaymentDate",setter="setPaymentDate")
-     */
+    /** @var \DateTimeInterface|null Payment date */
+    #[Serializer\Type(\DateTimeInterface::class)]
+    #[Serializer\SerializedName('paymentDate')]
+    #[Serializer\Accessor(getter: 'getPaymentDate', setter: 'setPaymentDate')]
     protected ?\DateTimeInterface $paymentDate = null;
 
-    /**
-     * @var CustomerOrderPaymentInfo|null
-     * @Serializer\Type("Jtl\Connector\Core\Model\CustomerOrderPaymentInfo")
-     * @Serializer\SerializedName("paymentInfo")
-     * @Serializer\Accessor(getter="getPaymentInfo",setter="setPaymentInfo")
-     */
+    #[Serializer\Type(CustomerOrderPaymentInfo::class)]
+    #[Serializer\SerializedName('paymentInfo')]
+    #[Serializer\Accessor(getter: 'getPaymentInfo', setter: 'setPaymentInfo')]
     protected ?CustomerOrderPaymentInfo $paymentInfo = null;
 
-    /**
-     * @var string
-     * @Serializer\Type("string")
-     * @Serializer\SerializedName("paymentModuleCode")
-     * @Serializer\Accessor(getter="getPaymentModuleCode",setter="setPaymentModuleCode")
-     */
+    #[Serializer\Type('string')]
+    #[Serializer\SerializedName('paymentModuleCode')]
+    #[Serializer\Accessor(getter: 'getPaymentModuleCode', setter: 'setPaymentModuleCode')]
     protected string $paymentModuleCode = '';
 
-    /**
-     * @var string
-     * @Serializer\Type("string")
-     * @Serializer\SerializedName("paymentStatus")
-     * @Serializer\Accessor(getter="getPaymentStatus",setter="setPaymentStatus")
-     */
+    #[Serializer\Type('string')]
+    #[Serializer\SerializedName('paymentStatus')]
+    #[Serializer\Accessor(getter: 'getPaymentStatus', setter: 'setPaymentStatus')]
     protected string $paymentStatus = '';
 
-    /**
-     * @var string
-     * @Serializer\Type("string")
-     * @Serializer\SerializedName("pui")
-     * @Serializer\Accessor(getter="getPui",setter="setPui")
-     */
+    #[Serializer\Type('string')]
+    #[Serializer\SerializedName('pui')]
+    #[Serializer\Accessor(getter: 'getPui', setter: 'setPui')]
     protected string $pui = '';
 
-    /**
-     * @var CustomerOrderShippingAddress|null Shipping address
-     * @Serializer\Type("Jtl\Connector\Core\Model\CustomerOrderShippingAddress")
-     * @Serializer\SerializedName("shippingAddress")
-     * @Serializer\Accessor(getter="getShippingAddress",setter="setShippingAddress")
-     */
+    /** @var CustomerOrderShippingAddress|null Shipping address */
+    #[Serializer\Type(CustomerOrderShippingAddress::class)]
+    #[Serializer\SerializedName('shippingAddress')]
+    #[Serializer\Accessor(getter: 'getShippingAddress', setter: 'setShippingAddress')]
     protected ?CustomerOrderShippingAddress $shippingAddress = null;
 
-    /**
-     * @var \DateTimeInterface|null Shipping date
-     * @Serializer\Type("DateTimeInterface")
-     * @Serializer\SerializedName("shippingDate")
-     * @Serializer\Accessor(getter="getShippingDate",setter="setShippingDate")
-     */
+    /** @var \DateTimeInterface|null Shipping date */
+    #[Serializer\Type(\DateTimeInterface::class)]
+    #[Serializer\SerializedName('shippingDate')]
+    #[Serializer\Accessor(getter: 'getShippingDate', setter: 'setShippingDate')]
     protected ?\DateTimeInterface $shippingDate = null;
 
-    /**
-     * @var string Additional shipping info
-     * @Serializer\Type("string")
-     * @Serializer\SerializedName("shippingInfo")
-     * @Serializer\Accessor(getter="getShippingInfo",setter="setShippingInfo")
-     */
+    /** @var string Additional shipping info */
+    #[Serializer\Type('string')]
+    #[Serializer\SerializedName('shippingInfo')]
+    #[Serializer\Accessor(getter: 'getShippingInfo', setter: 'setShippingInfo')]
     protected string $shippingInfo = '';
 
-    /**
-     * @var Identity Optional reference to customer.
-     * @Serializer\Type("Jtl\Connector\Core\Model\Identity")
-     * @Serializer\SerializedName("shippingMethodId")
-     * @Serializer\Accessor(getter="getShippingMethodId",setter="setShippingMethodId")
-     */
+    /** @var Identity Optional reference to customer. */
+    #[Serializer\Type(Identity::class)]
+    #[Serializer\SerializedName('shippingMethodId')]
+    #[Serializer\Accessor(getter: 'getShippingMethodId', setter: 'setShippingMethodId')]
     protected Identity $shippingMethodId;
 
-    /**
-     * @var string
-     * @Serializer\Type("string")
-     * @Serializer\SerializedName("shippingMethodName")
-     * @Serializer\Accessor(getter="getShippingMethodName",setter="setShippingMethodName")
-     */
+    #[Serializer\Type('string')]
+    #[Serializer\SerializedName('shippingMethodName')]
+    #[Serializer\Accessor(getter: 'getShippingMethodName', setter: 'setShippingMethodName')]
     protected string $shippingMethodName = '';
 
-    /**
-     * @var string Shipping status
-     * @Serializer\Type("string")
-     * @Serializer\SerializedName("status")
-     * @Serializer\Accessor(getter="getStatus",setter="setStatus")
-     */
+    /** @var string Shipping status */
+    #[Serializer\Type('string')]
+    #[Serializer\SerializedName('status')]
+    #[Serializer\Accessor(getter: 'getStatus', setter: 'setStatus')]
     protected string $status = '';
 
-    /**
-     * @var double
-     * @Serializer\Type("double")
-     * @Serializer\SerializedName("totalSum")
-     * @Serializer\Accessor(getter="getTotalSum",setter="setTotalSum")
-     */
+    #[Serializer\Type('double')]
+    #[Serializer\SerializedName('totalSum')]
+    #[Serializer\Accessor(getter: 'getTotalSum', setter: 'setTotalSum')]
     protected float $totalSum = 0.0;
 
-    /**
-     * @var double
-     * @Serializer\Type("double")
-     * @Serializer\SerializedName("totalSumGross")
-     * @Serializer\Accessor(getter="getTotalSumGross",setter="setTotalSumGross")
-     */
+    #[Serializer\Type('double')]
+    #[Serializer\SerializedName('totalSumGross')]
+    #[Serializer\Accessor(getter: 'getTotalSumGross', setter: 'setTotalSumGross')]
     protected float $totalSumGross = 0.0;
 
-    /**
-     * @var KeyValueAttribute[]
-     * @Serializer\Type("array<Jtl\Connector\Core\Model\KeyValueAttribute>")
-     * @Serializer\SerializedName("attributes")
-     * @Serializer\AccessType("reflection")
-     */
+    /** @var KeyValueAttribute[] */
+    #[Serializer\Type('array<Jtl\Connector\Core\Model\KeyValueAttribute>')]
+    #[Serializer\SerializedName('attributes')]
+    #[Serializer\AccessType(['value' => 'reflection'])]
     protected array $attributes = [];
 
-    /**
-     * @var CustomerOrderItem[]
-     * @Serializer\Type("array<Jtl\Connector\Core\Model\CustomerOrderItem>")
-     * @Serializer\SerializedName("items")
-     * @Serializer\AccessType("reflection")
-     */
+    /** @var CustomerOrderItem[] */
+    #[Serializer\Type('array<Jtl\Connector\Core\Model\CustomerOrderItem>')]
+    #[Serializer\SerializedName('items')]
+    #[Serializer\AccessType(['value' => 'reflection'])]
     protected array $items = [];
 
     /**
@@ -273,7 +185,7 @@ class CustomerOrder extends AbstractI18n implements IdentityInterface
     /**
      * @param Identity $customerId Optional reference to customer.
      *
-     * @return CustomerOrder
+     * @return $this
      */
     public function setCustomerId(Identity $customerId): self
     {
@@ -291,19 +203,19 @@ class CustomerOrder extends AbstractI18n implements IdentityInterface
     }
 
     /**
-     * @param Identity $id Unique customerOrder id
+     * @param Identity $identity Unique customerOrder id
      *
-     * @return CustomerOrder
+     * @return $this
      */
-    public function setId(Identity $id): self
+    public function setId(Identity $identity): self
     {
-        $this->id = $id;
+        $this->id = $identity;
 
         return $this;
     }
 
     /**
-     * @return CustomerOrderBillingAddress Billing address
+     * @return CustomerOrderBillingAddress|null Billing address
      */
     public function getBillingAddress(): ?CustomerOrderBillingAddress
     {
@@ -313,7 +225,7 @@ class CustomerOrder extends AbstractI18n implements IdentityInterface
     /**
      * @param CustomerOrderBillingAddress|null $billingAddress Billing address
      *
-     * @return CustomerOrder
+     * @return $this
      */
     public function setBillingAddress(?CustomerOrderBillingAddress $billingAddress = null): self
     {
@@ -333,7 +245,7 @@ class CustomerOrder extends AbstractI18n implements IdentityInterface
     /**
      * @param string $carrierName
      *
-     * @return CustomerOrder
+     * @return $this
      */
     public function setCarrierName(string $carrierName): self
     {
@@ -353,7 +265,7 @@ class CustomerOrder extends AbstractI18n implements IdentityInterface
     /**
      * @param DateTimeInterface|null $creationDate Date of creation
      *
-     * @return CustomerOrder
+     * @return $this
      */
     public function setCreationDate(?\DateTimeInterface $creationDate = null): self
     {
@@ -373,7 +285,7 @@ class CustomerOrder extends AbstractI18n implements IdentityInterface
     /**
      * @param string $currencyIso
      *
-     * @return CustomerOrder
+     * @return $this
      */
     public function setCurrencyIso(string $currencyIso): self
     {
@@ -393,7 +305,7 @@ class CustomerOrder extends AbstractI18n implements IdentityInterface
     /**
      * @param string $customerNote
      *
-     * @return CustomerOrder
+     * @return $this
      */
     public function setCustomerNote(string $customerNote): self
     {
@@ -413,7 +325,7 @@ class CustomerOrder extends AbstractI18n implements IdentityInterface
     /**
      * @param DateTimeInterface|null $estimatedDeliveryDate
      *
-     * @return CustomerOrder
+     * @return $this
      */
     public function setEstimatedDeliveryDate(?\DateTimeInterface $estimatedDeliveryDate = null): self
     {
@@ -433,7 +345,7 @@ class CustomerOrder extends AbstractI18n implements IdentityInterface
     /**
      * @param string $note
      *
-     * @return CustomerOrder
+     * @return $this
      */
     public function setNote(string $note): self
     {
@@ -453,7 +365,7 @@ class CustomerOrder extends AbstractI18n implements IdentityInterface
     /**
      * @param string $orderNumber Optional order number (usually set by ERP System later)
      *
-     * @return CustomerOrder
+     * @return $this
      */
     public function setOrderNumber(string $orderNumber): self
     {
@@ -474,9 +386,9 @@ class CustomerOrder extends AbstractI18n implements IdentityInterface
     /**
      * @param \DateTimeInterface|null $paymentDate Payment date
      *
-     * @return CustomerOrder
+     * @return $this
      */
-    public function setPaymentDate(\DateTimeInterface $paymentDate = null): self
+    public function setPaymentDate(?\DateTimeInterface $paymentDate = null): self
     {
         $this->paymentDate = $paymentDate;
 
@@ -494,9 +406,9 @@ class CustomerOrder extends AbstractI18n implements IdentityInterface
     /**
      * @param CustomerOrderPaymentInfo|null $paymentInfo
      *
-     * @return CustomerOrder
+     * @return $this
      */
-    public function setPaymentInfo(CustomerOrderPaymentInfo $paymentInfo = null): self
+    public function setPaymentInfo(?CustomerOrderPaymentInfo $paymentInfo = null): self
     {
         $this->paymentInfo = $paymentInfo;
 
@@ -514,7 +426,7 @@ class CustomerOrder extends AbstractI18n implements IdentityInterface
     /**
      * @param string $paymentModuleCode
      *
-     * @return CustomerOrder
+     * @return $this
      */
     public function setPaymentModuleCode(string $paymentModuleCode): self
     {
@@ -534,7 +446,7 @@ class CustomerOrder extends AbstractI18n implements IdentityInterface
     /**
      * @param string $paymentStatus
      *
-     * @return CustomerOrder
+     * @return $this
      */
     public function setPaymentStatus(string $paymentStatus): self
     {
@@ -554,7 +466,7 @@ class CustomerOrder extends AbstractI18n implements IdentityInterface
     /**
      * @param string $pui
      *
-     * @return CustomerOrder
+     * @return $this
      */
     public function setPui(string $pui): self
     {
@@ -574,7 +486,7 @@ class CustomerOrder extends AbstractI18n implements IdentityInterface
     /**
      * @param CustomerOrderShippingAddress|null $shippingAddress Shipping address
      *
-     * @return CustomerOrder
+     * @return $this
      */
     public function setShippingAddress(?CustomerOrderShippingAddress $shippingAddress = null): self
     {
@@ -594,9 +506,9 @@ class CustomerOrder extends AbstractI18n implements IdentityInterface
     /**
      * @param DateTimeInterface|null $shippingDate Shipping date
      *
-     * @return CustomerOrder
+     * @return $this
      */
-    public function setShippingDate(\DateTimeInterface $shippingDate = null): self
+    public function setShippingDate(?\DateTimeInterface $shippingDate = null): self
     {
         $this->shippingDate = $shippingDate;
 
@@ -614,7 +526,7 @@ class CustomerOrder extends AbstractI18n implements IdentityInterface
     /**
      * @param string $shippingInfo Additional shipping info
      *
-     * @return CustomerOrder
+     * @return $this
      */
     public function setShippingInfo(string $shippingInfo): self
     {
@@ -634,7 +546,7 @@ class CustomerOrder extends AbstractI18n implements IdentityInterface
     /**
      * @param Identity $shippingMethodId Optional reference to customer.
      *
-     * @return CustomerOrder
+     * @return $this
      */
     public function setShippingMethodId(Identity $shippingMethodId): self
     {
@@ -654,7 +566,7 @@ class CustomerOrder extends AbstractI18n implements IdentityInterface
     /**
      * @param string $shippingMethodName
      *
-     * @return CustomerOrder
+     * @return $this
      */
     public function setShippingMethodName(string $shippingMethodName): self
     {
@@ -674,7 +586,7 @@ class CustomerOrder extends AbstractI18n implements IdentityInterface
     /**
      * @param string $status Shipping status
      *
-     * @return CustomerOrder
+     * @return $this
      */
     public function setStatus(string $status): self
     {
@@ -684,7 +596,7 @@ class CustomerOrder extends AbstractI18n implements IdentityInterface
     }
 
     /**
-     * @return double
+     * @return float
      */
     public function getTotalSum(): float
     {
@@ -692,9 +604,9 @@ class CustomerOrder extends AbstractI18n implements IdentityInterface
     }
 
     /**
-     * @param double $totalSum
+     * @param float $totalSum
      *
-     * @return CustomerOrder
+     * @return $this
      */
     public function setTotalSum(float $totalSum): self
     {
@@ -704,7 +616,7 @@ class CustomerOrder extends AbstractI18n implements IdentityInterface
     }
 
     /**
-     * @return double
+     * @return float
      */
     public function getTotalSumGross(): float
     {
@@ -712,9 +624,9 @@ class CustomerOrder extends AbstractI18n implements IdentityInterface
     }
 
     /**
-     * @param double $totalSumGross
+     * @param float $totalSumGross
      *
-     * @return CustomerOrder
+     * @return $this
      */
     public function setTotalSumGross(float $totalSumGross): self
     {
@@ -726,7 +638,7 @@ class CustomerOrder extends AbstractI18n implements IdentityInterface
     /**
      * @param KeyValueAttribute $attribute
      *
-     * @return CustomerOrder
+     * @return $this
      */
     public function addAttribute(KeyValueAttribute $attribute): self
     {
@@ -746,7 +658,7 @@ class CustomerOrder extends AbstractI18n implements IdentityInterface
     /**
      * @param KeyValueAttribute ...$attributes
      *
-     * @return CustomerOrder
+     * @return $this
      */
     public function setAttributes(KeyValueAttribute ...$attributes): self
     {
@@ -756,7 +668,7 @@ class CustomerOrder extends AbstractI18n implements IdentityInterface
     }
 
     /**
-     * @return CustomerOrder
+     * @return $this
      */
     public function clearAttributes(): self
     {
@@ -766,11 +678,13 @@ class CustomerOrder extends AbstractI18n implements IdentityInterface
     }
 
     /**
-     * @param CustomerOrderItem $item
+     * @phpstan-param CustomerOrderItem $item
      *
-     * @return CustomerOrder
+     * @param AbstractModel $item
+     *
+     * @return $this
      */
-    public function addItem(CustomerOrderItem $item): self
+    public function addItem(AbstractModel $item): self
     {
         $this->items[] = $item;
 
@@ -786,11 +700,13 @@ class CustomerOrder extends AbstractI18n implements IdentityInterface
     }
 
     /**
-     * @param CustomerOrderItem ...$items
+     * @phpstan-param CustomerOrderItem ...$items
      *
-     * @return CustomerOrder
+     * @param AbstractModel ...$items
+     *
+     * @return $this
      */
-    public function setItems(CustomerOrderItem ...$items): self
+    public function setItems(AbstractModel ...$items): self
     {
         $this->items = $items;
 
@@ -798,7 +714,7 @@ class CustomerOrder extends AbstractI18n implements IdentityInterface
     }
 
     /**
-     * @return CustomerOrder
+     * @inheritDoc
      */
     public function clearItems(): self
     {

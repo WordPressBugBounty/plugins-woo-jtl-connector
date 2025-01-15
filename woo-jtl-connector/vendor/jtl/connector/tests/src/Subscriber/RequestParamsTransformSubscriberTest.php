@@ -6,7 +6,6 @@ namespace Jtl\Connector\Core\Test\Subscriber;
 
 use InvalidArgumentException;
 use Jtl\Connector\Core\Event\RpcEvent;
-use Jtl\Connector\Core\Model\ProductStockLevel;
 use Jtl\Connector\Core\Subscriber\RequestParamsTransformSubscriber;
 use PHPUnit\Framework\Exception;
 use PHPUnit\Framework\ExpectationFailedException;
@@ -15,7 +14,6 @@ use PHPUnit\Framework\MockObject\MethodNameAlreadyConfiguredException;
 use PHPUnit\Framework\MockObject\MethodNameNotConfiguredException;
 use PHPUnit\Framework\MockObject\MethodParametersAlreadyConfiguredException;
 use PHPUnit\Framework\TestCase;
-use RuntimeException;
 
 class RequestParamsTransformSubscriberTest extends TestCase
 {
@@ -24,6 +22,7 @@ class RequestParamsTransformSubscriberTest extends TestCase
      *
      * @param RpcEvent $event
      *
+     * @return void
      * @throws InvalidArgumentException
      * @throws Exception
      * @throws \PHPUnit\Framework\InvalidArgumentException
@@ -31,7 +30,7 @@ class RequestParamsTransformSubscriberTest extends TestCase
      * @throws MethodNameAlreadyConfiguredException
      * @throws MethodNameNotConfiguredException
      * @throws MethodParametersAlreadyConfiguredException
-     * @throws RuntimeException
+     * @throws \RuntimeException
      */
     public function testTransformRequestParams(RpcEvent $event): void
     {
@@ -72,7 +71,8 @@ class RequestParamsTransformSubscriberTest extends TestCase
      * @param array<int, array<string, mixed>> $products
      * @param array<int, array<string, mixed>> $expectedResult
      *
-     * @throws RuntimeException
+     * @return void
+     * @throws \RuntimeException
      * @throws ExpectationFailedException
      * @throws \SebastianBergmann\RecursionContext\InvalidArgumentException
      */
@@ -89,6 +89,7 @@ class RequestParamsTransformSubscriberTest extends TestCase
      * @param array<array<string, mixed>> $productPrices
      * @param array<int, mixed>           $expectedResult
      *
+     * @return void
      * @throws ExpectationFailedException
      * @throws InvalidArgumentException
      * @throws \SebastianBergmann\RecursionContext\InvalidArgumentException
@@ -103,16 +104,10 @@ class RequestParamsTransformSubscriberTest extends TestCase
     /**
      * @dataProvider transformProductStockLevelProvider
      *
-     * @param array{
-     *     productId: array{0: string, 1: int}|ProductStockLevel|null,
-     *     sku: ?string,
-     *     stockLevel: ?float
-     * } $productStock
-     * @param array<int, array{
-     *     id: array{0: string, 1: int}|ProductStockLevel, sku: string, stockLevel: float
-     *     }
-     * > $expectedResult
+     * @param array<int, array{productId: array{0: string, 1: int}, sku: ?string, stockLevel: ?float}> $productStock
+     * @param array<int, array{id: array{0: string, 1: int}, sku: string, stockLevel: float}>          $expectedResult
      *
+     * @return void
      * @throws ExpectationFailedException
      * @throws \SebastianBergmann\RecursionContext\InvalidArgumentException
      */
@@ -126,7 +121,7 @@ class RequestParamsTransformSubscriberTest extends TestCase
     /**
      * @return void
      * @throws ExpectationFailedException
-     * @throws \SebastianBergmann\RecursionContext\InvalidArgumentException
+     * @throws \SebastianBergmann\RecursionContext\InvalidArgumentException|\Exception
      */
     public function testGetSubscribedEvents(): void
     {
@@ -157,9 +152,9 @@ class RequestParamsTransformSubscriberTest extends TestCase
     /**
      * @return array<int, array<int, array<int, array<string, array<int|string, array<string, array<int, array<string, array<int, int|string>|float|int>>>|float>|float|string>>>>
      */
-    //phpcs:enable
     public function transformProductProvider(): array
     {
+        //phpcs:enable
         return [
             [
                 [
@@ -248,9 +243,9 @@ class RequestParamsTransformSubscriberTest extends TestCase
     /**
      * @return array<int, array<int, array<int,array<string, array<int,array<string, array<int, array<string, array<int, int|string>|float|int>|int|string>|float|int|string>|int|string>|float|string>>>>
      */
-    //phpcs:enable
     public function transformProductPriceProvider(): array
     {
+        //phpcs:enable
         return [
             [
                 [

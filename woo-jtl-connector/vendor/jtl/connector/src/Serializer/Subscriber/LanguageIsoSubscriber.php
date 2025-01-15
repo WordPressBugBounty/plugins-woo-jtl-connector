@@ -13,9 +13,6 @@ use WhiteCube\Lingua\Service as Lingua;
 
 class LanguageIsoSubscriber implements EventSubscriberInterface
 {
-    /**
-     * @var Lingua
-     */
     protected Lingua $languages;
 
     /**
@@ -47,6 +44,8 @@ class LanguageIsoSubscriber implements EventSubscriberInterface
 
     /**
      * @param ObjectEvent $event
+     *
+     * @return void
      */
     public function onPostSerialize(ObjectEvent $event): void
     {
@@ -66,6 +65,8 @@ class LanguageIsoSubscriber implements EventSubscriberInterface
 
     /**
      * @param PreDeserializeEvent $event
+     *
+     * @return void
      */
     public function onPreDeserialize(PreDeserializeEvent $event): void
     {

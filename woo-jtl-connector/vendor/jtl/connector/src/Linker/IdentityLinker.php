@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace Jtl\Connector\Core\Linker;
 
-use InvalidArgumentException;
 use Jtl\Connector\Core\Definition\Model;
 use Jtl\Connector\Core\Exception\DefinitionException;
 use Jtl\Connector\Core\Exception\LinkerException;
@@ -16,12 +15,6 @@ use Psr\Log\LoggerInterface;
 use Psr\Log\NullLogger;
 use ReflectionException;
 
-/**
- * Identity Connector Linker
- *
- * @access public
- * @author Daniel Böhmer <daniel.boehmer@jtl-software.com>
- */
 class IdentityLinker implements LoggerAwareInterface
 {
     public const
@@ -51,24 +44,24 @@ class IdentityLinker implements LoggerAwareInterface
     }
 
     /**
-     * Constructor
+     * @param bool $useCache
      *
-     * @param boolean $useCache
-     *
-     * @return IdentityLinker
+     * @return $this
      */
-    public function setUseCache(bool $useCache): IdentityLinker
+    public function setUseCache(bool $useCache): self
     {
         $this->useCache = $useCache;
+
         return $this;
     }
 
     /**
      * @param AbstractModel $model
-     * @param boolean       $isDeleted
+     * @param bool          $isDeleted
      *
+     * @return void
      * @throws DefinitionException
-     * @throws InvalidArgumentException
+     * @throws \InvalidArgumentException
      * @throws LinkerException
      * @throws ReflectionException
      */
@@ -104,8 +97,9 @@ class IdentityLinker implements LoggerAwareInterface
      * @param string   $propertyName
      * @param bool     $isDeleted
      *
+     * @return void
      * @throws DefinitionException
-     * @throws InvalidArgumentException
+     * @throws \InvalidArgumentException
      * @throws LinkerException
      */
     public function linkIdentity(
@@ -143,15 +137,15 @@ class IdentityLinker implements LoggerAwareInterface
     }
 
     /**
-     * @param string       $modelName
-     * @param string|null  $endpointId
-     * @param integer|null $hostId
+     * @param string      $modelName
+     * @param string|null $endpointId
+     * @param int|null    $hostId
      *
-     * @return boolean
+     * @return bool
      * @throws DefinitionException
-     * @throws InvalidArgumentException
+     * @throws \InvalidArgumentException
      */
-    public function delete(string $modelName, string $endpointId = null, int $hostId = null): bool
+    public function delete(string $modelName, ?string $endpointId = null, ?int $hostId = null): bool
     {
         $identityType = Model::getIdentityType($modelName);
 
@@ -172,13 +166,14 @@ class IdentityLinker implements LoggerAwareInterface
      * @param string|null $endpointId
      * @param int|null    $hostId
      *
-     * @throws InvalidArgumentException
+     * @return void
+     * @throws \InvalidArgumentException
      */
     protected function deleteCache(
         int    $identityType,
         string $cacheType,
-        string $endpointId = null,
-        int    $hostId = null
+        ?string $endpointId = null,
+        ?int    $hostId = null
     ): void {
         $context = [
             'endpoint'     => $endpointId,
@@ -211,9 +206,9 @@ class IdentityLinker implements LoggerAwareInterface
      * @param string $cacheType
      *
      * @return string
-     * @throws InvalidArgumentException
+     * @throws \InvalidArgumentException
      */
-    protected function buildKey($id, int $identityType, string $cacheType): string
+    protected function buildKey(mixed $id, int $identityType, string $cacheType): string
     {
         if ($id !== null && !\is_scalar($id)) {
             throw new \InvalidArgumentException('$id must be scalar or null.');
@@ -230,7 +225,7 @@ class IdentityLinker implements LoggerAwareInterface
      * @return bool
      * @throws DefinitionException
      * @throws LinkerException
-     * @throws InvalidArgumentException
+     * @throws \InvalidArgumentException
      */
     public function propertyHostIdExists(string $modelName, string $property, int $hostId): bool
     {
@@ -247,27 +242,28 @@ class IdentityLinker implements LoggerAwareInterface
 
         $identityType = Model::getPropertyIdentityType($modelName, $property);
         $modelName    = Model::getModelByType($identityType);
+
         return $this->hostIdExists($modelName, $hostId);
     }
 
     /**
      * @param mixed $hostId
      *
-     * @return boolean
+     * @return bool
      */
-    public function isValidHostId($hostId): bool
+    public function isValidHostId(mixed $hostId): bool
     {
         return \is_int($hostId) && $hostId > 0;
     }
 
     /**
-     * @param string  $modelName
-     * @param integer $hostId
+     * @param string $modelName
+     * @param int    $hostId
      *
-     * @return boolean
+     * @return bool
      * @throws DefinitionException
      * @throws LinkerException
-     * @throws InvalidArgumentException
+     * @throws \InvalidArgumentException
      */
     public function hostIdExists(string $modelName, int $hostId): bool
     {
@@ -295,14 +291,14 @@ class IdentityLinker implements LoggerAwareInterface
     }
 
     /**
-     * @param mixed   $id
-     * @param integer $identityType
-     * @param string  $cacheType
+     * @param mixed  $id
+     * @param int    $identityType
+     * @param string $cacheType
      *
-     * @return boolean
-     * @throws InvalidArgumentException
+     * @return bool
+     * @throws \InvalidArgumentException
      */
-    protected function checkCache($id, int $identityType, string $cacheType): bool
+    protected function checkCache(mixed $id, int $identityType, string $cacheType): bool
     {
         $result = $this->useCache && \array_key_exists($this->buildKey($id, $identityType, $cacheType), $this->cache);
 
@@ -322,13 +318,13 @@ class IdentityLinker implements LoggerAwareInterface
     }
 
     /**
-     * @param string  $modelName
-     * @param string  $property
-     * @param integer $hostId
+     * @param string $modelName
+     * @param string $property
+     * @param int    $hostId
      *
      * @return string
      * @throws DefinitionException
-     * @throws InvalidArgumentException
+     * @throws \InvalidArgumentException
      */
     public function getEndpointId(string $modelName, string $property, int $hostId): string
     {
@@ -355,9 +351,9 @@ class IdentityLinker implements LoggerAwareInterface
      * @param string $cacheType
      *
      * @return int|string|null
-     * @throws InvalidArgumentException
+     * @throws \InvalidArgumentException
      */
-    protected function loadCache($id, int $identityType, string $cacheType)
+    protected function loadCache(mixed $id, int $identityType, string $cacheType): int|string|null
     {
         $result = $this->checkCache($id, $identityType, $cacheType)
             ? $this->cache[$this->buildKey($id, $identityType, $cacheType)]
@@ -384,7 +380,8 @@ class IdentityLinker implements LoggerAwareInterface
      * @param int    $identityType
      * @param string $cacheType
      *
-     * @throws InvalidArgumentException
+     * @return void
+     * @throws \InvalidArgumentException
      */
     protected function saveCache(string $endpointId, int $hostId, int $identityType, string $cacheType): void
     {
@@ -415,9 +412,9 @@ class IdentityLinker implements LoggerAwareInterface
     /**
      * @param mixed $endpointId
      *
-     * @return boolean
+     * @return bool
      */
-    public function isValidEndpointId($endpointId): bool
+    public function isValidEndpointId(mixed $endpointId): bool
     {
         return \is_string($endpointId) && \trim($endpointId) !== '';
     }
@@ -430,9 +427,9 @@ class IdentityLinker implements LoggerAwareInterface
      *
      * @return bool
      * @throws DefinitionException
-     * @throws InvalidArgumentException
+     * @throws \InvalidArgumentException
      */
-    public function save(string $endpointId, int $hostId, string $modelName, string $property = null): bool
+    public function save(string $endpointId, int $hostId, string $modelName, ?string $property = null): bool
     {
         $identityType = \is_null($property)
             ? Model::getIdentityType($modelName)
@@ -458,7 +455,7 @@ class IdentityLinker implements LoggerAwareInterface
      *
      * @return bool
      * @throws DefinitionException
-     * @throws InvalidArgumentException
+     * @throws \InvalidArgumentException
      * @throws LinkerException
      */
     public function propertyEndpointIdExists(string $modelName, string $property, string $endpointId): bool
@@ -476,6 +473,7 @@ class IdentityLinker implements LoggerAwareInterface
 
         $identityType = Model::getPropertyIdentityType($modelName, $property);
         $modelName    = Model::getModelByType($identityType);
+
         return $this->endpointIdExists($modelName, $endpointId);
     }
 
@@ -483,9 +481,9 @@ class IdentityLinker implements LoggerAwareInterface
      * @param string $modelName
      * @param string $endpointId
      *
-     * @return boolean
+     * @return bool
      * @throws DefinitionException
-     * @throws InvalidArgumentException
+     * @throws \InvalidArgumentException
      * @throws LinkerException
      */
     public function endpointIdExists(string $modelName, string $endpointId): bool
@@ -518,9 +516,9 @@ class IdentityLinker implements LoggerAwareInterface
      * @param string $property
      * @param string $endpointId
      *
-     * @return integer
+     * @return int
      * @throws DefinitionException
-     * @throws InvalidArgumentException
+     * @throws \InvalidArgumentException
      */
     public function getHostId(string $modelName, string $property, string $endpointId): int
     {
@@ -547,9 +545,9 @@ class IdentityLinker implements LoggerAwareInterface
      *
      * @param int|null $identityType
      *
-     * @return boolean
+     * @return bool
      */
-    public function clear(int $identityType = null): bool
+    public function clear(?int $identityType = null): bool
     {
         return $this->mapper->clear($identityType);
     }
@@ -565,7 +563,7 @@ class IdentityLinker implements LoggerAwareInterface
     /**
      * @param LoggerInterface $logger
      *
-     * @retrun void
+     * @return void
      */
     public function setLogger(LoggerInterface $logger): void
     {

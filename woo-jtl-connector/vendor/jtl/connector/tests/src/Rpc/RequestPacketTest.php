@@ -4,6 +4,10 @@ declare(strict_types=1);
 
 namespace Jtl\Connector\Core\Test\Rpc;
 
+use Doctrine\Common\Annotations\AnnotationException;
+use JMS\Serializer\Exception\LogicException;
+use JMS\Serializer\Exception\NotAcceptableException;
+use JMS\Serializer\Exception\UnsupportedFormatException;
 use JMS\Serializer\SerializerBuilder;
 use Jtl\Connector\Core\Rpc\RequestPacket;
 use Jtl\Connector\Core\Test\TestCase;
@@ -25,6 +29,7 @@ class RequestPacketTest extends TestCase
      * @param array{0: string, 1: string, 2: string, 3: array<mixed>} $expectedParams
      * @param bool                                                    $isValid
      *
+     * @return void
      * @throws ExpectationFailedException
      * @throws InvalidArgumentException
      */
@@ -113,10 +118,17 @@ class RequestPacketTest extends TestCase
      * @param array{0: string, 1: string, 2: array<mixed>} $expectedParams
      * @param bool                                         $isValid
      *
+     * @return void
      * @throws ExpectationFailedException
      * @throws InvalidArgumentException
-     * @throws \JMS\Serializer\Exception\InvalidArgumentException
      * @throws RuntimeException
+     * @throws AnnotationException
+     * @throws \InvalidArgumentException
+     * @throws \JMS\Serializer\Exception\InvalidArgumentException
+     * @throws LogicException
+     * @throws NotAcceptableException
+     * @throws \JMS\Serializer\Exception\RuntimeException
+     * @throws UnsupportedFormatException
      */
     public function testCreateFromJtlrpc(string $jtlRpcInput, array $expectedParams, bool $isValid): void
     {
@@ -152,10 +164,17 @@ class RequestPacketTest extends TestCase
      * @param array{0: string, 1: string, 2: array<mixed>} $expectedParams
      * @param bool                                         $isValid
      *
+     * @return void
+     * @throws AnnotationException
      * @throws ExpectationFailedException
      * @throws InvalidArgumentException
+     * @throws LogicException
+     * @throws NotAcceptableException
      * @throws RuntimeException
+     * @throws UnsupportedFormatException
+     * @throws \InvalidArgumentException
      * @throws \JMS\Serializer\Exception\InvalidArgumentException
+     * @throws \JMS\Serializer\Exception\RuntimeException
      */
     public function testCreateFromJtlRpcUseAnotherSerializer(
         string $jtlRpcInput,

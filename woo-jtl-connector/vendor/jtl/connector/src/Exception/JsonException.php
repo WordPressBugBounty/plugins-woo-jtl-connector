@@ -12,20 +12,20 @@ class JsonException extends \RuntimeException
     /**
      * @param string $lastErrorMessage
      *
-     * @return JsonException
+     * @return self
      */
-    public static function encoding($lastErrorMessage): JsonException
+    public static function encoding(string $lastErrorMessage): self
     {
         return new self(\sprintf('Error while encoding into JSON: %s', $lastErrorMessage), static::ENCODING_ERROR);
     }
 
     /**
-     * @param string $lastErrorMessage
-     * @param string $jsonString |null
+     * @param string      $lastErrorMessage
+     * @param string|null $jsonString
      *
-     * @return JsonException
+     * @return self
      */
-    public static function decoding($lastErrorMessage, $jsonString = null): JsonException
+    public static function decoding(string $lastErrorMessage, ?string $jsonString = null): self
     {
         $msg = \sprintf('Error while decoding JSON: %s', $lastErrorMessage);
         if (!\is_null($jsonString)) {

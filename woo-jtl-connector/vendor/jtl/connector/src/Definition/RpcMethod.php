@@ -4,12 +4,6 @@ declare(strict_types=1);
 
 namespace Jtl\Connector\Core\Definition;
 
-/**
- * Rpc Method Utilities
- *
- * @access public
- * @author Daniel Böhmer <daniel.boehmer@jtl-software.de>
- */
 final class RpcMethod
 {
     public const
@@ -32,12 +26,12 @@ final class RpcMethod
     /**
      * @param string $methodName
      *
-     * @return boolean
+     * @return bool
      */
     public static function isMethod(string $methodName): bool
     {
         $pregcore = '';
-        if (\strpos($methodName, 'core.') !== false) {
+        if (\str_contains($methodName, 'core.')) {
             $pregcore = 'core.';
         }
 

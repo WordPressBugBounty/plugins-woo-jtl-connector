@@ -13,8 +13,8 @@ use JMS\Serializer\Annotation as Serializer;
  * @access     public
  * @package    Jtl\Connector\Core\Model
  * @subpackage Product
- * @Serializer\AccessType("public_method")
  */
+#[Serializer\AccessType(['value' => 'public_method'])]
 class Specific extends AbstractIdentity
 {
     public const
@@ -24,48 +24,40 @@ class Specific extends AbstractIdentity
         TYPE_IMAGE_TEXT = 'BILD-TEXT';
 
     /**
-     * @var boolean Optional: Global specific means the specific can be used like a category
+     * @var bool Optional: Global specific means the specific can be used like a category
      *              (e.g. show all red products in shop)
-     * @Serializer\Type("boolean")
-     * @Serializer\SerializedName("isGlobal")
-     * @Serializer\Accessor(getter="getIsGlobal",setter="setIsGlobal")
      */
+    #[Serializer\Type('boolean')]
+    #[Serializer\SerializedName('isGlobal')]
+    #[Serializer\Accessor(getter: 'getIsGlobal', setter: 'setIsGlobal')]
     protected bool $isGlobal = false;
 
-    /**
-     * @var integer Optional sort number
-     * @Serializer\Type("integer")
-     * @Serializer\SerializedName("sort")
-     * @Serializer\Accessor(getter="getSort",setter="setSort")
-     */
+    /**  @var int Optional sort number */
+    #[Serializer\Type('integer')]
+    #[Serializer\SerializedName('sort')]
+    #[Serializer\Accessor(getter: 'getSort', setter: 'setSort')]
     protected int $sort = 1;
 
-    /**
-     * @var string Specific type (radio, dropdown, image...)
-     * @Serializer\Type("string")
-     * @Serializer\SerializedName("type")
-     * @Serializer\Accessor(getter="getType",setter="setType")
-     */
+    /** @var string Specific type (radio, dropdown, image...) */
+    #[Serializer\Type('string')]
+    #[Serializer\SerializedName('type')]
+    #[Serializer\Accessor(getter: 'getType', setter: 'setType')]
     protected string $type = '';
 
-    /**
-     * @var SpecificI18n[]
-     * @Serializer\Type("array<Jtl\Connector\Core\Model\SpecificI18n>")
-     * @Serializer\SerializedName("i18ns")
-     * @Serializer\AccessType("reflection")
-     */
+    /** @var SpecificI18n[] */
+    #[Serializer\Type('array<Jtl\Connector\Core\Model\SpecificI18n>')]
+    #[Serializer\SerializedName('i18ns')]
+    #[Serializer\AccessType(['value' => 'reflection'])]
     protected array $i18ns = [];
 
-    /**
-     * @var SpecificValue[]
-     * @Serializer\Type("array<Jtl\Connector\Core\Model\SpecificValue>")
-     * @Serializer\SerializedName("values")
-     * @Serializer\AccessType("reflection")
-     */
+    /** @var SpecificValue[] */
+    #[Serializer\Type('array<Jtl\Connector\Core\Model\SpecificValue>')]
+    #[Serializer\SerializedName('values')]
+    #[Serializer\AccessType(['value' => 'reflection'])]
     protected array $values = [];
 
     /**
-     * @return boolean Optional: Global specific means the specific can be used like a category
+     * @return bool Optional: Global specific means the specific can be used like a category
      *                  (e.g. show all red products in shop)
      */
     public function getIsGlobal(): bool
@@ -74,10 +66,10 @@ class Specific extends AbstractIdentity
     }
 
     /**
-     * @param boolean $isGlobal     Optional: Global specific means the specific can be used like a category
-     *                              (e.g. show all red products in shop)
+     * @param bool $isGlobal Optional: Global specific means the specific can be used like a category
+     *                          (e.g. show all red products in shop)
      *
-     * @return Specific
+     * @return $this
      */
     public function setIsGlobal(bool $isGlobal): self
     {
@@ -87,7 +79,7 @@ class Specific extends AbstractIdentity
     }
 
     /**
-     * @return integer Optional sort number
+     * @return int Optional sort number
      */
     public function getSort(): int
     {
@@ -95,9 +87,9 @@ class Specific extends AbstractIdentity
     }
 
     /**
-     * @param integer $sort Optional sort number
+     * @param int $sort Optional sort number
      *
-     * @return Specific
+     * @return $this
      */
     public function setSort(int $sort): self
     {
@@ -117,7 +109,7 @@ class Specific extends AbstractIdentity
     /**
      * @param string $type Specific type (radio, dropdown, image...)
      *
-     * @return Specific
+     * @return $this
      */
     public function setType(string $type): self
     {
@@ -129,7 +121,7 @@ class Specific extends AbstractIdentity
     /**
      * @param SpecificI18n $i18n
      *
-     * @return Specific
+     * @return $this
      */
     public function addI18n(SpecificI18n $i18n): self
     {
@@ -139,7 +131,7 @@ class Specific extends AbstractIdentity
     }
 
     /**
-     * @return Specific
+     * @return $this
      */
     public function clearI18ns(): self
     {
@@ -151,7 +143,7 @@ class Specific extends AbstractIdentity
     /**
      * @param SpecificValue $value
      *
-     * @return Specific
+     * @return $this
      */
     public function addValue(SpecificValue $value): self
     {
@@ -171,7 +163,7 @@ class Specific extends AbstractIdentity
     /**
      * @param SpecificValue ...$values
      *
-     * @return Specific
+     * @return $this
      */
     public function setValues(SpecificValue ...$values): self
     {
@@ -181,7 +173,7 @@ class Specific extends AbstractIdentity
     }
 
     /**
-     * @return Specific
+     * @return $this
      */
     public function clearValues(): self
     {
@@ -217,7 +209,7 @@ class Specific extends AbstractIdentity
     /**
      * @param SpecificI18n ...$i18ns
      *
-     * @return Specific
+     * @return $this
      */
     public function setI18ns(SpecificI18n ...$i18ns): self
     {

@@ -12,14 +12,14 @@ use Monolog\LogRecord;
 
 class ChunkedHandler extends Handler implements FormattableHandlerInterface
 {
+    public const MAX_LOG_ENTRY_LENGTH = 31320;
     private HandlerInterface $nextHandler;
-
     private int $chunkSize = self::MAX_LOG_ENTRY_LENGTH;
 
-
-    public const
-        MAX_LOG_ENTRY_LENGTH = 31320;
-
+    /**
+     * @param HandlerInterface $nextHandler
+     * @param int|null         $chunkSize
+     */
     public function __construct(HandlerInterface $nextHandler, ?int $chunkSize = null)
     {
         $this->nextHandler = $nextHandler;
@@ -41,7 +41,7 @@ class ChunkedHandler extends Handler implements FormattableHandlerInterface
      *
      * @return bool
      */
-    public function handle($record): bool
+    public function handle(LogRecord|array $record): bool
     {
         // false means continue to bubble
         $return = false;
@@ -68,12 +68,12 @@ class ChunkedHandler extends Handler implements FormattableHandlerInterface
 
                 if ($useArray) {
                     $newRecord = [
-                        'level' => $record['level'],
-                        'context' => $record['context'],
-                        'channel' => $record['channel'],
+                        'level'    => $record['level'],
+                        'context'  => $record['context'],
+                        'channel'  => $record['channel'],
                         'datetime' => $record['datetime'],
-                        'extra' => $extra,
-                        'message' => $message,
+                        'extra'    => $extra,
+                        'message'  => $message,
                     ];
                 } else {
                     /** @var LogRecord $record */
@@ -90,12 +90,20 @@ class ChunkedHandler extends Handler implements FormattableHandlerInterface
                 /** @var LogRecord $newRecord */ // to force phpstan to shut up!
                 $return = $this->nextHandler->handle($newRecord) ?: $return;
             }
+
             return $return;
         }
         /** @var LogRecord $record */ // to force phpstan to shut up!
+
         return $this->nextHandler->handle($record);
     }
 
+    /**
+     * @param FormatterInterface $formatter
+     *
+     * @return HandlerInterface
+     * @throws \UnexpectedValueException
+     */
     public function setFormatter(FormatterInterface $formatter): HandlerInterface
     {
         if (
@@ -109,6 +117,10 @@ class ChunkedHandler extends Handler implements FormattableHandlerInterface
         );
     }
 
+    /**
+     * @return FormatterInterface
+     * @throws \UnexpectedValueException
+     */
     public function getFormatter(): FormatterInterface
     {
         if (

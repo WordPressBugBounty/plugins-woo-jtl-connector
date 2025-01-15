@@ -14,9 +14,6 @@ use Symfony\Contracts\EventDispatcher\Event;
  */
 class ModelEvent extends Event
 {
-    /**
-     * @var AbstractModel
-     */
     protected AbstractModel $model;
 
     /**

@@ -13,7 +13,7 @@ class FeaturesException extends \Exception
     /**
      * @param string $entityName
      *
-     * @return FeaturesException
+     * @return self
      */
     public static function entityNotFound(string $entityName): self
     {
@@ -23,7 +23,7 @@ class FeaturesException extends \Exception
     /**
      * @param string $flagName
      *
-     * @return FeaturesException
+     * @return self
      */
     public static function flagNotFound(string $flagName): self
     {

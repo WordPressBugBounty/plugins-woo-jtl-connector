@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Jtl\Connector\Core\Model\Generator;
 
+use Faker\Extension\ExtensionNotFound;
 use InvalidArgumentException;
 use Jtl\Connector\Core\Model\Identity;
 
@@ -64,7 +65,7 @@ class IdentityFactory extends AbstractModelFactory
             throw new \InvalidArgumentException('Overrides are not the correct array format for Identity.');
         }
 
-        /** @var array{0?: string, 1?: int} */
+        /** @var array{0?: string, 1?: int} $overrides */
         return $overrides;
     }
 
@@ -86,6 +87,7 @@ class IdentityFactory extends AbstractModelFactory
 
     /**
      * @return array{0: string, 1: int}
+     * @throws ExtensionNotFound
      */
     protected function makeFakeArray(): array
     {

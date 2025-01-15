@@ -14,74 +14,56 @@ use TypeError;
  * @access     public
  * @package    Jtl\Connector\Core\Model
  * @subpackage Product
- * @Serializer\AccessType("public_method")
  */
+#[Serializer\AccessType(['value' => 'public_method'])]
 class Category extends AbstractIdentity implements TranslatableAttributesInterface
 {
     use TranslatableAttributesTrait;
 
-    /**
-     * @var Identity Optional reference to parent category id
-     * @Serializer\Type("Jtl\Connector\Core\Model\Identity")
-     * @Serializer\SerializedName("parentCategoryId")
-     * @Serializer\Accessor(getter="getParentCategoryId",setter="setParentCategoryId")
-     */
+    /** @var Identity Optional reference to parent category id */
+    #[Serializer\Type(Identity::class)]
+    #[Serializer\SerializedName('parentCategoryId')]
+    #[Serializer\Accessor(getter: 'getParentCategoryId', setter: 'setParentCategoryId')]
     protected Identity $parentCategoryId;
 
-    /**
-     * @var boolean
-     * @Serializer\Type("boolean")
-     * @Serializer\SerializedName("isActive")
-     * @Serializer\Accessor(getter="getIsActive",setter="setIsActive")
-     */
+    #[Serializer\Type('boolean')]
+    #[Serializer\SerializedName('isActive')]
+    #[Serializer\Accessor(getter: 'getIsActive', setter: 'setIsActive')]
     protected bool $isActive = false;
 
-    /**
-     * @var integer
-     * @Serializer\Type("integer")
-     * @Serializer\SerializedName("level")
-     * @Serializer\Accessor(getter="getLevel",setter="setLevel")
-     */
+    #[Serializer\Type('integer')]
+    #[Serializer\SerializedName('level')]
+    #[Serializer\Accessor(getter: 'getLevel', setter: 'setLevel')]
     protected int $level = 0;
 
-    /**
-     * @var integer Optional sort order number
-     * @Serializer\Type("integer")
-     * @Serializer\SerializedName("sort")
-     * @Serializer\Accessor(getter="getSort",setter="setSort")
-     */
+    /** @var int Optional sort order number */
+    #[Serializer\Type('integer')]
+    #[Serializer\SerializedName('sort')]
+    #[Serializer\Accessor(getter: 'getSort', setter: 'setSort')]
     protected int $sort = 0;
 
-    /**
-     * @var TranslatableAttribute[]
-     * @Serializer\Type("array<Jtl\Connector\Core\Model\CategoryAttribute>")
-     * @Serializer\SerializedName("attributes")
-     * @Serializer\AccessType("reflection")
-     */
+    /** @var TranslatableAttribute[] */
+    #[Serializer\Type('array<Jtl\Connector\Core\Model\CategoryAttribute>')]
+    #[Serializer\SerializedName('attributes')]
+    #[Serializer\AccessType(['value' => 'reflection'])]
     protected array $attributes = [];
 
-    /**
-     * @var CategoryCustomerGroup[]
-     * @Serializer\Type("array<Jtl\Connector\Core\Model\CategoryCustomerGroup>")
-     * @Serializer\SerializedName("customerGroups")
-     * @Serializer\AccessType("reflection")
-     */
+    /** @var CategoryCustomerGroup[] */
+    #[Serializer\Type('array<Jtl\Connector\Core\Model\CategoryCustomerGroup>')]
+    #[Serializer\SerializedName('customerGroups')]
+    #[Serializer\AccessType(['value' => 'reflection'])]
     protected array $customerGroups = [];
 
-    /**
-     * @var CategoryI18n[]
-     * @Serializer\Type("array<Jtl\Connector\Core\Model\CategoryI18n>")
-     * @Serializer\SerializedName("i18ns")
-     * @Serializer\AccessType("reflection")
-     */
+    /** @var CategoryI18n[] */
+    #[Serializer\Type('array<Jtl\Connector\Core\Model\CategoryI18n>')]
+    #[Serializer\SerializedName('i18ns')]
+    #[Serializer\AccessType(['value' => 'reflection'])]
     protected array $i18ns = [];
 
-    /**
-     * @var CategoryInvisibility[]
-     * @Serializer\Type("array<Jtl\Connector\Core\Model\CategoryInvisibility>")
-     * @Serializer\SerializedName("invisibilities")
-     * @Serializer\AccessType("reflection")
-     */
+    /** @var CategoryInvisibility[] */
+    #[Serializer\Type('array<Jtl\Connector\Core\Model\CategoryInvisibility>')]
+    #[Serializer\SerializedName('invisibilities')]
+    #[Serializer\AccessType(['value' => 'reflection'])]
     protected array $invisibilities = [];
 
     /**
@@ -107,7 +89,7 @@ class Category extends AbstractIdentity implements TranslatableAttributesInterfa
     /**
      * @param Identity $parentCategoryId Optional reference to parent category id
      *
-     * @return Category
+     * @return $this
      */
     public function setParentCategoryId(Identity $parentCategoryId): self
     {
@@ -117,7 +99,7 @@ class Category extends AbstractIdentity implements TranslatableAttributesInterfa
     }
 
     /**
-     * @return boolean
+     * @return bool
      */
     public function getIsActive(): bool
     {
@@ -125,9 +107,9 @@ class Category extends AbstractIdentity implements TranslatableAttributesInterfa
     }
 
     /**
-     * @param boolean $isActive
+     * @param bool $isActive
      *
-     * @return Category
+     * @return $this
      */
     public function setIsActive(bool $isActive): self
     {
@@ -137,7 +119,7 @@ class Category extends AbstractIdentity implements TranslatableAttributesInterfa
     }
 
     /**
-     * @return integer
+     * @return int
      */
     public function getLevel(): int
     {
@@ -145,9 +127,9 @@ class Category extends AbstractIdentity implements TranslatableAttributesInterfa
     }
 
     /**
-     * @param integer $level
+     * @param int $level
      *
-     * @return Category
+     * @return $this
      */
     public function setLevel(int $level): self
     {
@@ -157,7 +139,7 @@ class Category extends AbstractIdentity implements TranslatableAttributesInterfa
     }
 
     /**
-     * @return integer Optional sort order number
+     * @return int Optional sort order number
      */
     public function getSort(): int
     {
@@ -165,9 +147,9 @@ class Category extends AbstractIdentity implements TranslatableAttributesInterfa
     }
 
     /**
-     * @param integer $sort Optional sort order number
+     * @param int $sort Optional sort order number
      *
-     * @return Category
+     * @return $this
      */
     public function setSort(int $sort): self
     {
@@ -179,7 +161,7 @@ class Category extends AbstractIdentity implements TranslatableAttributesInterfa
     /**
      * @param TranslatableAttribute $attribute
      *
-     * @return Category
+     * @return $this
      */
     public function addAttribute(TranslatableAttribute $attribute): self
     {
@@ -207,7 +189,7 @@ class Category extends AbstractIdentity implements TranslatableAttributesInterfa
     }
 
     /**
-     * @return Category
+     * @return $this
      */
     public function clearAttributes(): self
     {
@@ -219,7 +201,7 @@ class Category extends AbstractIdentity implements TranslatableAttributesInterfa
     /**
      * @param CategoryCustomerGroup $customerGroup
      *
-     * @return Category
+     * @return $this
      */
     public function addCustomerGroup(CategoryCustomerGroup $customerGroup): self
     {
@@ -239,7 +221,7 @@ class Category extends AbstractIdentity implements TranslatableAttributesInterfa
     /**
      * @param CategoryCustomerGroup ...$customerGroups
      *
-     * @return Category
+     * @return $this
      */
     public function setCustomerGroups(CategoryCustomerGroup ...$customerGroups): self
     {
@@ -249,7 +231,7 @@ class Category extends AbstractIdentity implements TranslatableAttributesInterfa
     }
 
     /**
-     * @return Category
+     * @return $this
      */
     public function clearCustomerGroups(): self
     {
@@ -261,7 +243,7 @@ class Category extends AbstractIdentity implements TranslatableAttributesInterfa
     /**
      * @param CategoryI18n $i18n
      *
-     * @return Category
+     * @return $this
      */
     public function addI18n(CategoryI18n $i18n): self
     {
@@ -271,7 +253,7 @@ class Category extends AbstractIdentity implements TranslatableAttributesInterfa
     }
 
     /**
-     * @return Category
+     * @return $this
      */
     public function clearI18ns(): self
     {
@@ -283,7 +265,7 @@ class Category extends AbstractIdentity implements TranslatableAttributesInterfa
     /**
      * @param CategoryInvisibility $invisibility
      *
-     * @return Category
+     * @return $this
      */
     public function addInvisibility(CategoryInvisibility $invisibility): self
     {
@@ -303,7 +285,7 @@ class Category extends AbstractIdentity implements TranslatableAttributesInterfa
     /**
      * @param CategoryInvisibility ...$invisibilities
      *
-     * @return Category
+     * @return $this
      */
     public function setInvisibilities(CategoryInvisibility ...$invisibilities): self
     {
@@ -313,7 +295,7 @@ class Category extends AbstractIdentity implements TranslatableAttributesInterfa
     }
 
     /**
-     * @return Category
+     * @return $this
      */
     public function clearInvisibilities(): self
     {
@@ -357,7 +339,7 @@ class Category extends AbstractIdentity implements TranslatableAttributesInterfa
     /**
      * @param CategoryI18n ...$i18ns
      *
-     * @return Category
+     * @return $this
      */
     public function setI18ns(CategoryI18n ...$i18ns): self
     {

@@ -4,12 +4,13 @@ declare(strict_types=1);
 
 namespace Jtl\Connector\Core\Logger;
 
-use Composer\InstalledVersions;
+use DI\Container;
 use Jtl\Connector\Core\Exception\LoggerException;
 use Jtl\Connector\Core\Logger\Handler\ChunkedHandler;
 use Jtl\Connector\Core\Logger\Processor\RequestProcessor;
+use Jtl\Connector\Core\Logger\Processor\WarningProcessor;
+use Jtl\Connector\Core\Rpc\Warnings;
 use Monolog\Formatter\FormatterInterface;
-use Monolog\Handler\AbstractHandler;
 use Monolog\Handler\FilterHandler;
 use Monolog\Handler\FormattableHandlerInterface;
 use Monolog\Handler\HandlerInterface;
@@ -43,32 +44,35 @@ class LoggerService
 
     protected FormatterInterface $formatter;
     protected string             $logDir;
-    /** @var int|string|LogLevel  */
-    protected $logLevel;
-    protected int                $maxFiles = 2;
-    /* Final handler that is wrapped by FilterHandler */
+    protected string|int|LogLevel $logLevel;
+    protected int                 $maxFiles = 2;
+    // Final handler that is wrapped by FilterHandler
+
     protected HandlerInterface   $handler;
-    /* Handler that writes to combined log file */
+    // Handler that writes to combined log file
+
     protected HandlerInterface   $combinedHandler;
     protected bool $useChunkedHandler = false;
 
     /**
      * LoggerFactory constructor.
      *
-     * @param string $logDir
+     * @param string     $logDir
      * @param int|string $logLevel
-     * @param int    $maxFiles
+     * @param Warnings   $warnings
+     * @param int        $maxFiles
      *
      * @throws InvalidArgumentException
      * @throws RuntimeException
-     * @throws UnexpectedValueException
+     * @throws UnexpectedValueException|\InvalidArgumentException
      */
-    public function __construct(string $logDir, $logLevel, int $maxFiles = 2)
+    public function __construct(string $logDir, int|string $logLevel, Warnings $warnings, int $maxFiles = 2)
     {
         $this->logDir   = $logDir;
         $this->logLevel = $logLevel;
         $this->maxFiles = $maxFiles;
         $this
+            ->pushProcessor(new WarningProcessor($warnings))
             ->pushProcessor(new PsrLogMessageProcessor())
             ->pushProcessor(new MemoryPeakUsageProcessor())
             ->pushProcessor(new RequestProcessor());
@@ -80,9 +84,12 @@ class LoggerService
     }
 
     /**
-     * @return LoggerService
+     * @return $this
+     * @throws InvalidArgumentException
+     * @throws RuntimeException
+     * @throws UnexpectedValueException
      */
-    public function useChunkedHandler(): LoggerService
+    public function useChunkedHandler(): self
     {
         $this->useChunkedHandler = true;
         if (!$this->combinedHandler instanceof ChunkedHandler) {
@@ -94,12 +101,13 @@ class LoggerService
 
     /**
      * @param int|string $logLevel
+     *
      * @return void
      * @throws InvalidArgumentException
      * @throws RuntimeException
      * @throws UnexpectedValueException
      */
-    public function setLogLevel($logLevel): void
+    public function setLogLevel(int|string $logLevel): void
     {
         $this->logLevel = $logLevel;
         $this->createHandler();
@@ -135,7 +143,7 @@ class LoggerService
     /**
      * @param ProcessorInterface $processor
      *
-     * @return LoggerService
+     * @return $this
      */
     public function pushProcessor(ProcessorInterface $processor): self
     {
@@ -155,14 +163,15 @@ class LoggerService
     /**
      * creates legacy handler for each channel
      *
-     * @param string     $channel
-     * @param int|string|\Monolog\Level $logLevel
-     * @phpstan-param mixed $logLevel
+     * @param string           $channel
+     * @param int|string|Level $logLevel
      *
      * @return HandlerInterface
      * @throws InvalidArgumentException
+     * @throws UnexpectedValueException
+     * @throws \InvalidArgumentException
      */
-    protected function createChannelSpecificHandler(string $channel, $logLevel): HandlerInterface
+    protected function createChannelSpecificHandler(string $channel, int|string|Level $logLevel): HandlerInterface
     {
         $fileName     = \sprintf('%s/%s.log', $this->logDir, $channel);
         $monologLevel = MonoLogger::toMonologLevel($logLevel); // @phpstan-ignore-line
@@ -185,6 +194,9 @@ class LoggerService
      *
      * @return MonoLogger
      * @throws InvalidArgumentException
+     * @throws UnexpectedValueException
+     * @throws \InvalidArgumentException
+     * @throws \Exception
      */
     public function get(string $channel): MonoLogger
     {
@@ -209,7 +221,7 @@ class LoggerService
     /**
      * @param string $channel
      *
-     * @return boolean
+     * @return bool
      */
     public function has(string $channel): bool
     {
@@ -219,7 +231,7 @@ class LoggerService
     /**
      * @param FormatterInterface $formatter
      *
-     * @return LoggerService
+     * @return $this
      */
     public function setFormatter(FormatterInterface $formatter): self
     {
@@ -249,7 +261,7 @@ class LoggerService
      * @param string               $format
      * @param array{}|array<mixed> $arguments
      *
-     * @return LoggerService
+     * @return $this
      * @throws LoggerException
      * @throws RuntimeException
      * @throws ReflectionException

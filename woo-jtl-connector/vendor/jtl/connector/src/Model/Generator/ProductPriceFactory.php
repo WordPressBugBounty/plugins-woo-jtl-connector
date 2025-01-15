@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Jtl\Connector\Core\Model\Generator;
 
+use Faker\Extension\ExtensionNotFound;
 use Jtl\Connector\Core\Definition\IdentityType;
 use Jtl\Connector\Core\Model\ProductPrice;
 
@@ -14,11 +15,12 @@ class ProductPriceFactory extends AbstractModelFactory
     /**
      * @param bool $withBulkPrices
      *
-     * @return ProductPriceFactory
+     * @return $this
      */
-    public function setWithBulkPrices(bool $withBulkPrices): ProductPriceFactory
+    public function setWithBulkPrices(bool $withBulkPrices): self
     {
         $this->withBulkPrices = $withBulkPrices;
+
         return $this;
     }
 
@@ -77,6 +79,7 @@ class ProductPriceFactory extends AbstractModelFactory
      * @param mixed[] $override
      *
      * @return mixed[]
+     * @throws ExtensionNotFound
      */
     public function makeItemArray(array $override = []): array
     {

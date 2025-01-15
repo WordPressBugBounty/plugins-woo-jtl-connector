@@ -28,6 +28,7 @@ use stdClass;
 class ProductAttributeSubscriberTest extends TestCase
 {
     /**
+     * @return void
      * @throws \Exception
      */
     public function testOnPostSerializeAppendProductAttrIdToAttributes(): void
@@ -87,7 +88,9 @@ class ProductAttributeSubscriberTest extends TestCase
     }
 
     /**
-     * @param Product|Category $translatableModel
+     * @phpstan-param Product|Category        $translatableModel
+     *
+     * @param TranslatableAttributesInterface $translatableModel
      * @param bool                            $setId
      *
      * @return TranslatableAttribute
@@ -114,6 +117,7 @@ class ProductAttributeSubscriberTest extends TestCase
     }
 
     /**
+     * @return void
      * @throws \Exception
      */
     public function testOnPostSerializeAppendProductAttrIdToAttributesNestedObjects(): void
@@ -151,6 +155,7 @@ class ProductAttributeSubscriberTest extends TestCase
     }
 
     /**
+     * @return void
      * @throws \Exception
      */
     public function testOnPostSerializeProductAttrIdHasDefaultValuesWhenIdIsNotSet(): void
@@ -177,6 +182,7 @@ class ProductAttributeSubscriberTest extends TestCase
     }
 
     /**
+     * @return void
      * @throws \Exception
      */
     public function testOnPostSerializeProductI18nArrayIsEmpty(): void
@@ -194,6 +200,7 @@ class ProductAttributeSubscriberTest extends TestCase
     }
 
     /**
+     * @return void
      * @throws \Exception
      */
     public function testOnPostSerializeProductAttrIdAttributeAppendsOnlyToProduct(): void

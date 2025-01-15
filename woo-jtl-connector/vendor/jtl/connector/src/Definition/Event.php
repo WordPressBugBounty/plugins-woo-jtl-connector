@@ -62,7 +62,7 @@ final class Event
     /**
      * @param string $moment
      *
-     * @return boolean
+     * @return bool
      */
     public static function isMoment(string $moment): bool
     {

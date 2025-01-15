@@ -12,257 +12,186 @@ use JMS\Serializer\Annotation as Serializer;
  * @access     public
  * @package    Jtl\Connector\Core\Model
  * @subpackage Product
- * @Serializer\AccessType("public_method")
  */
+#[Serializer\AccessType(['value' => 'public_method'])]
 class Customer extends AbstractI18n implements IdentityInterface
 {
-    /**
-     * @var Identity References a customer group
-     * @Serializer\Type("Jtl\Connector\Core\Model\Identity")
-     * @Serializer\SerializedName("customerGroupId")
-     * @Serializer\Accessor(getter="getCustomerGroupId",setter="setCustomerGroupId")
-     */
+    /** @var Identity References a customer group */
+    #[Serializer\Type(Identity::class)]
+    #[Serializer\SerializedName('customerGroupId')]
+    #[Serializer\Accessor(getter: 'getCustomerGroupId', setter: 'setCustomerGroupId')]
     protected Identity $customerGroupId;
 
-    /**
-     * @var Identity Unique customer id
-     * @Serializer\Type("Jtl\Connector\Core\Model\Identity")
-     * @Serializer\SerializedName("id")
-     * @Serializer\Accessor(getter="getId",setter="setId")
-     */
+    /** @var Identity Unique customer id */
+    #[Serializer\Type(Identity::class)]
+    #[Serializer\SerializedName('id')]
+    #[Serializer\Accessor(getter: 'getId', setter: 'setId')]
     protected Identity $id;
 
-    /**
-     * @var double
-     * @Serializer\Type("double")
-     * @Serializer\SerializedName("accountCredit")
-     * @Serializer\Accessor(getter="getAccountCredit",setter="setAccountCredit")
-     */
+    #[Serializer\Type('double')]
+    #[Serializer\SerializedName('accountCredit')]
+    #[Serializer\Accessor(getter: 'getAccountCredit', setter: 'setAccountCredit')]
     protected float $accountCredit = 0.0;
 
-    /**
-     * @var \DateTimeInterface|null Date of birth
-     * @Serializer\Type("DateTimeInterface")
-     * @Serializer\SerializedName("birthday")
-     * @Serializer\Accessor(getter="getBirthday",setter="setBirthday")
-     */
+    #[Serializer\Type(\DateTimeInterface::class)]
+    #[Serializer\SerializedName('birthday')]
+    #[Serializer\Accessor(getter: 'getBirthday', setter: 'setBirthday')]
     protected ?\DateTimeInterface $birthday = null;
 
-    /**
-     * @var string City
-     * @Serializer\Type("string")
-     * @Serializer\SerializedName("city")
-     * @Serializer\Accessor(getter="getCity",setter="setCity")
-     */
+    #[Serializer\Type('string')]
+    #[Serializer\SerializedName('city')]
+    #[Serializer\Accessor(getter: 'getCity', setter: 'setCity')]
     protected string $city = '';
 
-    /**
-     * @var string Company name
-     * @Serializer\Type("string")
-     * @Serializer\SerializedName("company")
-     * @Serializer\Accessor(getter="getCompany",setter="setCompany")
-     */
+    /** @var string Company name */
+    #[Serializer\Type('string')]
+    #[Serializer\SerializedName('company')]
+    #[Serializer\Accessor(getter: 'getCompany', setter: 'setCompany')]
     protected string $company = '';
 
-    /**
-     * @var string Country ISO 3166-2 (2 letter Uppercase)
-     * @Serializer\Type("string")
-     * @Serializer\SerializedName("countryIso")
-     * @Serializer\Accessor(getter="getCountryIso",setter="setCountryIso")
-     */
+    /** @var string Country ISO 3166-2 (2 letter Uppercase) */
+    #[Serializer\Type('string')]
+    #[Serializer\SerializedName('countryIso')]
+    #[Serializer\Accessor(getter: 'getCountryIso', setter: 'setCountryIso')]
     protected string $countryIso = '';
 
-    /**
-     * @var \DateTimeInterface|null
-     * @Serializer\Type("DateTimeInterface")
-     * @Serializer\SerializedName("creationDate")
-     * @Serializer\Accessor(getter="getCreationDate",setter="setCreationDate")
-     */
+    #[Serializer\Type(\DateTimeInterface::class)]
+    #[Serializer\SerializedName('creationDate')]
+    #[Serializer\Accessor(getter: 'getCreationDate', setter: 'setCreationDate')]
     protected ?\DateTimeInterface $creationDate = null;
 
-    /**
-     * @var string Optional customer number set by JTL-Wawi ERP software
-     * @Serializer\Type("string")
-     * @Serializer\SerializedName("customerNumber")
-     * @Serializer\Accessor(getter="getCustomerNumber",setter="setCustomerNumber")
-     */
+    /** @var string Optional customer number set by JTL-Wawi ERP software */
+    #[Serializer\Type('string')]
+    #[Serializer\SerializedName('customerNumber')]
+    #[Serializer\Accessor(getter: 'getCustomerNumber', setter: 'setCustomerNumber')]
     protected string $customerNumber = '';
 
-    /**
-     * @var string Delivery instruction e.g. "c/o John Doe"
-     * @Serializer\Type("string")
-     * @Serializer\SerializedName("deliveryInstruction")
-     * @Serializer\Accessor(getter="getDeliveryInstruction",setter="setDeliveryInstruction")
-     */
+    /** @var string Delivery instruction e.g. "c/o John Doe" */
+    #[Serializer\Type('string')]
+    #[Serializer\SerializedName('deliveryInstruction')]
+    #[Serializer\Accessor(getter: 'getDeliveryInstruction', setter: 'setDeliveryInstruction')]
     protected string $deliveryInstruction = '';
 
-    /**
-     * @var double Percentage discount for customer on all prices
-     * @Serializer\Type("double")
-     * @Serializer\SerializedName("discount")
-     * @Serializer\Accessor(getter="getDiscount",setter="setDiscount")
-     */
+    /** @var double Percentage discount for customer on all prices */
+    #[Serializer\Type('double')]
+    #[Serializer\SerializedName('discount')]
+    #[Serializer\Accessor(getter: 'getDiscount', setter: 'setDiscount')]
     protected float $discount = 0.0;
 
-    /**
-     * @var string E-Mail address
-     * @Serializer\Type("string")
-     * @Serializer\SerializedName("eMail")
-     * @Serializer\Accessor(getter="getEMail",setter="setEMail")
-     */
+    /** @var string E-Mail address */
+    #[Serializer\Type('string')]
+    #[Serializer\SerializedName('eMail')]
+    #[Serializer\Accessor(getter: 'getEMail', setter: 'setEMail')]
     protected string $eMail = '';
 
-    /**
-     * @var string Extra address line e.g. "Apartment 2.5"
-     * @Serializer\Type("string")
-     * @Serializer\SerializedName("extraAddressLine")
-     * @Serializer\Accessor(getter="getExtraAddressLine",setter="setExtraAddressLine")
-     */
+    /** @var string Extra address line e.g. "Apartment 2.5" */
+    #[Serializer\Type('string')]
+    #[Serializer\SerializedName('extraAddressLine')]
+    #[Serializer\Accessor(getter: 'getExtraAddressLine', setter: 'setExtraAddressLine')]
     protected string $extraAddressLine = '';
 
-    /**
-     * @var string Fax number
-     * @Serializer\Type("string")
-     * @Serializer\SerializedName("fax")
-     * @Serializer\Accessor(getter="getFax",setter="setFax")
-     */
+    #[Serializer\Type('string')]
+    #[Serializer\SerializedName('fax')]
+    #[Serializer\Accessor(getter: 'getFax', setter: 'setFax')]
     protected string $fax = '';
 
-    /**
-     * @var string First name
-     * @Serializer\Type("string")
-     * @Serializer\SerializedName("firstName")
-     * @Serializer\Accessor(getter="getFirstName",setter="setFirstName")
-     */
+    #[Serializer\Type('string')]
+    #[Serializer\SerializedName('firstName')]
+    #[Serializer\Accessor(getter: 'getFirstName', setter: 'setFirstName')]
     protected string $firstName = '';
 
-    /**
-     * @var boolean
-     * @Serializer\Type("boolean")
-     * @Serializer\SerializedName("hasCustomerAccount")
-     * @Serializer\Accessor(getter="getHasCustomerAccount",setter="setHasCustomerAccount")
-     */
+    #[Serializer\Type('boolean')]
+    #[Serializer\SerializedName('hasCustomerAccount')]
+    #[Serializer\Accessor(getter: 'getHasCustomerAccount', setter: 'setHasCustomerAccount')]
     protected bool $hasCustomerAccount = false;
 
-    /**
-     * @var boolean Optional flag if customer receives newsletter. If true, customer wants to receive newsletter.
-     * @Serializer\Type("boolean")
-     * @Serializer\SerializedName("hasNewsletterSubscription")
-     * @Serializer\Accessor(getter="getHasNewsletterSubscription",setter="setHasNewsletterSubscription")
-     */
+    /** @var bool Optional flag if customer receives newsletter. If true, customer wants to receive newsletter. */
+    #[Serializer\Type('boolean')]
+    #[Serializer\SerializedName('hasNewsletterSubscription')]
+    #[Serializer\Accessor(getter: 'getHasNewsletterSubscription', setter: 'setHasNewsletterSubscription')]
     protected bool $hasNewsletterSubscription = false;
 
     /**
-     * @var boolean Flag if customer is active (login allowed).
+     * @var bool Flag if customer is active (login allowed).
      *              True, if customer is allowed to login with his E-Mail address and password.
-     * @Serializer\Type("boolean")
-     * @Serializer\SerializedName("isActive")
-     * @Serializer\Accessor(getter="getIsActive",setter="setIsActive")
      */
+    #[Serializer\Type('boolean')]
+    #[Serializer\SerializedName('isActive')]
+    #[Serializer\Accessor(getter: 'getIsActive', setter: 'setIsActive')]
     protected bool $isActive = false;
 
-    /**
-     * @var string Last name
-     * @Serializer\Type("string")
-     * @Serializer\SerializedName("lastName")
-     * @Serializer\Accessor(getter="getLastName",setter="setLastName")
-     */
+    #[Serializer\Type('string')]
+    #[Serializer\SerializedName('lastName')]
+    #[Serializer\Accessor(getter: 'getLastName', setter: 'setLastName')]
     protected string $lastName = '';
 
-    /**
-     * @var string Mobile phone number
-     * @Serializer\Type("string")
-     * @Serializer\SerializedName("mobile")
-     * @Serializer\Accessor(getter="getMobile",setter="setMobile")
-     */
+    /** @var string Mobile phone number */
+    #[Serializer\Type('string')]
+    #[Serializer\SerializedName('mobile')]
+    #[Serializer\Accessor(getter: 'getMobile', setter: 'setMobile')]
     protected string $mobile = '';
 
-    /**
-     * @var string customer note
-     * @Serializer\Type("string")
-     * @Serializer\SerializedName("note")
-     * @Serializer\Accessor(getter="getNote",setter="setNote")
-     */
+    /** @var string customer note */
+    #[Serializer\Type('string')]
+    #[Serializer\SerializedName('note')]
+    #[Serializer\Accessor(getter: 'getNote', setter: 'setNote')]
     protected string $note = '';
 
-    /**
-     * @var string Customer origin
-     * @Serializer\Type("string")
-     * @Serializer\SerializedName("origin")
-     * @Serializer\Accessor(getter="getOrigin",setter="setOrigin")
-     */
+    /** @var string Customer origin */
+    #[Serializer\Type('string')]
+    #[Serializer\SerializedName('origin')]
+    #[Serializer\Accessor(getter: 'getOrigin', setter: 'setOrigin')]
     protected string $origin = '';
 
-    /**
-     * @var string Phone number
-     * @Serializer\Type("string")
-     * @Serializer\SerializedName("phone")
-     * @Serializer\Accessor(getter="getPhone",setter="setPhone")
-     */
+    /** @var string Phone number */
+    #[Serializer\Type('string')]
+    #[Serializer\SerializedName('phone')]
+    #[Serializer\Accessor(getter: 'getPhone', setter: 'setPhone')]
     protected string $phone = '';
 
-    /**
-     * @var string Salutation (german: "Anrede")
-     * @Serializer\Type("string")
-     * @Serializer\SerializedName("salutation")
-     * @Serializer\Accessor(getter="getSalutation",setter="setSalutation")
-     */
+    /** @var string Salutation (german: "Anrede") */
+    #[Serializer\Type('string')]
+    #[Serializer\SerializedName('salutation')]
+    #[Serializer\Accessor(getter: 'getSalutation', setter: 'setSalutation')]
     protected string $salutation = '';
 
-    /**
-     * @var string State
-     * @Serializer\Type("string")
-     * @Serializer\SerializedName("state")
-     * @Serializer\Accessor(getter="getState",setter="setState")
-     */
+    #[Serializer\Type('string')]
+    #[Serializer\SerializedName('state')]
+    #[Serializer\Accessor(getter: 'getState', setter: 'setState')]
     protected string $state = '';
 
-    /**
-     * @var string Street name
-     * @Serializer\Type("string")
-     * @Serializer\SerializedName("street")
-     * @Serializer\Accessor(getter="getStreet",setter="setStreet")
-     */
+    /** @var string Street name and number */
+    #[Serializer\Type('string')]
+    #[Serializer\SerializedName('street')]
+    #[Serializer\Accessor(getter: 'getStreet', setter: 'setStreet')]
     protected string $street = '';
 
-    /**
-     * @var string Title, e.g. "Prof. Dr."
-     * @Serializer\Type("string")
-     * @Serializer\SerializedName("title")
-     * @Serializer\Accessor(getter="getTitle",setter="setTitle")
-     */
+    /** @var string Title, e.g. "Prof. Dr." */
+    #[Serializer\Type('string')]
+    #[Serializer\SerializedName('title')]
+    #[Serializer\Accessor(getter: 'getTitle', setter: 'setTitle')]
     protected string $title = '';
 
-    /**
-     * @var string VAT number (german "USt-ID")
-     * @Serializer\Type("string")
-     * @Serializer\SerializedName("vatNumber")
-     * @Serializer\Accessor(getter="getVatNumber",setter="setVatNumber")
-     */
+    /** @var string VAT number (german "USt-ID") */
+    #[Serializer\Type('string')]
+    #[Serializer\SerializedName('vatNumber')]
+    #[Serializer\Accessor(getter: 'getVatNumber', setter: 'setVatNumber')]
     protected string $vatNumber = '';
 
-    /**
-     * @var string WWW address
-     * @Serializer\Type("string")
-     * @Serializer\SerializedName("websiteUrl")
-     * @Serializer\Accessor(getter="getWebsiteUrl",setter="setWebsiteUrl")
-     */
+    #[Serializer\Type('string')]
+    #[Serializer\SerializedName('websiteUrl')]
+    #[Serializer\Accessor(getter: 'getWebsiteUrl', setter: 'setWebsiteUrl')]
     protected string $websiteUrl = '';
 
-    /**
-     * @var string ZIP / postal code
-     * @Serializer\Type("string")
-     * @Serializer\SerializedName("zipCode")
-     * @Serializer\Accessor(getter="getZipCode",setter="setZipCode")
-     */
+    #[Serializer\Type('string')]
+    #[Serializer\SerializedName('zipCode')]
+    #[Serializer\Accessor(getter: 'getZipCode', setter: 'setZipCode')]
     protected string $zipCode = '';
 
-    /**
-     * @var KeyValueAttribute[]
-     * @Serializer\Type("array<Jtl\Connector\Core\Model\KeyValueAttribute>")
-     * @Serializer\SerializedName("attributes")
-     * @Serializer\AccessType("reflection")
-     */
+    /** @var KeyValueAttribute[] */
+    #[Serializer\Type('array<Jtl\Connector\Core\Model\KeyValueAttribute>')]
+    #[Serializer\SerializedName('attributes')]
+    #[Serializer\AccessType(['value' => 'reflection'])]
     protected array $attributes = [];
 
     /**
@@ -285,7 +214,7 @@ class Customer extends AbstractI18n implements IdentityInterface
     /**
      * @param Identity $customerGroupId References a customer group
      *
-     * @return Customer
+     * @return $this
      */
     public function setCustomerGroupId(Identity $customerGroupId): self
     {
@@ -295,7 +224,7 @@ class Customer extends AbstractI18n implements IdentityInterface
     }
 
     /**
-     * @return Identity Unique customer id
+     * @inheritDoc
      */
     public function getId(): Identity
     {
@@ -303,19 +232,17 @@ class Customer extends AbstractI18n implements IdentityInterface
     }
 
     /**
-     * @param Identity $id Unique customer id
-     *
-     * @return Customer
+     * @inheritDoc
      */
-    public function setId(Identity $id): self
+    public function setId(Identity $identity): self
     {
-        $this->id = $id;
+        $this->id = $identity;
 
         return $this;
     }
 
     /**
-     * @return double
+     * @return float
      */
     public function getAccountCredit(): float
     {
@@ -323,9 +250,9 @@ class Customer extends AbstractI18n implements IdentityInterface
     }
 
     /**
-     * @param double $accountCredit
+     * @param float $accountCredit
      *
-     * @return Customer
+     * @return $this
      */
     public function setAccountCredit(float $accountCredit): self
     {
@@ -335,7 +262,7 @@ class Customer extends AbstractI18n implements IdentityInterface
     }
 
     /**
-     * @return \DateTimeInterface Date of birth
+     * @return \DateTimeInterface|null Date of birth
      */
     public function getBirthday(): ?\DateTimeInterface
     {
@@ -343,11 +270,11 @@ class Customer extends AbstractI18n implements IdentityInterface
     }
 
     /**
-     * @param \DateTimeInterface $birthday Date of birth
+     * @param \DateTimeInterface|null $birthday Date of birth
      *
-     * @return Customer
+     * @return $this
      */
-    public function setBirthday(\DateTimeInterface $birthday = null): self
+    public function setBirthday(?\DateTimeInterface $birthday = null): self
     {
         $this->birthday = $birthday;
 
@@ -365,7 +292,7 @@ class Customer extends AbstractI18n implements IdentityInterface
     /**
      * @param string $city City
      *
-     * @return Customer
+     * @return $this
      */
     public function setCity(string $city): self
     {
@@ -385,7 +312,7 @@ class Customer extends AbstractI18n implements IdentityInterface
     /**
      * @param string $company Company name
      *
-     * @return Customer
+     * @return $this
      */
     public function setCompany(string $company): self
     {
@@ -405,7 +332,7 @@ class Customer extends AbstractI18n implements IdentityInterface
     /**
      * @param string $countryIso Country ISO 3166-2 (2 letter Uppercase)
      *
-     * @return Customer
+     * @return $this
      */
     public function setCountryIso(string $countryIso): self
     {
@@ -415,7 +342,7 @@ class Customer extends AbstractI18n implements IdentityInterface
     }
 
     /**
-     * @return \DateTimeInterface
+     * @return \DateTimeInterface|null
      */
     public function getCreationDate(): ?\DateTimeInterface
     {
@@ -423,11 +350,11 @@ class Customer extends AbstractI18n implements IdentityInterface
     }
 
     /**
-     * @param \DateTimeInterface $creationDate
+     * @param \DateTimeInterface|null $creationDate
      *
-     * @return Customer
+     * @return $this
      */
-    public function setCreationDate(\DateTimeInterface $creationDate = null): self
+    public function setCreationDate(?\DateTimeInterface $creationDate = null): self
     {
         $this->creationDate = $creationDate;
 
@@ -445,7 +372,7 @@ class Customer extends AbstractI18n implements IdentityInterface
     /**
      * @param string $customerNumber Optional customer number set by JTL-Wawi ERP software
      *
-     * @return Customer
+     * @return $this
      */
     public function setCustomerNumber(string $customerNumber): self
     {
@@ -466,7 +393,7 @@ class Customer extends AbstractI18n implements IdentityInterface
     /**
      * @param string $deliveryInstruction Delivery instruction e.g. "c/o John Doe"
      *
-     * @return Customer
+     * @return $this
      */
     public function setDeliveryInstruction(string $deliveryInstruction): self
     {
@@ -476,7 +403,7 @@ class Customer extends AbstractI18n implements IdentityInterface
     }
 
     /**
-     * @return double Percentage discount for customer on all prices
+     * @return float Percentage discount for customer on all prices
      */
     public function getDiscount(): float
     {
@@ -484,9 +411,9 @@ class Customer extends AbstractI18n implements IdentityInterface
     }
 
     /**
-     * @param double $discount Percentage discount for customer on all prices
+     * @param float $discount Percentage discount for customer on all prices
      *
-     * @return Customer
+     * @return $this
      */
     public function setDiscount(float $discount): self
     {
@@ -506,7 +433,7 @@ class Customer extends AbstractI18n implements IdentityInterface
     /**
      * @param string $eMail E-Mail address
      *
-     * @return Customer
+     * @return $this
      */
     public function setEMail(string $eMail): self
     {
@@ -526,7 +453,7 @@ class Customer extends AbstractI18n implements IdentityInterface
     /**
      * @param string $extraAddressLine Extra address line e.g. "Apartment 2.5"
      *
-     * @return Customer
+     * @return $this
      */
     public function setExtraAddressLine(string $extraAddressLine): self
     {
@@ -546,7 +473,7 @@ class Customer extends AbstractI18n implements IdentityInterface
     /**
      * @param string $fax Fax number
      *
-     * @return Customer
+     * @return $this
      */
     public function setFax(string $fax): self
     {
@@ -566,7 +493,7 @@ class Customer extends AbstractI18n implements IdentityInterface
     /**
      * @param string $firstName First name
      *
-     * @return Customer
+     * @return $this
      */
     public function setFirstName(string $firstName): self
     {
@@ -576,7 +503,7 @@ class Customer extends AbstractI18n implements IdentityInterface
     }
 
     /**
-     * @return boolean
+     * @return bool
      */
     public function getHasCustomerAccount(): bool
     {
@@ -584,9 +511,9 @@ class Customer extends AbstractI18n implements IdentityInterface
     }
 
     /**
-     * @param boolean $hasCustomerAccount
+     * @param bool $hasCustomerAccount
      *
-     * @return Customer
+     * @return $this
      */
     public function setHasCustomerAccount(bool $hasCustomerAccount): self
     {
@@ -596,7 +523,7 @@ class Customer extends AbstractI18n implements IdentityInterface
     }
 
     /**
-     * @return boolean Optional flag if customer receives newsletter. If true, customer wants to receive newsletter.
+     * @return bool Optional flag if customer receives newsletter. If true, customer wants to receive newsletter.
      */
     public function getHasNewsletterSubscription(): bool
     {
@@ -604,10 +531,10 @@ class Customer extends AbstractI18n implements IdentityInterface
     }
 
     /**
-     * @param boolean $hasNewsletterSubscription Optional flag if customer receives newsletter.
-     *                                           If true, customer wants to receive newsletter.
+     * @param bool $hasNewsletterSubscription Optional flag if customer receives newsletter.
+     *                                        If true, customer wants to receive newsletter.
      *
-     * @return Customer
+     * @return $this
      */
     public function setHasNewsletterSubscription(bool $hasNewsletterSubscription): self
     {
@@ -617,7 +544,7 @@ class Customer extends AbstractI18n implements IdentityInterface
     }
 
     /**
-     * @return boolean Flag if customer is active (login allowed).
+     * @return bool Flag if customer is active (login allowed).
      *                  True, if customer is allowed to login with his E-Mail address and password.
      */
     public function getIsActive(): bool
@@ -626,10 +553,10 @@ class Customer extends AbstractI18n implements IdentityInterface
     }
 
     /**
-     * @param boolean $isActive Flag if customer is active (login allowed).
-     *                          True, if customer is allowed to login with his E-Mail address and password.
+     * @param bool $isActive Flag if customer is active (login allowed).
+     *                       True, if customer is allowed to login with his E-Mail address and password.
      *
-     * @return Customer
+     * @return $this
      */
     public function setIsActive(bool $isActive): self
     {
@@ -649,7 +576,7 @@ class Customer extends AbstractI18n implements IdentityInterface
     /**
      * @param string $lastName Last name
      *
-     * @return Customer
+     * @return $this
      */
     public function setLastName(string $lastName): self
     {
@@ -669,7 +596,7 @@ class Customer extends AbstractI18n implements IdentityInterface
     /**
      * @param string $mobile Mobile phone number
      *
-     * @return Customer
+     * @return $this
      */
     public function setMobile(string $mobile): self
     {
@@ -689,7 +616,7 @@ class Customer extends AbstractI18n implements IdentityInterface
     /**
      * @param string $note customer note
      *
-     * @return Customer
+     * @return $this
      */
     public function setNote(string $note): self
     {
@@ -709,7 +636,7 @@ class Customer extends AbstractI18n implements IdentityInterface
     /**
      * @param string $origin Customer origin
      *
-     * @return Customer
+     * @return $this
      */
     public function setOrigin(string $origin): self
     {
@@ -729,7 +656,7 @@ class Customer extends AbstractI18n implements IdentityInterface
     /**
      * @param string $phone Phone number
      *
-     * @return Customer
+     * @return $this
      */
     public function setPhone(string $phone): self
     {
@@ -749,7 +676,7 @@ class Customer extends AbstractI18n implements IdentityInterface
     /**
      * @param string $salutation Salutation (german: "Anrede")
      *
-     * @return Customer
+     * @return $this
      */
     public function setSalutation(string $salutation): self
     {
@@ -769,7 +696,7 @@ class Customer extends AbstractI18n implements IdentityInterface
     /**
      * @param string $state State
      *
-     * @return Customer
+     * @return $this
      */
     public function setState(string $state): self
     {
@@ -789,7 +716,7 @@ class Customer extends AbstractI18n implements IdentityInterface
     /**
      * @param string $street Street name
      *
-     * @return Customer
+     * @return $this
      */
     public function setStreet(string $street): self
     {
@@ -809,7 +736,7 @@ class Customer extends AbstractI18n implements IdentityInterface
     /**
      * @param string $title Title, e.g. "Prof. Dr."
      *
-     * @return Customer
+     * @return $this
      */
     public function setTitle(string $title): self
     {
@@ -829,7 +756,7 @@ class Customer extends AbstractI18n implements IdentityInterface
     /**
      * @param string $vatNumber VAT number (german "USt-ID")
      *
-     * @return Customer
+     * @return $this
      */
     public function setVatNumber(string $vatNumber): self
     {
@@ -849,7 +776,7 @@ class Customer extends AbstractI18n implements IdentityInterface
     /**
      * @param string $websiteUrl WWW address
      *
-     * @return Customer
+     * @return $this
      */
     public function setWebsiteUrl(string $websiteUrl): self
     {
@@ -869,7 +796,7 @@ class Customer extends AbstractI18n implements IdentityInterface
     /**
      * @param string $zipCode ZIP / postal code
      *
-     * @return Customer
+     * @return $this
      */
     public function setZipCode(string $zipCode): self
     {
@@ -881,7 +808,7 @@ class Customer extends AbstractI18n implements IdentityInterface
     /**
      * @param KeyValueAttribute $attribute
      *
-     * @return Customer
+     * @return $this
      */
     public function addAttribute(KeyValueAttribute $attribute): self
     {
@@ -901,7 +828,7 @@ class Customer extends AbstractI18n implements IdentityInterface
     /**
      * @param KeyValueAttribute ...$attributes
      *
-     * @return Customer
+     * @return $this
      */
     public function setAttributes(KeyValueAttribute ...$attributes): self
     {
@@ -911,7 +838,7 @@ class Customer extends AbstractI18n implements IdentityInterface
     }
 
     /**
-     * @return Customer
+     * @return $this
      */
     public function clearAttributes(): self
     {

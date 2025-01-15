@@ -12,52 +12,42 @@ use JMS\Serializer\Annotation as Serializer;
  * @access     public
  * @package    Jtl\Connector\Core\Model
  * @subpackage Product
- * @Serializer\AccessType("public_method")
  */
+#[Serializer\AccessType(['value' => 'public_method'])]
 class CustomerGroup extends AbstractIdentity
 {
-    /**
-     * @var boolean Optional: Show net prices default instead of gross prices
-     * @Serializer\Type("boolean")
-     * @Serializer\SerializedName("applyNetPrice")
-     * @Serializer\Accessor(getter="getApplyNetPrice",setter="setApplyNetPrice")
-     */
+    /** @var bool Optional: Show net prices default instead of gross prices */
+    #[Serializer\Type('boolean')]
+    #[Serializer\SerializedName('applyNetPrice')]
+    #[Serializer\Accessor(getter: 'getApplyNetPrice', setter: 'setApplyNetPrice')]
     protected bool $applyNetPrice = false;
 
-    /**
-     * @var double Optional percentual discount on all products. Negative Value means surcharge.
-     * @Serializer\Type("double")
-     * @Serializer\SerializedName("discount")
-     * @Serializer\Accessor(getter="getDiscount",setter="setDiscount")
-     */
+    /** @var double Optional percentual discount on all products. Negative Value means surcharge. */
+    #[Serializer\Type('double')]
+    #[Serializer\SerializedName('discount')]
+    #[Serializer\Accessor(getter: 'getDiscount', setter: 'setDiscount')]
     protected float $discount = 0.0;
 
-    /**
-     * @var boolean Optional: Flag default customer group
-     * @Serializer\Type("boolean")
-     * @Serializer\SerializedName("isDefault")
-     * @Serializer\Accessor(getter="getIsDefault",setter="setIsDefault")
-     */
+    /** @var bool Optional: Flag default customer group */
+    #[Serializer\Type('boolean')]
+    #[Serializer\SerializedName('isDefault')]
+    #[Serializer\Accessor(getter: 'getIsDefault', setter: 'setIsDefault')]
     protected bool $isDefault = false;
 
-    /**
-     * @var CustomerGroupAttr[]
-     * @Serializer\Type("array<Jtl\Connector\Core\Model\CustomerGroupAttr>")
-     * @Serializer\SerializedName("attributes")
-     * @Serializer\AccessType("reflection")
-     */
+    /** @var CustomerGroupAttr[] */
+    #[Serializer\Type('array<Jtl\Connector\Core\Model\CustomerGroupAttr>')]
+    #[Serializer\SerializedName('attributes')]
+    #[Serializer\AccessType(['value' => 'reflection'])]
     protected array $attributes = [];
 
-    /**
-     * @var CustomerGroupI18n[]
-     * @Serializer\Type("array<Jtl\Connector\Core\Model\CustomerGroupI18n>")
-     * @Serializer\SerializedName("i18ns")
-     * @Serializer\AccessType("reflection")
-     */
+    /** @var CustomerGroupI18n[] */
+    #[Serializer\Type('array<Jtl\Connector\Core\Model\CustomerGroupI18n>')]
+    #[Serializer\SerializedName('i18ns')]
+    #[Serializer\AccessType(['value' => 'reflection'])]
     protected array $i18ns = [];
 
     /**
-     * @return boolean Optional: Show net prices default instead of gross prices
+     * @return bool Optional: Show net prices default instead of gross prices
      */
     public function getApplyNetPrice(): bool
     {
@@ -65,9 +55,9 @@ class CustomerGroup extends AbstractIdentity
     }
 
     /**
-     * @param boolean $applyNetPrice Optional: Show net prices default instead of gross prices
+     * @param bool $applyNetPrice Optional: Show net prices default instead of gross prices
      *
-     * @return CustomerGroup
+     * @return $this
      */
     public function setApplyNetPrice(bool $applyNetPrice): self
     {
@@ -77,7 +67,7 @@ class CustomerGroup extends AbstractIdentity
     }
 
     /**
-     * @return double Optional percentual discount on all products. Negative Value means surcharge.
+     * @return float Optional percentual discount on all products. Negative Value means surcharge.
      */
     public function getDiscount(): float
     {
@@ -85,9 +75,9 @@ class CustomerGroup extends AbstractIdentity
     }
 
     /**
-     * @param double $discount Optional percentual discount on all products. Negative Value means surcharge.
+     * @param float $discount Optional percentual discount on all products. Negative Value means surcharge.
      *
-     * @return CustomerGroup
+     * @return $this
      */
     public function setDiscount(float $discount): self
     {
@@ -97,7 +87,7 @@ class CustomerGroup extends AbstractIdentity
     }
 
     /**
-     * @return boolean Optional: Flag default customer group
+     * @return bool Optional: Flag default customer group
      */
     public function getIsDefault(): bool
     {
@@ -105,9 +95,9 @@ class CustomerGroup extends AbstractIdentity
     }
 
     /**
-     * @param boolean $isDefault Optional: Flag default customer group
+     * @param bool $isDefault Optional: Flag default customer group
      *
-     * @return CustomerGroup
+     * @return $this
      */
     public function setIsDefault(bool $isDefault): self
     {
@@ -119,7 +109,7 @@ class CustomerGroup extends AbstractIdentity
     /**
      * @param CustomerGroupAttr $attribute
      *
-     * @return CustomerGroup
+     * @return $this
      */
     public function addAttribute(CustomerGroupAttr $attribute): self
     {
@@ -139,7 +129,7 @@ class CustomerGroup extends AbstractIdentity
     /**
      * @param CustomerGroupAttr ...$attributes
      *
-     * @return CustomerGroup
+     * @return $this
      */
     public function setAttributes(CustomerGroupAttr ...$attributes): self
     {
@@ -149,7 +139,7 @@ class CustomerGroup extends AbstractIdentity
     }
 
     /**
-     * @return CustomerGroup
+     * @return $this
      */
     public function clearAttributes(): self
     {
@@ -161,7 +151,7 @@ class CustomerGroup extends AbstractIdentity
     /**
      * @param CustomerGroupI18n $i18n
      *
-     * @return CustomerGroup
+     * @return $this
      */
     public function addI18n(CustomerGroupI18n $i18n): self
     {
@@ -171,7 +161,7 @@ class CustomerGroup extends AbstractIdentity
     }
 
     /**
-     * @return CustomerGroup
+     * @return $this
      */
     public function clearI18ns(): self
     {
@@ -207,7 +197,7 @@ class CustomerGroup extends AbstractIdentity
     /**
      * @param CustomerGroupI18n ...$i18ns
      *
-     * @return CustomerGroup
+     * @return $this
      */
     public function setI18ns(CustomerGroupI18n ...$i18ns): self
     {

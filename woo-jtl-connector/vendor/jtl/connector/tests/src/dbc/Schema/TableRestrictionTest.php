@@ -17,6 +17,7 @@ use Throwable;
 class TableRestrictionTest extends TestCase
 {
     /**
+     * @return void
      * @throws DBALException
      * @throws ExpectationFailedException
      * @throws InvalidArgumentException
@@ -36,6 +37,7 @@ class TableRestrictionTest extends TestCase
     }
 
     /**
+     * @return void
      * @throws DBALException
      * @throws DbcRuntimeException
      * @throws SchemaException
@@ -50,6 +52,7 @@ class TableRestrictionTest extends TestCase
     }
 
     /**
+     * @return void
      * @throws DBALException
      * @throws SchemaException
      * @throws DbcRuntimeException
@@ -69,6 +72,7 @@ class TableRestrictionTest extends TestCase
     }
 
     /**
+     * @return void
      * @throws DBALException
      * @throws Throwable
      * @throws Exception

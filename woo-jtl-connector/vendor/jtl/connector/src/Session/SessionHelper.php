@@ -38,12 +38,12 @@ class SessionHelper
     }
 
     /**
-     * @param string $name
-     * @param mixed  $default
+     * @param string     $name
+     * @param mixed|null $default
      *
      * @return mixed
      */
-    public function get(string $name, $default = null)
+    public function get(string $name, mixed $default = null): mixed
     {
         return $_SESSION[$this->namespace][$name] ?? $default;
     }
@@ -54,7 +54,7 @@ class SessionHelper
      * @return mixed|null
      * @throws SessionException
      */
-    public function & __get(string $name)
+    public function & __get(string $name): mixed
     {
         if ($name === '') {
             throw new SessionException("The '{$name}' key must be a non-empty string");
@@ -69,9 +69,10 @@ class SessionHelper
      * @param string $name
      * @param mixed  $value
      *
+     * @return void
      * @throws SessionException
      */
-    public function __set(string $name, $value): void
+    public function __set(string $name, mixed $value): void
     {
         if ($name === '') {
             throw new SessionException("The '{$name}' key must be a non-empty string");
@@ -85,7 +86,7 @@ class SessionHelper
      *
      * @return $this
      */
-    public function set(string $name, $value): self
+    public function set(string $name, mixed $value): self
     {
         $_SESSION[$this->namespace][$name] = $value;
 
@@ -98,7 +99,7 @@ class SessionHelper
      * @return bool
      * @throws SessionException
      */
-    public function __isset(string $name)
+    public function __isset(string $name): bool
     {
         if ($name === '') {
             throw new SessionException("The '{$name}' key must be a non-empty string");
@@ -110,7 +111,7 @@ class SessionHelper
     /**
      * @param string $name
      *
-     * @return boolean
+     * @return bool
      */
     public function has(string $name): bool
     {
@@ -120,9 +121,10 @@ class SessionHelper
     /**
      * @param string $name
      *
+     * @return void
      * @throws SessionException
      */
-    public function __unset(string $name)
+    public function __unset(string $name): void
     {
         if ($name === '') {
             throw new SessionException("The '{$name}' key must be a non-empty string");
@@ -134,7 +136,7 @@ class SessionHelper
     /**
      * @param string $name
      *
-     * @return SessionHelper
+     * @return $this
      */
     public function unset(string $name): self
     {

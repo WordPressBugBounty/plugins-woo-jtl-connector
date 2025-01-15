@@ -4,9 +4,8 @@ declare(strict_types=1);
 
 namespace Jtl\Connector\Core\Controller;
 
-use InvalidArgumentException;
+use DI\Container;
 use Jawira\CaseConverter\CaseConverterException;
-use JsonException;
 use Jtl\Connector\Core\Application\Application;
 use Jtl\Connector\Core\Authentication\TokenValidatorInterface;
 use Jtl\Connector\Core\Checksum\ChecksumInterface;
@@ -19,6 +18,7 @@ use Jtl\Connector\Core\Exception\JsonException as CoreJsonException;
 use Jtl\Connector\Core\Exception\MissingRequirementException;
 use Jtl\Connector\Core\Linker\ChecksumLinker;
 use Jtl\Connector\Core\Linker\IdentityLinker;
+use Jtl\Connector\Core\Logger\Processor\WarningProcessor;
 use Jtl\Connector\Core\Model\Ack;
 use Jtl\Connector\Core\Model\Authentication;
 use Jtl\Connector\Core\Model\ConnectorIdentification;
@@ -26,13 +26,14 @@ use Jtl\Connector\Core\Model\ConnectorServerInfo;
 use Jtl\Connector\Core\Model\Features;
 use Jtl\Connector\Core\Model\Identities;
 use Jtl\Connector\Core\Model\Session;
+use Jtl\Connector\Core\Rpc\Warnings;
 use Jtl\Connector\Core\Serializer\Json;
 use Jtl\Connector\Core\System\Check;
 use Jtl\Connector\Core\Utilities\Str;
+use Psr\Log\InvalidArgumentException;
 use Psr\Log\LoggerAwareInterface;
 use Psr\Log\LoggerInterface;
 use Psr\Log\NullLogger;
-use RuntimeException;
 
 /**
  * Base Config Controller
@@ -62,14 +63,14 @@ class ConnectorController implements LoggerAwareInterface
         ChecksumLinker           $checksumLinker,
         IdentityLinker           $linker,
         \SessionHandlerInterface $sessionHandler,
-        TokenValidatorInterface  $tokenValidator
+        TokenValidatorInterface  $tokenValidator,
     ) {
         $this->featuresPath   = $featuresPath;
         $this->checksumLinker = $checksumLinker;
         $this->linker         = $linker;
-        $this->logger         = new NullLogger();
         $this->sessionHandler = $sessionHandler;
         $this->tokenValidator = $tokenValidator;
+        $this->logger         = new NullLogger();
     }
 
 
@@ -87,9 +88,9 @@ class ConnectorController implements LoggerAwareInterface
     /**
      * @return Features
      * @throws CoreJsonException
-     * @throws InvalidArgumentException
-     * @throws RuntimeException
-     * @throws JsonException
+     * @throws \InvalidArgumentException
+     * @throws \RuntimeException
+     * @throws \JsonException
      */
     public function features(): Features
     {
@@ -111,9 +112,9 @@ class ConnectorController implements LoggerAwareInterface
     /**
      * @return array<mixed>
      * @throws CoreJsonException
-     * @throws InvalidArgumentException
+     * @throws \InvalidArgumentException
      * @throws \JsonException
-     * @throws RuntimeException
+     * @throws \RuntimeException
      */
     protected function fetchFeaturesData(): array
     {
@@ -133,7 +134,7 @@ class ConnectorController implements LoggerAwareInterface
      * @return bool
      * @throws CaseConverterException
      * @throws DefinitionException
-     * @throws InvalidArgumentException
+     * @throws \InvalidArgumentException
      */
     public function ack(Ack $ack): bool
     {
@@ -142,7 +143,7 @@ class ConnectorController implements LoggerAwareInterface
             if (!Model::isModel($normalizedName)) {
                 $this->logger->warning(
                     'ACK: Unknown core entity ({name})! Skipping related ack\'s...',
-                    ['name' => $normalizedName]
+                    ['name' => $normalizedName, WarningProcessor::SEND_TO_WAWI => true]
                 );
                 continue;
             }
@@ -157,9 +158,10 @@ class ConnectorController implements LoggerAwareInterface
         foreach ($ack->getChecksums() as $checksum) {
             if (($checksum instanceof ChecksumInterface) && !$this->checksumLinker->save($checksum)) {
                 $context = [
-                    'endpoint' => $checksum->getForeignKey()->getEndpoint(),
-                    'host'     => $checksum->getForeignKey()->getHost(),
-                    'type'     => $checksum->getType(),
+                    'endpoint'                      => $checksum->getForeignKey()->getEndpoint(),
+                    'host'                          => $checksum->getForeignKey()->getHost(),
+                    'type'                          => $checksum->getType(),
+                    WarningProcessor::SEND_TO_WAWI  => true
                 ];
 
                 $this->logger->warning(
@@ -177,7 +179,8 @@ class ConnectorController implements LoggerAwareInterface
      *
      * @return Session
      * @throws AuthenticationException
-     * @throws RuntimeException
+     * @throws \RuntimeException
+     * @throws InvalidArgumentException
      */
     public function auth(Authentication $auth): Session
     {
@@ -198,6 +201,7 @@ class ConnectorController implements LoggerAwareInterface
         if ($sessionId === false) {
             throw new \RuntimeException('sessionId must not be false.');
         }
+
         return (new Session())
             ->setSessionId($sessionId)
             ->setLifetime((int)\ini_get('session.gc_maxlifetime'));
@@ -261,7 +265,7 @@ class ConnectorController implements LoggerAwareInterface
      *
      * @return bool
      * @throws DefinitionException
-     * @throws InvalidArgumentException
+     * @throws \InvalidArgumentException
      */
     public function clear(?Identities $identities = null): bool
     {
@@ -270,14 +274,16 @@ class ConnectorController implements LoggerAwareInterface
             foreach ($identitiesArr as $relationType => $relationIdentities) {
                 if (empty($relationIdentities)) {
                     $this->linker->clear(RelationType::getIdentityType($relationType));
-                } elseif (\is_array($relationIdentities)) {
-                    foreach ($relationIdentities as $identity) {
-                        $endpointId = empty($identity->getEndpoint()) ? null : $identity->getEndpoint();
-                        $this->linker->delete(
-                            RelationType::getModelName($relationType),
-                            $endpointId,
-                            $identity->getHost()
-                        );
+                } else {
+                    if (\is_array($relationIdentities)) {
+                        foreach ($relationIdentities as $identity) {
+                            $endpointId = empty($identity->getEndpoint()) ? null : $identity->getEndpoint();
+                            $this->linker->delete(
+                                RelationType::getModelName($relationType),
+                                $endpointId,
+                                $identity->getHost()
+                            );
+                        }
                     }
                 }
             }

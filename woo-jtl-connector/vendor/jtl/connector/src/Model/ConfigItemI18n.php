@@ -12,24 +12,20 @@ use JMS\Serializer\Annotation as Serializer;
  * @access     public
  * @package    Jtl\Connector\Core\Model
  * @subpackage Product
- * @Serializer\AccessType("public_method")
  */
+#[Serializer\AccessType(['value' => 'public_method'])]
 class ConfigItemI18n extends AbstractI18n
 {
-    /**
-     * @var string Description (html). Will be ignored, if inheritProductName==true
-     * @Serializer\Type("string")
-     * @Serializer\SerializedName("description")
-     * @Serializer\Accessor(getter="getDescription",setter="setDescription")
-     */
+    /** @var string Description (html). Will be ignored, if inheritProductName==true */
+    #[Serializer\Type('string')]
+    #[Serializer\SerializedName('description')]
+    #[Serializer\Accessor(getter: 'getDescription', setter: 'setDescription')]
     protected string $description = '';
 
-    /**
-     * @var string Config item name. Will be ignored if inheritProductName==true
-     * @Serializer\Type("string")
-     * @Serializer\SerializedName("name")
-     * @Serializer\Accessor(getter="getName",setter="setName")
-     */
+    /** @var string Config item name. Will be ignored if inheritProductName==true */
+    #[Serializer\Type('string')]
+    #[Serializer\SerializedName('name')]
+    #[Serializer\Accessor(getter: 'getName', setter: 'setName')]
     protected string $name = '';
 
     /**
@@ -43,9 +39,9 @@ class ConfigItemI18n extends AbstractI18n
     /**
      * @param string $description Description (html). Will be ignored, if inheritProductName==true
      *
-     * @return ConfigItemI18n
+     * @return $this
      */
-    public function setDescription(string $description): ConfigItemI18n
+    public function setDescription(string $description): self
     {
         $this->description = $description;
 
@@ -63,9 +59,9 @@ class ConfigItemI18n extends AbstractI18n
     /**
      * @param string $name Config item name. Will be ignored if inheritProductName==true
      *
-     * @return ConfigItemI18n
+     * @return $this
      */
-    public function setName(string $name): ConfigItemI18n
+    public function setName(string $name): self
     {
         $this->name = $name;
 

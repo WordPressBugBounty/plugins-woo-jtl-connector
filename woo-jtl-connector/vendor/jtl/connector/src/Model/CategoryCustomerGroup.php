@@ -12,24 +12,20 @@ use JMS\Serializer\Annotation as Serializer;
  * @access     public
  * @package    Jtl\Connector\Core\Model
  * @subpackage Product
- * @Serializer\AccessType("public_method")
  */
+#[Serializer\AccessType(['value' => 'public_method'])]
 class CategoryCustomerGroup extends AbstractModel
 {
-    /**
-     * @var Identity Reference to customerGroup
-     * @Serializer\Type("Jtl\Connector\Core\Model\Identity")
-     * @Serializer\SerializedName("customerGroupId")
-     * @Serializer\Accessor(getter="getCustomerGroupId",setter="setCustomerGroupId")
-     */
+    /** @var Identity Reference to customerGroup */
+    #[Serializer\Type(Identity::class)]
+    #[Serializer\SerializedName('customerGroupId')]
+    #[Serializer\Accessor(getter: 'getCustomerGroupId', setter: 'setCustomerGroupId')]
     protected Identity $customerGroupId;
 
-    /**
-     * @var double Optional discount on products in specified categoryId for  customerGroupId
-     * @Serializer\Type("double")
-     * @Serializer\SerializedName("discount")
-     * @Serializer\Accessor(getter="getDiscount",setter="setDiscount")
-     */
+    /** @var double Optional discount on products in specified categoryId for  customerGroupId */
+    #[Serializer\Type('double')]
+    #[Serializer\SerializedName('discount')]
+    #[Serializer\Accessor(getter: 'getDiscount', setter: 'setDiscount')]
     protected float $discount = 0.0;
 
     /**
@@ -51,9 +47,9 @@ class CategoryCustomerGroup extends AbstractModel
     /**
      * @param Identity $customerGroupId Reference to customerGroup
      *
-     * @return CategoryCustomerGroup
+     * @return $this
      */
-    public function setCustomerGroupId(Identity $customerGroupId): CategoryCustomerGroup
+    public function setCustomerGroupId(Identity $customerGroupId): self
     {
         $this->customerGroupId = $customerGroupId;
 
@@ -61,7 +57,7 @@ class CategoryCustomerGroup extends AbstractModel
     }
 
     /**
-     * @return double Optional discount on products in specified categoryId for  customerGroupId
+     * @return float Optional discount on products in specified categoryId for  customerGroupId
      */
     public function getDiscount(): float
     {
@@ -69,11 +65,11 @@ class CategoryCustomerGroup extends AbstractModel
     }
 
     /**
-     * @param double $discount Optional discount on products in specified categoryId for  customerGroupId
+     * @param float $discount Optional discount on products in specified categoryId for  customerGroupId
      *
-     * @return CategoryCustomerGroup
+     * @return $this
      */
-    public function setDiscount(float $discount): CategoryCustomerGroup
+    public function setDiscount(float $discount): self
     {
         $this->discount = $discount;
 

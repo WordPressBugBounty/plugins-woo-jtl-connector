@@ -9,9 +9,6 @@ use Symfony\Contracts\EventDispatcher\Event;
 
 class PaymentEvent extends Event
 {
-    /**
-     * @var Payment
-     */
     protected Payment $payment;
 
     /**

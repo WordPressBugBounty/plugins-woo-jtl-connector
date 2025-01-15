@@ -14,7 +14,7 @@ class TranslatableAttributeException extends \Exception
      * @param string $attributeName
      * @param string $type
      *
-     * @return TranslatableAttributeException
+     * @return self
      */
     public static function valueTypeInvalid(string $attributeName, string $type): self
     {
@@ -28,7 +28,7 @@ class TranslatableAttributeException extends \Exception
      * @param string $attributeName
      * @param string $errorMessage
      *
-     * @return TranslatableAttributeException
+     * @return self
      */
     public static function decodingValueFailed(string $attributeName, string $errorMessage): self
     {

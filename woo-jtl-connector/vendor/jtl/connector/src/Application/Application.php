@@ -7,16 +7,21 @@ namespace Jtl\Connector\Core\Application;
 use Composer\Autoload\ClassLoader;
 use DI\Container;
 use DI\ContainerBuilder;
+use DI\Definition\Exception\InvalidDefinition;
 use DI\DependencyException;
 use DI\NotFoundException;
+use Doctrine\Common\Annotations\AnnotationException;
 use Doctrine\Common\Annotations\AnnotationRegistry;
-use Exception;
 use Jawira\CaseConverter\CaseConverterException;
+use JMS\Serializer\Exception\LogicException;
+use JMS\Serializer\Exception\NotAcceptableException;
+use JMS\Serializer\Exception\UnsupportedFormatException;
 use JMS\Serializer\Serializer;
 use Jtl\Connector\Core\Authentication\TokenValidatorInterface;
 use Jtl\Connector\Core\Checksum\ChecksumLoaderInterface;
 use Jtl\Connector\Core\Compression\Zip;
 use Jtl\Connector\Core\Config\ConfigSchema;
+use Jtl\Connector\Core\Config\ConfigSchemaConfigInterface;
 use Jtl\Connector\Core\Config\CoreConfigInterface;
 use Jtl\Connector\Core\Config\FileConfig;
 use Jtl\Connector\Core\Connector\ConnectorInterface;
@@ -76,6 +81,7 @@ use Jtl\Connector\Core\Rpc\Error;
 use Jtl\Connector\Core\Rpc\Method;
 use Jtl\Connector\Core\Rpc\RequestPacket;
 use Jtl\Connector\Core\Rpc\ResponsePacket;
+use Jtl\Connector\Core\Rpc\Warnings;
 use Jtl\Connector\Core\Serializer\SerializerBuilder;
 use Jtl\Connector\Core\Session\SessionHandlerInterface;
 use Jtl\Connector\Core\Session\SqliteSessionHandler;
@@ -83,12 +89,11 @@ use Jtl\Connector\Core\Subscriber\FeaturesSubscriber;
 use Jtl\Connector\Core\Subscriber\RequestParamsTransformSubscriber;
 use Jtl\Connector\Core\Utilities\Validator\Validate;
 use Monolog\ErrorHandler as MonologErrorHandler;
-use Noodlehaus\ConfigInterface;
+use Noodlehaus\Exception\EmptyDirectoryException;
 use Psr\Container\ContainerInterface;
 use Psr\Log\InvalidArgumentException;
 use Psr\Log\LoggerAwareInterface;
 use Psr\Log\LoggerInterface;
-use Psr\Log\LogLevel;
 use ReflectionClass;
 use ReflectionException;
 use RuntimeException;
@@ -96,10 +101,10 @@ use Symfony\Component\EventDispatcher\EventDispatcher;
 use Symfony\Component\Filesystem\Filesystem;
 use Symfony\Component\Finder\Exception\DirectoryNotFoundException;
 use Symfony\Component\Finder\Finder;
+use Symfony\Component\HttpFoundation\Exception\BadRequestException;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
 use Symfony\Component\HttpFoundation\Request as HttpRequest;
 use Throwable;
-use TypeError;
 
 class Application
 {
@@ -130,10 +135,10 @@ class Application
         'image/tiff'               => 'tif',
         'image/x-tiff'             => 'tif',
     ];
-    protected ConfigInterface $config;
-    protected ConfigSchema    $configSchema;
-    protected string          $connectorDir;
-    protected Container       $container;
+    protected CoreConfigInterface $config;
+    protected ConfigSchema        $configSchema;
+    protected string              $connectorDir;
+    protected Container           $container;
     /** @var string[] */
     protected array                   $deleteFromFileSystem = [];
     protected AbstractErrorHandler    $errorHandler;
@@ -148,25 +153,32 @@ class Application
     /**
      * Application constructor.
      *
-     * @param string               $connectorDir
-     * @param ConfigInterface|null $config
-     * @param ConfigSchema|null    $configSchema
+     * @param string                   $connectorDir
+     * @param CoreConfigInterface|null $config
+     * @param ConfigSchema|null        $configSchema
      *
      * @throws ApplicationException
      * @throws ConfigException
+     * @throws DependencyException
      * @throws InvalidArgumentException
      * @throws LoggerException
      * @throws ReflectionException
-     * @throws TypeError
+     * @throws RuntimeException
+     * @throws InvalidDefinition
+     * @throws AnnotationException
+     * @throws \InvalidArgumentException
      * @throws \JMS\Serializer\Exception\InvalidArgumentException
+     * @throws LogicException
      * @throws \JMS\Serializer\Exception\RuntimeException
-     * @throws InvalidArgumentException
-     * @throws Exception
+     * @throws \LogicException
+     * @throws EmptyDirectoryException
+     * @throws \TypeError
+     * @throws \UnexpectedValueException
      */
     public function __construct(
-        string           $connectorDir,
-        ?ConfigInterface $config = null,
-        ?ConfigSchema    $configSchema = null
+        string               $connectorDir,
+        ?CoreConfigInterface $config       = null,
+        ?ConfigSchema        $configSchema = null
     ) {
         if (!\is_dir($connectorDir)) {
             throw ApplicationException::connectorDirNotExists($connectorDir);
@@ -174,7 +186,7 @@ class Application
         AnnotationRegistry::registerLoader('class_exists');
 
         if ($configSchema !== null && $config !== null) {
-            if ($config instanceof CoreConfigInterface) {
+            if ($config instanceof ConfigSchemaConfigInterface) {
                 $config->setConfigSchema($configSchema);
             }
         } else {
@@ -206,11 +218,14 @@ class Application
         $this->container->set(__CLASS__, $this);
         $this->eventDispatcher = new EventDispatcher();
         $this->fileSystem      = new Filesystem();
-        $this->loggerService   =
+        /** @var Warnings $warnings */
+        $warnings            = $this->container->get(Warnings::class);
+        $this->loggerService =
             (
             new LoggerService(
                 Validate::string($this->config->get(ConfigSchema::LOG_DIR)),
-                $logLevel
+                $logLevel,
+                $warnings
             )
             )->setFormat(Validate::string($this->config->get(ConfigSchema::LOG_FORMAT)));
 
@@ -232,14 +247,18 @@ class Application
     }
 
     /**
-     * @param string          $connectorDir
-     * @param ConfigInterface $config
-     * @param ConfigSchema    $configSchema
+     * @param string              $connectorDir
+     * @param CoreConfigInterface $config
+     * @param ConfigSchema        $configSchema
      *
+     * @return void
      * @throws ConfigException
      */
-    protected function prepareConfig(string $connectorDir, ConfigInterface $config, ConfigSchema $configSchema): void
-    {
+    protected function prepareConfig(
+        string              $connectorDir,
+        CoreConfigInterface $config,
+        ConfigSchema        $configSchema
+    ): void {
         foreach (ConfigSchema::createDefaultParameters($connectorDir) as $parameter) {
             if ($configSchema->hasParameter($parameter->getKey())) {
                 $parameter->setDefaultValue($configSchema->getParameter($parameter->getKey())->getDefaultValue());
@@ -260,10 +279,11 @@ class Application
      * @param string $controllerName
      * @param object $instance
      *
-     * @return Application
+     * @return $this
      * @throws DefinitionException
+     * @throws \LogicException
      */
-    public function registerController(string $controllerName, object $instance): Application
+    public function registerController(string $controllerName, object $instance): self
     {
         if (!Controller::isController($controllerName)) {
             throw DefinitionException::unknownController($controllerName);
@@ -345,6 +365,11 @@ class Application
             $requestPacket->setParams($data);
 
             $responsePacket = $this->execute($connector, $requestPacket, $method);
+            /** @var Warnings $warnings */
+            $warnings = $this->container->get(Warnings::class);
+            if ($warnings->hasWarnings()) {
+                $responsePacket->addWarnings(...$warnings->getWarnings());
+            }
             \session_write_close();
         } catch (Throwable $ex) {
             if (\is_numeric($code = $ex->getCode())) {
@@ -380,10 +405,15 @@ class Application
     /**
      * @param string $rpcMethod
      *
+     *
+     * @return void
      * @throws DatabaseException
      * @throws InvalidArgumentException
      * @throws RuntimeException
      * @throws SessionException
+     * @throws \InvalidArgumentException
+     * @throws BadRequestException
+     * @throws \UnexpectedValueException
      */
     protected function startSession(string $rpcMethod): void
     {
@@ -420,6 +450,8 @@ class Application
      * @throws InvalidArgumentException
      * @throws RuntimeException
      * @throws SessionException
+     * @throws \InvalidArgumentException
+     * @throws \UnexpectedValueException
      */
     public function getSessionHandler(): SessionHandlerInterface
     {
@@ -434,9 +466,9 @@ class Application
     /**
      * @param SessionHandlerInterface $sessionHandler
      *
-     * @return Application
+     * @return $this
      */
-    public function setSessionHandler(SessionHandlerInterface $sessionHandler): Application
+    public function setSessionHandler(SessionHandlerInterface $sessionHandler): self
     {
         $this->sessionHandler = $sessionHandler;
 
@@ -451,10 +483,13 @@ class Application
      * @throws InvalidArgumentException
      * @throws RuntimeException
      * @throws SessionException
+     * @throws \InvalidArgumentException
+     * @throws \LogicException
+     * @throws \UnexpectedValueException
      */
     protected function prepareContainer(ConnectorInterface $connector): void
     {
-        $this->container->set(ConfigInterface::class, $this->getConfig());
+        $this->container->set(CoreConfigInterface::class, $this->getConfig());
         $this->container->set(SessionHandlerInterface::class, $this->getSessionHandler());
         $this->container->set(TokenValidatorInterface::class, $connector->getTokenValidator());
         $this->container->set(PrimaryKeyMapperInterface::class, $connector->getPrimaryKeyMapper());
@@ -485,26 +520,28 @@ class Application
     }
 
     /**
-     * @return ConfigInterface
+     * @return CoreConfigInterface
      */
-    public function getConfig(): ConfigInterface
+    public function getConfig(): CoreConfigInterface
     {
         return $this->config;
     }
 
     /**
-     * @param ConfigInterface $config
-     * @param Container       $container
-     * @param EventDispatcher $eventDispatcher
-     * @param string          $pluginsDir
+     * @param CoreConfigInterface $config
+     * @param Container           $container
+     * @param EventDispatcher     $eventDispatcher
+     * @param string              $pluginsDir
      *
+     * @return void
      * @throws DirectoryNotFoundException
+     * @throws \TypeError
      */
     protected function loadPlugins(
-        ConfigInterface $config,
-        Container       $container,
-        EventDispatcher $eventDispatcher,
-        string          $pluginsDir
+        CoreConfigInterface $config,
+        Container           $container,
+        EventDispatcher     $eventDispatcher,
+        string              $pluginsDir
     ): void {
         $loader = new ClassLoader();
         $loader->add('', $pluginsDir);
@@ -672,10 +709,15 @@ class Application
      * @throws CaseConverterException
      * @throws DefinitionException
      * @throws DependencyException
+     * @throws InvalidArgumentException
+     * @throws LinkerException
+     * @throws LogicException
      * @throws NotFoundException
      * @throws ReflectionException
      * @throws \InvalidArgumentException
-     * @throws LinkerException
+     * @throws NotAcceptableException
+     * @throws \JMS\Serializer\Exception\RuntimeException
+     * @throws UnsupportedFormatException
      */
     protected function createHandleRequest(
         RequestPacket $requestPacket,
@@ -787,6 +829,7 @@ class Application
     /**
      * @param AbstractImage ...$images
      *
+     * @return void
      * @throws ApplicationException
      * @throws CompressionException
      * @throws DefinitionException
@@ -861,7 +904,7 @@ class Application
     /**
      * @param string $mimeType
      *
-     * @return string
+     * @return string|null
      */
     protected static function determineExtensionByMimeType(string $mimeType): ?string
     {
@@ -997,6 +1040,7 @@ class Application
      * @param string      $controller
      * @param string      $action
      *
+     * @return void
      * @throws \ReflectionException
      */
     protected function extendExceptionMessageWithIdentifiers(

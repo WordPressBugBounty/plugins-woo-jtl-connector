@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace Jtl\Connector\Core\Test\Definition;
 
-use Exception;
 use Jtl\Connector\Core\Definition\IdentityType;
 use Jtl\Connector\Core\Definition\Model;
 use Jtl\Connector\Core\Exception\DefinitionException;
@@ -21,6 +20,7 @@ use SebastianBergmann\RecursionContext\InvalidArgumentException;
 class ModelTest extends TestCase
 {
     /**
+     * @return void
      * @throws AssertionFailedError
      * @throws ExpectationFailedException
      * @throws InvalidArgumentException
@@ -55,6 +55,7 @@ class ModelTest extends TestCase
     }
 
     /**
+     * @return void
      * @throws ExpectationFailedException
      * @throws InvalidArgumentException
      */
@@ -75,17 +76,21 @@ class ModelTest extends TestCase
     /**
      * @dataProvider getModelByTypeProvider
      *
-     * @param int              $identityType
-     * @param Exception|string $expectedResult
-     * @param bool             $shouldThrowException
+     * @param int               $identityType
+     * @param \Exception|string $expectedResult
+     * @param bool              $shouldThrowException
      *
+     * @return void
      * @throws DefinitionException
      * @throws ExpectationFailedException
      * @throws InvalidArgumentException
      * @throws \InvalidArgumentException
      */
-    public function testGetModelByType(int $identityType, $expectedResult, bool $shouldThrowException = false): void
-    {
+    public function testGetModelByType(
+        int               $identityType,
+        \Exception|string $expectedResult,
+        bool              $shouldThrowException = false
+    ): void {
         if ($shouldThrowException) {
             if ($expectedResult instanceof \Exception === false) {
                 throw new \InvalidArgumentException(
@@ -116,6 +121,7 @@ class ModelTest extends TestCase
     }
 
     /**
+     * @return void
      * @throws DefinitionException
      */
     public function testGetIdentityTypeModelIsInvalid(): void
@@ -134,6 +140,7 @@ class ModelTest extends TestCase
      * @param string $propertyName
      * @param bool   $expectedResult
      *
+     * @return void
      * @throws ExpectationFailedException
      * @throws InvalidArgumentException
      */
@@ -168,6 +175,7 @@ class ModelTest extends TestCase
      * @param string $modelName
      * @param bool   $expectedResult
      *
+     * @return void
      * @throws ExpectationFailedException
      * @throws InvalidArgumentException
      */
@@ -182,6 +190,7 @@ class ModelTest extends TestCase
      * @param string $modelName
      * @param bool   $isModelName
      *
+     * @return void
      * @throws DefinitionException
      * @throws ExpectationFailedException
      * @throws InvalidArgumentException

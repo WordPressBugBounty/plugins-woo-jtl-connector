@@ -8,20 +8,15 @@ use Doctrine\DBAL\Schema\Column;
 
 class EndpointColumn
 {
-    /**
-     * @var Column
-     */
     protected Column $column;
 
-    /**
-     * @var boolean
-     */
     protected bool $primary = true;
 
     /**
      * EndpointColumn constructor.
+     *
      * @param Column $column
-     * @param bool $primary
+     * @param bool   $primary
      */
     public function __construct(Column $column, bool $primary = true)
     {
@@ -38,7 +33,7 @@ class EndpointColumn
     }
 
     /**
-     * @return boolean
+     * @return bool
      */
     public function primary(): bool
     {
@@ -47,10 +42,10 @@ class EndpointColumn
 
     /**
      * @param Column $column
-     * @param bool $primary
-     * @return EndpointColumn
+     * @param bool   $primary
+     * @return self
      */
-    public static function create(Column $column, bool $primary = true): EndpointColumn
+    public static function create(Column $column, bool $primary = true): self
     {
         return new self($column, $primary);
     }

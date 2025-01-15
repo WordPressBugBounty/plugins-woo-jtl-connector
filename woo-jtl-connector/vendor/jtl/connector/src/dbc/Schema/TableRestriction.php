@@ -9,20 +9,9 @@ use Doctrine\DBAL\Schema\Table;
 
 class TableRestriction
 {
-    /**
-     * @var Table
-     */
     protected Table $table;
-
-    /**
-     * @var string
-     */
     protected string $columnName;
-
-    /**
-     * @var mixed
-     */
-    protected $value;
+    protected mixed $value;
 
     /**
      * TableRestriction constructor.
@@ -33,7 +22,7 @@ class TableRestriction
      *
      * @throws SchemaException
      */
-    public function __construct(Table $table, string $columnName, $columnValue)
+    public function __construct(Table $table, string $columnName, mixed $columnValue)
     {
         if (!$table->hasColumn($columnName)) {
             throw SchemaException::columnDoesNotExist($columnName, $table->getName());
@@ -49,10 +38,10 @@ class TableRestriction
      * @param string $columnName
      * @param mixed  $columnValue
      *
-     * @return TableRestriction
+     * @return self
      * @throws SchemaException
      */
-    public static function create(Table $table, string $columnName, $columnValue): TableRestriction
+    public static function create(Table $table, string $columnName, mixed $columnValue): self
     {
         return new self($table, $columnName, $columnValue);
     }
@@ -76,7 +65,7 @@ class TableRestriction
     /**
      * @return mixed
      */
-    public function getColumnValue()
+    public function getColumnValue(): mixed
     {
         return $this->value;
     }

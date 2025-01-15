@@ -9,9 +9,6 @@ use Symfony\Contracts\EventDispatcher\Event;
 
 class FeaturesEvent extends Event
 {
-    /**
-     * @var Features
-     */
     protected Features $features;
 
     /**

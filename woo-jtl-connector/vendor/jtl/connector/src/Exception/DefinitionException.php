@@ -24,7 +24,7 @@ class DefinitionException extends \Exception
     /**
      * @param string $modelName
      *
-     * @return DefinitionException
+     * @return self
      */
     public static function modelMappingNotExists(string $modelName): self
     {
@@ -35,7 +35,7 @@ class DefinitionException extends \Exception
     /**
      * @param int $identityType
      *
-     * @return DefinitionException
+     * @return self
      */
     public static function identityTypeMappingNotExists(int $identityType): self
     {
@@ -44,9 +44,9 @@ class DefinitionException extends \Exception
     }
 
     /**
-     * @param integer $identityType
+     * @param int $identityType
      *
-     * @return DefinitionException
+     * @return self
      */
     public static function unknownIdentityType(int $identityType): self
     {
@@ -58,7 +58,7 @@ class DefinitionException extends \Exception
      * @param string $modelName
      * @param string $propertyName
      *
-     * @return DefinitionException
+     * @return self
      */
     public static function unknownIdentityProperty(string $modelName, string $propertyName): self
     {
@@ -69,7 +69,7 @@ class DefinitionException extends \Exception
     /**
      * @param string $modelName
      *
-     * @return DefinitionException
+     * @return self
      */
     public static function unknownModel(string $modelName): self
     {
@@ -80,7 +80,7 @@ class DefinitionException extends \Exception
     /**
      * @param string $controllerName
      *
-     * @return DefinitionException
+     * @return self
      */
     public static function unknownController(string $controllerName): self
     {
@@ -91,7 +91,7 @@ class DefinitionException extends \Exception
     /**
      * @param string $action
      *
-     * @return DefinitionException
+     * @return self
      */
     public static function unknownAction(string $action): self
     {
@@ -102,7 +102,7 @@ class DefinitionException extends \Exception
     /**
      * @param string $moment
      *
-     * @return DefinitionException
+     * @return self
      */
     public static function unknownMoment(string $moment): self
     {
@@ -113,7 +113,7 @@ class DefinitionException extends \Exception
     /**
      * @param string $relationType
      *
-     * @return DefinitionException
+     * @return self
      */
     public static function unknownRelationType(string $relationType): self
     {
@@ -132,7 +132,7 @@ class DefinitionException extends \Exception
     /**
      * @param string $rpcMethod
      *
-     * @return DefinitionException
+     * @return self
      */
     public static function unknownRpcMethod(string $rpcMethod): self
     {

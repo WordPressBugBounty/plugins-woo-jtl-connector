@@ -8,132 +8,100 @@ use JMS\Serializer\Annotation as Serializer;
 
 abstract class AbstractOrderAddress extends AbstractIdentity
 {
-    /**
-     * @var string City
-     * @Serializer\Type("string")
-     * @Serializer\SerializedName("city")
-     * @Serializer\Accessor(getter="getCity",setter="setCity")
-     */
+    /** @var string City */
+    #[Serializer\Type('string')]
+    #[Serializer\SerializedName('city')]
+    #[Serializer\Accessor(getter: 'getCity', setter: 'setCity')]
     protected string $city = '';
 
-    /**
-     * @var string Company name
-     * @Serializer\Type("string")
-     * @Serializer\SerializedName("company")
-     * @Serializer\Accessor(getter="getCompany",setter="setCompany")
-     */
+    /** @var string Company name */
+    #[Serializer\Type('string')]
+    #[Serializer\SerializedName('company')]
+    #[Serializer\Accessor(getter: 'getCompany', setter: 'setCompany')]
     protected string $company = '';
 
-    /**
-     * @var string Country ISO 3166-2 (2 letter Uppercase)
-     * @Serializer\Type("string")
-     * @Serializer\SerializedName("countryIso")
-     * @Serializer\Accessor(getter="getCountryIso",setter="setCountryIso")
-     */
+    /** @var string Country ISO 3166-2 (2 letter Uppercase) */
+    #[Serializer\Type('string')]
+    #[Serializer\SerializedName('countryIso')]
+    #[Serializer\Accessor(getter: 'getCountryIso', setter: 'setCountryIso')]
     protected string $countryIso = '';
 
-    /**
-     * @var string Delivery instruction e.g. "c/o John Doe"
-     * @Serializer\Type("string")
-     * @Serializer\SerializedName("deliveryInstruction")
-     * @Serializer\Accessor(getter="getDeliveryInstruction",setter="setDeliveryInstruction")
-     */
+    /** @var string Delivery instruction e.g. "c/o John Doe" */
+    #[Serializer\Type('string')]
+    #[Serializer\SerializedName('deliveryInstruction')]
+    #[Serializer\Accessor(getter: 'getDeliveryInstruction', setter: 'setDeliveryInstruction')]
     protected string $deliveryInstruction = '';
 
-    /**
-     * @var string E-Mail address
-     * @Serializer\Type("string")
-     * @Serializer\SerializedName("eMail")
-     * @Serializer\Accessor(getter="getEMail",setter="setEMail")
-     */
+    /** @var string E-Mail address */
+    #[Serializer\Type('string')]
+    #[Serializer\SerializedName('eMail')]
+    #[Serializer\Accessor(getter: 'getEMail', setter: 'setEMail')]
     protected string $eMail = '';
 
-    /**
-     * @var string Extra address line e.g. 'Apartment 2.5'
-     * @Serializer\Type("string")
-     * @Serializer\SerializedName("extraAddressLine")
-     * @Serializer\Accessor(getter="getExtraAddressLine",setter="setExtraAddressLine")
-     */
+    /** @var string Extra address line e.g. 'Apartment 2.5' */
+    #[Serializer\Type('string')]
+    #[Serializer\SerializedName('extraAddressLine')]
+    #[Serializer\Accessor(getter: 'getExtraAddressLine', setter: 'setExtraAddressLine')]
     protected string $extraAddressLine = '';
 
-    /**
-     * @var string Fax number
-     * @Serializer\Type("string")
-     * @Serializer\SerializedName("fax")
-     * @Serializer\Accessor(getter="getFax",setter="setFax")
-     */
+    /** @var string Fax number */
+    #[Serializer\Type('string')]
+    #[Serializer\SerializedName('fax')]
+    #[Serializer\Accessor(getter: 'getFax', setter: 'setFax')]
     protected string $fax = '';
 
-    /**
-     * @var string First name
-     * @Serializer\Type("string")
-     * @Serializer\SerializedName("firstName")
-     * @Serializer\Accessor(getter="getFirstName",setter="setFirstName")
-     */
+    /** @var string First name */
+    #[Serializer\Type('string')]
+    #[Serializer\SerializedName('firstName')]
+    #[Serializer\Accessor(getter: 'getFirstName', setter: 'setFirstName')]
     protected string $firstName = '';
 
-    /**
-     * @var string Last name
-     * @Serializer\Type("string")
-     * @Serializer\SerializedName("lastName")
-     * @Serializer\Accessor(getter="getLastName",setter="setLastName")
-     */
+    /** @var string Last name */
+    #[Serializer\Type('string')]
+    #[Serializer\SerializedName('lastName')]
+    #[Serializer\Accessor(getter: 'getLastName', setter: 'setLastName')]
     protected string $lastName = '';
 
-    /**
-     * @var string Mobile phone number
-     * @Serializer\Type("string")
-     * @Serializer\SerializedName("mobile")
-     * @Serializer\Accessor(getter="getMobile",setter="setMobile")
-     */
+    /** @var string Mobile phone number */
+    #[Serializer\Type('string')]
+    #[Serializer\SerializedName('mobile')]
+    #[Serializer\Accessor(getter: 'getMobile', setter: 'setMobile')]
     protected string $mobile = '';
 
-    /**
-     * @var string Phone number
-     * @Serializer\Type("string")
-     * @Serializer\SerializedName("phone")
-     * @Serializer\Accessor(getter="getPhone",setter="setPhone")
-     */
+    /** @var string Phone number */
+    #[Serializer\Type('string')]
+    #[Serializer\SerializedName('phone')]
+    #[Serializer\Accessor(getter: 'getPhone', setter: 'setPhone')]
     protected string $phone = '';
 
-    /**
-     * @var string Salutation e.g. 'Mr.'
-     * @Serializer\Type("string")
-     * @Serializer\SerializedName("salutation")
-     * @Serializer\Accessor(getter="getSalutation",setter="setSalutation")
-     */
+    /** @var string Salutation e.g. 'Mr.' */
+    #[Serializer\Type('string')]
+    #[Serializer\SerializedName('salutation')]
+    #[Serializer\Accessor(getter: 'getSalutation', setter: 'setSalutation')]
     protected string $salutation = '';
 
-    /**
-     * @var string State
-     * @Serializer\Type("string")
-     * @Serializer\SerializedName("state")
-     * @Serializer\Accessor(getter="getState",setter="setState")
-     */
+    /** @var string State */
+    #[Serializer\Type('string')]
+    #[Serializer\SerializedName('state')]
+    #[Serializer\Accessor(getter: 'getState', setter: 'setState')]
     protected string $state = '';
 
-    /**
-     * @var string Street + streetnumber
-     * @Serializer\Type("string")
-     * @Serializer\SerializedName("street")
-     * @Serializer\Accessor(getter="getStreet",setter="setStreet")
-     */
+    /** @var string Street + streetnumber */
+    #[Serializer\Type('string')]
+    #[Serializer\SerializedName('street')]
+    #[Serializer\Accessor(getter: 'getStreet', setter: 'setStreet')]
     protected string $street = '';
 
-    /**
-     * @var string Title e.g. ("Prof. Dr.")
-     * @Serializer\Type("string")
-     * @Serializer\SerializedName("title")
-     * @Serializer\Accessor(getter="getTitle",setter="setTitle")
-     */
+    /** @var string Title e.g. ("Prof. Dr.") */
+    #[Serializer\Type('string')]
+    #[Serializer\SerializedName('title')]
+    #[Serializer\Accessor(getter: 'getTitle', setter: 'setTitle')]
     protected string $title = '';
 
-    /**
-     * @var string Zip / postal code
-     * @Serializer\Type("string")
-     * @Serializer\SerializedName("zipCode")
-     * @Serializer\Accessor(getter="getZipCode",setter="setZipCode")
-     */
+    /** @var string Zip / postal code */
+    #[Serializer\Type('string')]
+    #[Serializer\SerializedName('zipCode')]
+    #[Serializer\Accessor(getter: 'getZipCode', setter: 'setZipCode')]
     protected string $zipCode = '';
 
     /**
@@ -152,6 +120,7 @@ abstract class AbstractOrderAddress extends AbstractIdentity
     public function setCity(string $city): self
     {
         $this->city = $city;
+
         return $this;
     }
 
@@ -171,6 +140,7 @@ abstract class AbstractOrderAddress extends AbstractIdentity
     public function setCompany(string $company): self
     {
         $this->company = $company;
+
         return $this;
     }
 
@@ -190,6 +160,7 @@ abstract class AbstractOrderAddress extends AbstractIdentity
     public function setCountryIso(string $countryIso): self
     {
         $this->countryIso = $countryIso;
+
         return $this;
     }
 
@@ -209,6 +180,7 @@ abstract class AbstractOrderAddress extends AbstractIdentity
     public function setDeliveryInstruction(string $deliveryInstruction): self
     {
         $this->deliveryInstruction = $deliveryInstruction;
+
         return $this;
     }
 
@@ -223,11 +195,12 @@ abstract class AbstractOrderAddress extends AbstractIdentity
     /**
      * @param string $eMail E-Mail address
      *
-     * @return self
+     * @return $this
      */
     public function setEMail(string $eMail): self
     {
         $this->eMail = $eMail;
+
         return $this;
     }
 
@@ -242,11 +215,12 @@ abstract class AbstractOrderAddress extends AbstractIdentity
     /**
      * @param string $extraAddressLine Extra address line e.g. 'Apartment 2.5'
      *
-     * @return self
+     * @return $this
      */
     public function setExtraAddressLine(string $extraAddressLine): self
     {
         $this->extraAddressLine = $extraAddressLine;
+
         return $this;
     }
 
@@ -261,11 +235,12 @@ abstract class AbstractOrderAddress extends AbstractIdentity
     /**
      * @param string $fax Fax number
      *
-     * @return self
+     * @return $this
      */
     public function setFax(string $fax): self
     {
         $this->fax = $fax;
+
         return $this;
     }
 
@@ -280,11 +255,12 @@ abstract class AbstractOrderAddress extends AbstractIdentity
     /**
      * @param string $firstName First name
      *
-     * @return self
+     * @return $this
      */
     public function setFirstName(string $firstName): self
     {
         $this->firstName = $firstName;
+
         return $this;
     }
 
@@ -299,11 +275,12 @@ abstract class AbstractOrderAddress extends AbstractIdentity
     /**
      * @param string $lastName Last name
      *
-     * @return self
+     * @return $this
      */
     public function setLastName(string $lastName): self
     {
         $this->lastName = $lastName;
+
         return $this;
     }
 
@@ -318,11 +295,12 @@ abstract class AbstractOrderAddress extends AbstractIdentity
     /**
      * @param string $mobile Mobile phone number
      *
-     * @return self
+     * @return $this
      */
     public function setMobile(string $mobile): self
     {
         $this->mobile = $mobile;
+
         return $this;
     }
 
@@ -337,11 +315,12 @@ abstract class AbstractOrderAddress extends AbstractIdentity
     /**
      * @param string $phone Phone number
      *
-     * @return self
+     * @return $this
      */
     public function setPhone(string $phone): self
     {
         $this->phone = $phone;
+
         return $this;
     }
 
@@ -356,11 +335,12 @@ abstract class AbstractOrderAddress extends AbstractIdentity
     /**
      * @param string $salutation Salutation e.g. 'Mr.'
      *
-     * @return self
+     * @return $this
      */
     public function setSalutation(string $salutation): self
     {
         $this->salutation = $salutation;
+
         return $this;
     }
 
@@ -375,11 +355,12 @@ abstract class AbstractOrderAddress extends AbstractIdentity
     /**
      * @param string $state State
      *
-     * @return self
+     * @return $this
      */
     public function setState(string $state): self
     {
         $this->state = $state;
+
         return $this;
     }
 
@@ -394,11 +375,12 @@ abstract class AbstractOrderAddress extends AbstractIdentity
     /**
      * @param string $street Street + streetnumber
      *
-     * @return self
+     * @return $this
      */
     public function setStreet(string $street): self
     {
         $this->street = $street;
+
         return $this;
     }
 
@@ -413,11 +395,12 @@ abstract class AbstractOrderAddress extends AbstractIdentity
     /**
      * @param string $title Title e.g. ("Prof. Dr.")
      *
-     * @return self
+     * @return $this
      */
     public function setTitle(string $title): self
     {
         $this->title = $title;
+
         return $this;
     }
 
@@ -432,11 +415,12 @@ abstract class AbstractOrderAddress extends AbstractIdentity
     /**
      * @param string $zipCode Zip / postal code
      *
-     * @return self
+     * @return $this
      */
     public function setZipCode(string $zipCode): self
     {
         $this->zipCode = $zipCode;
+
         return $this;
     }
 }

@@ -13,10 +13,10 @@ class Validator
      * @param mixed       $value
      * @param string|null $name
      *
-     * @return \Doctrine\DBAL\ForwardCompatibility\Result<mixed>
-     * @throws \Jtl\Connector\Dbc\DbcRuntimeException
+     * @return Result<mixed>
+     * @throws DbcRuntimeException
      */
-    public static function returnResult($value, ?string $name = null): Result
+    public static function returnResult(mixed $value, ?string $name = null): Result
     {
         if ($value instanceof Result === false) {
             $name = $name ?? 'Variable';
@@ -31,9 +31,9 @@ class Validator
      * @param string|null $name
      *
      * @return array<mixed>
-     * @throws \Jtl\Connector\Dbc\DbcRuntimeException
+     * @throws DbcRuntimeException
      */
-    public static function returnArray($value, ?string $name = null): array
+    public static function returnArray(mixed $value, ?string $name = null): array
     {
         if (\is_array($value)) {
             return $value;

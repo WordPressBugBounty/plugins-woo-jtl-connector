@@ -4,11 +4,20 @@ declare(strict_types=1);
 
 namespace Jtl\Connector\Core\Test\Session;
 
+use Jtl\Connector\Core\Exception\SessionException;
 use Jtl\Connector\Core\Session\SessionHelper;
+use PHPUnit\Framework\Exception;
+use PHPUnit\Framework\ExpectationFailedException;
 use PHPUnit\Framework\TestCase;
+use SebastianBergmann\RecursionContext\InvalidArgumentException;
 
 class SessionHelperTest extends TestCase
 {
+    /**
+     * @return void
+     * @throws ExpectationFailedException
+     * @throws InvalidArgumentException
+     */
     public function testHas(): void
     {
         $helper                 = new SessionHelper('foo');
@@ -18,6 +27,11 @@ class SessionHelperTest extends TestCase
         $this->assertTrue($helper->has('you'));
     }
 
+    /**
+     * @return void
+     * @throws ExpectationFailedException
+     * @throws InvalidArgumentException
+     */
     public function testHasNot(): void
     {
         $helper = new SessionHelper('foo');
@@ -25,6 +39,11 @@ class SessionHelperTest extends TestCase
         $this->assertFalse($helper->has('yes'));
     }
 
+    /**
+     * @return void
+     * @throws ExpectationFailedException
+     * @throws InvalidArgumentException
+     */
     public function testGet(): void
     {
         $helper                 = new SessionHelper('foo');
@@ -34,6 +53,11 @@ class SessionHelperTest extends TestCase
         $this->assertEquals('taataa', $helper->get('och'));
     }
 
+    /**
+     * @return void
+     * @throws ExpectationFailedException
+     * @throws InvalidArgumentException
+     */
     public function testGetDefault(): void
     {
         $helper = new SessionHelper('foo');
@@ -41,6 +65,12 @@ class SessionHelperTest extends TestCase
         $this->assertEquals('faburus', $helper->get('och', 'faburus'));
     }
 
+    /**
+     * @return void
+     * @throws ExpectationFailedException
+     * @throws InvalidArgumentException
+     * @throws Exception
+     */
     public function testSet(): void
     {
         $helper = new SessionHelper('yo');
@@ -49,6 +79,12 @@ class SessionHelperTest extends TestCase
         $this->assertEquals('miau', $_SESSION['yo']['lo']);
     }
 
+    /**
+     * @return void
+     * @throws Exception
+     * @throws ExpectationFailedException
+     * @throws InvalidArgumentException
+     */
     public function testUnset(): void
     {
         $helper                   = new SessionHelper('tests');
@@ -58,6 +94,13 @@ class SessionHelperTest extends TestCase
         $this->assertArrayNotHasKey('foo', $_SESSION['tests']);
     }
 
+    /**
+     * @return void
+     * @throws ExpectationFailedException
+     * @throws InvalidArgumentException
+     * @throws SessionException
+     * @throws \ReflectionException
+     */
     public function testCreateByObjectClass(): void
     {
         $expectedNamespace           = \ZipArchive::class;
@@ -69,6 +112,9 @@ class SessionHelperTest extends TestCase
         $this->assertEquals($expectedNamespace, $actualNamespace);
     }
 
+    /**
+     * @return void
+     */
     protected function setUp(): void
     {
         parent::setUp();

@@ -24,6 +24,7 @@ class RelationTypeTest extends TestCase
      * @param string   $relationType
      * @param int|null $relatedImageIdentityType
      *
+     * @return void
      * @throws DefinitionException
      * @throws ExpectationFailedException
      * @throws InvalidArgumentException
@@ -45,6 +46,7 @@ class RelationTypeTest extends TestCase
      * @param string $relationType
      * @param bool   $hasRelatedImageIdentityType
      *
+     * @return void
      * @throws DefinitionException
      * @throws ExpectationFailedException
      * @throws InvalidArgumentException
@@ -60,6 +62,7 @@ class RelationTypeTest extends TestCase
      * @param string $relationType
      * @param bool   $isRelationType
      *
+     * @return void
      * @throws DefinitionException
      * @throws ExpectationFailedException
      * @throws InvalidArgumentException
@@ -82,6 +85,7 @@ class RelationTypeTest extends TestCase
      * @param string $relationType
      * @param bool   $isRelationType
      *
+     * @return void
      * @throws DefinitionException
      * @throws ExpectationFailedException
      * @throws InvalidArgumentException
@@ -101,6 +105,7 @@ class RelationTypeTest extends TestCase
      * @param string $relationType
      * @param bool   $isRelationType
      *
+     * @return void
      * @throws ExpectationFailedException
      * @throws InvalidArgumentException
      */
@@ -116,6 +121,7 @@ class RelationTypeTest extends TestCase
      * @param string $relationType
      * @param bool   $isRelationType
      *
+     * @return void
      * @throws ExpectationFailedException
      * @throws InvalidArgumentException
      */
@@ -174,11 +180,12 @@ class RelationTypeTest extends TestCase
      * @param string                  $relationType
      * @param DefinitionException|int $expectedValue
      *
+     * @return void
      * @throws DefinitionException
      * @throws ExpectationFailedException
      * @throws InvalidArgumentException
      */
-    public function testGetIdentityType(string $relationType, $expectedValue): void
+    public function testGetIdentityType(string $relationType, DefinitionException|int $expectedValue): void
     {
         if ($expectedValue instanceof DefinitionException) {
             $this->expectExceptionObject($expectedValue);
