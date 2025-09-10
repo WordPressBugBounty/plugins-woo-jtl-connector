@@ -4,7 +4,7 @@
 
 namespace Composer\Autoload;
 
-class ComposerStaticInit9af3dd9e6f470993e81161dc87d465e9
+class ComposerStaticInit0149a19cf18f9f808a7b4004d3791d7a
 {
     public static $files = array (
         '6e3fae29631ef280660b3cdad06f25a8' => __DIR__ . '/..' . '/symfony/deprecation-contracts/function.php',
@@ -1424,6 +1424,7 @@ class ComposerStaticInit9af3dd9e6f470993e81161dc87d465e9
         'JMS\\Serializer\\Type\\Lexer' => __DIR__ . '/..' . '/jms/serializer/src/Type/Lexer.php',
         'JMS\\Serializer\\Type\\Parser' => __DIR__ . '/..' . '/jms/serializer/src/Type/Parser.php',
         'JMS\\Serializer\\Type\\ParserInterface' => __DIR__ . '/..' . '/jms/serializer/src/Type/ParserInterface.php',
+        'JMS\\Serializer\\Type\\Type' => __DIR__ . '/..' . '/jms/serializer/src/Type/Type.php',
         'JMS\\Serializer\\VisitorInterface' => __DIR__ . '/..' . '/jms/serializer/src/VisitorInterface.php',
         'JMS\\Serializer\\Visitor\\DeserializationVisitorInterface' => __DIR__ . '/..' . '/jms/serializer/src/Visitor/DeserializationVisitorInterface.php',
         'JMS\\Serializer\\Visitor\\Factory\\DeserializationVisitorFactory' => __DIR__ . '/..' . '/jms/serializer/src/Visitor/Factory/DeserializationVisitorFactory.php',
@@ -2150,6 +2151,7 @@ class ComposerStaticInit9af3dd9e6f470993e81161dc87d465e9
         'PHPStan\\PhpDocParser\\Ast\\PhpDoc\\RequireExtendsTagValueNode' => __DIR__ . '/..' . '/phpstan/phpdoc-parser/src/Ast/PhpDoc/RequireExtendsTagValueNode.php',
         'PHPStan\\PhpDocParser\\Ast\\PhpDoc\\RequireImplementsTagValueNode' => __DIR__ . '/..' . '/phpstan/phpdoc-parser/src/Ast/PhpDoc/RequireImplementsTagValueNode.php',
         'PHPStan\\PhpDocParser\\Ast\\PhpDoc\\ReturnTagValueNode' => __DIR__ . '/..' . '/phpstan/phpdoc-parser/src/Ast/PhpDoc/ReturnTagValueNode.php',
+        'PHPStan\\PhpDocParser\\Ast\\PhpDoc\\SealedTagValueNode' => __DIR__ . '/..' . '/phpstan/phpdoc-parser/src/Ast/PhpDoc/SealedTagValueNode.php',
         'PHPStan\\PhpDocParser\\Ast\\PhpDoc\\SelfOutTagValueNode' => __DIR__ . '/..' . '/phpstan/phpdoc-parser/src/Ast/PhpDoc/SelfOutTagValueNode.php',
         'PHPStan\\PhpDocParser\\Ast\\PhpDoc\\TemplateTagValueNode' => __DIR__ . '/..' . '/phpstan/phpdoc-parser/src/Ast/PhpDoc/TemplateTagValueNode.php',
         'PHPStan\\PhpDocParser\\Ast\\PhpDoc\\ThrowsTagValueNode' => __DIR__ . '/..' . '/phpstan/phpdoc-parser/src/Ast/PhpDoc/ThrowsTagValueNode.php',
@@ -2211,6 +2213,7 @@ class ComposerStaticInit9af3dd9e6f470993e81161dc87d465e9
         'PhpUnitsOfMeasure\\PhysicalQuantity\\Length' => __DIR__ . '/..' . '/php-units-of-measure/php-units-of-measure/source/PhysicalQuantity/Length.php',
         'PhpUnitsOfMeasure\\PhysicalQuantity\\LuminousIntensity' => __DIR__ . '/..' . '/php-units-of-measure/php-units-of-measure/source/PhysicalQuantity/LuminousIntensity.php',
         'PhpUnitsOfMeasure\\PhysicalQuantity\\Mass' => __DIR__ . '/..' . '/php-units-of-measure/php-units-of-measure/source/PhysicalQuantity/Mass.php',
+        'PhpUnitsOfMeasure\\PhysicalQuantity\\Power' => __DIR__ . '/..' . '/php-units-of-measure/php-units-of-measure/source/PhysicalQuantity/Power.php',
         'PhpUnitsOfMeasure\\PhysicalQuantity\\Pressure' => __DIR__ . '/..' . '/php-units-of-measure/php-units-of-measure/source/PhysicalQuantity/Pressure.php',
         'PhpUnitsOfMeasure\\PhysicalQuantity\\Quantity' => __DIR__ . '/..' . '/php-units-of-measure/php-units-of-measure/source/PhysicalQuantity/Quantity.php',
         'PhpUnitsOfMeasure\\PhysicalQuantity\\SolidAngle' => __DIR__ . '/..' . '/php-units-of-measure/php-units-of-measure/source/PhysicalQuantity/SolidAngle.php',
@@ -2563,9 +2566,9 @@ class ComposerStaticInit9af3dd9e6f470993e81161dc87d465e9
     public static function getInitializer(ClassLoader $loader)
     {
         return \Closure::bind(function () use ($loader) {
-            $loader->prefixLengthsPsr4 = ComposerStaticInit9af3dd9e6f470993e81161dc87d465e9::$prefixLengthsPsr4;
-            $loader->prefixDirsPsr4 = ComposerStaticInit9af3dd9e6f470993e81161dc87d465e9::$prefixDirsPsr4;
-            $loader->classMap = ComposerStaticInit9af3dd9e6f470993e81161dc87d465e9::$classMap;
+            $loader->prefixLengthsPsr4 = ComposerStaticInit0149a19cf18f9f808a7b4004d3791d7a::$prefixLengthsPsr4;
+            $loader->prefixDirsPsr4 = ComposerStaticInit0149a19cf18f9f808a7b4004d3791d7a::$prefixDirsPsr4;
+            $loader->classMap = ComposerStaticInit0149a19cf18f9f808a7b4004d3791d7a::$classMap;
 
         }, null, ClassLoader::class);
     }
