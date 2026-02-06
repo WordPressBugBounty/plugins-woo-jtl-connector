@@ -48,11 +48,11 @@ class TransactionalControllerStub implements
     }
 
     /**
-     * @param AbstractModel $model
+     * @param AbstractModel ...$model
      *
-     * @return AbstractModel
+     * @return AbstractModel[]
      */
-    public function delete(AbstractModel $model): AbstractModel
+    public function delete(AbstractModel ...$model): array
     {
         return $model;
     }
@@ -72,11 +72,11 @@ class TransactionalControllerStub implements
     }
 
     /**
-     * @param AbstractModel $model
+     * @param AbstractModel ...$model
      *
-     * @return AbstractModel
+     * @return AbstractModel[]
      */
-    public function push(AbstractModel $model): AbstractModel
+    public function push(AbstractModel ...$model): array
     {
         return $model;
     }

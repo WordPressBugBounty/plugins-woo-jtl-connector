@@ -103,9 +103,20 @@ class ProductController extends AbstractBaseController implements
                 continue;
             }
 
-            $postDate     = $product->get_date_created();
-            $modDate      = $product->get_date_modified();
-            $status       = $product->get_status('view');
+            $postDate      = $product->get_date_created();
+            $modDate       = $product->get_date_modified();
+            $status        = $product->get_status('view');
+            $considerStock = \is_string($managingStock = $product->managing_stock())
+                ? $product->managing_stock() === 'yes'
+                : (\is_bool($managingStock) ? $managingStock : null);
+
+            if ($considerStock === null) {
+                throw new \InvalidArgumentException(
+                    'Managing stock expected to be bool or string. Got '
+                    . \gettype($managingStock) . ' instead.'
+                );
+            }
+
             $productModel = (new ProductModel())
                 ->setId(new Identity((string)$product->get_id()))
                 ->setIsMasterProduct($product->is_type('variable'))
@@ -132,7 +143,7 @@ class ProductController extends AbstractBaseController implements
                 ->setLength((double)$product->get_length())
                 ->setWidth((double)$product->get_width())
                 ->setShippingWeight((double)$product->get_weight())
-                ->setConsiderStock($product->managing_stock())
+                ->setConsiderStock($product->managing_stock() === 'yes')
                 ->setPermitNegativeStock($product->backorders_allowed())
                 ->setShippingClassId(new Identity((string)$product->get_shipping_class_id()));
 
@@ -150,7 +161,7 @@ class ProductController extends AbstractBaseController implements
                     $ean                = \get_post_meta($product->get_id(), '_ts_gtin');
 
                     if (!\is_string($manufacturerNumber)) {
-                        throw new \InvalidArgumentException(
+                        throw new InvalidArgumentException(
                             'Manufacturer number is not a string'
                         );
                     }
@@ -225,11 +236,9 @@ class ProductController extends AbstractBaseController implements
                 );
             }
 
-            if (
-                SupportedPlugins::isActive(SupportedPlugins::PLUGIN_WOOCOMMERCE_GERMANIZED)
-                || SupportedPlugins::isActive(SupportedPlugins::PLUGIN_WOOCOMMERCE_GERMANIZED2)
-                || SupportedPlugins::isActive(SupportedPlugins::PLUGIN_WOOCOMMERCE_GERMANIZEDPRO)
-            ) {
+            $manufacturerId = null;
+
+            if (SupportedPlugins::isGermanizedActive()) {
                 (new ProductGermanizedFieldsController($this->db, $this->util))->pullData($productModel, $product);
             }
 
@@ -241,11 +250,9 @@ class ProductController extends AbstractBaseController implements
                 (new ProductB2BMarketFieldsController($this->db, $this->util))->pullData($productModel, $product);
             }
 
-            if (SupportedPlugins::isPerfectWooCommerceBrandsActive()) {
-                $tmpManId = (new ProductManufacturerController($this->db, $this->util))->pullData($productModel);
-                if ($tmpManId instanceof Identity) {
-                    $productModel->setManufacturerId($tmpManId);
-                }
+            $manufacturerId = (new ProductManufacturerController($this->db, $this->util))->pullData($productModel);
+            if ($manufacturerId instanceof Identity) {
+                $productModel->setManufacturerId($manufacturerId);
             }
 
             if (SupportedPlugins::isActive(SupportedPlugins::PLUGIN_ADVANCED_CUSTOM_FIELDS)) {
@@ -259,17 +266,23 @@ class ProductController extends AbstractBaseController implements
     }
 
     /**
-     * @param AbstractModel $model
-     * @phpstan-param Product $model
+     * @param AbstractModel ...$models
+     * @phpstan-param Product ...$model
      *
-     * @return AbstractModel
+     * @return AbstractModel[]
      * @throws InvalidArgumentException
+     * @throws MustNotBeNullException
      * @throws NonNumericValue
      * @throws NonStringUnitName
+     * @throws TranslatableAttributeException
      * @throws WC_Data_Exception
-     * @throws Exception
+     * @throws \DateInvalidTimeZoneException
+     * @throws \DateMalformedStringException
+     * @throws \Psr\Log\InvalidArgumentException
+     * @throws \TypeError
+     * @throws \WP_Exception
      */
-    public function push(AbstractModel $model): AbstractModel
+    public function push(AbstractModel ...$models): array
     {
         if (Config::get(Config::OPTIONS_AUTO_WOOCOMMERCE_OPTIONS)) {
             //Wawi überträgt Netto
@@ -280,165 +293,180 @@ class ProductController extends AbstractBaseController implements
             \update_option('woocommerce_tax_display_cart', 'incl', true);
         }
 
-        $tmpI18n         = null;
-        $masterProductId = $model->getMasterProductId()->getEndpoint();
+        $returnModels = [];
 
-        if (empty($masterProductId) && isset(self::$idCache[$model->getMasterProductId()->getHost()])) {
-            $masterProductId = self::$idCache[$model->getMasterProductId()->getHost()];
-            $model->getMasterProductId()->setEndpoint((string)$masterProductId);
-        }
+        foreach ($models as $model) {
+            $tmpI18n         = null;
+            $masterProductId = $model->getMasterProductId()->getEndpoint();
 
-        foreach ($model->getI18ns() as $i18n) {
-            if ($this->wpml->canBeUsed()) {
-                if ($this->wpml->getDefaultLanguage() === Util::mapLanguageIso($i18n->getLanguageIso())) {
-                    $tmpI18n = $i18n;
-                    break;
-                }
-            } else {
-                if ($this->util->isWooCommerceLanguage($i18n->getLanguageISO())) {
-                    $tmpI18n = $i18n;
-                    break;
+            if (empty($masterProductId) && isset(self::$idCache[$model->getMasterProductId()->getHost()])) {
+                $masterProductId = self::$idCache[$model->getMasterProductId()->getHost()];
+                $model->getMasterProductId()->setEndpoint((string)$masterProductId);
+            }
+
+            foreach ($model->getI18ns() as $i18n) {
+                if ($this->wpml->canBeUsed()) {
+                    if ($this->wpml->getDefaultLanguage() === Util::mapLanguageIso($i18n->getLanguageIso())) {
+                        $tmpI18n = $i18n;
+                        break;
+                    }
+                } else {
+                    if ($this->util->isWooCommerceLanguage($i18n->getLanguageISO())) {
+                        $tmpI18n = $i18n;
+                        break;
+                    }
                 }
             }
-        }
 
-        if (\is_null($tmpI18n)) {
-            return $model;
-        }
+            if (\is_null($tmpI18n)) {
+                $returnModels[] = $model;
+                continue;
+            }
 
-        $wcProductId       = (int)$model->getId()->getEndpoint();
-        $existingProductId = \wc_get_product_id_by_sku($model->getSku());
-        if ($existingProductId !== 0) {
-            $wcProductId = $existingProductId;
-        }
+            $wcProductId       = (int)$model->getId()->getEndpoint();
+            $existingProductId = \wc_get_product_id_by_sku($model->getSku());
+            if ($existingProductId !== 0) {
+                $wcProductId = $existingProductId;
+            }
 
-        $creationDate = \is_null($model->getAvailableFrom())
-            ? $model->getCreationDate()
-            : $model->getAvailableFrom();
+            $creationDate = \is_null($model->getAvailableFrom())
+                ? $model->getCreationDate()
+                : $model->getAvailableFrom();
 
-        if (!$creationDate instanceof DateTime) {
-            $creationDate = new DateTime();
-        }
+            if (!$creationDate instanceof DateTime) {
+                $creationDate = new DateTime();
+            }
 
-        $isMasterProduct = empty($masterProductId);
+            $isMasterProduct = empty($masterProductId);
 
-        /** @var ProductI18nModel $tmpI18n */
-        $endpoint = [
-            'ID' => $wcProductId,
-            'post_type' => $isMasterProduct ? 'product' : 'product_variation',
-            'post_title' => $tmpI18n->getName(),
-            'post_name' => $tmpI18n->getUrlPath(),
-            'post_content' => $tmpI18n->getDescription(),
-            'post_excerpt' => $tmpI18n->getShortDescription(),
-            'post_date' => $this->getCreationDate($creationDate),
-            'post_status' => \is_null($model->getAvailableFrom())
-                ? ($model->getIsActive() ? 'publish' : 'draft')
-                : 'future',
-        ];
+            /** @var ProductI18nModel $tmpI18n */
+            $endpoint = [
+                'ID' => $wcProductId,
+                'post_type' => $isMasterProduct ? 'product' : 'product_variation',
+                'post_title' => $tmpI18n->getName(),
+                'post_name' => $tmpI18n->getUrlPath(),
+                'post_content' => $tmpI18n->getDescription(),
+                'post_excerpt' => $tmpI18n->getShortDescription(),
+                'post_date' => $this->getCreationDate($creationDate),
+                'post_status' => \is_null($model->getAvailableFrom())
+                    ? ($model->getIsActive() ? 'publish' : 'draft')
+                    : 'future',
+            ];
 
-        if ($endpoint['ID'] !== 0) {
-            // Needs to be set for existing products otherwise commenting is disabled
-            $endpoint['comment_status'] = \get_post_field('comment_status', $endpoint['ID']);
-        }
+            if ($endpoint['ID'] !== 0) {
+                // Needs to be set for existing products otherwise commenting is disabled
+                $endpoint['comment_status'] = \get_post_field('comment_status', $endpoint['ID']);
+            }
 
-        // Post filtering
-        \remove_filter('content_save_pre', 'wp_filter_post_kses');
-        \remove_filter('content_filtered_save_pre', 'wp_filter_post_kses');
-        $newPostId = \wp_insert_post($endpoint, true);
-        // Post filtering
-        \add_filter('content_save_pre', 'wp_filter_post_kses');
-        \add_filter('content_filtered_save_pre', 'wp_filter_post_kses');
+            // Post filtering
+            \remove_filter('content_save_pre', 'wp_filter_post_kses');
+            \remove_filter('content_filtered_save_pre', 'wp_filter_post_kses');
+            $newPostId = \wp_insert_post($endpoint, true);
+            // Post filtering
+            \add_filter('content_save_pre', 'wp_filter_post_kses');
+            \add_filter('content_filtered_save_pre', 'wp_filter_post_kses');
 
-        if (!\is_int($newPostId)) {
-            $this->logger->error(ErrorFormatter::formatError($newPostId));
-            return $model;
-        }
+            if (!\is_int($newPostId)) {
+                $this->logger->error(ErrorFormatter::formatError($newPostId));
+                $returnModels[] = $model;
+                continue;
+            }
 
-        $model->getId()->setEndpoint((string)$newPostId);
+            $model->getId()->setEndpoint((string)$newPostId);
 
-        $wcProduct = \wc_get_product($newPostId);
-        $this->onProductInserted($model, $tmpI18n);
-
-        if ($this->wpml->canBeUsed()) {
-            /** @var WpmlProduct $wpmlProduct */
-            $wpmlProduct = $this->wpml->getComponent(WpmlProduct::class);
-            $wpmlProduct->setProductTranslations(
-                $newPostId,
-                (string)$masterProductId,
-                $model
-            );
-        }
-
-        if (
-            SupportedPlugins::isActive(SupportedPlugins::PLUGIN_WOOCOMMERCE_GERMANIZED)
-            || SupportedPlugins::isActive(SupportedPlugins::PLUGIN_WOOCOMMERCE_GERMANIZED2)
-            || SupportedPlugins::isActive(SupportedPlugins::PLUGIN_WOOCOMMERCE_GERMANIZEDPRO)
-        ) {
-            (new ProductGermanizedFieldsController($this->db, $this->util))->pushData($model);
-        }
-
-        if (SupportedPlugins::isActive(SupportedPlugins::PLUGIN_GERMAN_MARKET)) {
-            (new ProductGermanMarketFieldsController($this->db, $this->util))->pushData($model);
-        }
-
-        if (SupportedPlugins::isActive(SupportedPlugins::PLUGIN_B2B_MARKET)) {
-            (new ProductB2BMarketFieldsController($this->db, $this->util))->pushData($model);
-        }
-
-        if (
-            SupportedPlugins::isActive(SupportedPlugins::PLUGIN_YOAST_SEO)
-            || SupportedPlugins::isActive(SupportedPlugins::PLUGIN_YOAST_SEO_PREMIUM)
-            || SupportedPlugins::isActive(SupportedPlugins::PLUGIN_RANK_MATH_SEO)
-            || SupportedPlugins::isActive(SupportedPlugins::PLUGIN_RANK_MATH_SEO_AI)
-        ) {
-            (new ProductMetaSeoController($this->db, $this->util))->pushData($newPostId, $tmpI18n);
-        }
-
-        if (SupportedPlugins::isActive(SupportedPlugins::PLUGIN_ADVANCED_CUSTOM_FIELDS)) {
-            (new ProductAdvancedCustomFieldsController($this->db, $this->util))->pushData($model);
-        }
-
-        \remove_filter('content_save_pre', 'wp_filter_post_kses');
-        \remove_filter('content_filtered_save_pre', 'wp_filter_post_kses');
-
-        \wp_update_post([
-            'ID' => $newPostId,
-            'post_content' => $tmpI18n->getDescription(),
-            'post_excerpt' => $tmpI18n->getShortDescription()
-        ]);
-
-        \add_filter('content_save_pre', 'wp_filter_post_kses');
-        \add_filter('content_filtered_save_pre', 'wp_filter_post_kses');
-
-        return $model;
-    }
-
-    /**
-     * @param AbstractModel $model
-     * @return AbstractModel
-     * @throws Exception
-     */
-    public function delete(AbstractModel $model): AbstractModel
-    {
-        /** @var Product $model */
-        $productId = (int)$model->getId()->getEndpoint();
-
-        $wcProduct = \wc_get_product($productId);
-
-        if ($wcProduct instanceof \WC_Product) {
-            \wp_delete_post($productId, true);
-            \wc_delete_product_transients($productId);
+            $wcProduct = \wc_get_product($newPostId);
+            $this->onProductInserted($model, $tmpI18n);
 
             if ($this->wpml->canBeUsed()) {
                 /** @var WpmlProduct $wpmlProduct */
                 $wpmlProduct = $this->wpml->getComponent(WpmlProduct::class);
-                $wpmlProduct->deleteTranslations($wcProduct);
+                $wpmlProduct->setProductTranslations(
+                    $newPostId,
+                    (string)$masterProductId,
+                    $model
+                );
             }
 
-            unset(self::$idCache[$model->getId()->getHost()]);
+            if (
+                SupportedPlugins::isActive(SupportedPlugins::PLUGIN_WOOCOMMERCE_GERMANIZED)
+                || SupportedPlugins::isActive(SupportedPlugins::PLUGIN_WOOCOMMERCE_GERMANIZED2)
+                || SupportedPlugins::isActive(SupportedPlugins::PLUGIN_WOOCOMMERCE_GERMANIZEDPRO)
+            ) {
+                (new ProductGermanizedFieldsController($this->db, $this->util))->pushData($model);
+            }
+
+            if (SupportedPlugins::isActive(SupportedPlugins::PLUGIN_GERMAN_MARKET)) {
+                (new ProductGermanMarketFieldsController($this->db, $this->util))->pushData($model);
+            }
+
+            if (SupportedPlugins::isActive(SupportedPlugins::PLUGIN_B2B_MARKET)) {
+                (new ProductB2BMarketFieldsController($this->db, $this->util))->pushData($model);
+            }
+
+            if (
+                SupportedPlugins::isActive(SupportedPlugins::PLUGIN_YOAST_SEO)
+                || SupportedPlugins::isActive(SupportedPlugins::PLUGIN_YOAST_SEO_PREMIUM)
+                || SupportedPlugins::isActive(SupportedPlugins::PLUGIN_RANK_MATH_SEO)
+                || SupportedPlugins::isActive(SupportedPlugins::PLUGIN_RANK_MATH_SEO_AI)
+            ) {
+                (new ProductMetaSeoController($this->db, $this->util))->pushData($newPostId, $tmpI18n);
+            }
+
+            if (SupportedPlugins::isActive(SupportedPlugins::PLUGIN_ADVANCED_CUSTOM_FIELDS)) {
+                (new ProductAdvancedCustomFieldsController($this->db, $this->util))->pushData($model);
+            }
+
+            \remove_filter('content_save_pre', 'wp_filter_post_kses');
+            \remove_filter('content_filtered_save_pre', 'wp_filter_post_kses');
+
+            \wp_update_post([
+                'ID' => $newPostId,
+                'post_content' => $tmpI18n->getDescription(),
+                'post_excerpt' => $tmpI18n->getShortDescription()
+            ]);
+
+            \add_filter('content_save_pre', 'wp_filter_post_kses');
+            \add_filter('content_filtered_save_pre', 'wp_filter_post_kses');
+
+            $returnModels[] = $model;
         }
 
-        return $model;
+        return $returnModels;
+    }
+
+    /**
+     * @param AbstractModel ...$models
+     * @return AbstractModel[]
+     * @throws \Psr\Log\InvalidArgumentException
+     * @throws Exception
+     */
+    public function delete(AbstractModel ...$models): array
+    {
+        $returnModels = [];
+
+        foreach ($models as $model) {
+            /** @var Product $model */
+            $productId = (int)$model->getId()->getEndpoint();
+
+            $wcProduct = \wc_get_product($productId);
+
+            if ($wcProduct instanceof \WC_Product) {
+                \wp_delete_post($productId, true);
+                \wc_delete_product_transients($productId);
+
+                if ($this->wpml->canBeUsed()) {
+                    /** @var WpmlProduct $wpmlProduct */
+                    $wpmlProduct = $this->wpml->getComponent(WpmlProduct::class);
+                    $wpmlProduct->deleteTranslations($wcProduct);
+                }
+
+                unset(self::$idCache[$model->getId()->getHost()]);
+            }
+
+            $returnModels[] = $model;
+        }
+
+        return $returnModels;
     }
 
     /**
@@ -503,7 +531,7 @@ class ProductController extends AbstractBaseController implements
      * @param WC_Product   $wcProduct
      * @return void
      * @throws TranslatableAttributeException
-     * @throws \http\Exception\InvalidArgumentException
+     * @throws InvalidArgumentException
      */
     public function updateProductType(ProductModel $jtlProduct, WC_Product $wcProduct): void
     {
@@ -567,7 +595,7 @@ class ProductController extends AbstractBaseController implements
             $currentProductType = \wp_get_object_terms($wcProduct->get_id(), 'product_type');
 
             if ($currentProductType instanceof \WP_Error) {
-                throw new \InvalidArgumentException(
+                throw new InvalidArgumentException(
                     "Expected current product type to be iterable. Got WP_Error."
                 );
             }

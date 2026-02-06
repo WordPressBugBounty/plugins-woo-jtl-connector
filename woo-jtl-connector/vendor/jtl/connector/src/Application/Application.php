@@ -977,13 +977,13 @@ class Application
             case Action::PUSH:
             case Action::DELETE:
                 try {
-                    $model = null;
-                    foreach ($params as $model) {
-                        if ($controller instanceof TransactionalInterface) {
-                            $controller->beginTransaction();
-                        }
+                    if ($controller instanceof TransactionalInterface) {
+                        $controller->beginTransaction();
+                    }
 
-                        $dataModel = $controller->$action($model);
+                    $dataModels = $controller->$action(...$params);
+
+                    foreach ($dataModels as $dataModel) {
                         if ($dataModel instanceof AbstractModel) {
                             /** @var IdentityLinker $identityLinker */
                             $identityLinker = $this->container->get(IdentityLinker::class);
@@ -1003,11 +1003,12 @@ class Application
                         $controller->rollback();
                     }
 
-                    if (!($model instanceof AbstractModel)) {
-                        throw new \RuntimeException('$model must be instance of AbstractModel.');
+                    foreach ($params as $model) {
+                        if (!($model instanceof AbstractModel)) {
+                            throw new \RuntimeException('$model must be instance of AbstractModel.');
+                        }
+                        $this->extendExceptionMessageWithIdentifiers($ex, $model, $controllerName, $action);
                     }
-
-                    $this->extendExceptionMessageWithIdentifiers($ex, $model, $controllerName, $action);
 
                     throw $ex;
                 }

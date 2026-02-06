@@ -11,9 +11,9 @@ interface PushInterface
     /**
      * Insert or update
      *
-     * @param AbstractModel $model
+     * @param AbstractModel ...$model
      *
-     * @return AbstractModel
+     * @return AbstractModel[]
      */
-    public function push(AbstractModel $model): AbstractModel;
+    public function push(AbstractModel ...$model): array;
 }

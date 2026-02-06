@@ -435,7 +435,7 @@ class ApplicationTest extends TestCase
         $application->getContainer()->set(Controller::CATEGORY, $controller);
         $category = new Category();
 
-        $controller->expects($this->once())->method('delete')->with($category)->willReturn($category);
+        $controller->expects($this->once())->method('delete')->with($category)->willReturn([$category]);
         $controller->expects($this->once())->method('beginTransaction');
         $controller->expects($this->once())->method('commit');
         $controller->expects($this->never())->method('rollback');
@@ -797,7 +797,7 @@ class ApplicationTest extends TestCase
             ->with($config, $app->getContainer(), $app->getEventDispatcher());
 
         $configSchema->expects($this->once())->method('validateConfig')->with($config);
-        $controller->expects($this->once())->method('push')->willReturn($manufacturer);
+        $controller->expects($this->once())->method('push')->willReturn([$manufacturer]);
         $this->expectOutputString(\json_encode($responsePacket->toArray($serializer), \JSON_THROW_ON_ERROR));
 
         $app->run($connector);

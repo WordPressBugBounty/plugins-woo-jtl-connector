@@ -1,4 +1,5 @@
 unreleased
+- CO-2876 implement model count
 -----
 
 5.3.0

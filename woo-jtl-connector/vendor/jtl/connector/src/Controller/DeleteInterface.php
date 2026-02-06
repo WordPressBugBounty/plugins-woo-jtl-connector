@@ -11,9 +11,9 @@ interface DeleteInterface
     /**
      * Delete
      *
-     * @param AbstractModel $model
+     * @param AbstractModel ...$model
      *
-     * @return AbstractModel
+     * @return AbstractModel[]
      */
-    public function delete(AbstractModel $model): AbstractModel;
+    public function delete(AbstractModel ...$model): array;
 }
