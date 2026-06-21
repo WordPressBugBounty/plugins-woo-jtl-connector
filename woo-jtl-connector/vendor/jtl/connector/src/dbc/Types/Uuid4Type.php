@@ -13,7 +13,7 @@ use Doctrine\DBAL\Types\Type;
 
 class Uuid4Type extends Type
 {
-    public const
+    public const string
         NAME = 'uuid4';
 
     /**

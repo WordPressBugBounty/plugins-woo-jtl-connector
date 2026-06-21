@@ -6,7 +6,7 @@ namespace Jtl\Connector\Core\Exception;
 
 class TranslatableAttributeException extends \Exception
 {
-    public const
+    public const int
         VALUE_TYPE_INVALID    = 20,
         DECODING_VALUE_FAILED = 30;
 

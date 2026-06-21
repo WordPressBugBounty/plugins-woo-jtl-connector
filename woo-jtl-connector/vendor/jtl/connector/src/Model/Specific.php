@@ -17,7 +17,7 @@ use JMS\Serializer\Annotation as Serializer;
 #[Serializer\AccessType(['value' => 'public_method'])]
 class Specific extends AbstractIdentity
 {
-    public const
+    public const string
         TYPE_TEXT       = 'TEXT',
         TYPE_SELECT     = 'SELECTBOX',
         TYPE_IMAGE      = 'BILD',

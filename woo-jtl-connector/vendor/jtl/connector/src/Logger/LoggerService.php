@@ -28,7 +28,7 @@ use UnexpectedValueException;
 
 class LoggerService
 {
-    public const
+    public const string
         CHANNEL_CHECKSUM = 'checksum',
         CHANNEL_ERROR    = 'error',
         CHANNEL_GLOBAL   = 'global',

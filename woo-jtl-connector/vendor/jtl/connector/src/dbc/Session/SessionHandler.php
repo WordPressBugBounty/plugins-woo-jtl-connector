@@ -22,7 +22,7 @@ use ReturnTypeWillChange;
 
 class SessionHandler extends AbstractTable implements SessionHandlerInterface
 {
-    public const
+    public const string
         SESSION_ID   = 'session_id',
         SESSION_DATA = 'session_data',
         EXPIRES_AT   = 'expires_at';

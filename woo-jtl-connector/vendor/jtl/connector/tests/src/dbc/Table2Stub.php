@@ -11,8 +11,8 @@ use Doctrine\DBAL\Types\Type;
 
 class Table2Stub extends AbstractTable
 {
-    public const ID = 'id';
-    public const A  = 'a';
+    public const string ID = 'id';
+    public const string A  = 'a';
 
     /**
      * @return string

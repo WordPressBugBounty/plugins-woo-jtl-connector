@@ -15,12 +15,12 @@ use Jtl\Connector\Dbc\DbManager;
 
 class TableStub extends AbstractTable implements TableInterface
 {
-    public const COL_ID1    = 'id1';
-    public const COL_ID2    = 'id2';
-    public const COL_VAR    = 'strg';
-    public const TYPE1      = 815;
-    public const TYPE2      = 7;
-    public const TABLE_NAME = 'mapping_table';
+    public const string COL_ID1    = 'id1';
+    public const string COL_ID2    = 'id2';
+    public const string COL_VAR    = 'strg';
+    public const int TYPE1         = 815;
+    public const int TYPE2         = 7;
+    public const string TABLE_NAME = 'mapping_table';
 
     /**
      * @param DbManager $dbManager

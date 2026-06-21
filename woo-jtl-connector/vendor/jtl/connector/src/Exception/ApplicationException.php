@@ -15,7 +15,7 @@ use Jtl\Connector\Core\Utilities\Str;
  */
 class ApplicationException extends \Exception
 {
-    public const
+    public const int
         CONNECTOR_DIR_NOT_EXISTS = 10,
         IMAGE_NOT_FOUND          = 20;
 

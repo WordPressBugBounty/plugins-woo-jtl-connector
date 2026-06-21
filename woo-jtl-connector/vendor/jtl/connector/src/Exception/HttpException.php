@@ -6,7 +6,7 @@ namespace Jtl\Connector\Core\Exception;
 
 class HttpException extends \Exception
 {
-    public const UNKNOWN_METHOD = 10;
+    public const int UNKNOWN_METHOD = 10;
 
     /**
      * @param string $method

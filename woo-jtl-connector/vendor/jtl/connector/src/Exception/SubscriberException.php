@@ -6,7 +6,7 @@ namespace Jtl\Connector\Core\Exception;
 
 class SubscriberException extends \Exception
 {
-    public const INVALID_MODEL_TYPE = 10;
+    public const int INVALID_MODEL_TYPE = 10;
 
     /**
      * @param string $expectedModelClass

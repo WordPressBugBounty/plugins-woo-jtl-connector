@@ -13,10 +13,10 @@ use Doctrine\DBAL\Types\Type;
 
 class TableStub extends AbstractTable
 {
-    public const ID = 'id';
-    public const A  = 'a';
-    public const B  = 'b';
-    public const C  = 'c';
+    public const string ID = 'id';
+    public const string A  = 'a';
+    public const string B  = 'b';
+    public const string C  = 'c';
 
     /**
      * @return string

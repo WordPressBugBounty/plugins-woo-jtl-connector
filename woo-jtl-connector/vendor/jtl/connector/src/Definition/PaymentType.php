@@ -6,7 +6,7 @@ namespace Jtl\Connector\Core\Definition;
 
 final class PaymentType
 {
-    public const
+    public const string
         ADYEN                = 'pm_adyen',
         ALIPAY               = 'pm_alipay',
         AMAPAY               = 'pm_amazon_payments',

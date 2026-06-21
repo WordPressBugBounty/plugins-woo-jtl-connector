@@ -15,7 +15,7 @@ use Jtl\Connector\Core\Utilities\Str;
  */
 final class Event
 {
-    public const
+    public const string
         BEFORE = 'before',
         AFTER  = 'after';
 

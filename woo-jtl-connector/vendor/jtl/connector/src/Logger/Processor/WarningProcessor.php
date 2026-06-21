@@ -10,7 +10,7 @@ use Monolog\Processor\ProcessorInterface;
 
 class WarningProcessor implements ProcessorInterface
 {
-    public const SEND_TO_WAWI = 'sendToWawi';
+    public const string SEND_TO_WAWI = 'sendToWawi';
 
     private Warnings $warnings;
 

@@ -6,7 +6,7 @@ namespace Jtl\Connector\Core\Definition;
 
 final class Action
 {
-    public const
+    public const string
         PULL      = 'pull',
         PUSH      = 'push',
         DELETE    = 'delete',

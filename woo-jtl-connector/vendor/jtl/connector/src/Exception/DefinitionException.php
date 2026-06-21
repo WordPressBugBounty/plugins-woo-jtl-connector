@@ -8,18 +8,18 @@ use Jtl\Connector\Core\Definition\ErrorCode;
 
 class DefinitionException extends \Exception
 {
-    public const MODEL_MAPPING_NOT_EXISTS   = 10,
-        UNKNOWN_IDENTITY_PROPERTY           = 20,
-        UNKNOWN_MODEL                       = 30,
-        IDENTITY_TYPE_MAPPING_NOT_EXISTS    = 40,
-        UNKNOWN_IDENTITY_TYPE               = 50,
-        UNKNOWN_CONFIG_OPTION               = 70,
-        DEFAULT_VALUE_NOT_EXISTS            = 80,
-        UNKNOWN_MOMENT                      = 100,
-        UNKNOWN_RELATION_TYPE               = 110,
-        UNKNOWN_IMAGE_IDENTITY_TYPE_MAPPING = 120,
-        UNKNOWN_RPC_METHOD                  = 130,
-        RELATION_TYPE_CANNOT_BE_EMPTY       = 140;
+    public const int MODEL_MAPPING_NOT_EXISTS = 10,
+        UNKNOWN_IDENTITY_PROPERTY             = 20,
+        UNKNOWN_MODEL                         = 30,
+        IDENTITY_TYPE_MAPPING_NOT_EXISTS      = 40,
+        UNKNOWN_IDENTITY_TYPE                 = 50,
+        UNKNOWN_CONFIG_OPTION                 = 70,
+        DEFAULT_VALUE_NOT_EXISTS              = 80,
+        UNKNOWN_MOMENT                        = 100,
+        UNKNOWN_RELATION_TYPE                 = 110,
+        UNKNOWN_IMAGE_IDENTITY_TYPE_MAPPING   = 120,
+        UNKNOWN_RPC_METHOD                    = 130,
+        RELATION_TYPE_CANNOT_BE_EMPTY         = 140;
 
     /**
      * @param string $modelName

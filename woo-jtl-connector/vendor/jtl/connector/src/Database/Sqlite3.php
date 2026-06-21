@@ -14,7 +14,7 @@ class Sqlite3 implements DatabaseInterface, LoggerAwareInterface
     /**
      * Sqlite 3 sharedcache value
      */
-    public const SQLITE3_OPEN_SHAREDCACHE = 0x00020000;
+    public const int SQLITE3_OPEN_SHAREDCACHE = 0x00020000;
     /**
      * Path to the SQLite database, or :memory: to use in-memory database.
      */

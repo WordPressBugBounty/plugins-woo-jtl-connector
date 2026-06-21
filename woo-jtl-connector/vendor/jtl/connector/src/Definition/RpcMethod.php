@@ -6,7 +6,7 @@ namespace Jtl\Connector\Core\Definition;
 
 final class RpcMethod
 {
-    public const
+    public const string
         ACK      = 'core.connector.ack',
         AUTH     = 'core.connector.auth',
         CLEAR    = 'core.linker.clear',

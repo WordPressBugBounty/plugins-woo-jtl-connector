@@ -8,10 +8,10 @@ use Jtl\Connector\Core\Exception\DefinitionException;
 
 final class Model
 {
-    public const
+    public const string
         MODEL_NAMESPACE = 'Jtl\\Connector\\Core\\Model';
 
-    public const
+    public const string
         CATEGORY                             = 'Category',
         CATEGORY_ATTRIBUTE                   = 'CategoryAttribute',
         CATEGORY_IMAGE                       = 'CategoryImage',

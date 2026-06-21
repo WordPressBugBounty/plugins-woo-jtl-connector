@@ -6,7 +6,7 @@ namespace Jtl\Connector\Core\Exception;
 
 class FeaturesException extends \Exception
 {
-    public const
+    public const int
         ENTITY_NOT_FOUND = 10,
         FLAG_NOT_FOUND   = 20;
 

@@ -6,7 +6,7 @@ namespace Jtl\Connector\Core\Exception;
 
 class LoggerException extends \Exception
 {
-    public const FORMATTER_NOT_EXISTS = 10;
+    public const int FORMATTER_NOT_EXISTS = 10;
 
     /**
      * @param string $className

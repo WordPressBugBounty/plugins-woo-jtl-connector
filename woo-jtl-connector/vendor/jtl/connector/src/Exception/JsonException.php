@@ -6,8 +6,8 @@ namespace Jtl\Connector\Core\Exception;
 
 class JsonException extends \RuntimeException
 {
-    public const ENCODING_ERROR = 10;
-    public const DECODING_ERROR = 20;
+    public const int ENCODING_ERROR = 10;
+    public const int DECODING_ERROR = 20;
 
     /**
      * @param string $lastErrorMessage

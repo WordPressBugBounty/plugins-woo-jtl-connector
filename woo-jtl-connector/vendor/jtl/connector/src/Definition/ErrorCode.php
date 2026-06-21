@@ -6,7 +6,7 @@ namespace Jtl\Connector\Core\Definition;
 
 final class ErrorCode
 {
-    public const
+    public const int
         NO_SESSION            = 789,
         AUTHENTICATION_FAILED = 790,
         INVALID_SESSION       = -32000,

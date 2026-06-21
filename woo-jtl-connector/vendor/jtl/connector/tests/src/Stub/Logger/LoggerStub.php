@@ -13,14 +13,14 @@ use Monolog\Logger as MonoLogger;
  */
 class LoggerStub
 {
-    public const
+    public const string
         CHANNEL_CHECKSUM = 'checksum',
         CHANNEL_GLOBAL   = 'global',
         CHANNEL_LINKER   = 'linker',
         CHANNEL_RPC      = 'rpc',
         CHANNEL_SESSION  = 'session';
 
-    public const
+    public const string
         INFO    = 'info',
         WARNING = 'warning',
         DEBUG   = 'debug',

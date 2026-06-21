@@ -6,7 +6,7 @@ namespace Jtl\Connector\Core\Definition;
 
 class IdentityType
 {
-    public const
+    public const int
         CATEGORY                      = 1,
         CUSTOMER                      = 2,
         CUSTOMER_ORDER                = 4,
@@ -37,6 +37,7 @@ class IdentityType
         PRODUCT_VARIATION             = 38,
         PRODUCT_VARIATION_VALUE       = 40,
         PRODUCT_IMAGE                 = 42,
+        PRODUCT_IMAGE_DELETED         = 43,
         CATEGORY_IMAGE                = 44,
         MANUFACTURER_IMAGE            = 46,
         PRODUCT_VARIATION_VALUE_IMAGE = 48,

@@ -6,7 +6,7 @@ namespace Jtl\Connector\Dbc;
 
 class DbcRuntimeException extends \RuntimeException
 {
-    public const
+    public const int
         TABLE_NOT_FOUND   = 10,
         TABLE_EMPTY       = 20,
         COLUMN_NOT_FOUND  = 30,

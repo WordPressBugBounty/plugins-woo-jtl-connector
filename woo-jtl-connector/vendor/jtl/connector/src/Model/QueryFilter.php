@@ -15,7 +15,7 @@ use JMS\Serializer\Annotation as Serializer;
 #[Serializer\AccessType(['value' => 'public_method'])]
 class QueryFilter
 {
-    public const
+    public const string
         FILTER_FETCH_CHILDREN = 'fetchChildren',
         FILTER_PARENT_ID      = 'parentId',
         FILTER_RELATION_TYPE  = 'relationType';

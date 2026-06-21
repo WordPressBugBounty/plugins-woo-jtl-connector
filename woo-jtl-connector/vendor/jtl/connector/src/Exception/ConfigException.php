@@ -6,7 +6,7 @@ namespace Jtl\Connector\Core\Exception;
 
 class ConfigException extends \Exception
 {
-    public const
+    public const int
         EMPTY_KEY                = 10,
         UNKNOWN_TYPE             = 20,
         WRONG_TYPE               = 30,

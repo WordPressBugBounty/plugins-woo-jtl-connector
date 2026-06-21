@@ -6,7 +6,7 @@ namespace Jtl\Connector\Core\Definition;
 
 final class Controller
 {
-    public const
+    public const string
         CATEGORY            = 'Category',
         CONNECTOR           = 'Connector',
         CROSSSELLING        = 'CrossSelling',

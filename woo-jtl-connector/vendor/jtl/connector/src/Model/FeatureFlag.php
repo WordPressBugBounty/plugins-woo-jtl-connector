@@ -6,7 +6,7 @@ namespace Jtl\Connector\Core\Model;
 
 class FeatureFlag
 {
-    public const
+    public const string
         CATEGORY_IMAGES_SUPPORTED                = 'category_images_supported',
         CONFIG_GROUP_IMAGES_SUPPORTED            = 'config_group_images_supported',
         DISABLE_STATISTICS                       = 'disable_statistics',

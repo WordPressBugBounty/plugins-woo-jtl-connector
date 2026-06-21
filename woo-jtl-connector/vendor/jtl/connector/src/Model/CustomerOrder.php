@@ -17,7 +17,7 @@ use JMS\Serializer\Annotation as Serializer;
 #[Serializer\AccessType(['value' => 'public_method'])]
 class CustomerOrder extends AbstractI18n implements IdentityInterface, ItemsInterface
 {
-    public const
+    public const string
         PAYMENT_STATUS_COMPLETED = 'completed',
         PAYMENT_STATUS_PARTIALLY = 'partially_paid',
         PAYMENT_STATUS_UNPAID    = 'unpaid',

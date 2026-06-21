@@ -11,7 +11,7 @@ use Symfony\Component\Console\Output\OutputInterface;
 
 class UpdateDatabaseSchemaCommand extends AbstractDbManagerCommand
 {
-    public const
+    public const string
         OPTION_FORCE = 'force';
 
     /** @var string */

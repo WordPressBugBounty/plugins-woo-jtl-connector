@@ -53,6 +53,7 @@ use Jtl\Connector\Core\Event\StatisticEvent;
 use Jtl\Connector\Core\Exception\ApplicationException;
 use Jtl\Connector\Core\Exception\CompressionException;
 use Jtl\Connector\Core\Exception\ConfigException;
+use Jtl\Connector\Core\Database\Sqlite3;
 use Jtl\Connector\Core\Exception\DatabaseException;
 use Jtl\Connector\Core\Exception\DefinitionException;
 use Jtl\Connector\Core\Exception\FileNotFoundException;
@@ -87,6 +88,10 @@ use Jtl\Connector\Core\Session\SessionHandlerInterface;
 use Jtl\Connector\Core\Session\SqliteSessionHandler;
 use Jtl\Connector\Core\Subscriber\FeaturesSubscriber;
 use Jtl\Connector\Core\Subscriber\RequestParamsTransformSubscriber;
+use Jtl\Connector\Core\Subscriber\SyncErrorSubscriber;
+use Jtl\Connector\Core\SyncError\SqliteSyncErrorCollector;
+use Jtl\Connector\Core\SyncError\SyncErrorCollectorAwareInterface;
+use Jtl\Connector\Core\SyncError\SyncErrorCollectorInterface;
 use Jtl\Connector\Core\Utilities\Validator\Validate;
 use Monolog\ErrorHandler as MonologErrorHandler;
 use Noodlehaus\Exception\EmptyDirectoryException;
@@ -316,6 +321,7 @@ class Application
         $this->httpResponse->setLogger($this->loggerService->get(LoggerService::CHANNEL_RPC));
         $this->eventDispatcher->addSubscriber(new RequestParamsTransformSubscriber());
         $this->eventDispatcher->addSubscriber(new FeaturesSubscriber());
+        $this->initSyncErrorCollector();
         $this->errorHandler->register();
         MonologErrorHandler::register($this->loggerService->get(LoggerService::CHANNEL_ERROR));
         $requestPacket = RequestPacket::createFromJtlrpc($jtlrpc, $this->serializer);
@@ -473,6 +479,46 @@ class Application
         $this->sessionHandler = $sessionHandler;
 
         return $this;
+    }
+
+    /**
+     * Initialize the sync error collector and subscriber.
+     * Uses SQLite storage in the connector's var directory.
+     *
+     * @return void
+     */
+    protected function initSyncErrorCollector(): void
+    {
+        if ($this->container->has(SyncErrorCollectorInterface::class)) {
+            return;
+        }
+
+        try {
+            $databaseDir = \sprintf('%s/var', $this->connectorDir);
+            if (!\is_dir($databaseDir) && !\mkdir($databaseDir, 0o777, true) && !\is_dir($databaseDir)) {
+                $this->loggerService->get(LoggerService::CHANNEL_GLOBAL)
+                    ->warning('Could not create sync error database directory');
+                return;
+            }
+
+            $dbLocation = \sprintf('%s/sync_errors.s3db', $databaseDir);
+            $sqlite     = new Sqlite3();
+            $sqlite->connect(['location' => $dbLocation]);
+
+            $collector = new SqliteSyncErrorCollector($sqlite);
+            if ($collector instanceof LoggerAwareInterface) {
+                $collector->setLogger($this->loggerService->get(LoggerService::CHANNEL_GLOBAL));
+            }
+
+            $this->container->set(SyncErrorCollectorInterface::class, $collector);
+
+            $subscriber = new SyncErrorSubscriber($collector);
+            $subscriber->setLogger($this->loggerService->get(LoggerService::CHANNEL_GLOBAL));
+            $this->eventDispatcher->addSubscriber($subscriber);
+        } catch (\Throwable $e) {
+            $this->loggerService->get(LoggerService::CHANNEL_GLOBAL)
+                ->warning(\sprintf('Failed to initialize sync error collector: %s', $e->getMessage()));
+        }
     }
 
     /**
@@ -972,15 +1018,24 @@ class Application
             $controller->setLogger($loggerInterface);
         }
 
+        if (
+            $controller instanceof SyncErrorCollectorAwareInterface
+            && $this->container->has(SyncErrorCollectorInterface::class)
+        ) {
+            /** @var SyncErrorCollectorInterface $syncErrorCollector */
+            $syncErrorCollector = $this->container->get(SyncErrorCollectorInterface::class);
+            $controller->setSyncErrorCollector($syncErrorCollector);
+        }
+
         $result = [];
         switch ($action) {
             case Action::PUSH:
             case Action::DELETE:
-                try {
-                    if ($controller instanceof TransactionalInterface) {
-                        $controller->beginTransaction();
-                    }
+                if ($controller instanceof TransactionalInterface) {
+                    $controller->beginTransaction();
+                }
 
+                try {
                     $dataModels = $controller->$action(...$params);
 
                     foreach ($dataModels as $dataModel) {
@@ -993,24 +1048,43 @@ class Application
                             $checksumLinker->link($dataModel);
                         }
                         $result[] = $dataModel;
+                    }
 
-                        if ($controller instanceof TransactionalInterface) {
-                            $controller->commit();
-                        }
+                    if ($controller instanceof TransactionalInterface) {
+                        $controller->commit();
                     }
                 } catch (Throwable $ex) {
                     if ($controller instanceof TransactionalInterface) {
                         $controller->rollback();
                     }
 
-                    foreach ($params as $model) {
-                        if (!($model instanceof AbstractModel)) {
-                            throw new \RuntimeException('$model must be instance of AbstractModel.');
+                    if ($this->container->has(SyncErrorCollectorInterface::class)) {
+                        /** @var SyncErrorCollectorInterface $collector */
+                        $collector = $this->container->get(SyncErrorCollectorInterface::class);
+                        foreach ($params as $model) {
+                            $entityId = '';
+                            if ($model instanceof IdentityInterface && $model->getId()->getHost() > 0) {
+                                $entityId = (string)$model->getId()->getHost();
+                            }
+                            $collector->collect($controllerName, $action, $entityId, $ex);
                         }
-                        $this->extendExceptionMessageWithIdentifiers($ex, $model, $controllerName, $action);
-                    }
 
-                    throw $ex;
+                        // Return the original models unchanged so the framework can continue
+                        foreach ($params as $model) {
+                            if ($model instanceof AbstractModel) {
+                                $result[] = $model;
+                            }
+                        }
+                    } else {
+                        foreach ($params as $model) {
+                            if (!($model instanceof AbstractModel)) {
+                                throw new \RuntimeException('$model must be instance of AbstractModel.');
+                            }
+                            $this->extendExceptionMessageWithIdentifiers($ex, $model, $controllerName, $action);
+                        }
+
+                        throw $ex;
+                    }
                 }
                 break;
             case Action::IDENTIFY:

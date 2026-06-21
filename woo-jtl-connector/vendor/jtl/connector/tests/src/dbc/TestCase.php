@@ -17,8 +17,8 @@ use Throwable;
 
 abstract class TestCase extends JtlTestCase
 {
-    public const TABLE_PREFIX = 'pre_';
-    public const SCHEMA       = \TESTROOT . '/tmp/db.sqlite';
+    public const string TABLE_PREFIX = 'pre_';
+    public const string SCHEMA       = \TESTROOT . '/tmp/db.sqlite';
     protected TableStub|\Jtl\Connector\MappingTables\TableStub $table;
     private PDO                                                $pdo;
     private DbManager                                          $dbManager;

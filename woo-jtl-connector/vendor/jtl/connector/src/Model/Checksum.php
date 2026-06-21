@@ -15,7 +15,7 @@ use Jtl\Connector\Core\Checksum\ChecksumInterface;
 #[Serializer\AccessType(['value' => 'public_method'])]
 class Checksum extends AbstractModel implements ChecksumInterface
 {
-    public const TYPE_VARIATION = 1;
+    public const int TYPE_VARIATION = 1;
 
     #[Serializer\Type(Identity::class)]
     #[Serializer\SerializedName('foreignKey')]

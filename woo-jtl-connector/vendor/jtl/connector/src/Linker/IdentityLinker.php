@@ -17,7 +17,7 @@ use ReflectionException;
 
 class IdentityLinker implements LoggerAwareInterface
 {
-    public const
+    public const string
         CACHE_TYPE_HOST     = 'h',
         CACHE_TYPE_ENDPOINT = 'e';
 

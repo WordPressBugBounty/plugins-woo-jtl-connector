@@ -6,7 +6,7 @@ namespace Jtl\Connector\Core\Exception;
 
 class SerializerException extends \Exception
 {
-    public const WRONG_ENDPOINT_FORMAT = 10;
+    public const int WRONG_ENDPOINT_FORMAT = 10;
 
     /**
      * @param string $endpoint

@@ -6,7 +6,7 @@ namespace Jtl\Connector\Core\Exception;
 
 class TokenValidatorException extends \Exception
 {
-    public const EMPTY_TOKEN = 10;
+    public const int EMPTY_TOKEN = 10;
 
     /**
      * @return self

@@ -17,7 +17,7 @@ use Jtl\Connector\Core\Exception\TranslatableAttributeException;
 #[Serializer\AccessType(['value' => 'public_method'])]
 class TranslatableAttribute extends AbstractIdentity
 {
-    public const
+    public const string
         TYPE_BOOL   = 'bool',
         TYPE_FLOAT  = 'float',
         TYPE_INT    = 'int',

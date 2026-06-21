@@ -12,12 +12,12 @@ use Doctrine\DBAL\Types\Type;
 
 class CoordinatesStub extends AbstractTable
 {
-    public const
+    public const string
         COL_X = 'x',
         COL_Y = 'y',
         COL_Z = 'z';
 
-    public const TABLE_NAME = 'coordinates';
+    public const string TABLE_NAME = 'coordinates';
 
     /**
      * @return string

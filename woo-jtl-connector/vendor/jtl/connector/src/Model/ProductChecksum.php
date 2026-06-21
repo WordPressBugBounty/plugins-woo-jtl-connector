@@ -17,7 +17,7 @@ use TypeError;
 #[Serializer\AccessType(['value' => 'public_method'])]
 class ProductChecksum extends Checksum
 {
-    public const TYPE_VARIATION = 1;
+    public const int TYPE_VARIATION = 1;
 
     #[Serializer\Type(Identity::class)]
     #[Serializer\SerializedName('foreignKey')]

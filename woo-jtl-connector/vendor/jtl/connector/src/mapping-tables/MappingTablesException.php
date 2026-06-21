@@ -6,7 +6,7 @@ namespace Jtl\Connector\MappingTables;
 
 class MappingTablesException extends \Exception
 {
-    public const
+    public const int
         TABLE_FOR_TYPE_NOT_FOUND       = 10,
         COLUMN_DATA_MISSING            = 20,
         ENDPOINT_COLUMN_EXISTS         = 30,

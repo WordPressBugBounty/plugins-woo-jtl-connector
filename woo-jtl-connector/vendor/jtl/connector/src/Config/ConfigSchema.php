@@ -9,7 +9,7 @@ use Psr\Log\LogLevel;
 
 class ConfigSchema
 {
-    public const
+    public const string
         LOG_LEVEL               = 'log.level',
         LOG_FORMAT              = 'log.format',
         MAIN_LANGUAGE           = 'main_language',

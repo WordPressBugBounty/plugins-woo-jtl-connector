@@ -16,15 +16,15 @@ use JMS\Serializer\Annotation as Serializer;
 #[Serializer\AccessType(['value' => 'public_method'])]
 class CustomerOrderItem extends AbstractIdentity
 {
-    public const TYPE_DISCOUNT = 'discount';
+    public const string TYPE_DISCOUNT = 'discount';
 
-    public const TYPE_PRODUCT = 'product';
+    public const string TYPE_PRODUCT = 'product';
 
-    public const TYPE_SHIPPING = 'shipping';
+    public const string TYPE_SHIPPING = 'shipping';
 
-    public const TYPE_SURCHARGE = 'surcharge';
+    public const string TYPE_SURCHARGE = 'surcharge';
 
-    public const TYPE_COUPON = 'coupon';
+    public const string TYPE_COUPON = 'coupon';
 
     /** @var Identity Optional reference to configItemId (if item is part of a configurable item) */
     #[Serializer\Type(Identity::class)]

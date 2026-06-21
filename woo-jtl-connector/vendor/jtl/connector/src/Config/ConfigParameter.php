@@ -8,10 +8,10 @@ use Jtl\Connector\Core\Exception\ConfigException;
 
 class ConfigParameter
 {
-    public const TYPE_BOOLEAN = 'boolean';
-    public const TYPE_DOUBLE  = 'double';
-    public const TYPE_INTEGER = 'integer';
-    public const TYPE_STRING  = 'string';
+    public const string TYPE_BOOLEAN = 'boolean';
+    public const string TYPE_DOUBLE  = 'double';
+    public const string TYPE_INTEGER = 'integer';
+    public const string TYPE_STRING  = 'string';
 
     /** @var string[] */
     protected static array $types = [

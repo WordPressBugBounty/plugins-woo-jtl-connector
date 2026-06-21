@@ -17,12 +17,12 @@ use JMS\Serializer\Annotation as Serializer;
 #[Serializer\AccessType(['value' => 'public_method'])]
 class ProductVariation extends AbstractIdentity
 {
-    public const TYPE_RADIO                = 'radio';
-    public const TYPE_SELECT               = 'select';
-    public const TYPE_TEXTBOX              = 'textbox';
-    public const TYPE_FREE_TEXT            = 'freetext';
-    public const TYPE_FREE_TEXT_OBLIGATORY = 'obligatory_freetext';
-    public const TYPE_IMAGE_SWATCHES       = 'image_swatches';
+    public const string TYPE_RADIO                = 'radio';
+    public const string TYPE_SELECT               = 'select';
+    public const string TYPE_TEXTBOX              = 'textbox';
+    public const string TYPE_FREE_TEXT            = 'freetext';
+    public const string TYPE_FREE_TEXT_OBLIGATORY = 'obligatory_freetext';
+    public const string TYPE_IMAGE_SWATCHES       = 'image_swatches';
 
     /** @var int Optional sort number */
     #[Serializer\Type('integer')]

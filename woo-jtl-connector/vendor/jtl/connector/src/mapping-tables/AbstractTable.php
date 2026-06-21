@@ -23,7 +23,7 @@ use Jtl\Connector\MappingTables\Schema\EndpointColumn;
 
 abstract class AbstractTable extends AbstractDbcTable implements TableInterface
 {
-    public const
+    public const string
         ENDPOINT_INDEX_NAME             = 'endpoint_idx',
         HOST_INDEX_NAME                 = 'host_idx',
         HOST_ID                         = 'host_id',
