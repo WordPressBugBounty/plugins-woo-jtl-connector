@@ -132,10 +132,10 @@ class SqliteSessionHandler implements SessionHandlerInterface, LoggerAwareInterf
     #[ReturnTypeWillChange]
     public function read(string $sessionId): bool|string
     {
-        $sessionId = $this->db->escapeString($sessionId);
-        $this->logger->debug('Read session with id ({id})', ['id' => $sessionId]);
+        $sessionIdHash = $this->hashSessionId($sessionId);
+        $this->logger->debug('Read session with id hash ({idHash})', ['idHash' => $sessionIdHash]);
 
-        $rows = $this->db->query($this->createReadQuery($sessionId, \time()));
+        $rows = $this->db->query($this->createReadQuery($sessionIdHash, \time()));
         if ($rows !== null && isset($rows[0])) {
             $row = $rows[0];
             if (isset($row['sessionData']) && \is_string($row['sessionData']) && $row['sessionData'] !== '') {
@@ -147,16 +147,29 @@ class SqliteSessionHandler implements SessionHandlerInterface, LoggerAwareInterf
     }
 
     /**
+     * Session ids are bearer tokens replayed by clients on every request, so they must not be
+     * recoverable from the SQLite file at rest (local access, backups, misconfigured server, ...).
+     *
      * @param string $sessionId
+     *
+     * @return string
+     */
+    protected function hashSessionId(string $sessionId): string
+    {
+        return \hash('sha256', $sessionId);
+    }
+
+    /**
+     * @param string $sessionIdHash
      * @param int    $expiresAt
      *
      * @return string
      */
-    protected function createReadQuery(string $sessionId, int $expiresAt): string
+    protected function createReadQuery(string $sessionIdHash, int $expiresAt): string
     {
         return \sprintf(
             'SELECT sessionId, sessionData FROM session WHERE sessionId = \'%s\' AND sessionExpires >= %d',
-            $this->db->escapeString($sessionId),
+            $this->db->escapeString($sessionIdHash),
             $expiresAt
         );
     }
@@ -192,10 +205,10 @@ class SqliteSessionHandler implements SessionHandlerInterface, LoggerAwareInterf
             $db->connect(['location' => $this->dbLocation]);
             $this->db = $db;
         }
-        $sessionId   = $this->db->escapeString($sessionId);
-        $sessionData = \base64_encode($sessionData);
-        $expire      = $this->calculateExpiryTime();
-        $this->logger->debug('Write session with id ({id})', ['id' => $sessionId]);
+        $sessionIdHash = $this->hashSessionId($sessionId);
+        $sessionData   = \base64_encode($sessionData);
+        $expire        = $this->calculateExpiryTime();
+        $this->logger->debug('Write session with id hash ({idHash})', ['idHash' => $sessionIdHash]);
 
         $db      = $this->db->getDb();
         $success = false;
@@ -209,7 +222,7 @@ class SqliteSessionHandler implements SessionHandlerInterface, LoggerAwareInterf
                 throw new \RuntimeException('db-statement must not be false.');
             }
 
-            $stmt->bindValue(':session_id', $sessionId, \SQLITE3_TEXT);
+            $stmt->bindValue(':session_id', $sessionIdHash, \SQLITE3_TEXT);
             $stmt->bindValue(':expire', $expire, \SQLITE3_INTEGER);
             $stmt->bindValue(':data', $sessionData, \SQLITE3_TEXT);
 
@@ -224,7 +237,7 @@ class SqliteSessionHandler implements SessionHandlerInterface, LoggerAwareInterf
                 );
                 $stmt->bindValue(':data', $sessionData, \SQLITE3_TEXT);
                 $stmt->bindValue(':expire', $expire, \SQLITE3_INTEGER);
-                $stmt->bindValue(':session_id', $sessionId, \SQLITE3_TEXT);
+                $stmt->bindValue(':session_id', $sessionIdHash, \SQLITE3_TEXT);
                 $stmt->execute();
                 $success = true;
             }
@@ -250,9 +263,9 @@ class SqliteSessionHandler implements SessionHandlerInterface, LoggerAwareInterf
      */
     public function destroy(string $sessionId): bool
     {
-        $sessionId = $this->db->escapeString($sessionId);
-        $this->logger->debug('Destroy session with id ({id})', ['id' => $sessionId]);
-        $this->db->query(\sprintf('DELETE FROM session WHERE sessionId = \'%s\'', $sessionId));
+        $sessionIdHash = $this->db->escapeString($this->hashSessionId($sessionId));
+        $this->logger->debug('Destroy session with id hash ({idHash})', ['idHash' => $sessionIdHash]);
+        $this->db->query(\sprintf('DELETE FROM session WHERE sessionId = \'%s\'', $sessionIdHash));
 
         return true;
     }
@@ -287,17 +300,17 @@ class SqliteSessionHandler implements SessionHandlerInterface, LoggerAwareInterf
      */
     public function validateId(string $sessionId): bool
     {
-        $sessionId = $this->db->escapeString($sessionId);
+        $sessionIdHash = $this->hashSessionId($sessionId);
         $this->logger->debug(
-            'Check session with id ({id}) and time ({time}) ...',
-            ['id' => $sessionId, 'time' => \time()]
+            'Check session with id hash ({idHash}) and time ({time}) ...',
+            ['idHash' => $sessionIdHash, 'time' => \time()]
         );
-        $rows = $this->db->query($this->createReadQuery($sessionId, \time()));
+        $rows = $this->db->query($this->createReadQuery($sessionIdHash, \time()));
 
         return $rows !== null
                && isset($rows[0]['sessionId'])
                && \is_string($rows[0]['sessionId'])
-               && $rows[0]['sessionId'] === $sessionId;
+               && \hash_equals($rows[0]['sessionId'], $sessionIdHash);
     }
 
     /**
@@ -316,7 +329,7 @@ class SqliteSessionHandler implements SessionHandlerInterface, LoggerAwareInterf
             throw new \RuntimeException('Statement must not be a boolean.');
         }
         $stmt->bindValue(':sessionExpires', $this->calculateExpiryTime(), \SQLITE3_INTEGER);
-        $stmt->bindValue(':sessionId', $sessionId, \SQLITE3_TEXT);
+        $stmt->bindValue(':sessionId', $this->hashSessionId($sessionId), \SQLITE3_TEXT);
         $stmt->execute();
 
         return true;
