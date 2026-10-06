@@ -15,8 +15,6 @@ use Nette;
 /**
  * Provides the base class for a generic list (items can be accessed by index).
  * @template T
- * @implements \IteratorAggregate<int, T>
- * @implements \ArrayAccess<int, T>
  */
 class ArrayList implements \ArrayAccess, \Countable, \IteratorAggregate
 {
@@ -24,23 +22,6 @@ class ArrayList implements \ArrayAccess, \Countable, \IteratorAggregate
 
 	/** @var mixed[] */
 	private $list = [];
-
-
-	/**
-	 * Transforms array to ArrayList.
-	 * @param  list<T>  $array
-	 * @return static
-	 */
-	public static function from(array $array)
-	{
-		if (!Arrays::isList($array)) {
-			throw new Nette\InvalidArgumentException('Array is not valid list.');
-		}
-
-		$obj = new static;
-		$obj->list = $array;
-		return $obj;
-	}
 
 
 	/**
@@ -88,13 +69,11 @@ class ArrayList implements \ArrayAccess, \Countable, \IteratorAggregate
 	 * @return T
 	 * @throws Nette\OutOfRangeException
 	 */
-	#[\ReturnTypeWillChange]
 	public function offsetGet($index)
 	{
 		if (!is_int($index) || $index < 0 || $index >= count($this->list)) {
 			throw new Nette\OutOfRangeException('Offset invalid or out of range');
 		}
-
 		return $this->list[$index];
 	}
 
@@ -119,7 +98,6 @@ class ArrayList implements \ArrayAccess, \Countable, \IteratorAggregate
 		if (!is_int($index) || $index < 0 || $index >= count($this->list)) {
 			throw new Nette\OutOfRangeException('Offset invalid or out of range');
 		}
-
 		array_splice($this->list, $index, 1);
 	}
 

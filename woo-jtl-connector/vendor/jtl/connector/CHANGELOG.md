@@ -1,12 +1,16 @@
 unreleased
 ------
+
+
+5.3.2
+------
 - CO-3583 store session ids hashed (SHA-256) in SqliteSessionHandler instead of in plaintext
-- CO-2876 implement model count
-- CO-3165 add IdentityType for deleted product image
 
 5.3.1
 -----
-- CO-3583 store session ids hashed (SHA-256) in SqliteSessionHandler instead of in plaintext
+- CO-2876 implement model count
+- CO-3165 add IdentityType for deleted product image
+
 
 5.3.0
 -----
